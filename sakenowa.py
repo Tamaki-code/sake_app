@@ -32,34 +32,57 @@ def fetch_sake_data():
         raise
 
 def update_sake_database():
-    brands_data, flavors_data = fetch_sake_data()
-    
-    # Create flavor lookup dictionary
-    flavor_lookup = {f['id']: f for f in flavors_data}
-    
-    for brand in brands_data:
-        existing_sake = Sake.query.filter_by(sakenowa_id=brand['id']).first()
-        
-        # Get flavor profile
-        flavor_profile = flavor_lookup.get(brand['id'], {})
-        
-        sake_data = {
-            'sakenowa_id': brand['id'],
-            'brand_name': brand['name'],
-            'brewery': brand.get('brewery', ''),
-            'area': brand.get('prefecture', ''),
-            'flavor_profile': flavor_profile
-        }
-        
-        if existing_sake:
-            for key, value in sake_data.items():
-                setattr(existing_sake, key, value)
-        else:
-            new_sake = Sake(**sake_data)
-            db.session.add(new_sake)
-    
     try:
+        brands_data, flavors_data = fetch_sake_data()
+        logging.info(f"Processing {len(brands_data)} brands and {len(flavors_data)} flavor profiles")
+        
+        # Create flavor lookup dictionary
+        flavor_lookup = {f['id']: f for f in flavors_data}
+        logging.info(f"Created flavor lookup with {len(flavor_lookup)} entries")
+        
+        new_sakes = 0
+        updated_sakes = 0
+        
+        for brand in brands_data:
+            try:
+                existing_sake = Sake.query.filter_by(sakenowa_id=brand['id']).first()
+                
+                # Get flavor profile
+                flavor_profile = flavor_lookup.get(brand['id'], {})
+                
+                sake_data = {
+                    'sakenowa_id': brand['id'],
+                    'brand_name': brand['name'],
+                    'brewery': brand.get('brewery', ''),
+                    'area': brand.get('prefecture', ''),
+                    'flavor_profile': flavor_profile
+                }
+                
+                if existing_sake:
+                    for key, value in sake_data.items():
+                        setattr(existing_sake, key, value)
+                    updated_sakes += 1
+                    logging.debug(f"Updated sake: {brand['name']}")
+                else:
+                    new_sake = Sake(**sake_data)
+                    db.session.add(new_sake)
+                    new_sakes += 1
+                    logging.debug(f"Added new sake: {brand['name']}")
+                
+                # Commit every 100 records to avoid large transactions
+                if (new_sakes + updated_sakes) % 100 == 0:
+                    db.session.commit()
+                    logging.info(f"Committed batch of records. Total processed: {new_sakes + updated_sakes}")
+                
+            except Exception as e:
+                logging.error(f"Error processing sake {brand.get('name', 'unknown')}: {e}")
+                continue
+        
+        # Final commit for remaining records
         db.session.commit()
+        logging.info(f"Database update completed. Added {new_sakes} new sakes, updated {updated_sakes} existing ones.")
+        return True
+        
     except Exception as e:
         logging.error(f"Error updating sake database: {e}")
         db.session.rollback()
