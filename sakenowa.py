@@ -13,6 +13,10 @@ def fetch_sake_data():
         brands_response.raise_for_status()
         brands_data = brands_response.json()
         logging.info(f"Successfully fetched {len(brands_data)} brands")
+        if not brands_data:
+            logging.error("No brands data received from API")
+            return [], []
+        logging.debug(f"First brand data sample: {brands_data[0] if brands_data else 'No data'}")
 
         # Fetch flavor data
         logging.info(f"Fetching flavor data from {SAKENOWA_API_BASE}/flavor")
@@ -33,7 +37,11 @@ def fetch_sake_data():
 
 def update_sake_database():
     try:
+        logging.info("Starting sake database update process")
         brands_data, flavors_data = fetch_sake_data()
+        if not brands_data:
+            logging.error("No data available to update database")
+            return False
         logging.info(f"Processing {len(brands_data)} brands and {len(flavors_data)} flavor profiles")
         
         # Create flavor lookup dictionary
