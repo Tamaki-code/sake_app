@@ -3,7 +3,7 @@ import logging
 from app import db
 from models import Sake
 
-SAKENOWA_API_BASE = "https://muro.sakenowa.com/api"
+SAKENOWA_API_BASE = "https://muro.sakenowa.com/sakenowa-data/api/v1"
 
 def fetch_sake_data():
     try:
