@@ -1,22 +1,34 @@
 import logging
+import sys
 logging.basicConfig(
     level=logging.DEBUG,
-    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s'
+    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
+    handlers=[logging.StreamHandler(sys.stdout)]
 )
 logger = logging.getLogger(__name__)
 
-try:
-    from app import app
-    import routes  # noqa: F401
-    logger.info("Successfully imported app and routes")
-except Exception as e:
-    logger.error(f"Error during import: {e}")
-    raise
-
-if __name__ == "__main__":
+def main():
     try:
+        logger.info("Importing required modules...")
+        from app import app, db
+        import routes  # noqa: F401
+        logger.info("Successfully imported app and routes")
+        
+        # Verify database connection
+        with app.app_context():
+            db.engine.connect()
+            logger.info("Database connection verified")
+        
+        # Start the Flask application
         logger.info("Starting Flask application...")
         app.run(host="0.0.0.0", port=5000, debug=True)
-    except Exception as e:
-        logger.error(f"Error starting Flask application: {e}")
+    except ImportError as e:
+        logger.error(f"Import error: {e}")
         raise
+    except Exception as e:
+        logger.error(f"Error starting application: {e}")
+        logger.error(f"Error type: {type(e).__name__}")
+        raise
+
+if __name__ == "__main__":
+    main()

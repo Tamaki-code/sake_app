@@ -1,8 +1,19 @@
 from flask import render_template, request, jsonify, flash, redirect, url_for
+from flask_login import login_user, logout_user, login_required, current_user
 from app import app, db
-from models import Sake, Review
+from models import User, Sake, Review
 from sakenowa import update_sake_database
 import logging
+
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    if request.method == 'POST':
+        user = User.query.filter_by(username=request.form.get('username')).first()
+        if user and user.check_password(request.form.get('password')):
+            login_user(user)
+            return redirect(url_for('index'))
+        flash('Invalid username or password', 'error')
+    return render_template('login.html')
 
 @app.route('/')
 def index():
