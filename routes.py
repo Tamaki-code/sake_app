@@ -31,7 +31,7 @@ def search():
         sake_query = sake_query.filter(Sake.brand_name.ilike(f'%{query}%'))
     
     if flavor:
-        sake_query = sake_query.filter(Sake.flavor_profile['type'].astext == flavor)
+        sake_query = sake_query.filter(db.text("flavor_profile->>'type' = :flavor")).params(flavor=flavor)
     
     sakes = sake_query.all()
     return render_template('search.html', sakes=sakes, query=query, flavor=flavor)
