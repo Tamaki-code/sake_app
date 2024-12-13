@@ -24,6 +24,12 @@ if not database_url:
 if database_url.startswith('postgres://'):
     database_url = database_url.replace('postgres://', 'postgresql://', 1)
 
+# Ensure UTF-8 encoding for database connection
+if '?' not in database_url:
+    database_url += '?client_encoding=utf8'
+elif 'client_encoding=' not in database_url:
+    database_url += '&client_encoding=utf8'
+
 logger.info("Configuring database connection...")
 app.config.update(
     SQLALCHEMY_DATABASE_URI=database_url,

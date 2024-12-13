@@ -16,7 +16,9 @@ def fetch_sake_data():
         if not brands_data:
             logging.error("No brands data received from API")
             return [], []
-        logging.debug(f"First brand data sample: {brands_data[0] if brands_data else 'No data'}")
+        logging.debug(f"First brand data sample (with encoding info): {brands_data[0] if brands_data else 'No data'}")
+        for brand in brands_data[:3]:  # Log first 3 brands for debugging
+            logging.info(f"Sample brand data - Name: {brand.get('name', '').encode('utf-8')} (Brewery: {brand.get('brewery', '').encode('utf-8')})")
 
         # Fetch flavor data
         logging.info(f"Fetching flavor data from {SAKENOWA_API_BASE}/flavor")
