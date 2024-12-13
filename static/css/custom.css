@@ -1,0 +1,62 @@
+:root {
+  --japanese-red: #BC002D;
+  --japanese-navy: #223A70;
+  --japanese-gold: #B8860B;
+}
+
+body {
+  font-family: 'Noto Sans JP', sans-serif;
+}
+
+.hero-section {
+  background-image: url('https://images.unsplash.com/photo-1541491263892-731bc0c6a2ae');
+  background-size: cover;
+  background-position: center;
+  min-height: 60vh;
+  position: relative;
+}
+
+.hero-overlay {
+  background: rgba(0, 0, 0, 0.5);
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+
+.sake-card {
+  transition: transform 0.2s;
+  border: none;
+  background: var(--bs-dark);
+}
+
+.sake-card:hover {
+  transform: translateY(-5px);
+}
+
+.rating {
+  color: var(--japanese-gold);
+}
+
+.japanese-pattern {
+  background-color: var(--bs-dark);
+  background-image: url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23BC002D' fill-opacity='0.1' fill-rule='evenodd'%3E%3Cpath d='M0 20L20 0v20H0zm20 0l20-20v20H20z'/%3E%3C/g%3E%3C/svg%3E");
+}
+
+.review-section {
+  background: var(--bs-dark);
+  border-radius: 8px;
+  padding: 20px;
+}
+
+.star-rating {
+  color: var(--japanese-gold);
+  font-size: 24px;
+}
+
+@media (max-width: 768px) {
+  .hero-section {
+    min-height: 40vh;
+  }
+}

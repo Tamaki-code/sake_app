@@ -1,0 +1,77 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container my-5">
+    <div class="row mb-4">
+        <div class="col-md-8">
+            <h2 class="text-light">Search Sake</h2>
+        </div>
+    </div>
+
+    <div class="row mb-4">
+        <div class="col-md-8">
+            <form id="search-form" class="card card-body bg-dark">
+                <div class="row g-3">
+                    <div class="col-md-6">
+                        <input type="text" id="search-input" class="form-control" placeholder="Search by brand name..." value="{{ query }}">
+                    </div>
+                    <div class="col-md-4">
+                        <select id="flavor-select" class="form-select">
+                            <option value="">All Flavors</option>
+                            <option value="light" {% if flavor == 'light' %}selected{% endif %}>Light</option>
+                            <option value="medium" {% if flavor == 'medium' %}selected{% endif %}>Medium</option>
+                            <option value="rich" {% if flavor == 'rich' %}selected{% endif %}>Rich</option>
+                        </select>
+                    </div>
+                    <div class="col-md-2">
+                        <button type="submit" class="btn btn-primary w-100">Search</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="row g-4">
+        {% for sake in sakes %}
+        <div class="col-md-6">
+            <div class="sake-card card h-100">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-start">
+                        <div>
+                            <h5 class="card-title">{{ sake.brand_name }}</h5>
+                            <p class="card-text">
+                                <small class="text-muted">
+                                    <i class="bi bi-geo-alt"></i> {{ sake.area }}
+                                </small>
+                            </p>
+                        </div>
+                        <div class="rating">
+                            {% set rating = sake.average_rating() | round(1) %}
+                            {% for i in range(5) %}
+                                <i class="bi bi-star-fill {% if i < rating %}text-warning{% endif %}"></i>
+                            {% endfor %}
+                            <span class="ms-2">{{ rating }}</span>
+                        </div>
+                    </div>
+                    
+                    {% if sake.flavor_profile %}
+                    <div class="mb-3">
+                        <span class="badge bg-primary">{{ sake.flavor_profile.type }}</span>
+                    </div>
+                    {% endif %}
+                    
+                    <a href="{{ url_for('sake_detail', sake_id=sake.id) }}" class="btn btn-outline-primary">View Details</a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+    {% if not sakes %}
+    <div class="text-center my-5">
+        <h3 class="text-muted">No sake found matching your criteria</h3>
+        <p>Try adjusting your search terms or filters</p>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}
