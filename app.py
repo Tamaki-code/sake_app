@@ -60,6 +60,13 @@ def init_db():
         try:
             db.create_all()
             logger.info("Database tables created successfully")
+
+            # Verify database encoding
+            result = db.session.execute(db.text("SHOW client_encoding")).scalar()
+            logger.info(f"Database client encoding: {result}")
+
+            result = db.session.execute(db.text("SHOW server_encoding")).scalar()
+            logger.info(f"Database server encoding: {result}")
         except Exception as e:
             logger.error(f"Error creating database tables: {e}")
             raise
