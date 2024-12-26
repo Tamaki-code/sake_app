@@ -1,9 +1,10 @@
 from flask import render_template, request, jsonify, flash, redirect, url_for
 from flask_login import login_user, logout_user, login_required, current_user
 from app import app, db
-from models import User, Sake, Review
+from models import User, Sake, Review, Brewery, Region
 from sakenowa import update_sake_database
 import logging
+from datetime import datetime
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
@@ -17,49 +18,74 @@ def login():
 
 @app.route('/')
 def index():
-    featured_sakes = Sake.query.order_by(Sake.created_at.desc()).limit(6).all()
-    return render_template('index.html', featured_sakes=featured_sakes)
+    try:
+        featured_sakes = Sake.query.join(Brewery).order_by(Sake.created_at.desc()).limit(6).all()
+        logging.info(f"Fetched {len(featured_sakes)} featured sakes")
+        return render_template('index.html', featured_sakes=featured_sakes)
+    except Exception as e:
+        logging.error(f"Error fetching featured sakes: {e}")
+        flash('Error loading featured sakes', 'error')
+        return render_template('index.html', featured_sakes=[])
 
 @app.route('/search')
 def search():
     query = request.args.get('q', '')
     flavor = request.args.get('flavor', '')
-    
-    sake_query = Sake.query
-    
-    if query:
-        sake_query = sake_query.filter(Sake.brand_name.ilike(f'%{query}%'))
-    
-    if flavor:
-        sake_query = sake_query.filter(db.text("flavor_profile->>'type' = :flavor")).params(flavor=flavor)
-    
-    sakes = sake_query.all()
-    return render_template('search.html', sakes=sakes, query=query, flavor=flavor)
+
+    try:
+        sake_query = Sake.query.join(Brewery)
+
+        if query:
+            sake_query = sake_query.filter(Sake.name.ilike(f'%{query}%'))
+
+        if flavor:
+            sake_query = sake_query.filter(db.text("flavor_profile->>'type' = :flavor")).params(flavor=flavor)
+
+        sakes = sake_query.all()
+        logging.info(f"Search query '{query}' returned {len(sakes)} results")
+        return render_template('search.html', sakes=sakes, query=query, flavor=flavor)
+    except Exception as e:
+        logging.error(f"Error during sake search: {e}")
+        flash('Error performing search', 'error')
+        return render_template('search.html', sakes=[], query=query, flavor=flavor)
 
 @app.route('/sake/<int:sake_id>')
 def sake_detail(sake_id):
-    sake = Sake.query.get_or_404(sake_id)
-    reviews = sake.reviews.order_by(Review.created_at.desc()).all()
-    return render_template('sake_detail.html', sake=sake, reviews=reviews)
+    try:
+        sake = Sake.query.join(Brewery).filter(Sake.id == sake_id).first_or_404()
+        reviews = sake.reviews.order_by(Review.created_at.desc()).all()
+        return render_template('sake_detail.html', sake=sake, reviews=reviews)
+    except Exception as e:
+        logging.error(f"Error fetching sake details for ID {sake_id}: {e}")
+        flash('Error loading sake details', 'error')
+        return redirect(url_for('index'))
 
 @app.route('/review/<int:sake_id>', methods=['POST'])
+@login_required
 def add_review(sake_id):
     if not request.is_json:
         return jsonify({'error': 'Invalid request'}), 400
-    
+
     data = request.get_json()
     rating = data.get('rating')
     comment = data.get('comment')
-    
-    if not rating or not isinstance(rating, int) or rating < 1 or rating > 5:
+
+    if not rating or not isinstance(rating, (int, float)) or rating < 1 or rating > 5:
         return jsonify({'error': 'Invalid rating'}), 400
-    
-    sake = Sake.query.get_or_404(sake_id)
-    review = Review(sake_id=sake_id, user_id=1, rating=rating, comment=comment)
-    
+
     try:
+        sake = Sake.query.get_or_404(sake_id)
+        review = Review(
+            sake_id=sake_id,
+            user_id=current_user.id,
+            rating=rating,
+            comment=comment,
+            recorded_at=datetime.utcnow().date()
+        )
+
         db.session.add(review)
         db.session.commit()
+        logging.info(f"Added new review for sake {sake_id} by user {current_user.id}")
         return jsonify({'success': True})
     except Exception as e:
         logging.error(f"Error adding review: {e}")
@@ -69,6 +95,7 @@ def add_review(sake_id):
 @app.route('/update_database')
 def update_database():
     try:
+        logging.info("Starting database update process")
         update_sake_database()
         flash('Sake database updated successfully!', 'success')
     except Exception as e:
