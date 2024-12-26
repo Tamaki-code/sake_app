@@ -160,3 +160,19 @@ def update_sake_database():
         logging.error(f"Error updating sake database: {e}")
         db.session.rollback()
         raise
+
+def init_db():
+    db.create_all()
+    logging.info("Database tables initialized.")
+
+
+if __name__ == '__main__':
+    try:
+        from app import app
+        logging.basicConfig(level=logging.INFO)
+        with app.app_context():
+            init_db()  # Initialize tables first
+            update_sake_database()
+    except Exception as e:
+        logging.error(f"Failed to update sake database: {e}")
+        exit(1)
