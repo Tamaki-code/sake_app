@@ -5,7 +5,6 @@ from models import User, Sake, Review, Brewery, Region
 import logging
 from datetime import datetime
 
-
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
@@ -51,43 +50,6 @@ def search():
         logging.error(f"Error during sake search: {e}")
         flash('検索中にエラーが発生しました', 'error')
         return render_template('search.html', sakes=[], query=query)
-
-
-# @app.route('/search')
-# def search():
-#     query = request.args.get('q', '')
-#     flavor = request.args.get('flavor', '')
-
-#     try:
-#         sake_query = Sake.query.join(Brewery)
-
-#         if query:
-#             sake_query = sake_query.filter(Sake.name.ilike(f'%{query}%'))
-
-#         if flavor:
-#             # Ensure flavor_profile exists in the Sake model
-#             if hasattr(Sake, 'flavor_profile'):
-#                 sake_query = sake_query.filter(Sake.flavor_profile == flavor)
-#             else:
-#                 raise AttributeError(
-#                     "Sake model has no attribute 'flavor_profile'")
-
-#         sakes = sake_query.all()
-#         logging.info(
-#             f"Search query '{query}' with flavor '{flavor}' returned {len(sakes)} results"
-#         )
-#         return render_template('search.html',
-#                                sakes=sakes,
-#                                query=query,
-#                                flavor=flavor)
-#     except AttributeError as e:
-#         logging.error(f"Attribute error during sake search: {e}")
-#         flash('検索中にエラーが発生しました (属性エラー)', 'error')
-#     except Exception as e:
-#         logging.error(f"Error during sake search: {e}")
-#         flash('検索中にエラーが発生しました', 'error')
-
-#     return render_template('search.html', sakes=[], query=query, flavor=flavor)
 
 
 @app.route('/sake/<int:sake_id>')
@@ -140,10 +102,28 @@ def add_review(sake_id):
 def update_database():
     try:
         logging.info("Starting database update process")
+        # First verify if tables exist
+        table_check = db.session.execute(
+            db.text(
+                """
+                SELECT EXISTS (
+                    SELECT FROM information_schema.tables 
+                    WHERE table_schema = 'public' 
+                    AND table_name = 'sakes'
+                )
+                """
+            )
+        ).scalar()
+
+        if not table_check:
+            logging.warning("Tables not found, initializing database")
+            from create_tables import init_db
+            init_db()
+
         from sakenowa import update_database
         update_database()
-        flash('Sake database updated successfully!', 'success')
+        flash('日本酒データベースの更新が完了しました！', 'success')
     except Exception as e:
         logging.error(f"Error updating database: {e}")
-        flash('Error updating database', 'error')
+        flash('データベースの更新中にエラーが発生しました', 'error')
     return redirect(url_for('index'))

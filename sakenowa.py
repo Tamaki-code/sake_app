@@ -1,7 +1,7 @@
 import requests
 import logging
 from app import db
-from models import Sake, Region, Brewery, FlavorChart, FlavorTag, Ranking
+from models import Sake, Region, Brewery, FlavorChart, FlavorTag
 from datetime import datetime
 
 SAKENOWA_API_BASE = "https://muro.sakenowa.com/sakenowa-data/api"
@@ -73,7 +73,6 @@ def update_database():
             "areas": fetch_data("areas"),
             "brands": fetch_data("brands"),
             "breweries": fetch_data("breweries"),
-            "rankings": fetch_data("rankings"),
             "flavor_charts": fetch_data("flavor-charts"),
             "flavor_tags": fetch_data("flavor-tags"),
             "brand_flavor_tags": fetch_data("brand-flavor-tags")
