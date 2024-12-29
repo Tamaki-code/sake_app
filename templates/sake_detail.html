@@ -4,21 +4,26 @@
 <div class="container my-5">
     <div class="row">
         <div class="col-md-8">
-            <h1 class="text-light mb-4">{{ sake.brand_name }}</h1>
-            
+            <h1 class="text-light mb-4">{{ sake.name }}</h1>
+
             <div class="card bg-dark mb-4">
                 <div class="card-body">
                     <div class="row">
                         <div class="col-md-6">
-                            <h5>Details</h5>
-                            <p><strong>Brewery:</strong> {{ sake.brewery }}</p>
-                            <p><strong>Region:</strong> {{ sake.area }}</p>
+                            <h5>基本情報</h5>
+                            <p><strong>蔵元:</strong> {{ sake.brewery.name }}</p>
+                            <p><strong>地域:</strong> {{ sake.brewery.region.name }}</p>
                             {% if sake.flavor_profile %}
-                            <p><strong>Flavor Profile:</strong> {{ sake.flavor_profile.type }}</p>
+                            <p><strong>味わい:</strong> 
+                                {% if sake.flavor_profile == 'light' %}淡麗
+                                {% elif sake.flavor_profile == 'medium' %}中口
+                                {% elif sake.flavor_profile == 'rich' %}濃醇
+                                {% endif %}
+                            </p>
                             {% endif %}
                         </div>
                         <div class="col-md-6">
-                            <h5>Rating</h5>
+                            <h5>評価</h5>
                             <div class="rating mb-2">
                                 {% set rating = sake.average_rating() | round(1) %}
                                 {% for i in range(5) %}
@@ -26,17 +31,17 @@
                                 {% endfor %}
                                 <span class="ms-2">{{ rating }} / 5.0</span>
                             </div>
-                            <p>Based on {{ sake.reviews.count() }} reviews</p>
+                            <p>{{ sake.reviews.count() }}件のレビュー</p>
                         </div>
                     </div>
                 </div>
             </div>
 
             <div class="review-section mb-4">
-                <h3 class="mb-4">Write a Review</h3>
+                <h3 class="mb-4">レビューを書く</h3>
                 <form id="review-form" data-sake-id="{{ sake.id }}">
                     <div class="mb-3">
-                        <label class="form-label">Rating</label>
+                        <label class="form-label">評価</label>
                         <div class="star-rating mb-2">
                             {% for i in range(5) %}
                             <i class="bi bi-star rating-star" data-rating="{{ i + 1 }}"></i>
@@ -45,15 +50,15 @@
                         <input type="hidden" id="rating-value" value="0">
                     </div>
                     <div class="mb-3">
-                        <label for="review-comment" class="form-label">Your Review</label>
+                        <label for="review-comment" class="form-label">レビュー内容</label>
                         <textarea id="review-comment" class="form-control" rows="3" required></textarea>
                     </div>
-                    <button type="submit" class="btn btn-primary">Submit Review</button>
+                    <button type="submit" class="btn btn-primary">レビューを投稿</button>
                 </form>
             </div>
 
             <div class="reviews-section">
-                <h3 class="mb-4">Reviews</h3>
+                <h3 class="mb-4">レビュー一覧</h3>
                 {% for review in reviews %}
                 <div class="card bg-dark mb-3">
                     <div class="card-body">
@@ -64,7 +69,7 @@
                                 {% endfor %}
                             </div>
                             <small class="text-muted">
-                                {{ review.created_at.strftime('%Y-%m-%d') }}
+                                {{ review.created_at.strftime('%Y年%m月%d日') }}
                             </small>
                         </div>
                         <p class="card-text mt-3">{{ review.comment }}</p>
@@ -74,7 +79,7 @@
 
                 {% if not reviews %}
                 <div class="text-center text-muted">
-                    <p>No reviews yet. Be the first to review this sake!</p>
+                    <p>まだレビューがありません。最初のレビューを投稿してみませんか？</p>
                 </div>
                 {% endif %}
             </div>
@@ -83,13 +88,13 @@
         <div class="col-md-4">
             <div class="card bg-dark">
                 <div class="card-body">
-                    <h5 class="card-title">About This Sake</h5>
+                    <h5 class="card-title">この日本酒について</h5>
                     <div class="japanese-pattern p-3 rounded mb-3">
                         <img src="https://images.unsplash.com/photo-1676049516546-f540bcc6caed" 
-                             class="img-fluid rounded" alt="Traditional Japanese elements">
+                             class="img-fluid rounded" alt="日本酒のイメージ">
                     </div>
-                    <p class="card-text">Experience the unique characteristics of {{ sake.brand_name }}, 
-                    crafted with precision and tradition in {{ sake.area }}.</p>
+                    <p class="card-text">{{ sake.brewery.region.name }}の{{ sake.brewery.name }}が醸す{{ sake.name }}。
+                    伝統の技と現代の技術が融合した逸品です。</p>
                 </div>
             </div>
         </div>

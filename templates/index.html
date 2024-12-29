@@ -6,12 +6,12 @@
     <div class="container position-relative text-light">
         <div class="row">
             <div class="col-md-8">
-                <h1 class="display-4 mb-4">Discover Japanese Sake</h1>
-                <p class="lead">Explore and review authentic Japanese sake from across regions</p>
+                <h1 class="display-4 mb-4">日本酒を探す</h1>
+                <p class="lead">全国の酒蔵から厳選された日本酒をお探しください</p>
                 <form action="{{ url_for('search') }}" method="GET" class="mt-4">
                     <div class="input-group">
-                        <input type="text" name="q" class="form-control form-control-lg" placeholder="Search for sake...">
-                        <button type="submit" class="btn btn-primary btn-lg">Search</button>
+                        <input type="text" name="q" class="form-control form-control-lg" placeholder="銘柄名で検索...">
+                        <button type="submit" class="btn btn-primary btn-lg">検索</button>
                     </div>
                 </form>
             </div>
@@ -22,21 +22,27 @@
 <div class="container my-5">
     <div class="row mb-4">
         <div class="col">
-            <h2 class="text-light">Featured Sake</h2>
+            <h2 class="text-light">おすすめの日本酒</h2>
         </div>
     </div>
-    
+
     <div class="row g-4">
         {% for sake in featured_sakes %}
         <div class="col-md-4">
             <div class="sake-card card h-100">
                 <div class="card-body">
-                    <h5 class="card-title">{{ sake.brand_name }}</h5>
+                    <h5 class="card-title">{{ sake.name }}</h5>
                     <p class="card-text">
                         <small class="text-muted">
-                            <i class="bi bi-geo-alt"></i> {{ sake.area }}
+                            <i class="bi bi-building"></i> {{ sake.brewery.name }}<br>
+                            <i class="bi bi-geo-alt"></i> {{ sake.brewery.region.name }}
                         </small>
                     </p>
+                    {% if sake.flavor_profile %}
+                    <div class="mb-2">
+                        <span class="badge bg-primary">{{ sake.flavor_profile }}</span>
+                    </div>
+                    {% endif %}
                     <div class="rating mb-2">
                         {% set rating = sake.average_rating() | round(1) %}
                         {% for i in range(5) %}
@@ -44,7 +50,7 @@
                         {% endfor %}
                         <span class="ms-2">{{ rating }}</span>
                     </div>
-                    <a href="{{ url_for('sake_detail', sake_id=sake.id) }}" class="btn btn-outline-primary">View Details</a>
+                    <a href="{{ url_for('sake_detail', sake_id=sake.id) }}" class="btn btn-outline-primary">詳細を見る</a>
                 </div>
             </div>
         </div>
@@ -56,11 +62,11 @@
     <div class="container">
         <div class="row align-items-center">
             <div class="col-md-6">
-                <h2 class="text-light">About Japanese Sake</h2>
-                <p class="text-light">Discover the rich tradition and craftsmanship behind Japanese sake. From premium daiginjo to classic junmai, explore the diverse world of this historic beverage.</p>
+                <h2 class="text-light">日本酒について</h2>
+                <p class="text-light">日本の伝統的な発酵技術と職人の技が生み出す日本酒。大吟醸から純米酒まで、様々な種類の日本酒をお楽しみください。</p>
             </div>
             <div class="col-md-6">
-                <img src="https://images.unsplash.com/photo-1528360458789-d7774f47397b" class="img-fluid rounded" alt="Sake bottles">
+                <img src="https://images.unsplash.com/photo-1528360458789-d7774f47397b" class="img-fluid rounded" alt="日本酒の瓶">
             </div>
         </div>
     </div>
