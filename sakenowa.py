@@ -24,7 +24,6 @@ def fetch_data(endpoint):
         data = response.json()
         logging.debug(f"Raw response for {endpoint}: {data}")
 
-        # Handle nested dictionary formats
         if isinstance(data, dict):
             for key in ['areas', 'brands', 'breweries', 'flavorCharts', 'tags', 'brand_flavor_tags', 'flavorTags']:
                 if key in data:
@@ -106,13 +105,14 @@ def update_database():
                             brewery_id=brewery.id
                         )
                         db.session.add(sake)
+                        db.session.flush()  # Flush to get the sake.id
                         logging.debug(f"Added new sake: {brand['name']}")
 
                         # Add flavor chart if available
                         flavor_data = flavor_chart_dict.get(str(brand["id"]))
                         if flavor_data:
                             flavor_chart = FlavorChart(
-                                sakenowa_brand_id=str(brand["id"]),
+                                sake_id=sake.id,
                                 f1=flavor_data.get("f1", 0.0),
                                 f2=flavor_data.get("f2", 0.0),
                                 f3=flavor_data.get("f3", 0.0),

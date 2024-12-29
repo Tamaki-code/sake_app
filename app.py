@@ -27,59 +27,54 @@ if not database_url:
 if database_url.startswith('postgres://'):
     database_url = database_url.replace('postgres://', 'postgresql://', 1)
 
-# Ensure UTF-8 encoding for database connection
-if '?' not in database_url:
-    database_url += '?client_encoding=utf8'
-elif 'client_encoding=' not in database_url:
-    database_url += '&client_encoding=utf8'
-
+# Configure SQLAlchemy
 logger.info("Configuring database connection...")
 app.config.update(
     SQLALCHEMY_DATABASE_URI=database_url,
     SQLALCHEMY_TRACK_MODIFICATIONS=False,
+    SQLALCHEMY_ECHO=True,  # Enable SQL query logging
     SECRET_KEY=os.environ.get('SECRET_KEY', os.urandom(24))
 )
-logger.info("Database configuration loaded")
 
 # Initialize extensions
 db = SQLAlchemy(app)
 login_manager = LoginManager()
 login_manager.init_app(app)
 login_manager.login_view = 'login'
-
-logger.info("SQLAlchemy initialized")
+logger.info("SQLAlchemy and LoginManager initialized successfully")
 
 # Import models after db initialization
-from models import Region, Brewery, Sake, FlavorChart, FlavorTag, Review, User  # noqa: E402
-
+from models import User  # noqa: E402
 logger.info("Models imported successfully")
-
 
 @login_manager.user_loader
 def load_user(id):
-    return User.query.get(int(id))
+    try:
+        return User.query.get(int(id))
+    except Exception as e:
+        logger.error(f"Error loading user {id}: {e}")
+        return None
 
+def verify_database():
+    """Verify database connection and schema"""
+    try:
+        with app.app_context():
+            # Test database connection
+            db.engine.connect()
+            logger.info("Database connection successful")
 
-# Create tables
-def init_db():
-    with app.app_context():
-        try:
-            db.create_all()
-            logger.info("Database tables created successfully")
+            # Check if tables exist
+            inspector = db.inspect(db.engine)
+            tables = inspector.get_table_names()
+            logger.info(f"Available tables: {tables}")
 
-            # Verify database encoding
-            result = db.session.execute(
-                db.text("SHOW client_encoding")).scalar()
-            logger.info(f"Database client encoding: {result}")
+            return True
+    except Exception as e:
+        logger.error(f"Database verification failed: {e}")
+        return False
 
-            result = db.session.execute(
-                db.text("SHOW server_encoding")).scalar()
-            logger.info(f"Database server encoding: {result}")
-        except Exception as e:
-            logger.error(f"Error creating database tables: {e}")
-            raise
-
-
-# Initialize database if this file is run directly
 if __name__ == '__main__':
-    init_db()
+    if verify_database():
+        app.run(host='0.0.0.0', port=3000, debug=True)
+    else:
+        logger.error("Database verification failed, cannot start application")

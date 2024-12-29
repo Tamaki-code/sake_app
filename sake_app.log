@@ -74,3 +74,187 @@
 2024-12-29 07:21:11,416 - __main__ - INFO - Japanese character encoding test: Passed
 2024-12-29 07:21:15,373 - __main__ - INFO - Database tables created successfully!
 2024-12-29 07:21:15,381 - __main__ - ERROR - Error initializing database: Could not locate any relevant foreign key columns for primary join condition 'flavor_charts.brand_id = sakes."sakenowaId"' on relationship FlavorChart.sake.  Ensure that referencing columns are associated with a ForeignKey or ForeignKeyConstraint, or are annotated in the join condition with the foreign() annotation.
+2024-12-29 07:29:51,008 - app - INFO - Flask app initialized
+2024-12-29 07:29:51,009 - app - INFO - Configuring database connection...
+2024-12-29 07:29:51,042 - app - INFO - SQLAlchemy and LoginManager initialized successfully
+2024-12-29 07:29:51,056 - app - INFO - Models imported successfully
+2024-12-29 07:29:52,130 - __main__ - INFO - Starting application initialization...
+2024-12-29 07:29:52,415 - app - INFO - Flask app initialized
+2024-12-29 07:29:52,415 - app - INFO - Configuring database connection...
+2024-12-29 07:29:52,448 - app - INFO - SQLAlchemy and LoginManager initialized successfully
+2024-12-29 07:29:52,461 - app - INFO - Models imported successfully
+2024-12-29 07:29:52,462 - __main__ - INFO - Initializing database...
+2024-12-29 07:29:53,124 - sqlalchemy.engine.Engine - INFO - select pg_catalog.version()
+2024-12-29 07:29:53,124 - sqlalchemy.engine.Engine - INFO - [raw sql] {}
+2024-12-29 07:29:53,581 - sqlalchemy.engine.Engine - INFO - select current_schema()
+2024-12-29 07:29:53,582 - sqlalchemy.engine.Engine - INFO - [raw sql] {}
+2024-12-29 07:29:54,039 - sqlalchemy.engine.Engine - INFO - show standard_conforming_strings
+2024-12-29 07:29:54,039 - sqlalchemy.engine.Engine - INFO - [raw sql] {}
+2024-12-29 07:29:54,497 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2024-12-29 07:29:54,498 - sqlalchemy.engine.Engine - INFO - SHOW client_encoding
+2024-12-29 07:29:54,498 - sqlalchemy.engine.Engine - INFO - [generated in 0.00027s] {}
+2024-12-29 07:29:54,529 - sqlalchemy.engine.Engine - INFO - select pg_catalog.version()
+2024-12-29 07:29:54,529 - sqlalchemy.engine.Engine - INFO - [raw sql] {}
+2024-12-29 07:29:54,956 - sqlalchemy.engine.Engine - INFO - SHOW server_encoding
+2024-12-29 07:29:54,956 - sqlalchemy.engine.Engine - INFO - [generated in 0.00034s] {}
+2024-12-29 07:29:54,986 - sqlalchemy.engine.Engine - INFO - select current_schema()
+2024-12-29 07:29:54,987 - sqlalchemy.engine.Engine - INFO - [raw sql] {}
+2024-12-29 07:29:55,185 - sqlalchemy.engine.Engine - INFO - SELECT datcollate FROM pg_database WHERE datname = current_database()
+2024-12-29 07:29:55,185 - sqlalchemy.engine.Engine - INFO - [generated in 0.00026s] {}
+2024-12-29 07:29:55,414 - __main__ - INFO - Database Encoding Settings:
+2024-12-29 07:29:55,414 - __main__ - INFO - Client Encoding: UTF8
+2024-12-29 07:29:55,414 - __main__ - INFO - Server Encoding: UTF8
+2024-12-29 07:29:55,415 - __main__ - INFO - Database Collation: C.UTF-8
+2024-12-29 07:29:55,415 - sqlalchemy.engine.Engine - INFO - SELECT convert_to(%(text)s, 'UTF8') <> ''::bytea as is_valid
+2024-12-29 07:29:55,416 - sqlalchemy.engine.Engine - INFO - [generated in 0.00031s] {'text': 'テスト日本語'}
+2024-12-29 07:29:55,444 - sqlalchemy.engine.Engine - INFO - show standard_conforming_strings
+2024-12-29 07:29:55,444 - sqlalchemy.engine.Engine - INFO - [raw sql] {}
+2024-12-29 07:29:55,644 - __main__ - INFO - Japanese character encoding test: Passed
+2024-12-29 07:29:55,645 - sqlalchemy.engine.Engine - INFO - ROLLBACK
+2024-12-29 07:29:55,874 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2024-12-29 07:29:55,878 - sqlalchemy.engine.Engine - INFO - SELECT pg_catalog.pg_class.relname 
+FROM pg_catalog.pg_class JOIN pg_catalog.pg_namespace ON pg_catalog.pg_namespace.oid = pg_catalog.pg_class.relnamespace 
+WHERE pg_catalog.pg_class.relname = %(table_name)s AND pg_catalog.pg_class.relkind = ANY (ARRAY[%(param_1)s, %(param_2)s, %(param_3)s, %(param_4)s, %(param_5)s]) AND pg_catalog.pg_table_is_visible(pg_catalog.pg_class.oid) AND pg_catalog.pg_namespace.nspname != %(nspname_1)s
+2024-12-29 07:29:55,878 - sqlalchemy.engine.Engine - INFO - [generated in 0.00031s] {'table_name': 'regions', 'param_1': 'r', 'param_2': 'p', 'param_3': 'f', 'param_4': 'v', 'param_5': 'm', 'nspname_1': 'pg_catalog'}
+2024-12-29 07:29:55,902 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2024-12-29 07:29:55,903 - sqlalchemy.engine.Engine - INFO - SHOW client_encoding
+2024-12-29 07:29:55,903 - sqlalchemy.engine.Engine - INFO - [generated in 0.00031s] {}
+2024-12-29 07:29:56,336 - sqlalchemy.engine.Engine - INFO - SELECT pg_catalog.pg_class.relname 
+FROM pg_catalog.pg_class JOIN pg_catalog.pg_namespace ON pg_catalog.pg_namespace.oid = pg_catalog.pg_class.relnamespace 
+WHERE pg_catalog.pg_class.relname = %(table_name)s AND pg_catalog.pg_class.relkind = ANY (ARRAY[%(param_1)s, %(param_2)s, %(param_3)s, %(param_4)s, %(param_5)s]) AND pg_catalog.pg_table_is_visible(pg_catalog.pg_class.oid) AND pg_catalog.pg_namespace.nspname != %(nspname_1)s
+2024-12-29 07:29:56,336 - sqlalchemy.engine.Engine - INFO - [cached since 0.4588s ago] {'table_name': 'breweries', 'param_1': 'r', 'param_2': 'p', 'param_3': 'f', 'param_4': 'v', 'param_5': 'm', 'nspname_1': 'pg_catalog'}
+2024-12-29 07:29:56,360 - sqlalchemy.engine.Engine - INFO - SHOW server_encoding
+2024-12-29 07:29:56,360 - sqlalchemy.engine.Engine - INFO - [generated in 0.00024s] {}
+2024-12-29 07:29:56,566 - sqlalchemy.engine.Engine - INFO - SELECT pg_catalog.pg_class.relname 
+FROM pg_catalog.pg_class JOIN pg_catalog.pg_namespace ON pg_catalog.pg_namespace.oid = pg_catalog.pg_class.relnamespace 
+WHERE pg_catalog.pg_class.relname = %(table_name)s AND pg_catalog.pg_class.relkind = ANY (ARRAY[%(param_1)s, %(param_2)s, %(param_3)s, %(param_4)s, %(param_5)s]) AND pg_catalog.pg_table_is_visible(pg_catalog.pg_class.oid) AND pg_catalog.pg_namespace.nspname != %(nspname_1)s
+2024-12-29 07:29:56,566 - sqlalchemy.engine.Engine - INFO - [cached since 0.6886s ago] {'table_name': 'sakes', 'param_1': 'r', 'param_2': 'p', 'param_3': 'f', 'param_4': 'v', 'param_5': 'm', 'nspname_1': 'pg_catalog'}
+2024-12-29 07:29:56,590 - sqlalchemy.engine.Engine - INFO - SELECT datcollate FROM pg_database WHERE datname = current_database()
+2024-12-29 07:29:56,590 - sqlalchemy.engine.Engine - INFO - [generated in 0.00028s] {}
+2024-12-29 07:29:56,795 - sqlalchemy.engine.Engine - INFO - SELECT pg_catalog.pg_class.relname 
+FROM pg_catalog.pg_class JOIN pg_catalog.pg_namespace ON pg_catalog.pg_namespace.oid = pg_catalog.pg_class.relnamespace 
+WHERE pg_catalog.pg_class.relname = %(table_name)s AND pg_catalog.pg_class.relkind = ANY (ARRAY[%(param_1)s, %(param_2)s, %(param_3)s, %(param_4)s, %(param_5)s]) AND pg_catalog.pg_table_is_visible(pg_catalog.pg_class.oid) AND pg_catalog.pg_namespace.nspname != %(nspname_1)s
+2024-12-29 07:29:56,796 - sqlalchemy.engine.Engine - INFO - [cached since 0.9182s ago] {'table_name': 'flavor_charts', 'param_1': 'r', 'param_2': 'p', 'param_3': 'f', 'param_4': 'v', 'param_5': 'm', 'nspname_1': 'pg_catalog'}
+2024-12-29 07:29:56,819 - create_tables - INFO - Database Encoding Settings:
+2024-12-29 07:29:56,819 - create_tables - INFO - Client Encoding: UTF8
+2024-12-29 07:29:56,819 - create_tables - INFO - Server Encoding: UTF8
+2024-12-29 07:29:56,819 - create_tables - INFO - Database Collation: C.UTF-8
+2024-12-29 07:29:56,820 - sqlalchemy.engine.Engine - INFO - SELECT convert_to(%(text)s, 'UTF8') <> ''::bytea as is_valid
+2024-12-29 07:29:56,820 - sqlalchemy.engine.Engine - INFO - [generated in 0.00035s] {'text': 'テスト日本語'}
+2024-12-29 07:29:57,025 - sqlalchemy.engine.Engine - INFO - SELECT pg_catalog.pg_class.relname 
+FROM pg_catalog.pg_class JOIN pg_catalog.pg_namespace ON pg_catalog.pg_namespace.oid = pg_catalog.pg_class.relnamespace 
+WHERE pg_catalog.pg_class.relname = %(table_name)s AND pg_catalog.pg_class.relkind = ANY (ARRAY[%(param_1)s, %(param_2)s, %(param_3)s, %(param_4)s, %(param_5)s]) AND pg_catalog.pg_table_is_visible(pg_catalog.pg_class.oid) AND pg_catalog.pg_namespace.nspname != %(nspname_1)s
+2024-12-29 07:29:57,025 - sqlalchemy.engine.Engine - INFO - [cached since 1.148s ago] {'table_name': 'flavor_tags', 'param_1': 'r', 'param_2': 'p', 'param_3': 'f', 'param_4': 'v', 'param_5': 'm', 'nspname_1': 'pg_catalog'}
+2024-12-29 07:29:57,049 - create_tables - INFO - Japanese character encoding test: Passed
+2024-12-29 07:29:57,050 - sqlalchemy.engine.Engine - INFO - ROLLBACK
+2024-12-29 07:29:57,255 - sqlalchemy.engine.Engine - INFO - SELECT pg_catalog.pg_class.relname 
+FROM pg_catalog.pg_class JOIN pg_catalog.pg_namespace ON pg_catalog.pg_namespace.oid = pg_catalog.pg_class.relnamespace 
+WHERE pg_catalog.pg_class.relname = %(table_name)s AND pg_catalog.pg_class.relkind = ANY (ARRAY[%(param_1)s, %(param_2)s, %(param_3)s, %(param_4)s, %(param_5)s]) AND pg_catalog.pg_table_is_visible(pg_catalog.pg_class.oid) AND pg_catalog.pg_namespace.nspname != %(nspname_1)s
+2024-12-29 07:29:57,255 - sqlalchemy.engine.Engine - INFO - [cached since 1.377s ago] {'table_name': 'users', 'param_1': 'r', 'param_2': 'p', 'param_3': 'f', 'param_4': 'v', 'param_5': 'm', 'nspname_1': 'pg_catalog'}
+2024-12-29 07:29:57,484 - sqlalchemy.engine.Engine - INFO - SELECT pg_catalog.pg_class.relname 
+FROM pg_catalog.pg_class JOIN pg_catalog.pg_namespace ON pg_catalog.pg_namespace.oid = pg_catalog.pg_class.relnamespace 
+WHERE pg_catalog.pg_class.relname = %(table_name)s AND pg_catalog.pg_class.relkind = ANY (ARRAY[%(param_1)s, %(param_2)s, %(param_3)s, %(param_4)s, %(param_5)s]) AND pg_catalog.pg_table_is_visible(pg_catalog.pg_class.oid) AND pg_catalog.pg_namespace.nspname != %(nspname_1)s
+2024-12-29 07:29:57,484 - sqlalchemy.engine.Engine - INFO - [cached since 1.607s ago] {'table_name': 'reviews', 'param_1': 'r', 'param_2': 'p', 'param_3': 'f', 'param_4': 'v', 'param_5': 'm', 'nspname_1': 'pg_catalog'}
+2024-12-29 07:29:57,714 - sqlalchemy.engine.Engine - INFO - COMMIT
+2024-12-29 07:29:57,942 - __main__ - INFO - Database tables created successfully!
+2024-12-29 07:29:57,957 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2024-12-29 07:29:57,959 - sqlalchemy.engine.Engine - INFO - SELECT users.id AS users_id, users.email AS users_email, users.username AS users_username, users.encrypted_password AS users_encrypted_password, users.reset_password_token AS users_reset_password_token, users.reset_password_sent_at AS users_reset_password_sent_at, users.remember_created_at AS users_remember_created_at, users.created_at AS users_created_at, users.updated_at AS users_updated_at, users.gender AS users_gender, users.birthdate AS users_birthdate, users.comment AS users_comment 
+FROM users 
+ LIMIT %(param_1)s
+2024-12-29 07:29:57,959 - sqlalchemy.engine.Engine - INFO - [generated in 0.00022s] {'param_1': 1}
+2024-12-29 07:29:58,419 - sqlalchemy.engine.Engine - INFO - SELECT regions.id AS regions_id, regions.name AS regions_name, regions."sakenowaId" AS "regions_sakenowaId", regions.created_at AS regions_created_at, regions.updated_at AS regions_updated_at 
+FROM regions 
+ LIMIT %(param_1)s
+2024-12-29 07:29:58,419 - sqlalchemy.engine.Engine - INFO - [generated in 0.00027s] {'param_1': 1}
+2024-12-29 07:29:58,649 - sqlalchemy.engine.Engine - INFO - ROLLBACK
+2024-12-29 07:30:53,309 - app - INFO - Flask app initialized
+2024-12-29 07:30:53,309 - app - INFO - Configuring database connection...
+2024-12-29 07:30:53,345 - app - INFO - SQLAlchemy and LoginManager initialized successfully
+2024-12-29 07:30:53,360 - app - INFO - Models imported successfully
+2024-12-29 07:30:54,353 - __main__ - INFO - Starting application initialization...
+2024-12-29 07:30:54,720 - app - INFO - Flask app initialized
+2024-12-29 07:30:54,720 - app - INFO - Configuring database connection...
+2024-12-29 07:30:54,755 - app - INFO - SQLAlchemy and LoginManager initialized successfully
+2024-12-29 07:30:54,771 - app - INFO - Models imported successfully
+2024-12-29 07:30:54,771 - __main__ - INFO - Initializing database...
+2024-12-29 07:30:55,458 - sqlalchemy.engine.Engine - INFO - select pg_catalog.version()
+2024-12-29 07:30:55,458 - sqlalchemy.engine.Engine - INFO - [raw sql] {}
+2024-12-29 07:30:55,922 - sqlalchemy.engine.Engine - INFO - select current_schema()
+2024-12-29 07:30:55,922 - sqlalchemy.engine.Engine - INFO - [raw sql] {}
+2024-12-29 07:30:56,385 - sqlalchemy.engine.Engine - INFO - show standard_conforming_strings
+2024-12-29 07:30:56,386 - sqlalchemy.engine.Engine - INFO - [raw sql] {}
+2024-12-29 07:30:56,849 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2024-12-29 07:30:56,851 - sqlalchemy.engine.Engine - INFO - SHOW client_encoding
+2024-12-29 07:30:56,851 - sqlalchemy.engine.Engine - INFO - [generated in 0.00035s] {}
+2024-12-29 07:30:56,926 - sqlalchemy.engine.Engine - INFO - select pg_catalog.version()
+2024-12-29 07:30:56,926 - sqlalchemy.engine.Engine - INFO - [raw sql] {}
+2024-12-29 07:30:57,314 - sqlalchemy.engine.Engine - INFO - SHOW server_encoding
+2024-12-29 07:30:57,315 - sqlalchemy.engine.Engine - INFO - [generated in 0.00033s] {}
+2024-12-29 07:30:57,397 - sqlalchemy.engine.Engine - INFO - select current_schema()
+2024-12-29 07:30:57,397 - sqlalchemy.engine.Engine - INFO - [raw sql] {}
+2024-12-29 07:30:57,547 - sqlalchemy.engine.Engine - INFO - SELECT datcollate FROM pg_database WHERE datname = current_database()
+2024-12-29 07:30:57,547 - sqlalchemy.engine.Engine - INFO - [generated in 0.00033s] {}
+2024-12-29 07:30:57,779 - __main__ - INFO - Database Encoding Settings:
+2024-12-29 07:30:57,780 - __main__ - INFO - Client Encoding: UTF8
+2024-12-29 07:30:57,780 - __main__ - INFO - Server Encoding: UTF8
+2024-12-29 07:30:57,780 - __main__ - INFO - Database Collation: C.UTF-8
+2024-12-29 07:30:57,780 - sqlalchemy.engine.Engine - INFO - SELECT convert_to(%(text)s, 'UTF8') <> ''::bytea as is_valid
+2024-12-29 07:30:57,781 - sqlalchemy.engine.Engine - INFO - [generated in 0.00020s] {'text': 'テスト日本語'}
+2024-12-29 07:30:57,868 - sqlalchemy.engine.Engine - INFO - show standard_conforming_strings
+2024-12-29 07:30:57,868 - sqlalchemy.engine.Engine - INFO - [raw sql] {}
+2024-12-29 07:30:58,013 - __main__ - INFO - Japanese character encoding test: Passed
+2024-12-29 07:30:58,013 - sqlalchemy.engine.Engine - INFO - ROLLBACK
+2024-12-29 07:30:58,245 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2024-12-29 07:30:58,249 - sqlalchemy.engine.Engine - INFO - SELECT pg_catalog.pg_class.relname 
+FROM pg_catalog.pg_class JOIN pg_catalog.pg_namespace ON pg_catalog.pg_namespace.oid = pg_catalog.pg_class.relnamespace 
+WHERE pg_catalog.pg_class.relname = %(table_name)s AND pg_catalog.pg_class.relkind = ANY (ARRAY[%(param_1)s, %(param_2)s, %(param_3)s, %(param_4)s, %(param_5)s]) AND pg_catalog.pg_table_is_visible(pg_catalog.pg_class.oid) AND pg_catalog.pg_namespace.nspname != %(nspname_1)s
+2024-12-29 07:30:58,250 - sqlalchemy.engine.Engine - INFO - [generated in 0.00036s] {'table_name': 'regions', 'param_1': 'r', 'param_2': 'p', 'param_3': 'f', 'param_4': 'v', 'param_5': 'm', 'nspname_1': 'pg_catalog'}
+2024-12-29 07:30:58,339 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2024-12-29 07:30:58,339 - sqlalchemy.engine.Engine - INFO - SHOW client_encoding
+2024-12-29 07:30:58,339 - sqlalchemy.engine.Engine - INFO - [generated in 0.00021s] {}
+2024-12-29 07:30:58,714 - sqlalchemy.engine.Engine - INFO - SELECT pg_catalog.pg_class.relname 
+FROM pg_catalog.pg_class JOIN pg_catalog.pg_namespace ON pg_catalog.pg_namespace.oid = pg_catalog.pg_class.relnamespace 
+WHERE pg_catalog.pg_class.relname = %(table_name)s AND pg_catalog.pg_class.relkind = ANY (ARRAY[%(param_1)s, %(param_2)s, %(param_3)s, %(param_4)s, %(param_5)s]) AND pg_catalog.pg_table_is_visible(pg_catalog.pg_class.oid) AND pg_catalog.pg_namespace.nspname != %(nspname_1)s
+2024-12-29 07:30:58,714 - sqlalchemy.engine.Engine - INFO - [cached since 0.4649s ago] {'table_name': 'breweries', 'param_1': 'r', 'param_2': 'p', 'param_3': 'f', 'param_4': 'v', 'param_5': 'm', 'nspname_1': 'pg_catalog'}
+2024-12-29 07:30:58,810 - sqlalchemy.engine.Engine - INFO - SHOW server_encoding
+2024-12-29 07:30:58,810 - sqlalchemy.engine.Engine - INFO - [generated in 0.00031s] {}
+2024-12-29 07:30:58,946 - sqlalchemy.engine.Engine - INFO - SELECT pg_catalog.pg_class.relname 
+FROM pg_catalog.pg_class JOIN pg_catalog.pg_namespace ON pg_catalog.pg_namespace.oid = pg_catalog.pg_class.relnamespace 
+WHERE pg_catalog.pg_class.relname = %(table_name)s AND pg_catalog.pg_class.relkind = ANY (ARRAY[%(param_1)s, %(param_2)s, %(param_3)s, %(param_4)s, %(param_5)s]) AND pg_catalog.pg_table_is_visible(pg_catalog.pg_class.oid) AND pg_catalog.pg_namespace.nspname != %(nspname_1)s
+2024-12-29 07:30:58,947 - sqlalchemy.engine.Engine - INFO - [cached since 0.6972s ago] {'table_name': 'sakes', 'param_1': 'r', 'param_2': 'p', 'param_3': 'f', 'param_4': 'v', 'param_5': 'm', 'nspname_1': 'pg_catalog'}
+2024-12-29 07:30:59,047 - sqlalchemy.engine.Engine - INFO - SELECT datcollate FROM pg_database WHERE datname = current_database()
+2024-12-29 07:30:59,047 - sqlalchemy.engine.Engine - INFO - [generated in 0.00030s] {}
+2024-12-29 07:30:59,179 - sqlalchemy.engine.Engine - INFO - SELECT pg_catalog.pg_class.relname 
+FROM pg_catalog.pg_class JOIN pg_catalog.pg_namespace ON pg_catalog.pg_namespace.oid = pg_catalog.pg_class.relnamespace 
+WHERE pg_catalog.pg_class.relname = %(table_name)s AND pg_catalog.pg_class.relkind = ANY (ARRAY[%(param_1)s, %(param_2)s, %(param_3)s, %(param_4)s, %(param_5)s]) AND pg_catalog.pg_table_is_visible(pg_catalog.pg_class.oid) AND pg_catalog.pg_namespace.nspname != %(nspname_1)s
+2024-12-29 07:30:59,179 - sqlalchemy.engine.Engine - INFO - [cached since 0.9298s ago] {'table_name': 'flavor_charts', 'param_1': 'r', 'param_2': 'p', 'param_3': 'f', 'param_4': 'v', 'param_5': 'm', 'nspname_1': 'pg_catalog'}
+2024-12-29 07:30:59,283 - create_tables - INFO - Database Encoding Settings:
+2024-12-29 07:30:59,283 - create_tables - INFO - Client Encoding: UTF8
+2024-12-29 07:30:59,283 - create_tables - INFO - Server Encoding: UTF8
+2024-12-29 07:30:59,283 - create_tables - INFO - Database Collation: C.UTF-8
+2024-12-29 07:30:59,284 - sqlalchemy.engine.Engine - INFO - SELECT convert_to(%(text)s, 'UTF8') <> ''::bytea as is_valid
+2024-12-29 07:30:59,284 - sqlalchemy.engine.Engine - INFO - [generated in 0.00033s] {'text': 'テスト日本語'}
+2024-12-29 07:30:59,411 - sqlalchemy.engine.Engine - INFO - SELECT pg_catalog.pg_class.relname 
+FROM pg_catalog.pg_class JOIN pg_catalog.pg_namespace ON pg_catalog.pg_namespace.oid = pg_catalog.pg_class.relnamespace 
+WHERE pg_catalog.pg_class.relname = %(table_name)s AND pg_catalog.pg_class.relkind = ANY (ARRAY[%(param_1)s, %(param_2)s, %(param_3)s, %(param_4)s, %(param_5)s]) AND pg_catalog.pg_table_is_visible(pg_catalog.pg_class.oid) AND pg_catalog.pg_namespace.nspname != %(nspname_1)s
+2024-12-29 07:30:59,412 - sqlalchemy.engine.Engine - INFO - [cached since 1.162s ago] {'table_name': 'flavor_tags', 'param_1': 'r', 'param_2': 'p', 'param_3': 'f', 'param_4': 'v', 'param_5': 'm', 'nspname_1': 'pg_catalog'}
+2024-12-29 07:30:59,644 - sqlalchemy.engine.Engine - INFO - SELECT pg_catalog.pg_class.relname 
+FROM pg_catalog.pg_class JOIN pg_catalog.pg_namespace ON pg_catalog.pg_namespace.oid = pg_catalog.pg_class.relnamespace 
+WHERE pg_catalog.pg_class.relname = %(table_name)s AND pg_catalog.pg_class.relkind = ANY (ARRAY[%(param_1)s, %(param_2)s, %(param_3)s, %(param_4)s, %(param_5)s]) AND pg_catalog.pg_table_is_visible(pg_catalog.pg_class.oid) AND pg_catalog.pg_namespace.nspname != %(nspname_1)s
+2024-12-29 07:30:59,644 - sqlalchemy.engine.Engine - INFO - [cached since 1.395s ago] {'table_name': 'users', 'param_1': 'r', 'param_2': 'p', 'param_3': 'f', 'param_4': 'v', 'param_5': 'm', 'nspname_1': 'pg_catalog'}
+2024-12-29 07:30:59,877 - sqlalchemy.engine.Engine - INFO - SELECT pg_catalog.pg_class.relname 
+FROM pg_catalog.pg_class JOIN pg_catalog.pg_namespace ON pg_catalog.pg_namespace.oid = pg_catalog.pg_class.relnamespace 
+WHERE pg_catalog.pg_class.relname = %(table_name)s AND pg_catalog.pg_class.relkind = ANY (ARRAY[%(param_1)s, %(param_2)s, %(param_3)s, %(param_4)s, %(param_5)s]) AND pg_catalog.pg_table_is_visible(pg_catalog.pg_class.oid) AND pg_catalog.pg_namespace.nspname != %(nspname_1)s
+2024-12-29 07:30:59,877 - sqlalchemy.engine.Engine - INFO - [cached since 1.628s ago] {'table_name': 'reviews', 'param_1': 'r', 'param_2': 'p', 'param_3': 'f', 'param_4': 'v', 'param_5': 'm', 'nspname_1': 'pg_catalog'}
+2024-12-29 07:31:00,109 - sqlalchemy.engine.Engine - INFO - COMMIT
+2024-12-29 07:31:00,341 - __main__ - INFO - Database tables created successfully
+2024-12-29 07:31:00,355 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2024-12-29 07:31:00,358 - sqlalchemy.engine.Engine - INFO - SELECT users.id AS users_id, users.email AS users_email, users.username AS users_username, users.encrypted_password AS users_encrypted_password, users.reset_password_token AS users_reset_password_token, users.reset_password_sent_at AS users_reset_password_sent_at, users.remember_created_at AS users_remember_created_at, users.created_at AS users_created_at, users.updated_at AS users_updated_at, users.gender AS users_gender, users.birthdate AS users_birthdate, users.comment AS users_comment 
+FROM users 
+ LIMIT %(param_1)s
+2024-12-29 07:31:00,358 - sqlalchemy.engine.Engine - INFO - [generated in 0.00052s] {'param_1': 1}
+2024-12-29 07:31:00,823 - sqlalchemy.engine.Engine - INFO - SELECT regions.id AS regions_id, regions.name AS regions_name, regions."sakenowaId" AS "regions_sakenowaId", regions.created_at AS regions_created_at, regions.updated_at AS regions_updated_at 
+FROM regions 
+ LIMIT %(param_1)s
+2024-12-29 07:31:00,824 - sqlalchemy.engine.Engine - INFO - [generated in 0.00092s] {'param_1': 1}
+2024-12-29 07:31:01,057 - sqlalchemy.engine.Engine - INFO - ROLLBACK

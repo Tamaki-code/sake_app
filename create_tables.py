@@ -32,26 +32,35 @@ def verify_database_encoding():
             logger.error(f"Error verifying database encoding: {e}")
             return False
 
-def init_db():
+def create_tables():
+    """Create all database tables"""
     try:
         with app.app_context():
-            # Drop existing tables to avoid conflicts
-            db.session.execute(db.text("DROP SCHEMA public CASCADE"))
-            db.session.execute(db.text("CREATE SCHEMA public"))
-            db.session.commit()
-            logger.info("Cleaned up existing database schema")
+            db.create_all()
+            logger.info("Database tables created successfully")
+            return True
+    except Exception as e:
+        logger.error(f"Error creating tables: {e}")
+        return False
 
+def init_db():
+    """Initialize the database with proper encoding and initial data"""
+    try:
+        with app.app_context():
             # Verify database encoding first
             if not verify_database_encoding():
                 raise Exception("Database encoding verification failed")
 
-            # Create all database tables
-            db.create_all()
-            logger.info("Database tables created successfully!")
+            # Create tables
+            if not create_tables():
+                raise Exception("Failed to create database tables")
 
             # Create a test user if none exists
             if not User.query.first():
-                test_user = User(username='test_user', email='test@example.com')
+                test_user = User(
+                    username='test_user',
+                    email='test@example.com'
+                )
                 test_user.set_password('test123')
                 db.session.add(test_user)
                 db.session.commit()
@@ -60,12 +69,14 @@ def init_db():
             # Create a test region if none exists
             if not Region.query.first():
                 test_region = Region(
-                    name='東京都',  # Tokyo
+                    name='東京都',
                     sakenowa_id='13'
                 )
                 db.session.add(test_region)
                 db.session.commit()
                 logger.info("Test region created successfully!")
+
+            return True
 
     except Exception as e:
         logger.error(f"Error initializing database: {e}")
