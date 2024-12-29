@@ -3,24 +3,42 @@ from flask_login import UserMixin
 from datetime import datetime
 from werkzeug.security import generate_password_hash, check_password_hash
 
+
 class Region(db.Model):
     __tablename__ = 'regions'
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(100), nullable=False)
-    sakenowa_id = db.Column('sakenowaId', db.String(100), nullable=False, unique=True)
-    created_at = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
-    updated_at = db.Column(db.DateTime, nullable=False, default=datetime.utcnow, onupdate=datetime.utcnow)
+    sakenowa_id = db.Column('sakenowaId',
+                            db.String(100),
+                            nullable=False,
+                            unique=True)
+    created_at = db.Column(db.DateTime,
+                           nullable=False,
+                           default=datetime.utcnow)
+    updated_at = db.Column(db.DateTime,
+                           nullable=False,
+                           default=datetime.utcnow,
+                           onupdate=datetime.utcnow)
     breweries = db.relationship('Brewery', backref='region', lazy='dynamic')
+
 
 class Brewery(db.Model):
     __tablename__ = 'breweries'
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(200), nullable=False)
     sakenowa_brewery_id = db.Column(db.String(100), unique=True)
-    region_id = db.Column(db.Integer, db.ForeignKey('regions.id'), nullable=False)
-    created_at = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
-    updated_at = db.Column(db.DateTime, nullable=False, default=datetime.utcnow, onupdate=datetime.utcnow)
+    region_id = db.Column(db.Integer,
+                          db.ForeignKey('regions.id'),
+                          nullable=False)
+    created_at = db.Column(db.DateTime,
+                           nullable=False,
+                           default=datetime.utcnow)
+    updated_at = db.Column(db.DateTime,
+                           nullable=False,
+                           default=datetime.utcnow,
+                           onupdate=datetime.utcnow)
     sakes = db.relationship('Sake', backref='brewery', lazy='dynamic')
+
 
 class FlavorChart(db.Model):
     __tablename__ = 'flavor_charts'
@@ -32,28 +50,50 @@ class FlavorChart(db.Model):
     f4 = db.Column(db.Float)
     f5 = db.Column(db.Float)
     f6 = db.Column(db.Float)
-    created_at = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
-    updated_at = db.Column(db.DateTime, nullable=False, default=datetime.utcnow, onupdate=datetime.utcnow)
+    created_at = db.Column(db.DateTime,
+                           nullable=False,
+                           default=datetime.utcnow)
+    updated_at = db.Column(db.DateTime,
+                           nullable=False,
+                           default=datetime.utcnow,
+                           onupdate=datetime.utcnow)
+
 
 class FlavorTag(db.Model):
     __tablename__ = 'flavor_tags'
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(100), nullable=False)
-    sakenowa_id = db.Column('sakenowaId', db.String(100), nullable=False, unique=True)
-    created_at = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
-    updated_at = db.Column(db.DateTime, nullable=False, default=datetime.utcnow, onupdate=datetime.utcnow)
+    sakenowa_id = db.Column('sakenowaId',
+                            db.String(100),
+                            nullable=False,
+                            unique=True)
+    created_at = db.Column(db.DateTime,
+                           nullable=False,
+                           default=datetime.utcnow)
+    updated_at = db.Column(db.DateTime,
+                           nullable=False,
+                           default=datetime.utcnow,
+                           onupdate=datetime.utcnow)
+
 
 class User(UserMixin, db.Model):
     __tablename__ = 'users'
     id = db.Column(db.Integer, primary_key=True)
     email = db.Column(db.String(120), unique=True, nullable=False)
     username = db.Column(db.String(64), unique=True)
-    encrypted_password = db.Column('encrypted_password', db.String(256), nullable=False)
+    encrypted_password = db.Column('encrypted_password',
+                                   db.String(256),
+                                   nullable=False)
     reset_password_token = db.Column(db.String(100))
     reset_password_sent_at = db.Column(db.DateTime)
     remember_created_at = db.Column(db.DateTime)
-    created_at = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
-    updated_at = db.Column(db.DateTime, nullable=False, default=datetime.utcnow, onupdate=datetime.utcnow)
+    created_at = db.Column(db.DateTime,
+                           nullable=False,
+                           default=datetime.utcnow)
+    updated_at = db.Column(db.DateTime,
+                           nullable=False,
+                           default=datetime.utcnow,
+                           onupdate=datetime.utcnow)
     gender = db.Column(db.String(20))
     birthdate = db.Column(db.Date)
     comment = db.Column(db.Text)
@@ -65,6 +105,7 @@ class User(UserMixin, db.Model):
     def check_password(self, password):
         return check_password_hash(self.encrypted_password, password)
 
+
 class Sake(db.Model):
     __tablename__ = 'sakes'
     id = db.Column(db.Integer, primary_key=True)
@@ -72,17 +113,25 @@ class Sake(db.Model):
     name = db.Column(db.String(200))
     brewery_id = db.Column(db.Integer, db.ForeignKey('breweries.id'))
     flavor_chart_id = db.Column(db.Integer, db.ForeignKey('flavor_charts.id'))
-    flavor_profile = db.Column(db.String(50))  # light, medium, rich
-    created_at = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
-    updated_at = db.Column(db.DateTime, nullable=False, default=datetime.utcnow, onupdate=datetime.utcnow)
+    # flavor_profile = db.Column(db.String(50))  # light, medium, rich
+    created_at = db.Column(db.DateTime,
+                           nullable=False,
+                           default=datetime.utcnow)
+    updated_at = db.Column(db.DateTime,
+                           nullable=False,
+                           default=datetime.utcnow,
+                           onupdate=datetime.utcnow)
     reviews = db.relationship('Review', backref='sake', lazy='dynamic')
-    flavor_chart = db.relationship('FlavorChart', backref='sake', uselist=False)
+    flavor_chart = db.relationship('FlavorChart',
+                                   backref='sake',
+                                   uselist=False)
 
     def average_rating(self):
         reviews = self.reviews.all()
         if not reviews:
             return 0
         return sum(review.rating for review in reviews) / len(reviews)
+
 
 class Review(db.Model):
     __tablename__ = 'reviews'
@@ -96,8 +145,13 @@ class Review(db.Model):
     matching_food = db.Column(db.String(100))
     comment = db.Column(db.Text)
     recorded_at = db.Column(db.Date)
-    created_at = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
-    updated_at = db.Column(db.DateTime, nullable=False, default=datetime.utcnow, onupdate=datetime.utcnow)
+    created_at = db.Column(db.DateTime,
+                           nullable=False,
+                           default=datetime.utcnow)
+    updated_at = db.Column(db.DateTime,
+                           nullable=False,
+                           default=datetime.utcnow,
+                           onupdate=datetime.utcnow)
     f1 = db.Column(db.Float)
     f2 = db.Column(db.Float)
     f3 = db.Column(db.Float)

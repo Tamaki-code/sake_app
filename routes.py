@@ -5,20 +5,24 @@ from models import User, Sake, Review, Brewery, Region
 import logging
 from datetime import datetime
 
+
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
-        user = User.query.filter_by(username=request.form.get('username')).first()
+        user = User.query.filter_by(
+            username=request.form.get('username')).first()
         if user and user.check_password(request.form.get('password')):
             login_user(user)
             return redirect(url_for('index'))
         flash('Invalid username or password', 'error')
     return render_template('login.html')
 
+
 @app.route('/')
 def index():
     try:
-        featured_sakes = Sake.query.join(Brewery).order_by(Sake.created_at.desc()).limit(6).all()
+        featured_sakes = Sake.query.join(Brewery).order_by(
+            Sake.created_at.desc()).limit(6).all()
         logging.info(f"Fetched {len(featured_sakes)} featured sakes")
         return render_template('index.html', featured_sakes=featured_sakes)
     except Exception as e:
@@ -26,38 +30,78 @@ def index():
         flash('Error loading featured sakes', 'error')
         return render_template('index.html', featured_sakes=[])
 
+
 @app.route('/search')
 def search():
-    query = request.args.get('q', '')
-    flavor = request.args.get('flavor', '')
-
+    query = request.args.get('q', '').strip()  # クエリ文字列を取得
     try:
-        sake_query = Sake.query.join(Brewery)
-
+        # 銘柄名で検索
+        sake_query = Sake.query
         if query:
-            sake_query = sake_query.filter(Sake.name.ilike(f'%{query}%'))
+            sake_query = sake_query.filter(
+                Sake.name.ilike(f'%{query}%'))  # 部分一致検索
 
-        if flavor:
-            sake_query = sake_query.filter(Sake.flavor_profile == flavor)
-
+        # 検索結果を取得
         sakes = sake_query.all()
-        logging.info(f"Search query '{query}' with flavor '{flavor}' returned {len(sakes)} results")
-        return render_template('search.html', sakes=sakes, query=query, flavor=flavor)
+
+        # 結果をテンプレートに渡す
+        logging.info(f"Search query '{query}' returned {len(sakes)} results")
+        return render_template('search.html', sakes=sakes, query=query)
     except Exception as e:
         logging.error(f"Error during sake search: {e}")
         flash('検索中にエラーが発生しました', 'error')
-        return render_template('search.html', sakes=[], query=query, flavor=flavor)
+        return render_template('search.html', sakes=[], query=query)
+
+
+# @app.route('/search')
+# def search():
+#     query = request.args.get('q', '')
+#     flavor = request.args.get('flavor', '')
+
+#     try:
+#         sake_query = Sake.query.join(Brewery)
+
+#         if query:
+#             sake_query = sake_query.filter(Sake.name.ilike(f'%{query}%'))
+
+#         if flavor:
+#             # Ensure flavor_profile exists in the Sake model
+#             if hasattr(Sake, 'flavor_profile'):
+#                 sake_query = sake_query.filter(Sake.flavor_profile == flavor)
+#             else:
+#                 raise AttributeError(
+#                     "Sake model has no attribute 'flavor_profile'")
+
+#         sakes = sake_query.all()
+#         logging.info(
+#             f"Search query '{query}' with flavor '{flavor}' returned {len(sakes)} results"
+#         )
+#         return render_template('search.html',
+#                                sakes=sakes,
+#                                query=query,
+#                                flavor=flavor)
+#     except AttributeError as e:
+#         logging.error(f"Attribute error during sake search: {e}")
+#         flash('検索中にエラーが発生しました (属性エラー)', 'error')
+#     except Exception as e:
+#         logging.error(f"Error during sake search: {e}")
+#         flash('検索中にエラーが発生しました', 'error')
+
+#     return render_template('search.html', sakes=[], query=query, flavor=flavor)
+
 
 @app.route('/sake/<int:sake_id>')
 def sake_detail(sake_id):
     try:
-        sake = Sake.query.join(Brewery).filter(Sake.id == sake_id).first_or_404()
+        sake = Sake.query.join(Brewery).filter(
+            Sake.id == sake_id).first_or_404()
         reviews = sake.reviews.order_by(Review.created_at.desc()).all()
         return render_template('sake_detail.html', sake=sake, reviews=reviews)
     except Exception as e:
         logging.error(f"Error fetching sake details for ID {sake_id}: {e}")
         flash('Error loading sake details', 'error')
         return redirect(url_for('index'))
+
 
 @app.route('/review/<int:sake_id>', methods=['POST'])
 @login_required
@@ -69,27 +113,28 @@ def add_review(sake_id):
     rating = data.get('rating')
     comment = data.get('comment')
 
-    if not rating or not isinstance(rating, (int, float)) or rating < 1 or rating > 5:
+    if not rating or not isinstance(rating,
+                                    (int, float)) or rating < 1 or rating > 5:
         return jsonify({'error': 'Invalid rating'}), 400
 
     try:
         sake = Sake.query.get_or_404(sake_id)
-        review = Review(
-            sake_id=sake_id,
-            user_id=current_user.id,
-            rating=rating,
-            comment=comment,
-            recorded_at=datetime.utcnow().date()
-        )
+        review = Review(sake_id=sake_id,
+                        user_id=current_user.id,
+                        rating=rating,
+                        comment=comment,
+                        recorded_at=datetime.utcnow().date())
 
         db.session.add(review)
         db.session.commit()
-        logging.info(f"Added new review for sake {sake_id} by user {current_user.id}")
+        logging.info(
+            f"Added new review for sake {sake_id} by user {current_user.id}")
         return jsonify({'success': True})
     except Exception as e:
         logging.error(f"Error adding review: {e}")
         db.session.rollback()
         return jsonify({'error': 'Failed to add review'}), 500
+
 
 @app.route('/update_database')
 def update_database():

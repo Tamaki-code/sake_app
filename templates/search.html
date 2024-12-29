@@ -38,28 +38,28 @@
                 <div class="card-body">
                     <div class="d-flex justify-content-between align-items-start">
                         <div>
-                            <h5 class="card-title">{{ sake.name }}</h5>
+                            <!-- <h5 class="card-title">{{ sake.name }}</h5>
                             <p class="card-text">
                                 <small class="text-muted">
                                     <i class="bi bi-building"></i> {{ sake.brewery.name }}<br>
                                     <i class="bi bi-geo-alt"></i> {{ sake.brewery.region.name }}
                                 </small>
-                            </p>
+                            </p> -->
                         </div>
-                        <div class="rating">
+                        <!-- <div class="rating">
                             {% set rating = sake.average_rating() | round(1) %}
                             {% for i in range(5) %}
                                 <i class="bi bi-star-fill {% if i < rating %}text-warning{% endif %}"></i>
                             {% endfor %}
                             <span class="ms-2">{{ rating }}</span>
-                        </div>
+                        </div> -->
                     </div>
 
-                    {% if sake.flavor_profile %}
-                    <div class="mb-3">
+                    <!-- {% if sake.flavor_profile %} -->
+                    <!-- <div class="mb-3">
                         <span class="badge bg-primary">{{ sake.flavor_profile }}</span>
                     </div>
-                    {% endif %}
+                    {% endif %} -->
 
                     <a href="{{ url_for('sake_detail', sake_id=sake.id) }}" class="btn btn-outline-primary">詳細を見る</a>
                 </div>
