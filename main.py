@@ -1,6 +1,7 @@
 import logging
 import sys
 from datetime import datetime
+from sqlalchemy import text
 
 # Configure logging
 logging.basicConfig(
@@ -8,48 +9,45 @@ logging.basicConfig(
     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
     handlers=[
         logging.FileHandler("sake_app.log"),
-        logging.StreamHandler(sys.stdout)
+        logging.StreamHandler()
     ])
 logger = logging.getLogger(__name__)
 
-def check_database_connection():
-    """Check if database connection is working"""
+def check_database():
+    """Check database connection and initialization"""
     try:
-        from app import db
-        with db.engine.connect() as conn:
-            conn.execute("SELECT 1")
-        logger.info("Database connection test successful")
+        from models import db
+        # Test database connection using SQLAlchemy with proper text() wrapper
+        db.session.execute(text('SELECT 1'))
+        logger.info("Database connection successful")
         return True
     except Exception as e:
-        logger.error(f"Database connection failed: {e}")
+        logger.error(f"Database check failed: {e}")
         return False
 
 def main():
     try:
-        logger.info("Starting application initialization...")
+        logger.info("Starting Sake Review application...")
 
-        # Import Flask app
-        from app import app
+        # Import Flask app after logging configuration
+        from app import create_app
+        app = create_app()
 
-        if not app:
-            logger.error("Failed to create Flask application")
-            sys.exit(1)
+        # Verify database connection
+        with app.app_context():
+            if not check_database():
+                logger.error("Database verification failed")
+                sys.exit(1)
 
-        # Check database connection
-        if not check_database_connection():
-            logger.error("Failed to connect to database. Exiting...")
-            sys.exit(1)
-
-        # Start the Flask application
+        # Start Flask application
         logger.info("Starting Flask application...")
-        app.run(host="0.0.0.0", port=3000, debug=True)
+        app.run(host='0.0.0.0', port=3000, debug=True)
 
     except ImportError as e:
         logger.error(f"Import error: {e}")
         sys.exit(1)
     except Exception as e:
-        logger.error(f"Error starting application: {e}")
-        logger.error(f"Error type: {type(e).__name__}")
+        logger.error(f"Application error: {e}")
         sys.exit(1)
 
 if __name__ == "__main__":

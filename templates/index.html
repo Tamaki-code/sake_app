@@ -8,7 +8,7 @@
             <div class="col-md-8">
                 <h1 class="display-4 mb-4">日本酒を探す</h1>
                 <p class="lead">全国の酒蔵から厳選された日本酒をお探しください</p>
-                <form action="{{ url_for('search') }}" method="GET" class="mt-4">
+                <form action="{{ url_for('main.search') }}" method="GET" class="mt-4">
                     <div class="input-group">
                         <input type="text" name="q" class="form-control form-control-lg" placeholder="銘柄名で検索...">
                         <button type="submit" class="btn btn-primary btn-lg">検索</button>
@@ -50,7 +50,7 @@
                         {% endfor %}
                         <span class="ms-2">{{ rating }}</span>
                     </div>
-                    <a href="{{ url_for('sake_detail', sake_id=sake.id) }}" class="btn btn-outline-primary">詳細を見る</a>
+                    <a href="{{ url_for('main.sake_detail', sake_id=sake.id) }}" class="btn btn-outline-primary">詳細を見る</a>
                 </div>
             </div>
         </div>

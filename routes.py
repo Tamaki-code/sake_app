@@ -1,7 +1,12 @@
-from flask import render_template, request, jsonify, flash, redirect, url_for
+from flask import Blueprint, render_template, request, jsonify, flash, redirect, url_for
 from flask_login import login_user, logout_user, login_required, current_user
-from app import app
-from models import db, User, Sake, Review, Brewery, Region, FlavorChart
+from models import db
+from models.user import User
+from models.sake import Sake
+from models.review import Review
+from models.brewery import Brewery
+from models.region import Region
+from models.flavor_chart import FlavorChart
 import logging
 from datetime import datetime
 
@@ -9,20 +14,29 @@ from datetime import datetime
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
-@app.route('/login', methods=['GET', 'POST'])
+# Create blueprint
+bp = Blueprint('main', __name__)
+
+@bp.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
         user = User.query.filter_by(username=request.form.get('username')).first()
         if user and user.check_password(request.form.get('password')):
             login_user(user)
-            return redirect(url_for('index'))
+            return redirect(url_for('main.index'))
         flash('Invalid username or password', 'error')
     return render_template('login.html')
 
-@app.route('/')
+@bp.route('/logout')
+@login_required
+def logout():
+    logout_user()
+    flash('Successfully logged out', 'success')
+    return redirect(url_for('main.index'))
+
+@bp.route('/')
 def index():
     try:
-        # Use join to efficiently fetch related data
         featured_sakes = db.session.query(Sake)\
             .join(Brewery)\
             .join(Region)\
@@ -37,18 +51,16 @@ def index():
         flash('エラーが発生しました。しばらくしてから再度お試しください。', 'error')
         return render_template('index.html', featured_sakes=[])
 
-@app.route('/search')
+@bp.route('/search')
 def search():
     query = request.args.get('q', '').strip()
     flavor = request.args.get('flavor', '').strip()
 
     try:
-        # Start with a base query
         sake_query = db.session.query(Sake)\
             .join(Brewery)\
             .join(Region)
 
-        # Apply search filters
         if query:
             sake_query = sake_query.filter(
                 db.or_(
@@ -78,7 +90,7 @@ def search():
         flash('検索中にエラーが発生しました。検索条件を変更してお試しください。', 'error')
         return render_template('search.html', sakes=[], query=query, flavor=flavor)
 
-@app.route('/sake/<int:sake_id>')
+@bp.route('/sake/<int:sake_id>')
 def sake_detail(sake_id):
     try:
         sake = db.session.query(Sake)\
@@ -93,9 +105,9 @@ def sake_detail(sake_id):
     except Exception as e:
         logger.error(f"Error in sake_detail route for ID {sake_id}: {str(e)}")
         flash('日本酒の詳細情報の取得中にエラーが発生しました。', 'error')
-        return redirect(url_for('index'))
+        return redirect(url_for('main.index'))
 
-@app.route('/review/<int:sake_id>', methods=['POST'])
+@bp.route('/review/<int:sake_id>', methods=['POST'])
 @login_required
 def add_review(sake_id):
     if not request.is_json:
@@ -127,7 +139,7 @@ def add_review(sake_id):
         db.session.rollback()
         return jsonify({'error': 'レビューの投稿中にエラーが発生しました'}), 500
 
-@app.route('/update_database')
+@bp.route('/update_database')
 def update_database():
     try:
         logger.info("Starting database update process")
@@ -137,4 +149,4 @@ def update_database():
     except Exception as e:
         logger.error(f"Error updating database: {str(e)}")
         flash('データベースの更新中にエラーが発生しました', 'error')
-    return redirect(url_for('index'))
+    return redirect(url_for('main.index'))

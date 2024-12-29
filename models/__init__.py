@@ -1,7 +1,11 @@
 """
-Database models package
+Models package initialization
+Initialize SQLAlchemy instance
 """
-from app import db
+from flask_sqlalchemy import SQLAlchemy
 
-# Export only the database instance
+# Initialize SQLAlchemy without immediate app binding
+db = SQLAlchemy()
+
+# Export database instance
 __all__ = ['db']
