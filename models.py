@@ -25,13 +25,26 @@ class Brewery(db.Model):
 class FlavorChart(db.Model):
     __tablename__ = 'flavor_charts'
     id = db.Column(db.Integer, primary_key=True)
-    sakenowa_brand_id = db.Column('sakenowaBrandId', db.Integer)
-    f1 = db.Column(db.Float)
-    f2 = db.Column(db.Float)
-    f3 = db.Column(db.Float)
-    f4 = db.Column(db.Float)
-    f5 = db.Column(db.Float)
-    f6 = db.Column(db.Float)
+    brand_id = db.Column(db.String(100), nullable=False)
+    data = db.Column(db.JSON, nullable=True)  # Assuming chart data is JSON serializable
+    created_at = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
+    updated_at = db.Column(db.DateTime, nullable=False, default=datetime.utcnow, onupdate=datetime.utcnow)
+
+class FlavorTag(db.Model):
+    __tablename__ = 'flavor_tags'
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(100), nullable=False)
+    sakenowa_id = db.Column('sakenowaId', db.String(100), nullable=False, unique=True)
+    created_at = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
+    updated_at = db.Column(db.DateTime, nullable=False, default=datetime.utcnow, onupdate=datetime.utcnow)
+
+class Ranking(db.Model):
+    __tablename__ = 'rankings'
+    id = db.Column(db.Integer, primary_key=True)
+    sakenowa_id = db.Column('sakenowaId', db.String(100), unique=True, nullable=False)
+    rank = db.Column(db.Integer, nullable=False)
+    brand_name = db.Column(db.String(200), nullable=False)
+    score = db.Column(db.Float, nullable=False)
     created_at = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
     updated_at = db.Column(db.DateTime, nullable=False, default=datetime.utcnow, onupdate=datetime.utcnow)
 

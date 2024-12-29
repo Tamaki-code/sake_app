@@ -2,7 +2,6 @@ from flask import render_template, request, jsonify, flash, redirect, url_for
 from flask_login import login_user, logout_user, login_required, current_user
 from app import app, db
 from models import User, Sake, Review, Brewery, Region
-from sakenowa import update_sake_database
 import logging
 from datetime import datetime
 
@@ -96,7 +95,8 @@ def add_review(sake_id):
 def update_database():
     try:
         logging.info("Starting database update process")
-        update_sake_database()
+        from sakenowa import update_database
+        update_database()
         flash('Sake database updated successfully!', 'success')
     except Exception as e:
         logging.error(f"Error updating database: {e}")
