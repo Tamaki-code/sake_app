@@ -4,7 +4,8 @@ from datetime import datetime
 from werkzeug.security import generate_password_hash, check_password_hash
 from sqlalchemy import ForeignKeyConstraint
 
-db = SQLAlchemy()
+# Import db instance from app
+from app import db
 
 class Region(db.Model):
     __tablename__ = 'regions'
