@@ -38,14 +38,14 @@ def search():
             sake_query = sake_query.filter(Sake.name.ilike(f'%{query}%'))
 
         if flavor:
-            sake_query = sake_query.filter(db.text("flavor_profile->>'type' = :flavor")).params(flavor=flavor)
+            sake_query = sake_query.filter(Sake.flavor_profile == flavor)
 
         sakes = sake_query.all()
-        logging.info(f"Search query '{query}' returned {len(sakes)} results")
+        logging.info(f"Search query '{query}' with flavor '{flavor}' returned {len(sakes)} results")
         return render_template('search.html', sakes=sakes, query=query, flavor=flavor)
     except Exception as e:
         logging.error(f"Error during sake search: {e}")
-        flash('Error performing search', 'error')
+        flash('検索中にエラーが発生しました', 'error')
         return render_template('search.html', sakes=[], query=query, flavor=flavor)
 
 @app.route('/sake/<int:sake_id>')

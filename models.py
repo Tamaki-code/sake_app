@@ -26,7 +26,12 @@ class FlavorChart(db.Model):
     __tablename__ = 'flavor_charts'
     id = db.Column(db.Integer, primary_key=True)
     brand_id = db.Column(db.String(100), nullable=False)
-    data = db.Column(db.JSON, nullable=True)  # Assuming chart data is JSON serializable
+    f1 = db.Column(db.Float)
+    f2 = db.Column(db.Float)
+    f3 = db.Column(db.Float)
+    f4 = db.Column(db.Float)
+    f5 = db.Column(db.Float)
+    f6 = db.Column(db.Float)
     created_at = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
     updated_at = db.Column(db.DateTime, nullable=False, default=datetime.utcnow, onupdate=datetime.utcnow)
 
@@ -35,16 +40,6 @@ class FlavorTag(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(100), nullable=False)
     sakenowa_id = db.Column('sakenowaId', db.String(100), nullable=False, unique=True)
-    created_at = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
-    updated_at = db.Column(db.DateTime, nullable=False, default=datetime.utcnow, onupdate=datetime.utcnow)
-
-class Ranking(db.Model):
-    __tablename__ = 'rankings'
-    id = db.Column(db.Integer, primary_key=True)
-    sakenowa_id = db.Column('sakenowaId', db.String(100), unique=True, nullable=False)
-    rank = db.Column(db.Integer, nullable=False)
-    brand_name = db.Column(db.String(200), nullable=False)
-    score = db.Column(db.Float, nullable=False)
     created_at = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
     updated_at = db.Column(db.DateTime, nullable=False, default=datetime.utcnow, onupdate=datetime.utcnow)
 
@@ -76,9 +71,12 @@ class Sake(db.Model):
     sakenowa_id = db.Column('sakenowaId', db.String(100), unique=True)
     name = db.Column(db.String(200))
     brewery_id = db.Column(db.Integer, db.ForeignKey('breweries.id'))
+    flavor_chart_id = db.Column(db.Integer, db.ForeignKey('flavor_charts.id'))
+    flavor_profile = db.Column(db.String(50))  # light, medium, rich
     created_at = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
     updated_at = db.Column(db.DateTime, nullable=False, default=datetime.utcnow, onupdate=datetime.utcnow)
     reviews = db.relationship('Review', backref='sake', lazy='dynamic')
+    flavor_chart = db.relationship('FlavorChart', backref='sake', uselist=False)
 
     def average_rating(self):
         reviews = self.reviews.all()
