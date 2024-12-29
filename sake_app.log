@@ -258,3 +258,55 @@ FROM regions
  LIMIT %(param_1)s
 2024-12-29 07:31:00,824 - sqlalchemy.engine.Engine - INFO - [generated in 0.00092s] {'param_1': 1}
 2024-12-29 07:31:01,057 - sqlalchemy.engine.Engine - INFO - ROLLBACK
+2024-12-29 07:33:32,170 - __main__ - INFO - Starting application initialization...
+2024-12-29 07:33:32,484 - app - INFO - Flask app initialized
+2024-12-29 07:33:32,529 - __main__ - INFO - Initializing database...
+2024-12-29 07:33:34,606 - sqlalchemy.engine.Engine - INFO - select pg_catalog.version()
+2024-12-29 07:33:34,606 - sqlalchemy.engine.Engine - INFO - [raw sql] {}
+2024-12-29 07:33:35,065 - sqlalchemy.engine.Engine - INFO - select current_schema()
+2024-12-29 07:33:35,065 - sqlalchemy.engine.Engine - INFO - [raw sql] {}
+2024-12-29 07:33:35,523 - sqlalchemy.engine.Engine - INFO - show standard_conforming_strings
+2024-12-29 07:33:35,523 - sqlalchemy.engine.Engine - INFO - [raw sql] {}
+2024-12-29 07:33:35,981 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2024-12-29 07:33:35,982 - sqlalchemy.engine.Engine - INFO - SHOW client_encoding
+2024-12-29 07:33:35,982 - sqlalchemy.engine.Engine - INFO - [generated in 0.00025s] {}
+2024-12-29 07:33:36,441 - sqlalchemy.engine.Engine - INFO - SHOW server_encoding
+2024-12-29 07:33:36,441 - sqlalchemy.engine.Engine - INFO - [generated in 0.00045s] {}
+2024-12-29 07:33:36,670 - sqlalchemy.engine.Engine - INFO - SELECT datcollate FROM pg_database WHERE datname = current_database()
+2024-12-29 07:33:36,671 - sqlalchemy.engine.Engine - INFO - [generated in 0.00030s] {}
+2024-12-29 07:33:36,902 - create_tables - INFO - Database Encoding Settings:
+2024-12-29 07:33:36,902 - create_tables - INFO - Client Encoding: UTF8
+2024-12-29 07:33:36,902 - create_tables - INFO - Server Encoding: UTF8
+2024-12-29 07:33:36,903 - create_tables - INFO - Database Collation: C.UTF-8
+2024-12-29 07:33:36,903 - sqlalchemy.engine.Engine - INFO - SELECT convert_to(%(text)s, 'UTF8') <> ''::bytea as is_valid
+2024-12-29 07:33:36,903 - sqlalchemy.engine.Engine - INFO - [generated in 0.00025s] {'text': 'テスト日本語'}
+2024-12-29 07:34:19,585 - __main__ - INFO - Starting application initialization...
+2024-12-29 07:34:19,916 - app - INFO - Flask app initialized
+2024-12-29 07:34:19,949 - __main__ - ERROR - Error starting application: The current Flask app is not registered with this 'SQLAlchemy' instance. Did you forget to call 'init_app', or did you create multiple 'SQLAlchemy' instances?
+2024-12-29 07:34:19,949 - __main__ - ERROR - Error type: RuntimeError
+2024-12-29 07:34:47,161 - __main__ - INFO - Starting application initialization...
+2024-12-29 07:34:47,479 - app - INFO - Flask app initialized
+2024-12-29 07:34:49,588 - sqlalchemy.engine.Engine - INFO - select pg_catalog.version()
+2024-12-29 07:34:49,588 - sqlalchemy.engine.Engine - INFO - [raw sql] {}
+2024-12-29 07:34:50,047 - sqlalchemy.engine.Engine - INFO - select current_schema()
+2024-12-29 07:34:50,047 - sqlalchemy.engine.Engine - INFO - [raw sql] {}
+2024-12-29 07:34:50,506 - sqlalchemy.engine.Engine - INFO - show standard_conforming_strings
+2024-12-29 07:34:50,506 - sqlalchemy.engine.Engine - INFO - [raw sql] {}
+2024-12-29 07:34:50,965 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2024-12-29 07:34:50,969 - sqlalchemy.engine.Engine - INFO - SELECT pg_catalog.pg_class.relname 
+FROM pg_catalog.pg_class JOIN pg_catalog.pg_namespace ON pg_catalog.pg_namespace.oid = pg_catalog.pg_class.relnamespace 
+WHERE pg_catalog.pg_class.relname = %(table_name)s AND pg_catalog.pg_class.relkind = ANY (ARRAY[%(param_1)s, %(param_2)s, %(param_3)s, %(param_4)s, %(param_5)s]) AND pg_catalog.pg_table_is_visible(pg_catalog.pg_class.oid) AND pg_catalog.pg_namespace.nspname != %(nspname_1)s
+2024-12-29 07:34:50,969 - sqlalchemy.engine.Engine - INFO - [generated in 0.00028s] {'table_name': 'regions', 'param_1': 'r', 'param_2': 'p', 'param_3': 'f', 'param_4': 'v', 'param_5': 'm', 'nspname_1': 'pg_catalog'}
+2024-12-29 07:34:51,429 - sqlalchemy.engine.Engine - INFO - SELECT pg_catalog.pg_class.relname 
+FROM pg_catalog.pg_class JOIN pg_catalog.pg_namespace ON pg_catalog.pg_namespace.oid = pg_catalog.pg_class.relnamespace 
+WHERE pg_catalog.pg_class.relname = %(table_name)s AND pg_catalog.pg_class.relkind = ANY (ARRAY[%(param_1)s, %(param_2)s, %(param_3)s, %(param_4)s, %(param_5)s]) AND pg_catalog.pg_table_is_visible(pg_catalog.pg_class.oid) AND pg_catalog.pg_namespace.nspname != %(nspname_1)s
+2024-12-29 07:34:51,429 - sqlalchemy.engine.Engine - INFO - [cached since 0.4603s ago] {'table_name': 'breweries', 'param_1': 'r', 'param_2': 'p', 'param_3': 'f', 'param_4': 'v', 'param_5': 'm', 'nspname_1': 'pg_catalog'}
+2024-12-29 07:34:51,660 - sqlalchemy.engine.Engine - INFO - SELECT pg_catalog.pg_class.relname 
+FROM pg_catalog.pg_class JOIN pg_catalog.pg_namespace ON pg_catalog.pg_namespace.oid = pg_catalog.pg_class.relnamespace 
+WHERE pg_catalog.pg_class.relname = %(table_name)s AND pg_catalog.pg_class.relkind = ANY (ARRAY[%(param_1)s, %(param_2)s, %(param_3)s, %(param_4)s, %(param_5)s]) AND pg_catalog.pg_table_is_visible(pg_catalog.pg_class.oid) AND pg_catalog.pg_namespace.nspname != %(nspname_1)s
+2024-12-29 07:34:51,660 - sqlalchemy.engine.Engine - INFO - [cached since 0.6908s ago] {'table_name': 'sakes', 'param_1': 'r', 'param_2': 'p', 'param_3': 'f', 'param_4': 'v', 'param_5': 'm', 'nspname_1': 'pg_catalog'}
+2024-12-29 07:34:51,890 - sqlalchemy.engine.Engine - INFO - SELECT pg_catalog.pg_class.relname 
+FROM pg_catalog.pg_class JOIN pg_catalog.pg_namespace ON pg_catalog.pg_namespace.oid = pg_catalog.pg_class.relnamespace 
+WHERE pg_catalog.pg_class.relname = %(table_name)s AND pg_catalog.pg_class.relkind = ANY (ARRAY[%(param_1)s, %(param_2)s, %(param_3)s, %(param_4)s, %(param_5)s]) AND pg_catalog.pg_table_is_visible(pg_catalog.pg_class.oid) AND pg_catalog.pg_namespace.nspname != %(nspname_1)s
+2024-12-29 07:34:51,890 - sqlalchemy.engine.Engine - INFO - [cached since 0.9211s ago] {'table_name': 'flavor_charts', 'param_1': 'r', 'param_2': 'p', 'param_3': 'f', 'param_4': 'v', 'param_5': 'm', 'nspname_1': 'pg_catalog'}
+2024-12-29 07:47:31,159 - app - INFO - Flask app initialized

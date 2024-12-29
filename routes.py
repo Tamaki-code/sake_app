@@ -1,12 +1,12 @@
 from flask import render_template, request, jsonify, flash, redirect, url_for
 from flask_login import login_user, logout_user, login_required, current_user
-from app import app, db
-from models import User, Sake, Review, Brewery, Region, FlavorChart
+from app import app
+from models import db, User, Sake, Review, Brewery, Region, FlavorChart
 import logging
 from datetime import datetime
 
 # Configure logging
-logging.basicConfig(level=logging.DEBUG)
+logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
 @app.route('/login', methods=['GET', 'POST'])

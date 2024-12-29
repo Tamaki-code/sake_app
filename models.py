@@ -1,8 +1,10 @@
-from app import db
+from flask_sqlalchemy import SQLAlchemy
 from flask_login import UserMixin
 from datetime import datetime
 from werkzeug.security import generate_password_hash, check_password_hash
 from sqlalchemy import ForeignKeyConstraint
+
+db = SQLAlchemy()
 
 class Region(db.Model):
     __tablename__ = 'regions'
