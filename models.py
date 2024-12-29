@@ -1,10 +1,13 @@
+"""
+Models package initialization
+Initialize SQLAlchemy instance and import all models
+"""
 from flask_sqlalchemy import SQLAlchemy
-from datetime import datetime
 
-# Import db instance from app
-from app import db
+# Initialize SQLAlchemy without immediate app binding
+db = SQLAlchemy()
 
-# Import models from their respective files
+# Import models
 from models.user import User
 from models.region import Region
 from models.brewery import Brewery
@@ -13,7 +16,8 @@ from models.review import Review
 from models.flavor_chart import FlavorChart
 from models.flavor_tag import FlavorTag
 
-__all__ = ['User', 'Region', 'Brewery', 'Sake', 'Review', 'FlavorChart', 'FlavorTag']
+# Export all models
+__all__ = ['db', 'User', 'Region', 'Brewery', 'Sake', 'Review', 'FlavorChart', 'FlavorTag']
 
 class Region(db.Model):
     __tablename__ = 'regions'
@@ -92,3 +96,5 @@ class Review(db.Model):
     f4 = db.Column(db.Float)
     f5 = db.Column(db.Float)
     f6 = db.Column(db.Float)
+
+from datetime import datetime

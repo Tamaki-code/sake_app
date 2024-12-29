@@ -1,6 +1,5 @@
 import logging
 import sys
-from datetime import datetime
 from sqlalchemy import text
 
 # Configure logging
@@ -43,9 +42,6 @@ def main():
         logger.info("Starting Flask application...")
         app.run(host='0.0.0.0', port=3000, debug=True)
 
-    except ImportError as e:
-        logger.error(f"Import error: {e}")
-        sys.exit(1)
     except Exception as e:
         logger.error(f"Application error: {e}")
         sys.exit(1)

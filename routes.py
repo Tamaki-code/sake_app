@@ -20,18 +20,36 @@ bp = Blueprint('main', __name__)
 @bp.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
-        user = User.query.filter_by(username=request.form.get('username')).first()
-        if user and user.check_password(request.form.get('password')):
-            login_user(user)
-            return redirect(url_for('main.index'))
-        flash('Invalid username or password', 'error')
+        try:
+            username = request.form.get('username')
+            password = request.form.get('password')
+
+            if not username or not password:
+                flash('ユーザー名とパスワードを入力してください。', 'error')
+                return render_template('login.html')
+
+            user = User.query.filter_by(username=username).first()
+            if user and user.check_password(password):
+                login_user(user)
+                flash('ログインに成功しました。', 'success')
+                return redirect(url_for('main.index'))
+
+            flash('ユーザー名またはパスワードが正しくありません。', 'error')
+        except Exception as e:
+            logger.error(f"Login error: {str(e)}")
+            flash('ログイン処理中にエラーが発生しました。', 'error')
+
     return render_template('login.html')
 
 @bp.route('/logout')
 @login_required
 def logout():
-    logout_user()
-    flash('Successfully logged out', 'success')
+    try:
+        logout_user()
+        flash('ログアウトしました。', 'success')
+    except Exception as e:
+        logger.error(f"Logout error: {str(e)}")
+        flash('ログアウト処理中にエラーが発生しました。', 'error')
     return redirect(url_for('main.index'))
 
 @bp.route('/')
@@ -44,7 +62,6 @@ def index():
             .limit(6)\
             .all()
 
-        logger.info(f"Fetched {len(featured_sakes)} featured sakes")
         return render_template('index.html', featured_sakes=featured_sakes)
     except Exception as e:
         logger.error(f"Error in index route: {str(e)}")
@@ -83,7 +100,6 @@ def search():
                 sake_query = sake_query.filter(FlavorChart.f1.between(2, 3))
 
         sakes = sake_query.all()
-        logger.info(f"Search query '{query}' with flavor '{flavor}' returned {len(sakes)} results")
         return render_template('search.html', sakes=sakes, query=query, flavor=flavor)
     except Exception as e:
         logger.error(f"Error in search route: {str(e)}")
@@ -100,7 +116,6 @@ def sake_detail(sake_id):
             .first_or_404()
 
         reviews = sake.reviews.order_by(Review.created_at.desc()).all()
-        logger.info(f"Fetched sake details for ID {sake_id} with {len(reviews)} reviews")
         return render_template('sake_detail.html', sake=sake, reviews=reviews)
     except Exception as e:
         logger.error(f"Error in sake_detail route for ID {sake_id}: {str(e)}")
@@ -140,13 +155,25 @@ def add_review(sake_id):
         return jsonify({'error': 'レビューの投稿中にエラーが発生しました'}), 500
 
 @bp.route('/update_database')
+@login_required
 def update_database():
     try:
         logger.info("Starting database update process")
         from sakenowa import update_database
-        update_database()
-        flash('日本酒データベースの更新が完了しました！', 'success')
+
+        # Start the update process
+        result = update_database()
+
+        if result:
+            flash('日本酒データベースの更新が完了しました！', 'success')
+        else:
+            flash('データベースの更新中に問題が発生しました。ログを確認してください。', 'warning')
+
+    except ImportError as e:
+        logger.error(f"Import error during database update: {str(e)}")
+        flash('データベース更新モジュールの読み込みに失敗しました', 'error')
     except Exception as e:
         logger.error(f"Error updating database: {str(e)}")
         flash('データベースの更新中にエラーが発生しました', 'error')
+
     return redirect(url_for('main.index'))

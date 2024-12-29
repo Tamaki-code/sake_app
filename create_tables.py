@@ -3,7 +3,7 @@ from sqlalchemy import text
 from app import create_app
 from models import db
 
-logging.basicConfig(level=logging.DEBUG)
+logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
 def verify_database_encoding():
@@ -35,16 +35,6 @@ def verify_database_encoding():
         logger.error(f"Error verifying database encoding: {e}")
         return False
 
-def create_tables():
-    """Create all database tables"""
-    try:
-        db.create_all()
-        logger.info("Database tables created successfully")
-        return True
-    except Exception as e:
-        logger.error(f"Error creating tables: {e}")
-        return False
-
 def init_db():
     """Initialize the database with proper encoding and initial data"""
     try:
@@ -57,8 +47,8 @@ def init_db():
                 raise Exception("Database encoding verification failed")
 
             # Create tables
-            if not create_tables():
-                raise Exception("Failed to create database tables")
+            db.create_all()
+            logger.info("Database tables created successfully")
 
             # Create initial data if needed
             from models.user import User
