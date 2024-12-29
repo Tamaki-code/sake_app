@@ -6,9 +6,12 @@ from flask_login import LoginManager
 
 # Configure logging
 logging.basicConfig(
-    level=logging.DEBUG,
-    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s'
-)
+    level=logging.INFO,
+    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
+    handlers=[
+        logging.FileHandler("sake_app.log"),
+        logging.StreamHandler()
+    ])
 logger = logging.getLogger(__name__)
 
 # Initialize Flask
@@ -47,12 +50,15 @@ login_manager.login_view = 'login'
 logger.info("SQLAlchemy initialized")
 
 # Import models after db initialization
-from models import User, Sake, Review  # noqa: E402
+from models import Region, Brewery, Sake, FlavorChart, FlavorTag, Review, User  # noqa: E402
+
 logger.info("Models imported successfully")
+
 
 @login_manager.user_loader
 def load_user(id):
     return User.query.get(int(id))
+
 
 # Create tables
 def init_db():
@@ -62,14 +68,17 @@ def init_db():
             logger.info("Database tables created successfully")
 
             # Verify database encoding
-            result = db.session.execute(db.text("SHOW client_encoding")).scalar()
+            result = db.session.execute(
+                db.text("SHOW client_encoding")).scalar()
             logger.info(f"Database client encoding: {result}")
 
-            result = db.session.execute(db.text("SHOW server_encoding")).scalar()
+            result = db.session.execute(
+                db.text("SHOW server_encoding")).scalar()
             logger.info(f"Database server encoding: {result}")
         except Exception as e:
             logger.error(f"Error creating database tables: {e}")
             raise
+
 
 # Initialize database if this file is run directly
 if __name__ == '__main__':

@@ -1,0 +1,76 @@
+2024-12-29 07:16:29,186 - app - INFO - Flask app initialized
+2024-12-29 07:16:29,188 - app - INFO - Configuring database connection...
+2024-12-29 07:16:29,188 - app - INFO - Database configuration loaded
+2024-12-29 07:16:29,235 - app - INFO - SQLAlchemy initialized
+2024-12-29 07:16:29,253 - app - INFO - Models imported successfully
+2024-12-29 07:16:33,569 - __main__ - INFO - Database Encoding Settings:
+2024-12-29 07:16:33,570 - __main__ - INFO - Client Encoding: UTF8
+2024-12-29 07:16:33,570 - __main__ - INFO - Server Encoding: UTF8
+2024-12-29 07:16:33,570 - __main__ - INFO - Database Collation: C.UTF-8
+2024-12-29 07:16:33,800 - __main__ - INFO - Japanese character encoding test: Passed
+2024-12-29 07:16:36,076 - __main__ - INFO - Database tables created successfully!
+2024-12-29 07:17:27,782 - app - INFO - Flask app initialized
+2024-12-29 07:17:27,782 - app - INFO - Configuring database connection...
+2024-12-29 07:17:27,782 - app - INFO - Database configuration loaded
+2024-12-29 07:17:27,823 - app - INFO - SQLAlchemy initialized
+2024-12-29 07:17:27,838 - app - INFO - Models imported successfully
+2024-12-29 07:17:32,244 - __main__ - INFO - Database Encoding Settings:
+2024-12-29 07:17:32,244 - __main__ - INFO - Client Encoding: UTF8
+2024-12-29 07:17:32,244 - __main__ - INFO - Server Encoding: UTF8
+2024-12-29 07:17:32,245 - __main__ - INFO - Database Collation: C.UTF-8
+2024-12-29 07:17:32,477 - __main__ - INFO - Japanese character encoding test: Passed
+2024-12-29 07:17:34,795 - __main__ - INFO - Database tables created successfully!
+2024-12-29 07:18:11,521 - app - INFO - Flask app initialized
+2024-12-29 07:18:11,521 - app - INFO - Configuring database connection...
+2024-12-29 07:18:11,521 - app - INFO - Database configuration loaded
+2024-12-29 07:18:11,560 - app - INFO - SQLAlchemy initialized
+2024-12-29 07:18:11,578 - app - INFO - Models imported successfully
+2024-12-29 07:18:16,028 - __main__ - INFO - Cleaned up existing database schema
+2024-12-29 07:18:16,952 - __main__ - INFO - Database Encoding Settings:
+2024-12-29 07:18:16,952 - __main__ - INFO - Client Encoding: UTF8
+2024-12-29 07:18:16,952 - __main__ - INFO - Server Encoding: UTF8
+2024-12-29 07:18:16,952 - __main__ - INFO - Database Collation: C.UTF-8
+2024-12-29 07:18:17,183 - __main__ - INFO - Japanese character encoding test: Passed
+2024-12-29 07:18:21,160 - __main__ - INFO - Database tables created successfully!
+2024-12-29 07:18:22,204 - __main__ - INFO - Test user created successfully!
+2024-12-29 07:18:23,134 - __main__ - INFO - Test region created successfully!
+2024-12-29 07:19:23,318 - app - INFO - Flask app initialized
+2024-12-29 07:19:23,318 - app - INFO - Configuring database connection...
+2024-12-29 07:19:23,318 - app - INFO - Database configuration loaded
+2024-12-29 07:19:23,362 - app - INFO - SQLAlchemy initialized
+2024-12-29 07:19:23,376 - app - INFO - Models imported successfully
+2024-12-29 07:19:27,753 - __main__ - INFO - Cleaned up existing database schema
+2024-12-29 07:19:28,671 - __main__ - INFO - Database Encoding Settings:
+2024-12-29 07:19:28,671 - __main__ - INFO - Client Encoding: UTF8
+2024-12-29 07:19:28,672 - __main__ - INFO - Server Encoding: UTF8
+2024-12-29 07:19:28,672 - __main__ - INFO - Database Collation: C.UTF-8
+2024-12-29 07:19:28,902 - __main__ - INFO - Japanese character encoding test: Passed
+2024-12-29 07:19:32,837 - __main__ - INFO - Database tables created successfully!
+2024-12-29 07:19:33,869 - __main__ - INFO - Test user created successfully!
+2024-12-29 07:19:34,791 - __main__ - INFO - Test region created successfully!
+2024-12-29 07:20:15,218 - app - INFO - Flask app initialized
+2024-12-29 07:20:15,219 - app - INFO - Configuring database connection...
+2024-12-29 07:20:15,219 - app - INFO - Database configuration loaded
+2024-12-29 07:20:15,256 - app - INFO - SQLAlchemy initialized
+2024-12-29 07:20:15,271 - app - INFO - Models imported successfully
+2024-12-29 07:20:19,664 - __main__ - INFO - Cleaned up existing database schema
+2024-12-29 07:20:20,589 - __main__ - INFO - Database Encoding Settings:
+2024-12-29 07:20:20,589 - __main__ - INFO - Client Encoding: UTF8
+2024-12-29 07:20:20,589 - __main__ - INFO - Server Encoding: UTF8
+2024-12-29 07:20:20,589 - __main__ - INFO - Database Collation: C.UTF-8
+2024-12-29 07:20:20,820 - __main__ - INFO - Japanese character encoding test: Passed
+2024-12-29 07:20:24,773 - __main__ - INFO - Database tables created successfully!
+2024-12-29 07:20:24,780 - __main__ - ERROR - Error initializing database: Could not locate any relevant foreign key columns for primary join condition 'flavor_charts.brand_id = sakes."sakenowaId"' on relationship FlavorChart.sake.  Ensure that referencing columns are associated with a ForeignKey or ForeignKeyConstraint, or are annotated in the join condition with the foreign() annotation.
+2024-12-29 07:21:05,818 - app - INFO - Flask app initialized
+2024-12-29 07:21:05,818 - app - INFO - Configuring database connection...
+2024-12-29 07:21:05,819 - app - INFO - Database configuration loaded
+2024-12-29 07:21:05,860 - app - INFO - SQLAlchemy initialized
+2024-12-29 07:21:05,876 - app - INFO - Models imported successfully
+2024-12-29 07:21:10,263 - __main__ - INFO - Cleaned up existing database schema
+2024-12-29 07:21:11,185 - __main__ - INFO - Database Encoding Settings:
+2024-12-29 07:21:11,185 - __main__ - INFO - Client Encoding: UTF8
+2024-12-29 07:21:11,185 - __main__ - INFO - Server Encoding: UTF8
+2024-12-29 07:21:11,185 - __main__ - INFO - Database Collation: C.UTF-8
+2024-12-29 07:21:11,416 - __main__ - INFO - Japanese character encoding test: Passed
+2024-12-29 07:21:15,373 - __main__ - INFO - Database tables created successfully!
+2024-12-29 07:21:15,381 - __main__ - ERROR - Error initializing database: Could not locate any relevant foreign key columns for primary join condition 'flavor_charts.brand_id = sakes."sakenowaId"' on relationship FlavorChart.sake.  Ensure that referencing columns are associated with a ForeignKey or ForeignKeyConstraint, or are annotated in the join condition with the foreign() annotation.

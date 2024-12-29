@@ -35,6 +35,12 @@ def verify_database_encoding():
 def init_db():
     try:
         with app.app_context():
+            # Drop existing tables to avoid conflicts
+            db.session.execute(db.text("DROP SCHEMA public CASCADE"))
+            db.session.execute(db.text("CREATE SCHEMA public"))
+            db.session.commit()
+            logger.info("Cleaned up existing database schema")
+
             # Verify database encoding first
             if not verify_database_encoding():
                 raise Exception("Database encoding verification failed")

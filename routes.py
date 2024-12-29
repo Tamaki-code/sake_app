@@ -1,7 +1,7 @@
 from flask import render_template, request, jsonify, flash, redirect, url_for
 from flask_login import login_user, logout_user, login_required, current_user
 from app import app, db
-from models import User, Sake, Review, Brewery, Region
+from models import User, Sake, Review, Brewery, Region, FlavorChart # Added FlavorChart import
 import logging
 from datetime import datetime
 
@@ -32,24 +32,36 @@ def index():
 
 @app.route('/search')
 def search():
-    query = request.args.get('q', '').strip()  # クエリ文字列を取得
+    query = request.args.get('q', '').strip()
+    flavor = request.args.get('flavor', '').strip()
     try:
-        # 銘柄名で検索
-        sake_query = Sake.query
+        sake_query = Sake.query.join(Brewery).join(Region)
+
         if query:
             sake_query = sake_query.filter(
-                Sake.name.ilike(f'%{query}%'))  # 部分一致検索
+                Sake.name.ilike(f'%{query}%')
+            )
 
-        # 検索結果を取得
+        if flavor:
+            sake_query = sake_query.join(
+                FlavorChart,
+                FlavorChart.brand_id == Sake.sakenowa_id,
+                isouter=True
+            )
+            if flavor == 'light':
+                sake_query = sake_query.filter(FlavorChart.f1 < 2)
+            elif flavor == 'rich':
+                sake_query = sake_query.filter(FlavorChart.f1 > 3)
+            elif flavor == 'medium':
+                sake_query = sake_query.filter(FlavorChart.f1.between(2, 3))
+
         sakes = sake_query.all()
-
-        # 結果をテンプレートに渡す
-        logging.info(f"Search query '{query}' returned {len(sakes)} results")
-        return render_template('search.html', sakes=sakes, query=query)
+        logging.info(f"Search query '{query}' with flavor '{flavor}' returned {len(sakes)} results")
+        return render_template('search.html', sakes=sakes, query=query, flavor=flavor)
     except Exception as e:
-        logging.error(f"Error during sake search: {e}")
+        logging.error(f"Error during sake search: {str(e)}")
         flash('検索中にエラーが発生しました', 'error')
-        return render_template('search.html', sakes=[], query=query)
+        return render_template('search.html', sakes=[], query=query, flavor=flavor)
 
 
 @app.route('/sake/<int:sake_id>')

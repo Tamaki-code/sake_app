@@ -3,7 +3,6 @@ from flask_login import UserMixin
 from datetime import datetime
 from werkzeug.security import generate_password_hash, check_password_hash
 
-
 class Region(db.Model):
     __tablename__ = 'regions'
     id = db.Column(db.Integer, primary_key=True)
@@ -43,7 +42,7 @@ class Brewery(db.Model):
 class FlavorChart(db.Model):
     __tablename__ = 'flavor_charts'
     id = db.Column(db.Integer, primary_key=True)
-    brand_id = db.Column(db.String(100), nullable=False)
+    sakenowa_brand_id = db.Column('brand_id', db.String(100), nullable=False)
     f1 = db.Column(db.Float)
     f2 = db.Column(db.Float)
     f3 = db.Column(db.Float)
@@ -57,6 +56,10 @@ class FlavorChart(db.Model):
                            nullable=False,
                            default=datetime.utcnow,
                            onupdate=datetime.utcnow)
+    sake = db.relationship('Sake', 
+                          primaryjoin='FlavorChart.sakenowa_brand_id == Sake.sakenowa_id',
+                          backref='flavor_chart',
+                          uselist=False)
 
 
 class FlavorTag(db.Model):
@@ -113,7 +116,6 @@ class Sake(db.Model):
     name = db.Column(db.String(200))
     brewery_id = db.Column(db.Integer, db.ForeignKey('breweries.id'))
     flavor_chart_id = db.Column(db.Integer, db.ForeignKey('flavor_charts.id'))
-    # flavor_profile = db.Column(db.String(50))  # light, medium, rich
     created_at = db.Column(db.DateTime,
                            nullable=False,
                            default=datetime.utcnow)

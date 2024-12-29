@@ -17,12 +17,24 @@ def main():
 
         # Verify database connection
         with app.app_context():
-            db.engine.connect()
-            logger.info("Database connection verified")
+            try:
+                db.engine.connect()
+                logger.info("Database connection verified")
+
+                # Verify tables exist
+                tables = db.session.execute(db.text("""
+                    SELECT tablename 
+                    FROM pg_catalog.pg_tables 
+                    WHERE schemaname = 'public'
+                """)).fetchall()
+                logger.info(f"Available tables: {[table[0] for table in tables]}")
+            except Exception as db_error:
+                logger.error(f"Database connection error: {db_error}")
+                raise
 
         # Start the Flask application
         logger.info("Starting Flask application...")
-        app.run(host="0.0.0.0", port=5000, debug=True)
+        app.run(host="0.0.0.0", port=3000, debug=True)
     except ImportError as e:
         logger.error(f"Import error: {e}")
         raise
