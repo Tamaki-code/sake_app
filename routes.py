@@ -39,7 +39,7 @@ def signup():
             db.session.add(user)
             db.session.commit()
 
-            # ユーザー登録後、自動的にログイン
+            # Log in the user after successful registration
             login_user(user)
             flash('アカウントの登録が完了しました！', 'success')
             return redirect(url_for('main.index'))
