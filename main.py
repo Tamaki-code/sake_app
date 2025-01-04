@@ -44,7 +44,7 @@ def main():
 
         # Start Flask application
         logger.info("Starting Flask application on port 5000...")
-        app.run(host='0.0.0.0', port=5000, debug=True)
+        app.run(host='0.0.0.0', port=5000)
 
     except Exception as e:
         logger.error(f"Application startup error: {str(e)}")

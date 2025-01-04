@@ -3,12 +3,11 @@ import logging
 from flask import Flask
 from flask_login import LoginManager
 from models import db
-from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import text
 
 # Configure logging
 logging.basicConfig(
-    level=logging.INFO,
+    level=logging.DEBUG,  # Changed to DEBUG for more detailed logs
     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
     handlers=[
         logging.FileHandler("sake_app.log"),
@@ -23,23 +22,31 @@ def create_app():
     """Application factory function"""
     app = Flask(__name__)
 
-    # Database configuration
+    # Configure database URL
     database_url = os.environ.get('DATABASE_URL')
     if not database_url:
-        database_url = f"postgresql://{os.environ.get('PGUSER')}:{os.environ.get('PGPASSWORD')}@{os.environ.get('PGHOST')}:{os.environ.get('PGPORT')}/{os.environ.get('PGDATABASE')}"
-        logger.info("Using constructed database URL from environment variables")
+        # Construct from individual components
+        try:
+            database_url = (
+                f"postgresql://{os.environ['PGUSER']}:{os.environ['PGPASSWORD']}"
+                f"@{os.environ['PGHOST']}:{os.environ['PGPORT']}/{os.environ['PGDATABASE']}"
+            )
+            logger.info("Database URL constructed from environment variables")
+        except KeyError as e:
+            logger.error(f"Missing required environment variable: {e}")
+            raise ValueError(f"Missing required database configuration: {e}")
 
+    # Handle Heroku-style postgres:// URLs
     if database_url.startswith('postgres://'):
         database_url = database_url.replace('postgres://', 'postgresql://', 1)
 
-    logger.info("Configuring database connection...")
-
-    # Configure SQLAlchemy
+    # Configure Flask application
     app.config.update(
         SQLALCHEMY_DATABASE_URI=database_url,
         SQLALCHEMY_TRACK_MODIFICATIONS=False,
-        SQLALCHEMY_ECHO=True,
-        SECRET_KEY=os.environ.get('SECRET_KEY', os.urandom(24))
+        SQLALCHEMY_ECHO=True,  # Enable SQL query logging
+        SECRET_KEY=os.environ.get('SECRET_KEY', os.urandom(24)),
+        DEBUG=True  # Enable debug mode
     )
 
     try:
@@ -49,8 +56,8 @@ def create_app():
         login_manager.login_view = 'main.login'
         logger.info("Flask extensions initialized successfully")
 
-        # Register blueprints and configure user loader
         with app.app_context():
+            # Import and configure user loader
             from models.user import User
 
             @login_manager.user_loader
@@ -66,13 +73,9 @@ def create_app():
             app.register_blueprint(bp)
             logger.info("Blueprints registered successfully")
 
-            # Create tables if they don't exist
-            db.create_all()
-            logger.info("Database tables created successfully")
-
-            # Test database connection
-            db.session.execute(text("SELECT 1"))
-            logger.info("Database connection test successful")
+            # Verify database connection
+            db.session.execute(text('SELECT 1'))
+            logger.info("Database connection verified successfully")
 
             return app
 
