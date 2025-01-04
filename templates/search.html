@@ -4,75 +4,57 @@
 <div class="container my-5">
     <div class="row mb-4">
         <div class="col-md-8">
-            <h2 class="text-light">日本酒を探す</h2>
+            <h2 class="text-light">日本酒を探すよ</h2>
         </div>
     </div>
 
     <div class="row mb-4">
         <div class="col-md-8">
-            <form id="search-form" class="card card-body bg-dark">
+            <form action="{{ url_for('main.search') }}" method="GET" class="mt-4">
+                <div class="input-group">
+                    <input type="text" name="q" class="form-control form-control-lg" placeholder="銘柄名で検索...">
+                    <button type="submit" class="btn btn-primary btn-lg">検索</button>
+                </div>
+            </form>
+            <!-- <form id="search-form" class="card card-body bg-dark">
                 <div class="row g-3">
                     <div class="col-md-6">
                         <input type="text" id="search-input" class="form-control" placeholder="銘柄名で検索..." value="{{ query }}">
-                    </div>
-                    <div class="col-md-4">
+                    </div> -->
+                    <!-- <div class="col-md-4">
                         <select id="flavor-select" class="form-select">
                             <option value="">全てのタイプ</option>
                             <option value="light" {% if flavor == 'light' %}selected{% endif %}>淡麗</option>
                             <option value="medium" {% if flavor == 'medium' %}selected{% endif %}>中口</option>
                             <option value="rich" {% if flavor == 'rich' %}selected{% endif %}>濃醇</option>
                         </select>
-                    </div>
-                    <div class="col-md-2">
+                    </div> -->
+                    <!-- <div class="col-md-2">
                         <button type="submit" class="btn btn-primary w-100">検索</button>
                     </div>
                 </div>
-            </form>
+            </form> -->
         </div>
     </div>
 
     <div class="row g-4">
-        {% for sake in sakes %}
+        <h2>検索結果</h2>
+        {% for sake in search_results %}
         <div class="col-md-6">
             <div class="sake-card card h-100">
                 <div class="card-body">
                     <div class="d-flex justify-content-between align-items-start">
                         <div>
-                            <h5 class="card-title">{{ sake.name }}</h5>
-                            <p class="card-text">
-                                <small class="text-muted">
-                                    <i class="bi bi-building"></i> {{ sake.brewery.name }}<br>
-                                    <i class="bi bi-geo-alt"></i> {{ sake.brewery.region.name }}
-                                </small>
-                            </p>
-                        </div>
-                        <div class="rating">
-                            {% set rating = sake.average_rating() | round(1) %}
-                            {% for i in range(5) %}
-                                <i class="bi bi-star-fill {% if i < rating %}text-warning{% endif %}"></i>
-                            {% endfor %}
-                            <span class="ms-2">{{ rating }}</span>
+                            <a href="{{ url_for('main.sake_detail', sake_id=sake.id) }}">{{ sake.name }}</a>
                         </div>
                     </div>
-
-                    {% if sake.flavor_chart %}
-                    <div class="mb-3">
-                        <span class="badge bg-primary">
-                            {% if sake.flavor_chart.f1 > 3 %}濃醇
-                            {% elif sake.flavor_chart.f1 < 2 %}淡麗
-                            {% else %}中口{% endif %}
-                        </span>
-                    </div>
-                    {% endif %}
-
-                    <a href="{{ url_for('sake_detail', sake_id=sake.id) }}" class="btn btn-outline-primary">詳細を見る</a>
                 </div>
             </div>
         </div>
         {% endfor %}
     </div>
 
-    {% if not sakes %}
+    {% if not search_results %}
     <div class="text-center my-5">
         <h3 class="text-muted">該当する日本酒が見つかりませんでした</h3>
         <p>検索条件を変更してお試しください</p>

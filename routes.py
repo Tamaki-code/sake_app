@@ -9,13 +9,47 @@ from models.region import Region
 from models.flavor_chart import FlavorChart
 import logging
 from datetime import datetime
+from forms import SignupForm
 
 # Configure logging
-logging.basicConfig(level=logging.INFO)
+logging.basicConfig(
+    level=logging.INFO,
+    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
+    handlers=[
+        logging.StreamHandler()
+    ])
 logger = logging.getLogger(__name__)
 
 # Create blueprint
 bp = Blueprint('main', __name__)
+
+@bp.route('/signup', methods=['GET', 'POST'])
+def signup():
+    if current_user.is_authenticated:
+        return redirect(url_for('main.index'))
+
+    form = SignupForm()
+    if form.validate_on_submit():
+        try:
+            user = User(
+                username=form.username.data,
+                email=form.email.data
+            )
+            user.set_password(form.password.data)
+            db.session.add(user)
+            db.session.commit()
+
+            # ユーザー登録後、自動的にログイン
+            login_user(user)
+            flash('アカウントの登録が完了しました！', 'success')
+            return redirect(url_for('main.index'))
+
+        except Exception as e:
+            logger.error(f"Error in signup: {str(e)}")
+            db.session.rollback()
+            flash('アカウントの登録中にエラーが発生しました。', 'error')
+
+    return render_template('signup.html', form=form)
 
 @bp.route('/login', methods=['GET', 'POST'])
 def login():
@@ -55,64 +89,40 @@ def logout():
 @bp.route('/')
 def index():
     try:
-        featured_sakes = db.session.query(Sake)\
-            .join(Brewery)\
-            .join(Region)\
-            .order_by(Sake.created_at.desc())\
-            .limit(6)\
+        search_results = db.session.query(Sake) \
+            .order_by(Sake.created_at.desc()) \
             .all()
 
-        return render_template('index.html', featured_sakes=featured_sakes)
+        return render_template('index.html', search_results=search_results)
     except Exception as e:
         logger.error(f"Error in index route: {str(e)}")
         flash('エラーが発生しました。しばらくしてから再度お試しください。', 'error')
-        return render_template('index.html', featured_sakes=[])
+        return render_template('index.html', search_results=[])
 
 @bp.route('/search')
 def search():
-    query = request.args.get('q', '').strip()
-    flavor = request.args.get('flavor', '').strip()
-
     try:
-        sake_query = db.session.query(Sake)\
-            .join(Brewery)\
-            .join(Region)
-
+        query = request.args.get('q', '').strip()
+        logger.info(f"Received query: {query}")
+        sake_query = db.session.query(Sake)
         if query:
-            sake_query = sake_query.filter(
-                db.or_(
-                    Sake.name.ilike(f'%{query}%'),
-                    Brewery.name.ilike(f'%{query}%')
-                )
-            )
+            sake_query = sake_query.filter(Sake.name.ilike(f'%{query}%'))
 
-        if flavor:
-            sake_query = sake_query.join(
-                FlavorChart,
-                FlavorChart.sake_id == Sake.id,
-                isouter=True
-            )
-            if flavor == 'light':
-                sake_query = sake_query.filter(FlavorChart.f1 < 2)
-            elif flavor == 'rich':
-                sake_query = sake_query.filter(FlavorChart.f1 > 3)
-            elif flavor == 'medium':
-                sake_query = sake_query.filter(FlavorChart.f1.between(2, 3))
+        search_results = sake_query.order_by(Sake.created_at.desc()).all()
 
-        sakes = sake_query.all()
-        return render_template('search.html', sakes=sakes, query=query, flavor=flavor)
+        return render_template('search.html', search_results=search_results)
     except Exception as e:
         logger.error(f"Error in search route: {str(e)}")
-        flash('検索中にエラーが発生しました。検索条件を変更してお試しください。', 'error')
-        return render_template('search.html', sakes=[], query=query, flavor=flavor)
+        flash('エラーが発生しました。検索条件を変更してお試しください。', 'error')
+        return render_template('search.html', search_results=[])
 
 @bp.route('/sake/<int:sake_id>')
 def sake_detail(sake_id):
     try:
-        sake = db.session.query(Sake)\
-            .join(Brewery)\
-            .join(Region)\
-            .filter(Sake.id == sake_id)\
+        sake = db.session.query(Sake) \
+            .join(Brewery) \
+            .join(Region) \
+            .filter(Sake.id == sake_id) \
             .first_or_404()
 
         reviews = sake.reviews.order_by(Review.created_at.desc()).all()
@@ -132,22 +142,22 @@ def add_review(sake_id):
     rating = data.get('rating')
     comment = data.get('comment')
 
-    if not rating or not isinstance(rating, (int, float)) or rating < 1 or rating > 5:
+    if not rating or not isinstance(rating,
+                                    (int, float)) or rating < 1 or rating > 5:
         return jsonify({'error': 'Invalid rating'}), 400
 
     try:
         sake = Sake.query.get_or_404(sake_id)
-        review = Review(
-            sake_id=sake_id,
-            user_id=current_user.id,
-            rating=rating,
-            comment=comment,
-            recorded_at=datetime.utcnow().date()
-        )
+        review = Review(sake_id=sake_id,
+                        user_id=current_user.id,
+                        rating=rating,
+                        comment=comment,
+                        recorded_at=datetime.utcnow().date())
 
         db.session.add(review)
         db.session.commit()
-        logger.info(f"Added new review for sake {sake_id} by user {current_user.id}")
+        logger.info(
+            f"Added new review for sake {sake_id} by user {current_user.id}")
         return jsonify({'success': True})
     except Exception as e:
         logger.error(f"Error adding review: {str(e)}")

@@ -1,6 +1,8 @@
 import logging
 import sys
 from sqlalchemy import text
+from flask_sqlalchemy import SQLAlchemy
+from flask import Flask
 
 # Configure logging
 logging.basicConfig(
@@ -8,7 +10,7 @@ logging.basicConfig(
     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
     handlers=[
         logging.FileHandler("sake_app.log"),
-        logging.StreamHandler()
+        logging.StreamHandler(sys.stdout)
     ])
 logger = logging.getLogger(__name__)
 
@@ -17,11 +19,12 @@ def check_database():
     try:
         from models import db
         # Test database connection using SQLAlchemy with proper text() wrapper
-        db.session.execute(text('SELECT 1'))
+        result = db.session.execute(text('SELECT 1'))
+        result.scalar()
         logger.info("Database connection successful")
         return True
     except Exception as e:
-        logger.error(f"Database check failed: {e}")
+        logger.error(f"Database check failed: {str(e)}")
         return False
 
 def main():
@@ -37,13 +40,14 @@ def main():
             if not check_database():
                 logger.error("Database verification failed")
                 sys.exit(1)
+            logger.info("Database verification successful")
 
         # Start Flask application
-        logger.info("Starting Flask application...")
-        app.run(host='0.0.0.0', port=3000, debug=True)
+        logger.info("Starting Flask application on port 5000...")
+        app.run(host='0.0.0.0', port=5000, debug=True)
 
     except Exception as e:
-        logger.error(f"Application error: {e}")
+        logger.error(f"Application startup error: {str(e)}")
         sys.exit(1)
 
 if __name__ == "__main__":

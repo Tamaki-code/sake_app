@@ -2,6 +2,7 @@
 Models package initialization
 Initialize SQLAlchemy instance and import all models
 """
+from datetime import datetime
 from flask_sqlalchemy import SQLAlchemy
 
 # Initialize SQLAlchemy without immediate app binding
@@ -96,5 +97,3 @@ class Review(db.Model):
     f4 = db.Column(db.Float)
     f5 = db.Column(db.Float)
     f6 = db.Column(db.Float)
-
-from datetime import datetime
