@@ -28795,3 +28795,970 @@ FROM sakes ORDER BY sakes.created_at DESC
 2025-01-04 13:51:01,787 - werkzeug - INFO - 172.31.196.12 - - [04/Jan/2025 13:51:01] "GET / HTTP/1.1" 200 -
 2025-01-04 13:51:01,966 - werkzeug - INFO - 172.31.196.12 - - [04/Jan/2025 13:51:01] "[36mGET /static/css/custom.css HTTP/1.1[0m" 304 -
 2025-01-04 13:51:03,930 - werkzeug - INFO - 172.31.196.12 - - [04/Jan/2025 13:51:03] "[36mGET /static/js/main.js HTTP/1.1[0m" 304 -
+2025-01-04 13:55:44,554 - werkzeug - INFO - 172.31.196.12 - - [04/Jan/2025 13:55:44] "[32mGET /logout HTTP/1.1[0m" 302 -
+2025-01-04 13:55:44,699 - werkzeug - INFO - 172.31.196.12 - - [04/Jan/2025 13:55:44] "GET /login?next=/logout HTTP/1.1" 200 -
+2025-01-04 13:55:44,882 - werkzeug - INFO - 172.31.196.12 - - [04/Jan/2025 13:55:44] "[36mGET /static/css/custom.css HTTP/1.1[0m" 304 -
+2025-01-04 13:55:44,965 - werkzeug - INFO - 172.31.196.12 - - [04/Jan/2025 13:55:44] "[36mGET /static/js/main.js HTTP/1.1[0m" 304 -
+2025-01-04 13:55:52,940 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2025-01-04 13:55:52,943 - sqlalchemy.engine.Engine - INFO - SELECT users.id AS users_id, users.email AS users_email, users.username AS users_username, users.encrypted_password AS users_encrypted_password, users.reset_password_token AS users_reset_password_token, users.reset_password_sent_at AS users_reset_password_sent_at, users.remember_created_at AS users_remember_created_at, users.created_at AS users_created_at, users.updated_at AS users_updated_at, users.gender AS users_gender, users.birthdate AS users_birthdate, users.comment AS users_comment 
+FROM users 
+WHERE users.username = %(username_1)s 
+ LIMIT %(param_1)s
+2025-01-04 13:55:52,943 - sqlalchemy.engine.Engine - INFO - [generated in 0.00024s] {'username_1': 'ゆたんぽ', 'param_1': 1}
+2025-01-04 13:55:53,502 - sqlalchemy.engine.Engine - INFO - ROLLBACK
+2025-01-04 13:55:53,734 - werkzeug - INFO - 172.31.196.12 - - [04/Jan/2025 13:55:53] "[32mPOST /login HTTP/1.1[0m" 302 -
+2025-01-04 13:55:53,876 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2025-01-04 13:55:53,876 - sqlalchemy.engine.Engine - INFO - SELECT sakes.id AS sakes_id, sakes.sakenowa_id AS sakes_sakenowa_id, sakes.name AS sakes_name, sakes.brewery_id AS sakes_brewery_id, sakes.created_at AS sakes_created_at, sakes.updated_at AS sakes_updated_at 
+FROM sakes ORDER BY sakes.created_at DESC
+2025-01-04 13:55:53,877 - sqlalchemy.engine.Engine - INFO - [cached since 300.6s ago] {}
+2025-01-04 13:55:55,301 - sqlalchemy.engine.Engine - INFO - SELECT users.id AS users_id, users.email AS users_email, users.username AS users_username, users.encrypted_password AS users_encrypted_password, users.reset_password_token AS users_reset_password_token, users.reset_password_sent_at AS users_reset_password_sent_at, users.remember_created_at AS users_remember_created_at, users.created_at AS users_created_at, users.updated_at AS users_updated_at, users.gender AS users_gender, users.birthdate AS users_birthdate, users.comment AS users_comment 
+FROM users 
+WHERE users.id = %(pk_1)s
+2025-01-04 13:55:55,301 - sqlalchemy.engine.Engine - INFO - [generated in 0.00028s] {'pk_1': 2}
+2025-01-04 13:55:55,540 - sqlalchemy.engine.Engine - INFO - ROLLBACK
+2025-01-04 13:55:55,771 - werkzeug - INFO - 172.31.196.12 - - [04/Jan/2025 13:55:55] "GET / HTTP/1.1" 200 -
+2025-01-04 13:55:55,949 - werkzeug - INFO - 172.31.196.12 - - [04/Jan/2025 13:55:55] "[36mGET /static/css/custom.css HTTP/1.1[0m" 304 -
+2025-01-04 13:55:57,307 - werkzeug - INFO - 172.31.196.12 - - [04/Jan/2025 13:55:57] "[36mGET /static/js/main.js HTTP/1.1[0m" 304 -
+2025-01-05 03:58:06,602 - __main__ - INFO - Flask extensions initialized successfully
+2025-01-05 03:58:06,647 - __main__ - INFO - Blueprints registered successfully
+2025-01-05 03:58:10,187 - sqlalchemy.engine.Engine - INFO - select pg_catalog.version()
+2025-01-05 03:58:10,187 - sqlalchemy.engine.Engine - INFO - [raw sql] {}
+2025-01-05 03:58:10,656 - sqlalchemy.engine.Engine - INFO - select current_schema()
+2025-01-05 03:58:10,656 - sqlalchemy.engine.Engine - INFO - [raw sql] {}
+2025-01-05 03:58:11,123 - sqlalchemy.engine.Engine - INFO - show standard_conforming_strings
+2025-01-05 03:58:11,123 - sqlalchemy.engine.Engine - INFO - [raw sql] {}
+2025-01-05 03:58:11,588 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2025-01-05 03:58:11,589 - sqlalchemy.engine.Engine - INFO - SELECT 1
+2025-01-05 03:58:11,589 - sqlalchemy.engine.Engine - INFO - [generated in 0.00037s] {}
+2025-01-05 03:58:12,053 - __main__ - INFO - Database connection verified successfully
+2025-01-05 03:58:12,054 - sqlalchemy.engine.Engine - INFO - ROLLBACK
+2025-01-05 03:58:12,329 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://172.31.196.46:5000
+2025-01-05 03:58:12,329 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-01-05 03:58:12,330 - werkzeug - INFO -  * Restarting with stat
+2025-01-05 03:58:12,822 - __main__ - INFO - Flask extensions initialized successfully
+2025-01-05 03:58:12,836 - __main__ - INFO - Blueprints registered successfully
+2025-01-05 03:58:14,966 - sqlalchemy.engine.Engine - INFO - select pg_catalog.version()
+2025-01-05 03:58:14,967 - sqlalchemy.engine.Engine - INFO - [raw sql] {}
+2025-01-05 03:58:15,437 - sqlalchemy.engine.Engine - INFO - select current_schema()
+2025-01-05 03:58:15,437 - sqlalchemy.engine.Engine - INFO - [raw sql] {}
+2025-01-05 03:58:15,907 - sqlalchemy.engine.Engine - INFO - show standard_conforming_strings
+2025-01-05 03:58:15,908 - sqlalchemy.engine.Engine - INFO - [raw sql] {}
+2025-01-05 03:58:16,377 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2025-01-05 03:58:16,378 - sqlalchemy.engine.Engine - INFO - SELECT 1
+2025-01-05 03:58:16,378 - sqlalchemy.engine.Engine - INFO - [generated in 0.00022s] {}
+2025-01-05 03:58:16,848 - __main__ - INFO - Database connection verified successfully
+2025-01-05 03:58:16,848 - sqlalchemy.engine.Engine - INFO - ROLLBACK
+2025-01-05 03:58:17,095 - werkzeug - WARNING -  * Debugger is active!
+2025-01-05 03:58:17,097 - werkzeug - INFO -  * Debugger PIN: 144-991-946
+2025-01-05 03:58:17,146 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2025-01-05 03:58:17,148 - sqlalchemy.engine.Engine - INFO - SELECT sakes.id AS sakes_id, sakes.sakenowa_id AS sakes_sakenowa_id, sakes.name AS sakes_name, sakes.brewery_id AS sakes_brewery_id, sakes.created_at AS sakes_created_at, sakes.updated_at AS sakes_updated_at 
+FROM sakes ORDER BY sakes.created_at DESC
+2025-01-05 03:58:17,148 - sqlalchemy.engine.Engine - INFO - [generated in 0.00025s] {}
+2025-01-05 03:58:18,649 - sqlalchemy.engine.Engine - INFO - ROLLBACK
+2025-01-05 03:58:18,925 - werkzeug - INFO - 172.31.196.46 - - [05/Jan/2025 03:58:18] "GET / HTTP/1.1" 200 -
+2025-01-05 03:58:19,516 - werkzeug - INFO - 172.31.196.46 - - [05/Jan/2025 03:58:19] "[36mGET /static/js/main.js HTTP/1.1[0m" 304 -
+2025-01-05 03:58:19,551 - werkzeug - INFO - 172.31.196.46 - - [05/Jan/2025 03:58:19] "[36mGET /static/css/custom.css HTTP/1.1[0m" 304 -
+2025-01-05 03:58:59,728 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2025-01-05 03:58:59,729 - sqlalchemy.engine.Engine - INFO - SELECT sakes.id AS sakes_id, sakes.sakenowa_id AS sakes_sakenowa_id, sakes.name AS sakes_name, sakes.brewery_id AS sakes_brewery_id, sakes.created_at AS sakes_created_at, sakes.updated_at AS sakes_updated_at 
+FROM sakes ORDER BY sakes.created_at DESC
+2025-01-05 03:58:59,729 - sqlalchemy.engine.Engine - INFO - [cached since 42.58s ago] {}
+2025-01-05 03:59:01,190 - sqlalchemy.engine.Engine - INFO - ROLLBACK
+2025-01-05 03:59:01,425 - werkzeug - INFO - 172.31.196.46 - - [05/Jan/2025 03:59:01] "GET / HTTP/1.1" 200 -
+2025-01-05 03:59:01,610 - werkzeug - INFO - 172.31.196.46 - - [05/Jan/2025 03:59:01] "[36mGET /static/css/custom.css HTTP/1.1[0m" 304 -
+2025-01-05 03:59:04,251 - werkzeug - INFO - 172.31.196.46 - - [05/Jan/2025 03:59:04] "[36mGET /static/js/main.js HTTP/1.1[0m" 304 -
+2025-01-05 03:59:05,534 - werkzeug - INFO - 172.31.196.46 - - [05/Jan/2025 03:59:05] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2025-01-05 03:59:13,447 - routes - INFO - Received query: 山
+2025-01-05 03:59:13,448 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2025-01-05 03:59:13,449 - sqlalchemy.engine.Engine - INFO - SELECT sakes.id AS sakes_id, sakes.sakenowa_id AS sakes_sakenowa_id, sakes.name AS sakes_name, sakes.brewery_id AS sakes_brewery_id, sakes.created_at AS sakes_created_at, sakes.updated_at AS sakes_updated_at 
+FROM sakes 
+WHERE sakes.name ILIKE %(name_1)s ORDER BY sakes.created_at DESC
+2025-01-05 03:59:13,449 - sqlalchemy.engine.Engine - INFO - [generated in 0.00024s] {'name_1': '%山%'}
+2025-01-05 03:59:14,206 - sqlalchemy.engine.Engine - INFO - ROLLBACK
+2025-01-05 03:59:14,441 - werkzeug - INFO - 172.31.196.46 - - [05/Jan/2025 03:59:14] "GET /search?q=山 HTTP/1.1" 200 -
+2025-01-05 03:59:14,628 - werkzeug - INFO - 172.31.196.46 - - [05/Jan/2025 03:59:14] "[36mGET /static/css/custom.css HTTP/1.1[0m" 304 -
+2025-01-05 03:59:14,954 - werkzeug - INFO - 172.31.196.46 - - [05/Jan/2025 03:59:14] "[36mGET /static/js/main.js HTTP/1.1[0m" 304 -
+2025-01-05 03:59:19,903 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2025-01-05 03:59:19,905 - sqlalchemy.engine.Engine - INFO - SELECT sakes.id AS sakes_id, sakes.sakenowa_id AS sakes_sakenowa_id, sakes.name AS sakes_name, sakes.brewery_id AS sakes_brewery_id, sakes.created_at AS sakes_created_at, sakes.updated_at AS sakes_updated_at 
+FROM sakes JOIN breweries ON breweries.id = sakes.brewery_id JOIN regions ON regions.id = breweries.region_id 
+WHERE sakes.id = %(id_1)s 
+ LIMIT %(param_1)s
+2025-01-05 03:59:19,905 - sqlalchemy.engine.Engine - INFO - [generated in 0.00024s] {'id_1': 8154, 'param_1': 1}
+2025-01-05 03:59:20,397 - sqlalchemy.engine.Engine - INFO - SELECT reviews.id AS reviews_id, reviews.user_id AS reviews_user_id, reviews.sake_id AS reviews_sake_id, reviews.rating AS reviews_rating, reviews.aroma AS reviews_aroma, reviews.aftertaste AS reviews_aftertaste, reviews.drinking_style AS reviews_drinking_style, reviews.matching_food AS reviews_matching_food, reviews.comment AS reviews_comment, reviews.recorded_at AS reviews_recorded_at, reviews.created_at AS reviews_created_at, reviews.updated_at AS reviews_updated_at, reviews.f1 AS reviews_f1, reviews.f2 AS reviews_f2, reviews.f3 AS reviews_f3, reviews.f4 AS reviews_f4, reviews.f5 AS reviews_f5, reviews.f6 AS reviews_f6 
+FROM reviews 
+WHERE %(param_1)s = reviews.sake_id ORDER BY reviews.created_at DESC
+2025-01-05 03:59:20,397 - sqlalchemy.engine.Engine - INFO - [generated in 0.00035s] {'param_1': 8154}
+2025-01-05 03:59:20,644 - sqlalchemy.engine.Engine - INFO - SELECT breweries.id AS breweries_id, breweries.name AS breweries_name, breweries.sakenowa_brewery_id AS breweries_sakenowa_brewery_id, breweries.region_id AS breweries_region_id, breweries.created_at AS breweries_created_at, breweries.updated_at AS breweries_updated_at 
+FROM breweries 
+WHERE breweries.id = %(pk_1)s
+2025-01-05 03:59:20,644 - sqlalchemy.engine.Engine - INFO - [generated in 0.00033s] {'pk_1': 2983}
+2025-01-05 03:59:20,881 - sqlalchemy.engine.Engine - INFO - SELECT regions.id AS regions_id, regions.name AS regions_name, regions."sakenowaId" AS "regions_sakenowaId", regions.created_at AS regions_created_at, regions.updated_at AS regions_updated_at 
+FROM regions 
+WHERE regions.id = %(pk_1)s
+2025-01-05 03:59:20,881 - sqlalchemy.engine.Engine - INFO - [generated in 0.00025s] {'pk_1': 20}
+2025-01-05 03:59:21,115 - sqlalchemy.engine.Engine - INFO - SELECT reviews.id AS reviews_id, reviews.user_id AS reviews_user_id, reviews.sake_id AS reviews_sake_id, reviews.rating AS reviews_rating, reviews.aroma AS reviews_aroma, reviews.aftertaste AS reviews_aftertaste, reviews.drinking_style AS reviews_drinking_style, reviews.matching_food AS reviews_matching_food, reviews.comment AS reviews_comment, reviews.recorded_at AS reviews_recorded_at, reviews.created_at AS reviews_created_at, reviews.updated_at AS reviews_updated_at, reviews.f1 AS reviews_f1, reviews.f2 AS reviews_f2, reviews.f3 AS reviews_f3, reviews.f4 AS reviews_f4, reviews.f5 AS reviews_f5, reviews.f6 AS reviews_f6 
+FROM reviews 
+WHERE %(param_1)s = reviews.sake_id
+2025-01-05 03:59:21,115 - sqlalchemy.engine.Engine - INFO - [generated in 0.00032s] {'param_1': 8154}
+2025-01-05 03:59:21,353 - sqlalchemy.engine.Engine - INFO - SELECT count(*) AS count_1 
+FROM (SELECT reviews.id AS reviews_id, reviews.user_id AS reviews_user_id, reviews.sake_id AS reviews_sake_id, reviews.rating AS reviews_rating, reviews.aroma AS reviews_aroma, reviews.aftertaste AS reviews_aftertaste, reviews.drinking_style AS reviews_drinking_style, reviews.matching_food AS reviews_matching_food, reviews.comment AS reviews_comment, reviews.recorded_at AS reviews_recorded_at, reviews.created_at AS reviews_created_at, reviews.updated_at AS reviews_updated_at, reviews.f1 AS reviews_f1, reviews.f2 AS reviews_f2, reviews.f3 AS reviews_f3, reviews.f4 AS reviews_f4, reviews.f5 AS reviews_f5, reviews.f6 AS reviews_f6 
+FROM reviews 
+WHERE %(param_1)s = reviews.sake_id) AS anon_1
+2025-01-05 03:59:21,353 - sqlalchemy.engine.Engine - INFO - [generated in 0.00035s] {'param_1': 8154}
+2025-01-05 03:59:21,591 - sqlalchemy.engine.Engine - INFO - ROLLBACK
+2025-01-05 03:59:21,824 - werkzeug - INFO - 172.31.196.46 - - [05/Jan/2025 03:59:21] "GET /sake/8154 HTTP/1.1" 200 -
+2025-01-05 03:59:22,002 - werkzeug - INFO - 172.31.196.46 - - [05/Jan/2025 03:59:22] "[36mGET /static/js/main.js HTTP/1.1[0m" 304 -
+2025-01-05 03:59:22,003 - werkzeug - INFO - 172.31.196.46 - - [05/Jan/2025 03:59:22] "[36mGET /static/css/custom.css HTTP/1.1[0m" 304 -
+2025-01-05 03:59:40,176 - werkzeug - INFO - 172.31.196.46 - - [05/Jan/2025 03:59:40] "GET /login HTTP/1.1" 200 -
+2025-01-05 03:59:40,351 - werkzeug - INFO - 172.31.196.46 - - [05/Jan/2025 03:59:40] "[36mGET /static/css/custom.css HTTP/1.1[0m" 304 -
+2025-01-05 03:59:40,361 - werkzeug - INFO - 172.31.196.46 - - [05/Jan/2025 03:59:40] "[36mGET /static/js/main.js HTTP/1.1[0m" 304 -
+2025-01-05 03:59:52,266 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2025-01-05 03:59:52,268 - sqlalchemy.engine.Engine - INFO - SELECT users.id AS users_id, users.email AS users_email, users.username AS users_username, users.encrypted_password AS users_encrypted_password, users.reset_password_token AS users_reset_password_token, users.reset_password_sent_at AS users_reset_password_sent_at, users.remember_created_at AS users_remember_created_at, users.created_at AS users_created_at, users.updated_at AS users_updated_at, users.gender AS users_gender, users.birthdate AS users_birthdate, users.comment AS users_comment 
+FROM users 
+WHERE users.username = %(username_1)s 
+ LIMIT %(param_1)s
+2025-01-05 03:59:52,268 - sqlalchemy.engine.Engine - INFO - [generated in 0.00029s] {'username_1': 'ゆたんぽ', 'param_1': 1}
+2025-01-05 03:59:52,851 - sqlalchemy.engine.Engine - INFO - ROLLBACK
+2025-01-05 03:59:53,084 - werkzeug - INFO - 172.31.196.46 - - [05/Jan/2025 03:59:53] "POST /login HTTP/1.1" 200 -
+2025-01-05 03:59:53,264 - werkzeug - INFO - 172.31.196.46 - - [05/Jan/2025 03:59:53] "[36mGET /static/css/custom.css HTTP/1.1[0m" 304 -
+2025-01-05 03:59:53,274 - werkzeug - INFO - 172.31.196.46 - - [05/Jan/2025 03:59:53] "[36mGET /static/js/main.js HTTP/1.1[0m" 304 -
+2025-01-05 04:00:21,614 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2025-01-05 04:00:21,614 - sqlalchemy.engine.Engine - INFO - SELECT users.id AS users_id, users.email AS users_email, users.username AS users_username, users.encrypted_password AS users_encrypted_password, users.reset_password_token AS users_reset_password_token, users.reset_password_sent_at AS users_reset_password_sent_at, users.remember_created_at AS users_remember_created_at, users.created_at AS users_created_at, users.updated_at AS users_updated_at, users.gender AS users_gender, users.birthdate AS users_birthdate, users.comment AS users_comment 
+FROM users 
+WHERE users.username = %(username_1)s 
+ LIMIT %(param_1)s
+2025-01-05 04:00:21,614 - sqlalchemy.engine.Engine - INFO - [cached since 29.35s ago] {'username_1': 'ゆたんぽ', 'param_1': 1}
+2025-01-05 04:00:22,160 - sqlalchemy.engine.Engine - INFO - ROLLBACK
+2025-01-05 04:00:22,393 - werkzeug - INFO - 172.31.196.46 - - [05/Jan/2025 04:00:22] "[32mPOST /login HTTP/1.1[0m" 302 -
+2025-01-05 04:00:22,534 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2025-01-05 04:00:22,535 - sqlalchemy.engine.Engine - INFO - SELECT sakes.id AS sakes_id, sakes.sakenowa_id AS sakes_sakenowa_id, sakes.name AS sakes_name, sakes.brewery_id AS sakes_brewery_id, sakes.created_at AS sakes_created_at, sakes.updated_at AS sakes_updated_at 
+FROM sakes ORDER BY sakes.created_at DESC
+2025-01-05 04:00:22,535 - sqlalchemy.engine.Engine - INFO - [cached since 125.4s ago] {}
+2025-01-05 04:00:23,943 - sqlalchemy.engine.Engine - INFO - SELECT users.id AS users_id, users.email AS users_email, users.username AS users_username, users.encrypted_password AS users_encrypted_password, users.reset_password_token AS users_reset_password_token, users.reset_password_sent_at AS users_reset_password_sent_at, users.remember_created_at AS users_remember_created_at, users.created_at AS users_created_at, users.updated_at AS users_updated_at, users.gender AS users_gender, users.birthdate AS users_birthdate, users.comment AS users_comment 
+FROM users 
+WHERE users.id = %(pk_1)s
+2025-01-05 04:00:23,943 - sqlalchemy.engine.Engine - INFO - [generated in 0.00027s] {'pk_1': 2}
+2025-01-05 04:00:24,184 - sqlalchemy.engine.Engine - INFO - ROLLBACK
+2025-01-05 04:00:24,417 - werkzeug - INFO - 172.31.196.46 - - [05/Jan/2025 04:00:24] "GET / HTTP/1.1" 200 -
+2025-01-05 04:00:24,601 - werkzeug - INFO - 172.31.196.46 - - [05/Jan/2025 04:00:24] "[36mGET /static/css/custom.css HTTP/1.1[0m" 304 -
+2025-01-05 04:00:25,078 - werkzeug - INFO - 172.31.196.46 - - [05/Jan/2025 04:00:25] "[36mGET /static/js/main.js HTTP/1.1[0m" 304 -
+2025-01-05 04:01:05,217 - routes - INFO - Received query: 山
+2025-01-05 04:01:05,218 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2025-01-05 04:01:05,218 - sqlalchemy.engine.Engine - INFO - SELECT sakes.id AS sakes_id, sakes.sakenowa_id AS sakes_sakenowa_id, sakes.name AS sakes_name, sakes.brewery_id AS sakes_brewery_id, sakes.created_at AS sakes_created_at, sakes.updated_at AS sakes_updated_at 
+FROM sakes 
+WHERE sakes.name ILIKE %(name_1)s ORDER BY sakes.created_at DESC
+2025-01-05 04:01:05,219 - sqlalchemy.engine.Engine - INFO - [cached since 111.8s ago] {'name_1': '%山%'}
+2025-01-05 04:01:05,917 - sqlalchemy.engine.Engine - INFO - SELECT users.id AS users_id, users.email AS users_email, users.username AS users_username, users.encrypted_password AS users_encrypted_password, users.reset_password_token AS users_reset_password_token, users.reset_password_sent_at AS users_reset_password_sent_at, users.remember_created_at AS users_remember_created_at, users.created_at AS users_created_at, users.updated_at AS users_updated_at, users.gender AS users_gender, users.birthdate AS users_birthdate, users.comment AS users_comment 
+FROM users 
+WHERE users.id = %(pk_1)s
+2025-01-05 04:01:05,917 - sqlalchemy.engine.Engine - INFO - [cached since 41.97s ago] {'pk_1': 2}
+2025-01-05 04:01:06,152 - sqlalchemy.engine.Engine - INFO - ROLLBACK
+2025-01-05 04:01:06,385 - werkzeug - INFO - 172.31.196.46 - - [05/Jan/2025 04:01:06] "GET /search?q=山 HTTP/1.1" 200 -
+2025-01-05 04:01:06,673 - werkzeug - INFO - 172.31.196.46 - - [05/Jan/2025 04:01:06] "[36mGET /static/css/custom.css HTTP/1.1[0m" 304 -
+2025-01-05 04:01:07,013 - werkzeug - INFO - 172.31.196.46 - - [05/Jan/2025 04:01:07] "[36mGET /static/js/main.js HTTP/1.1[0m" 304 -
+2025-01-05 04:01:21,097 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2025-01-05 04:01:21,098 - sqlalchemy.engine.Engine - INFO - SELECT sakes.id AS sakes_id, sakes.sakenowa_id AS sakes_sakenowa_id, sakes.name AS sakes_name, sakes.brewery_id AS sakes_brewery_id, sakes.created_at AS sakes_created_at, sakes.updated_at AS sakes_updated_at 
+FROM sakes JOIN breweries ON breweries.id = sakes.brewery_id JOIN regions ON regions.id = breweries.region_id 
+WHERE sakes.id = %(id_1)s 
+ LIMIT %(param_1)s
+2025-01-05 04:01:21,098 - sqlalchemy.engine.Engine - INFO - [cached since 121.2s ago] {'id_1': 7573, 'param_1': 1}
+2025-01-05 04:01:21,567 - sqlalchemy.engine.Engine - INFO - SELECT reviews.id AS reviews_id, reviews.user_id AS reviews_user_id, reviews.sake_id AS reviews_sake_id, reviews.rating AS reviews_rating, reviews.aroma AS reviews_aroma, reviews.aftertaste AS reviews_aftertaste, reviews.drinking_style AS reviews_drinking_style, reviews.matching_food AS reviews_matching_food, reviews.comment AS reviews_comment, reviews.recorded_at AS reviews_recorded_at, reviews.created_at AS reviews_created_at, reviews.updated_at AS reviews_updated_at, reviews.f1 AS reviews_f1, reviews.f2 AS reviews_f2, reviews.f3 AS reviews_f3, reviews.f4 AS reviews_f4, reviews.f5 AS reviews_f5, reviews.f6 AS reviews_f6 
+FROM reviews 
+WHERE %(param_1)s = reviews.sake_id ORDER BY reviews.created_at DESC
+2025-01-05 04:01:21,568 - sqlalchemy.engine.Engine - INFO - [cached since 121.2s ago] {'param_1': 7573}
+2025-01-05 04:01:21,802 - sqlalchemy.engine.Engine - INFO - SELECT users.id AS users_id, users.email AS users_email, users.username AS users_username, users.encrypted_password AS users_encrypted_password, users.reset_password_token AS users_reset_password_token, users.reset_password_sent_at AS users_reset_password_sent_at, users.remember_created_at AS users_remember_created_at, users.created_at AS users_created_at, users.updated_at AS users_updated_at, users.gender AS users_gender, users.birthdate AS users_birthdate, users.comment AS users_comment 
+FROM users 
+WHERE users.id = %(pk_1)s
+2025-01-05 04:01:21,802 - sqlalchemy.engine.Engine - INFO - [cached since 57.86s ago] {'pk_1': 2}
+2025-01-05 04:01:22,036 - sqlalchemy.engine.Engine - INFO - SELECT breweries.id AS breweries_id, breweries.name AS breweries_name, breweries.sakenowa_brewery_id AS breweries_sakenowa_brewery_id, breweries.region_id AS breweries_region_id, breweries.created_at AS breweries_created_at, breweries.updated_at AS breweries_updated_at 
+FROM breweries 
+WHERE breweries.id = %(pk_1)s
+2025-01-05 04:01:22,038 - sqlalchemy.engine.Engine - INFO - [cached since 121.4s ago] {'pk_1': 2891}
+2025-01-05 04:01:22,272 - sqlalchemy.engine.Engine - INFO - SELECT regions.id AS regions_id, regions.name AS regions_name, regions."sakenowaId" AS "regions_sakenowaId", regions.created_at AS regions_created_at, regions.updated_at AS regions_updated_at 
+FROM regions 
+WHERE regions.id = %(pk_1)s
+2025-01-05 04:01:22,272 - sqlalchemy.engine.Engine - INFO - [cached since 121.4s ago] {'pk_1': 29}
+2025-01-05 04:01:22,505 - sqlalchemy.engine.Engine - INFO - SELECT reviews.id AS reviews_id, reviews.user_id AS reviews_user_id, reviews.sake_id AS reviews_sake_id, reviews.rating AS reviews_rating, reviews.aroma AS reviews_aroma, reviews.aftertaste AS reviews_aftertaste, reviews.drinking_style AS reviews_drinking_style, reviews.matching_food AS reviews_matching_food, reviews.comment AS reviews_comment, reviews.recorded_at AS reviews_recorded_at, reviews.created_at AS reviews_created_at, reviews.updated_at AS reviews_updated_at, reviews.f1 AS reviews_f1, reviews.f2 AS reviews_f2, reviews.f3 AS reviews_f3, reviews.f4 AS reviews_f4, reviews.f5 AS reviews_f5, reviews.f6 AS reviews_f6 
+FROM reviews 
+WHERE %(param_1)s = reviews.sake_id
+2025-01-05 04:01:22,506 - sqlalchemy.engine.Engine - INFO - [cached since 121.4s ago] {'param_1': 7573}
+2025-01-05 04:01:22,739 - sqlalchemy.engine.Engine - INFO - SELECT count(*) AS count_1 
+FROM (SELECT reviews.id AS reviews_id, reviews.user_id AS reviews_user_id, reviews.sake_id AS reviews_sake_id, reviews.rating AS reviews_rating, reviews.aroma AS reviews_aroma, reviews.aftertaste AS reviews_aftertaste, reviews.drinking_style AS reviews_drinking_style, reviews.matching_food AS reviews_matching_food, reviews.comment AS reviews_comment, reviews.recorded_at AS reviews_recorded_at, reviews.created_at AS reviews_created_at, reviews.updated_at AS reviews_updated_at, reviews.f1 AS reviews_f1, reviews.f2 AS reviews_f2, reviews.f3 AS reviews_f3, reviews.f4 AS reviews_f4, reviews.f5 AS reviews_f5, reviews.f6 AS reviews_f6 
+FROM reviews 
+WHERE %(param_1)s = reviews.sake_id) AS anon_1
+2025-01-05 04:01:22,739 - sqlalchemy.engine.Engine - INFO - [cached since 121.4s ago] {'param_1': 7573}
+2025-01-05 04:01:22,972 - sqlalchemy.engine.Engine - INFO - ROLLBACK
+2025-01-05 04:01:23,205 - werkzeug - INFO - 172.31.196.46 - - [05/Jan/2025 04:01:23] "GET /sake/7573 HTTP/1.1" 200 -
+2025-01-05 04:01:23,383 - werkzeug - INFO - 172.31.196.46 - - [05/Jan/2025 04:01:23] "[36mGET /static/css/custom.css HTTP/1.1[0m" 304 -
+2025-01-05 04:01:23,392 - werkzeug - INFO - 172.31.196.46 - - [05/Jan/2025 04:01:23] "[36mGET /static/js/main.js HTTP/1.1[0m" 304 -
+2025-01-05 04:04:25,465 - routes - INFO - Received query: 獺祭
+2025-01-05 04:04:25,466 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2025-01-05 04:04:25,466 - sqlalchemy.engine.Engine - INFO - SELECT sakes.id AS sakes_id, sakes.sakenowa_id AS sakes_sakenowa_id, sakes.name AS sakes_name, sakes.brewery_id AS sakes_brewery_id, sakes.created_at AS sakes_created_at, sakes.updated_at AS sakes_updated_at 
+FROM sakes 
+WHERE sakes.name ILIKE %(name_1)s ORDER BY sakes.created_at DESC
+2025-01-05 04:04:25,467 - sqlalchemy.engine.Engine - INFO - [cached since 312s ago] {'name_1': '%獺祭%'}
+2025-01-05 04:04:25,940 - sqlalchemy.engine.Engine - INFO - SELECT users.id AS users_id, users.email AS users_email, users.username AS users_username, users.encrypted_password AS users_encrypted_password, users.reset_password_token AS users_reset_password_token, users.reset_password_sent_at AS users_reset_password_sent_at, users.remember_created_at AS users_remember_created_at, users.created_at AS users_created_at, users.updated_at AS users_updated_at, users.gender AS users_gender, users.birthdate AS users_birthdate, users.comment AS users_comment 
+FROM users 
+WHERE users.id = %(pk_1)s
+2025-01-05 04:04:25,940 - sqlalchemy.engine.Engine - INFO - [cached since 242s ago] {'pk_1': 2}
+2025-01-05 04:04:26,176 - sqlalchemy.engine.Engine - INFO - ROLLBACK
+2025-01-05 04:04:26,411 - werkzeug - INFO - 172.31.196.46 - - [05/Jan/2025 04:04:26] "GET /search?q=獺祭 HTTP/1.1" 200 -
+2025-01-05 04:04:26,630 - werkzeug - INFO - 172.31.196.46 - - [05/Jan/2025 04:04:26] "[36mGET /static/css/custom.css HTTP/1.1[0m" 304 -
+2025-01-05 04:04:26,727 - werkzeug - INFO - 172.31.196.46 - - [05/Jan/2025 04:04:26] "[36mGET /static/js/main.js HTTP/1.1[0m" 304 -
+2025-01-05 04:04:28,555 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2025-01-05 04:04:28,556 - sqlalchemy.engine.Engine - INFO - SELECT sakes.id AS sakes_id, sakes.sakenowa_id AS sakes_sakenowa_id, sakes.name AS sakes_name, sakes.brewery_id AS sakes_brewery_id, sakes.created_at AS sakes_created_at, sakes.updated_at AS sakes_updated_at 
+FROM sakes JOIN breweries ON breweries.id = sakes.brewery_id JOIN regions ON regions.id = breweries.region_id 
+WHERE sakes.id = %(id_1)s 
+ LIMIT %(param_1)s
+2025-01-05 04:04:28,556 - sqlalchemy.engine.Engine - INFO - [cached since 308.7s ago] {'id_1': 5841, 'param_1': 1}
+2025-01-05 04:04:29,029 - sqlalchemy.engine.Engine - INFO - SELECT reviews.id AS reviews_id, reviews.user_id AS reviews_user_id, reviews.sake_id AS reviews_sake_id, reviews.rating AS reviews_rating, reviews.aroma AS reviews_aroma, reviews.aftertaste AS reviews_aftertaste, reviews.drinking_style AS reviews_drinking_style, reviews.matching_food AS reviews_matching_food, reviews.comment AS reviews_comment, reviews.recorded_at AS reviews_recorded_at, reviews.created_at AS reviews_created_at, reviews.updated_at AS reviews_updated_at, reviews.f1 AS reviews_f1, reviews.f2 AS reviews_f2, reviews.f3 AS reviews_f3, reviews.f4 AS reviews_f4, reviews.f5 AS reviews_f5, reviews.f6 AS reviews_f6 
+FROM reviews 
+WHERE %(param_1)s = reviews.sake_id ORDER BY reviews.created_at DESC
+2025-01-05 04:04:29,029 - sqlalchemy.engine.Engine - INFO - [cached since 308.6s ago] {'param_1': 5841}
+2025-01-05 04:04:29,265 - sqlalchemy.engine.Engine - INFO - SELECT users.id AS users_id, users.email AS users_email, users.username AS users_username, users.encrypted_password AS users_encrypted_password, users.reset_password_token AS users_reset_password_token, users.reset_password_sent_at AS users_reset_password_sent_at, users.remember_created_at AS users_remember_created_at, users.created_at AS users_created_at, users.updated_at AS users_updated_at, users.gender AS users_gender, users.birthdate AS users_birthdate, users.comment AS users_comment 
+FROM users 
+WHERE users.id = %(pk_1)s
+2025-01-05 04:04:29,265 - sqlalchemy.engine.Engine - INFO - [cached since 245.3s ago] {'pk_1': 2}
+2025-01-05 04:04:29,501 - sqlalchemy.engine.Engine - INFO - SELECT breweries.id AS breweries_id, breweries.name AS breweries_name, breweries.sakenowa_brewery_id AS breweries_sakenowa_brewery_id, breweries.region_id AS breweries_region_id, breweries.created_at AS breweries_created_at, breweries.updated_at AS breweries_updated_at 
+FROM breweries 
+WHERE breweries.id = %(pk_1)s
+2025-01-05 04:04:29,501 - sqlalchemy.engine.Engine - INFO - [cached since 308.9s ago] {'pk_1': 2275}
+2025-01-05 04:04:29,737 - sqlalchemy.engine.Engine - INFO - SELECT regions.id AS regions_id, regions.name AS regions_name, regions."sakenowaId" AS "regions_sakenowaId", regions.created_at AS regions_created_at, regions.updated_at AS regions_updated_at 
+FROM regions 
+WHERE regions.id = %(pk_1)s
+2025-01-05 04:04:29,737 - sqlalchemy.engine.Engine - INFO - [cached since 308.9s ago] {'pk_1': 35}
+2025-01-05 04:04:29,973 - sqlalchemy.engine.Engine - INFO - SELECT reviews.id AS reviews_id, reviews.user_id AS reviews_user_id, reviews.sake_id AS reviews_sake_id, reviews.rating AS reviews_rating, reviews.aroma AS reviews_aroma, reviews.aftertaste AS reviews_aftertaste, reviews.drinking_style AS reviews_drinking_style, reviews.matching_food AS reviews_matching_food, reviews.comment AS reviews_comment, reviews.recorded_at AS reviews_recorded_at, reviews.created_at AS reviews_created_at, reviews.updated_at AS reviews_updated_at, reviews.f1 AS reviews_f1, reviews.f2 AS reviews_f2, reviews.f3 AS reviews_f3, reviews.f4 AS reviews_f4, reviews.f5 AS reviews_f5, reviews.f6 AS reviews_f6 
+FROM reviews 
+WHERE %(param_1)s = reviews.sake_id
+2025-01-05 04:04:29,973 - sqlalchemy.engine.Engine - INFO - [cached since 308.9s ago] {'param_1': 5841}
+2025-01-05 04:04:30,210 - sqlalchemy.engine.Engine - INFO - SELECT count(*) AS count_1 
+FROM (SELECT reviews.id AS reviews_id, reviews.user_id AS reviews_user_id, reviews.sake_id AS reviews_sake_id, reviews.rating AS reviews_rating, reviews.aroma AS reviews_aroma, reviews.aftertaste AS reviews_aftertaste, reviews.drinking_style AS reviews_drinking_style, reviews.matching_food AS reviews_matching_food, reviews.comment AS reviews_comment, reviews.recorded_at AS reviews_recorded_at, reviews.created_at AS reviews_created_at, reviews.updated_at AS reviews_updated_at, reviews.f1 AS reviews_f1, reviews.f2 AS reviews_f2, reviews.f3 AS reviews_f3, reviews.f4 AS reviews_f4, reviews.f5 AS reviews_f5, reviews.f6 AS reviews_f6 
+FROM reviews 
+WHERE %(param_1)s = reviews.sake_id) AS anon_1
+2025-01-05 04:04:30,210 - sqlalchemy.engine.Engine - INFO - [cached since 308.9s ago] {'param_1': 5841}
+2025-01-05 04:04:30,446 - sqlalchemy.engine.Engine - INFO - ROLLBACK
+2025-01-05 04:04:30,681 - werkzeug - INFO - 172.31.196.46 - - [05/Jan/2025 04:04:30] "GET /sake/5841 HTTP/1.1" 200 -
+2025-01-05 04:04:30,859 - werkzeug - INFO - 172.31.196.46 - - [05/Jan/2025 04:04:30] "[36mGET /static/css/custom.css HTTP/1.1[0m" 304 -
+2025-01-05 04:04:30,860 - werkzeug - INFO - 172.31.196.46 - - [05/Jan/2025 04:04:30] "[36mGET /static/js/main.js HTTP/1.1[0m" 304 -
+2025-01-05 04:04:43,080 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2025-01-05 04:04:43,081 - sqlalchemy.engine.Engine - INFO - SELECT users.id AS users_id, users.email AS users_email, users.username AS users_username, users.encrypted_password AS users_encrypted_password, users.reset_password_token AS users_reset_password_token, users.reset_password_sent_at AS users_reset_password_sent_at, users.remember_created_at AS users_remember_created_at, users.created_at AS users_created_at, users.updated_at AS users_updated_at, users.gender AS users_gender, users.birthdate AS users_birthdate, users.comment AS users_comment 
+FROM users 
+WHERE users.id = %(pk_1)s
+2025-01-05 04:04:43,081 - sqlalchemy.engine.Engine - INFO - [cached since 259.1s ago] {'pk_1': 2}
+2025-01-05 04:04:43,553 - sqlalchemy.engine.Engine - INFO - ROLLBACK
+2025-01-05 04:04:43,788 - werkzeug - INFO - 172.31.196.46 - - [05/Jan/2025 04:04:43] "[31m[1mPOST /review/5841 HTTP/1.1[0m" 400 -
+2025-01-05 04:04:53,488 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2025-01-05 04:04:53,489 - sqlalchemy.engine.Engine - INFO - SELECT users.id AS users_id, users.email AS users_email, users.username AS users_username, users.encrypted_password AS users_encrypted_password, users.reset_password_token AS users_reset_password_token, users.reset_password_sent_at AS users_reset_password_sent_at, users.remember_created_at AS users_remember_created_at, users.created_at AS users_created_at, users.updated_at AS users_updated_at, users.gender AS users_gender, users.birthdate AS users_birthdate, users.comment AS users_comment 
+FROM users 
+WHERE users.id = %(pk_1)s
+2025-01-05 04:04:53,489 - sqlalchemy.engine.Engine - INFO - [cached since 269.5s ago] {'pk_1': 2}
+2025-01-05 04:04:53,955 - sqlalchemy.engine.Engine - INFO - ROLLBACK
+2025-01-05 04:04:54,188 - werkzeug - INFO - 172.31.196.46 - - [05/Jan/2025 04:04:54] "[31m[1mPOST /review/5841 HTTP/1.1[0m" 400 -
+2025-01-05 04:18:47,367 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2025-01-05 04:18:47,367 - sqlalchemy.engine.Engine - INFO - SELECT sakes.id AS sakes_id, sakes.sakenowa_id AS sakes_sakenowa_id, sakes.name AS sakes_name, sakes.brewery_id AS sakes_brewery_id, sakes.created_at AS sakes_created_at, sakes.updated_at AS sakes_updated_at 
+FROM sakes JOIN breweries ON breweries.id = sakes.brewery_id JOIN regions ON regions.id = breweries.region_id 
+WHERE sakes.id = %(id_1)s 
+ LIMIT %(param_1)s
+2025-01-05 04:18:47,367 - sqlalchemy.engine.Engine - INFO - [cached since 1167s ago] {'id_1': 5841, 'param_1': 1}
+2025-01-05 04:18:47,368 - sqlalchemy.pool.impl.QueuePool - INFO - Invalidate connection <connection object at 0x7f775749dbc0; dsn: 'user=neondb_owner password=xxx dbname=neondb host=ep-restless-cloud-a6aak0tl.us-west-2.aws.neon.tech sslmode=require', closed: 2> (reason: OperationalError:SSL connection has been closed unexpectedly
+)
+2025-01-05 04:18:47,368 - routes - ERROR - Error in sake_detail route for ID 5841: (psycopg2.OperationalError) SSL connection has been closed unexpectedly
+
+[SQL: SELECT sakes.id AS sakes_id, sakes.sakenowa_id AS sakes_sakenowa_id, sakes.name AS sakes_name, sakes.brewery_id AS sakes_brewery_id, sakes.created_at AS sakes_created_at, sakes.updated_at AS sakes_updated_at 
+FROM sakes JOIN breweries ON breweries.id = sakes.brewery_id JOIN regions ON regions.id = breweries.region_id 
+WHERE sakes.id = %(id_1)s 
+ LIMIT %(param_1)s]
+[parameters: {'id_1': 5841, 'param_1': 1}]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+2025-01-05 04:18:47,369 - werkzeug - INFO - 172.31.196.46 - - [05/Jan/2025 04:18:47] "[32mGET /sake/5841 HTTP/1.1[0m" 302 -
+2025-01-05 04:18:49,618 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2025-01-05 04:18:49,619 - sqlalchemy.engine.Engine - INFO - SELECT sakes.id AS sakes_id, sakes.sakenowa_id AS sakes_sakenowa_id, sakes.name AS sakes_name, sakes.brewery_id AS sakes_brewery_id, sakes.created_at AS sakes_created_at, sakes.updated_at AS sakes_updated_at 
+FROM sakes ORDER BY sakes.created_at DESC
+2025-01-05 04:18:49,619 - sqlalchemy.engine.Engine - INFO - [cached since 1232s ago] {}
+2025-01-05 04:18:51,061 - sqlalchemy.engine.Engine - INFO - SELECT users.id AS users_id, users.email AS users_email, users.username AS users_username, users.encrypted_password AS users_encrypted_password, users.reset_password_token AS users_reset_password_token, users.reset_password_sent_at AS users_reset_password_sent_at, users.remember_created_at AS users_remember_created_at, users.created_at AS users_created_at, users.updated_at AS users_updated_at, users.gender AS users_gender, users.birthdate AS users_birthdate, users.comment AS users_comment 
+FROM users 
+WHERE users.id = %(pk_1)s
+2025-01-05 04:18:51,062 - sqlalchemy.engine.Engine - INFO - [cached since 1107s ago] {'pk_1': 2}
+2025-01-05 04:18:51,345 - sqlalchemy.engine.Engine - INFO - ROLLBACK
+2025-01-05 04:18:51,575 - werkzeug - INFO - 172.31.196.46 - - [05/Jan/2025 04:18:51] "GET / HTTP/1.1" 200 -
+2025-01-05 04:18:51,820 - werkzeug - INFO - 172.31.196.46 - - [05/Jan/2025 04:18:51] "[36mGET /static/css/custom.css HTTP/1.1[0m" 304 -
+2025-01-05 04:18:54,018 - werkzeug - INFO - 172.31.196.46 - - [05/Jan/2025 04:18:54] "[36mGET /static/js/main.js HTTP/1.1[0m" 304 -
+2025-01-05 04:19:00,589 - routes - INFO - Received query: 山
+2025-01-05 04:19:00,590 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2025-01-05 04:19:00,590 - sqlalchemy.engine.Engine - INFO - SELECT sakes.id AS sakes_id, sakes.sakenowa_id AS sakes_sakenowa_id, sakes.name AS sakes_name, sakes.brewery_id AS sakes_brewery_id, sakes.created_at AS sakes_created_at, sakes.updated_at AS sakes_updated_at 
+FROM sakes 
+WHERE sakes.name ILIKE %(name_1)s ORDER BY sakes.created_at DESC
+2025-01-05 04:19:00,590 - sqlalchemy.engine.Engine - INFO - [cached since 1187s ago] {'name_1': '%山%'}
+2025-01-05 04:19:01,298 - sqlalchemy.engine.Engine - INFO - SELECT users.id AS users_id, users.email AS users_email, users.username AS users_username, users.encrypted_password AS users_encrypted_password, users.reset_password_token AS users_reset_password_token, users.reset_password_sent_at AS users_reset_password_sent_at, users.remember_created_at AS users_remember_created_at, users.created_at AS users_created_at, users.updated_at AS users_updated_at, users.gender AS users_gender, users.birthdate AS users_birthdate, users.comment AS users_comment 
+FROM users 
+WHERE users.id = %(pk_1)s
+2025-01-05 04:19:01,298 - sqlalchemy.engine.Engine - INFO - [cached since 1117s ago] {'pk_1': 2}
+2025-01-05 04:19:01,531 - sqlalchemy.engine.Engine - INFO - ROLLBACK
+2025-01-05 04:19:01,761 - werkzeug - INFO - 172.31.196.46 - - [05/Jan/2025 04:19:01] "GET /search?q=山 HTTP/1.1" 200 -
+2025-01-05 04:19:02,123 - werkzeug - INFO - 172.31.196.46 - - [05/Jan/2025 04:19:02] "[36mGET /static/css/custom.css HTTP/1.1[0m" 304 -
+2025-01-05 04:19:02,620 - werkzeug - INFO - 172.31.196.46 - - [05/Jan/2025 04:19:02] "[36mGET /static/js/main.js HTTP/1.1[0m" 304 -
+2025-01-05 04:19:04,048 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2025-01-05 04:19:04,049 - sqlalchemy.engine.Engine - INFO - SELECT sakes.id AS sakes_id, sakes.sakenowa_id AS sakes_sakenowa_id, sakes.name AS sakes_name, sakes.brewery_id AS sakes_brewery_id, sakes.created_at AS sakes_created_at, sakes.updated_at AS sakes_updated_at 
+FROM sakes JOIN breweries ON breweries.id = sakes.brewery_id JOIN regions ON regions.id = breweries.region_id 
+WHERE sakes.id = %(id_1)s 
+ LIMIT %(param_1)s
+2025-01-05 04:19:04,049 - sqlalchemy.engine.Engine - INFO - [cached since 1184s ago] {'id_1': 8154, 'param_1': 1}
+2025-01-05 04:19:04,531 - sqlalchemy.engine.Engine - INFO - SELECT reviews.id AS reviews_id, reviews.user_id AS reviews_user_id, reviews.sake_id AS reviews_sake_id, reviews.rating AS reviews_rating, reviews.aroma AS reviews_aroma, reviews.aftertaste AS reviews_aftertaste, reviews.drinking_style AS reviews_drinking_style, reviews.matching_food AS reviews_matching_food, reviews.comment AS reviews_comment, reviews.recorded_at AS reviews_recorded_at, reviews.created_at AS reviews_created_at, reviews.updated_at AS reviews_updated_at, reviews.f1 AS reviews_f1, reviews.f2 AS reviews_f2, reviews.f3 AS reviews_f3, reviews.f4 AS reviews_f4, reviews.f5 AS reviews_f5, reviews.f6 AS reviews_f6 
+FROM reviews 
+WHERE %(param_1)s = reviews.sake_id ORDER BY reviews.created_at DESC
+2025-01-05 04:19:04,531 - sqlalchemy.engine.Engine - INFO - [cached since 1184s ago] {'param_1': 8154}
+2025-01-05 04:19:04,774 - sqlalchemy.engine.Engine - INFO - SELECT users.id AS users_id, users.email AS users_email, users.username AS users_username, users.encrypted_password AS users_encrypted_password, users.reset_password_token AS users_reset_password_token, users.reset_password_sent_at AS users_reset_password_sent_at, users.remember_created_at AS users_remember_created_at, users.created_at AS users_created_at, users.updated_at AS users_updated_at, users.gender AS users_gender, users.birthdate AS users_birthdate, users.comment AS users_comment 
+FROM users 
+WHERE users.id = %(pk_1)s
+2025-01-05 04:19:04,774 - sqlalchemy.engine.Engine - INFO - [cached since 1121s ago] {'pk_1': 2}
+2025-01-05 04:19:05,005 - sqlalchemy.engine.Engine - INFO - SELECT breweries.id AS breweries_id, breweries.name AS breweries_name, breweries.sakenowa_brewery_id AS breweries_sakenowa_brewery_id, breweries.region_id AS breweries_region_id, breweries.created_at AS breweries_created_at, breweries.updated_at AS breweries_updated_at 
+FROM breweries 
+WHERE breweries.id = %(pk_1)s
+2025-01-05 04:19:05,005 - sqlalchemy.engine.Engine - INFO - [cached since 1184s ago] {'pk_1': 2983}
+2025-01-05 04:19:05,239 - sqlalchemy.engine.Engine - INFO - SELECT regions.id AS regions_id, regions.name AS regions_name, regions."sakenowaId" AS "regions_sakenowaId", regions.created_at AS regions_created_at, regions.updated_at AS regions_updated_at 
+FROM regions 
+WHERE regions.id = %(pk_1)s
+2025-01-05 04:19:05,239 - sqlalchemy.engine.Engine - INFO - [cached since 1184s ago] {'pk_1': 20}
+2025-01-05 04:19:05,470 - sqlalchemy.engine.Engine - INFO - SELECT reviews.id AS reviews_id, reviews.user_id AS reviews_user_id, reviews.sake_id AS reviews_sake_id, reviews.rating AS reviews_rating, reviews.aroma AS reviews_aroma, reviews.aftertaste AS reviews_aftertaste, reviews.drinking_style AS reviews_drinking_style, reviews.matching_food AS reviews_matching_food, reviews.comment AS reviews_comment, reviews.recorded_at AS reviews_recorded_at, reviews.created_at AS reviews_created_at, reviews.updated_at AS reviews_updated_at, reviews.f1 AS reviews_f1, reviews.f2 AS reviews_f2, reviews.f3 AS reviews_f3, reviews.f4 AS reviews_f4, reviews.f5 AS reviews_f5, reviews.f6 AS reviews_f6 
+FROM reviews 
+WHERE %(param_1)s = reviews.sake_id
+2025-01-05 04:19:05,470 - sqlalchemy.engine.Engine - INFO - [cached since 1184s ago] {'param_1': 8154}
+2025-01-05 04:19:05,701 - sqlalchemy.engine.Engine - INFO - SELECT count(*) AS count_1 
+FROM (SELECT reviews.id AS reviews_id, reviews.user_id AS reviews_user_id, reviews.sake_id AS reviews_sake_id, reviews.rating AS reviews_rating, reviews.aroma AS reviews_aroma, reviews.aftertaste AS reviews_aftertaste, reviews.drinking_style AS reviews_drinking_style, reviews.matching_food AS reviews_matching_food, reviews.comment AS reviews_comment, reviews.recorded_at AS reviews_recorded_at, reviews.created_at AS reviews_created_at, reviews.updated_at AS reviews_updated_at, reviews.f1 AS reviews_f1, reviews.f2 AS reviews_f2, reviews.f3 AS reviews_f3, reviews.f4 AS reviews_f4, reviews.f5 AS reviews_f5, reviews.f6 AS reviews_f6 
+FROM reviews 
+WHERE %(param_1)s = reviews.sake_id) AS anon_1
+2025-01-05 04:19:05,702 - sqlalchemy.engine.Engine - INFO - [cached since 1184s ago] {'param_1': 8154}
+2025-01-05 04:19:05,940 - sqlalchemy.engine.Engine - INFO - ROLLBACK
+2025-01-05 04:19:06,170 - werkzeug - INFO - 172.31.196.46 - - [05/Jan/2025 04:19:06] "GET /sake/8154 HTTP/1.1" 200 -
+2025-01-05 04:19:06,364 - werkzeug - INFO - 172.31.196.46 - - [05/Jan/2025 04:19:06] "[36mGET /static/css/custom.css HTTP/1.1[0m" 304 -
+2025-01-05 04:19:06,371 - werkzeug - INFO - 172.31.196.46 - - [05/Jan/2025 04:19:06] "[36mGET /static/js/main.js HTTP/1.1[0m" 304 -
+2025-01-05 04:19:33,082 - routes - INFO - Received query: 獺祭
+2025-01-05 04:19:33,082 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2025-01-05 04:19:33,083 - sqlalchemy.engine.Engine - INFO - SELECT sakes.id AS sakes_id, sakes.sakenowa_id AS sakes_sakenowa_id, sakes.name AS sakes_name, sakes.brewery_id AS sakes_brewery_id, sakes.created_at AS sakes_created_at, sakes.updated_at AS sakes_updated_at 
+FROM sakes 
+WHERE sakes.name ILIKE %(name_1)s ORDER BY sakes.created_at DESC
+2025-01-05 04:19:33,083 - sqlalchemy.engine.Engine - INFO - [cached since 1220s ago] {'name_1': '%獺祭%'}
+2025-01-05 04:19:33,545 - sqlalchemy.engine.Engine - INFO - SELECT users.id AS users_id, users.email AS users_email, users.username AS users_username, users.encrypted_password AS users_encrypted_password, users.reset_password_token AS users_reset_password_token, users.reset_password_sent_at AS users_reset_password_sent_at, users.remember_created_at AS users_remember_created_at, users.created_at AS users_created_at, users.updated_at AS users_updated_at, users.gender AS users_gender, users.birthdate AS users_birthdate, users.comment AS users_comment 
+FROM users 
+WHERE users.id = %(pk_1)s
+2025-01-05 04:19:33,545 - sqlalchemy.engine.Engine - INFO - [cached since 1150s ago] {'pk_1': 2}
+2025-01-05 04:19:33,776 - sqlalchemy.engine.Engine - INFO - ROLLBACK
+2025-01-05 04:19:34,006 - werkzeug - INFO - 172.31.196.46 - - [05/Jan/2025 04:19:34] "GET /search?q=獺祭 HTTP/1.1" 200 -
+2025-01-05 04:19:34,219 - werkzeug - INFO - 172.31.196.46 - - [05/Jan/2025 04:19:34] "[36mGET /static/css/custom.css HTTP/1.1[0m" 304 -
+2025-01-05 04:19:34,232 - werkzeug - INFO - 172.31.196.46 - - [05/Jan/2025 04:19:34] "[36mGET /static/js/main.js HTTP/1.1[0m" 304 -
+2025-01-05 04:19:35,719 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2025-01-05 04:19:35,720 - sqlalchemy.engine.Engine - INFO - SELECT sakes.id AS sakes_id, sakes.sakenowa_id AS sakes_sakenowa_id, sakes.name AS sakes_name, sakes.brewery_id AS sakes_brewery_id, sakes.created_at AS sakes_created_at, sakes.updated_at AS sakes_updated_at 
+FROM sakes JOIN breweries ON breweries.id = sakes.brewery_id JOIN regions ON regions.id = breweries.region_id 
+WHERE sakes.id = %(id_1)s 
+ LIMIT %(param_1)s
+2025-01-05 04:19:35,720 - sqlalchemy.engine.Engine - INFO - [cached since 1216s ago] {'id_1': 5841, 'param_1': 1}
+2025-01-05 04:19:36,182 - sqlalchemy.engine.Engine - INFO - SELECT reviews.id AS reviews_id, reviews.user_id AS reviews_user_id, reviews.sake_id AS reviews_sake_id, reviews.rating AS reviews_rating, reviews.aroma AS reviews_aroma, reviews.aftertaste AS reviews_aftertaste, reviews.drinking_style AS reviews_drinking_style, reviews.matching_food AS reviews_matching_food, reviews.comment AS reviews_comment, reviews.recorded_at AS reviews_recorded_at, reviews.created_at AS reviews_created_at, reviews.updated_at AS reviews_updated_at, reviews.f1 AS reviews_f1, reviews.f2 AS reviews_f2, reviews.f3 AS reviews_f3, reviews.f4 AS reviews_f4, reviews.f5 AS reviews_f5, reviews.f6 AS reviews_f6 
+FROM reviews 
+WHERE %(param_1)s = reviews.sake_id ORDER BY reviews.created_at DESC
+2025-01-05 04:19:36,183 - sqlalchemy.engine.Engine - INFO - [cached since 1216s ago] {'param_1': 5841}
+2025-01-05 04:19:36,414 - sqlalchemy.engine.Engine - INFO - SELECT users.id AS users_id, users.email AS users_email, users.username AS users_username, users.encrypted_password AS users_encrypted_password, users.reset_password_token AS users_reset_password_token, users.reset_password_sent_at AS users_reset_password_sent_at, users.remember_created_at AS users_remember_created_at, users.created_at AS users_created_at, users.updated_at AS users_updated_at, users.gender AS users_gender, users.birthdate AS users_birthdate, users.comment AS users_comment 
+FROM users 
+WHERE users.id = %(pk_1)s
+2025-01-05 04:19:36,414 - sqlalchemy.engine.Engine - INFO - [cached since 1152s ago] {'pk_1': 2}
+2025-01-05 04:19:36,645 - sqlalchemy.engine.Engine - INFO - SELECT breweries.id AS breweries_id, breweries.name AS breweries_name, breweries.sakenowa_brewery_id AS breweries_sakenowa_brewery_id, breweries.region_id AS breweries_region_id, breweries.created_at AS breweries_created_at, breweries.updated_at AS breweries_updated_at 
+FROM breweries 
+WHERE breweries.id = %(pk_1)s
+2025-01-05 04:19:36,646 - sqlalchemy.engine.Engine - INFO - [cached since 1216s ago] {'pk_1': 2275}
+2025-01-05 04:19:36,878 - sqlalchemy.engine.Engine - INFO - SELECT regions.id AS regions_id, regions.name AS regions_name, regions."sakenowaId" AS "regions_sakenowaId", regions.created_at AS regions_created_at, regions.updated_at AS regions_updated_at 
+FROM regions 
+WHERE regions.id = %(pk_1)s
+2025-01-05 04:19:36,878 - sqlalchemy.engine.Engine - INFO - [cached since 1216s ago] {'pk_1': 35}
+2025-01-05 04:19:37,109 - sqlalchemy.engine.Engine - INFO - SELECT reviews.id AS reviews_id, reviews.user_id AS reviews_user_id, reviews.sake_id AS reviews_sake_id, reviews.rating AS reviews_rating, reviews.aroma AS reviews_aroma, reviews.aftertaste AS reviews_aftertaste, reviews.drinking_style AS reviews_drinking_style, reviews.matching_food AS reviews_matching_food, reviews.comment AS reviews_comment, reviews.recorded_at AS reviews_recorded_at, reviews.created_at AS reviews_created_at, reviews.updated_at AS reviews_updated_at, reviews.f1 AS reviews_f1, reviews.f2 AS reviews_f2, reviews.f3 AS reviews_f3, reviews.f4 AS reviews_f4, reviews.f5 AS reviews_f5, reviews.f6 AS reviews_f6 
+FROM reviews 
+WHERE %(param_1)s = reviews.sake_id
+2025-01-05 04:19:37,109 - sqlalchemy.engine.Engine - INFO - [cached since 1216s ago] {'param_1': 5841}
+2025-01-05 04:19:37,340 - sqlalchemy.engine.Engine - INFO - SELECT count(*) AS count_1 
+FROM (SELECT reviews.id AS reviews_id, reviews.user_id AS reviews_user_id, reviews.sake_id AS reviews_sake_id, reviews.rating AS reviews_rating, reviews.aroma AS reviews_aroma, reviews.aftertaste AS reviews_aftertaste, reviews.drinking_style AS reviews_drinking_style, reviews.matching_food AS reviews_matching_food, reviews.comment AS reviews_comment, reviews.recorded_at AS reviews_recorded_at, reviews.created_at AS reviews_created_at, reviews.updated_at AS reviews_updated_at, reviews.f1 AS reviews_f1, reviews.f2 AS reviews_f2, reviews.f3 AS reviews_f3, reviews.f4 AS reviews_f4, reviews.f5 AS reviews_f5, reviews.f6 AS reviews_f6 
+FROM reviews 
+WHERE %(param_1)s = reviews.sake_id) AS anon_1
+2025-01-05 04:19:37,340 - sqlalchemy.engine.Engine - INFO - [cached since 1216s ago] {'param_1': 5841}
+2025-01-05 04:19:37,571 - sqlalchemy.engine.Engine - INFO - ROLLBACK
+2025-01-05 04:19:37,801 - werkzeug - INFO - 172.31.196.46 - - [05/Jan/2025 04:19:37] "GET /sake/5841 HTTP/1.1" 200 -
+2025-01-05 04:19:38,160 - werkzeug - INFO - 172.31.196.46 - - [05/Jan/2025 04:19:38] "[36mGET /static/js/main.js HTTP/1.1[0m" 304 -
+2025-01-05 04:19:38,160 - werkzeug - INFO - 172.31.196.46 - - [05/Jan/2025 04:19:38] "[36mGET /static/css/custom.css HTTP/1.1[0m" 304 -
+2025-01-05 04:20:03,926 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2025-01-05 04:20:03,927 - sqlalchemy.engine.Engine - INFO - SELECT users.id AS users_id, users.email AS users_email, users.username AS users_username, users.encrypted_password AS users_encrypted_password, users.reset_password_token AS users_reset_password_token, users.reset_password_sent_at AS users_reset_password_sent_at, users.remember_created_at AS users_remember_created_at, users.created_at AS users_created_at, users.updated_at AS users_updated_at, users.gender AS users_gender, users.birthdate AS users_birthdate, users.comment AS users_comment 
+FROM users 
+WHERE users.id = %(pk_1)s
+2025-01-05 04:20:03,927 - sqlalchemy.engine.Engine - INFO - [cached since 1180s ago] {'pk_1': 2}
+2025-01-05 04:20:04,387 - sqlalchemy.engine.Engine - INFO - ROLLBACK
+2025-01-05 04:20:04,617 - werkzeug - INFO - 172.31.196.46 - - [05/Jan/2025 04:20:04] "[31m[1mPOST /review/5841 HTTP/1.1[0m" 400 -
+2025-01-05 04:20:05,330 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2025-01-05 04:20:05,331 - sqlalchemy.engine.Engine - INFO - SELECT users.id AS users_id, users.email AS users_email, users.username AS users_username, users.encrypted_password AS users_encrypted_password, users.reset_password_token AS users_reset_password_token, users.reset_password_sent_at AS users_reset_password_sent_at, users.remember_created_at AS users_remember_created_at, users.created_at AS users_created_at, users.updated_at AS users_updated_at, users.gender AS users_gender, users.birthdate AS users_birthdate, users.comment AS users_comment 
+FROM users 
+WHERE users.id = %(pk_1)s
+2025-01-05 04:20:05,331 - sqlalchemy.engine.Engine - INFO - [cached since 1181s ago] {'pk_1': 2}
+2025-01-05 04:20:05,793 - sqlalchemy.engine.Engine - INFO - ROLLBACK
+2025-01-05 04:20:06,023 - werkzeug - INFO - 172.31.196.46 - - [05/Jan/2025 04:20:06] "[31m[1mPOST /review/5841 HTTP/1.1[0m" 400 -
+2025-01-05 04:21:51,794 - werkzeug - INFO - 172.31.196.46 - - [05/Jan/2025 04:21:51] "[36mGET /static/css/custom.css HTTP/1.1[0m" 304 -
+2025-01-05 04:33:52,454 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2025-01-05 04:33:52,454 - sqlalchemy.engine.Engine - INFO - SELECT sakes.id AS sakes_id, sakes.sakenowa_id AS sakes_sakenowa_id, sakes.name AS sakes_name, sakes.brewery_id AS sakes_brewery_id, sakes.created_at AS sakes_created_at, sakes.updated_at AS sakes_updated_at 
+FROM sakes JOIN breweries ON breweries.id = sakes.brewery_id JOIN regions ON regions.id = breweries.region_id 
+WHERE sakes.id = %(id_1)s 
+ LIMIT %(param_1)s
+2025-01-05 04:33:52,455 - sqlalchemy.engine.Engine - INFO - [cached since 2073s ago] {'id_1': 5841, 'param_1': 1}
+2025-01-05 04:33:52,455 - sqlalchemy.pool.impl.QueuePool - INFO - Invalidate connection <connection object at 0x7f7756dd16c0; dsn: 'user=neondb_owner password=xxx dbname=neondb host=ep-restless-cloud-a6aak0tl.us-west-2.aws.neon.tech sslmode=require', closed: 2> (reason: OperationalError:SSL connection has been closed unexpectedly
+)
+2025-01-05 04:33:52,455 - routes - ERROR - Error in sake_detail route for ID 5841: (psycopg2.OperationalError) SSL connection has been closed unexpectedly
+
+[SQL: SELECT sakes.id AS sakes_id, sakes.sakenowa_id AS sakes_sakenowa_id, sakes.name AS sakes_name, sakes.brewery_id AS sakes_brewery_id, sakes.created_at AS sakes_created_at, sakes.updated_at AS sakes_updated_at 
+FROM sakes JOIN breweries ON breweries.id = sakes.brewery_id JOIN regions ON regions.id = breweries.region_id 
+WHERE sakes.id = %(id_1)s 
+ LIMIT %(param_1)s]
+[parameters: {'id_1': 5841, 'param_1': 1}]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+2025-01-05 04:33:52,456 - werkzeug - INFO - 172.31.196.46 - - [05/Jan/2025 04:33:52] "[32mGET /sake/5841 HTTP/1.1[0m" 302 -
+2025-01-05 04:33:52,602 - sqlalchemy.pool.impl.QueuePool - INFO - Connection <connection object at 0x7f7756dd1940; dsn: 'user=neondb_owner password=xxx dbname=neondb host=ep-restless-cloud-a6aak0tl.us-west-2.aws.neon.tech sslmode=require', closed: 0> invalidated due to pool invalidation; recycling
+2025-01-05 04:33:54,639 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2025-01-05 04:33:54,642 - sqlalchemy.engine.Engine - INFO - SELECT sakes.id AS sakes_id, sakes.sakenowa_id AS sakes_sakenowa_id, sakes.name AS sakes_name, sakes.brewery_id AS sakes_brewery_id, sakes.created_at AS sakes_created_at, sakes.updated_at AS sakes_updated_at 
+FROM sakes ORDER BY sakes.created_at DESC
+2025-01-05 04:33:54,644 - sqlalchemy.engine.Engine - INFO - [cached since 2137s ago] {}
+2025-01-05 04:33:56,097 - sqlalchemy.engine.Engine - INFO - SELECT users.id AS users_id, users.email AS users_email, users.username AS users_username, users.encrypted_password AS users_encrypted_password, users.reset_password_token AS users_reset_password_token, users.reset_password_sent_at AS users_reset_password_sent_at, users.remember_created_at AS users_remember_created_at, users.created_at AS users_created_at, users.updated_at AS users_updated_at, users.gender AS users_gender, users.birthdate AS users_birthdate, users.comment AS users_comment 
+FROM users 
+WHERE users.id = %(pk_1)s
+2025-01-05 04:33:56,097 - sqlalchemy.engine.Engine - INFO - [cached since 2012s ago] {'pk_1': 2}
+2025-01-05 04:33:56,350 - sqlalchemy.engine.Engine - INFO - ROLLBACK
+2025-01-05 04:33:56,584 - werkzeug - INFO - 172.31.196.46 - - [05/Jan/2025 04:33:56] "GET / HTTP/1.1" 200 -
+2025-01-05 04:33:57,162 - werkzeug - INFO - 172.31.196.46 - - [05/Jan/2025 04:33:57] "[36mGET /static/css/custom.css HTTP/1.1[0m" 304 -
+2025-01-05 04:34:00,290 - werkzeug - INFO - 172.31.196.46 - - [05/Jan/2025 04:34:00] "[36mGET /static/js/main.js HTTP/1.1[0m" 304 -
+2025-01-05 04:34:37,396 - routes - INFO - Received query: 獺祭
+2025-01-05 04:34:38,839 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2025-01-05 04:34:38,840 - sqlalchemy.engine.Engine - INFO - SELECT sakes.id AS sakes_id, sakes.sakenowa_id AS sakes_sakenowa_id, sakes.name AS sakes_name, sakes.brewery_id AS sakes_brewery_id, sakes.created_at AS sakes_created_at, sakes.updated_at AS sakes_updated_at 
+FROM sakes 
+WHERE sakes.name ILIKE %(name_1)s ORDER BY sakes.created_at DESC
+2025-01-05 04:34:38,840 - sqlalchemy.engine.Engine - INFO - [cached since 2125s ago] {'name_1': '%獺祭%'}
+2025-01-05 04:34:39,320 - sqlalchemy.engine.Engine - INFO - SELECT users.id AS users_id, users.email AS users_email, users.username AS users_username, users.encrypted_password AS users_encrypted_password, users.reset_password_token AS users_reset_password_token, users.reset_password_sent_at AS users_reset_password_sent_at, users.remember_created_at AS users_remember_created_at, users.created_at AS users_created_at, users.updated_at AS users_updated_at, users.gender AS users_gender, users.birthdate AS users_birthdate, users.comment AS users_comment 
+FROM users 
+WHERE users.id = %(pk_1)s
+2025-01-05 04:34:39,321 - sqlalchemy.engine.Engine - INFO - [cached since 2055s ago] {'pk_1': 2}
+2025-01-05 04:34:39,556 - sqlalchemy.engine.Engine - INFO - ROLLBACK
+2025-01-05 04:34:39,791 - werkzeug - INFO - 172.31.196.46 - - [05/Jan/2025 04:34:39] "GET /search?q=獺祭 HTTP/1.1" 200 -
+2025-01-05 04:34:40,485 - werkzeug - INFO - 172.31.196.46 - - [05/Jan/2025 04:34:40] "[36mGET /static/css/custom.css HTTP/1.1[0m" 304 -
+2025-01-05 04:34:40,585 - werkzeug - INFO - 172.31.196.46 - - [05/Jan/2025 04:34:40] "[36mGET /static/js/main.js HTTP/1.1[0m" 304 -
+2025-01-05 04:34:44,474 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2025-01-05 04:34:44,474 - sqlalchemy.engine.Engine - INFO - SELECT sakes.id AS sakes_id, sakes.sakenowa_id AS sakes_sakenowa_id, sakes.name AS sakes_name, sakes.brewery_id AS sakes_brewery_id, sakes.created_at AS sakes_created_at, sakes.updated_at AS sakes_updated_at 
+FROM sakes JOIN breweries ON breweries.id = sakes.brewery_id JOIN regions ON regions.id = breweries.region_id 
+WHERE sakes.id = %(id_1)s 
+ LIMIT %(param_1)s
+2025-01-05 04:34:44,474 - sqlalchemy.engine.Engine - INFO - [cached since 2125s ago] {'id_1': 5841, 'param_1': 1}
+2025-01-05 04:34:44,960 - sqlalchemy.engine.Engine - INFO - SELECT reviews.id AS reviews_id, reviews.user_id AS reviews_user_id, reviews.sake_id AS reviews_sake_id, reviews.rating AS reviews_rating, reviews.aroma AS reviews_aroma, reviews.aftertaste AS reviews_aftertaste, reviews.drinking_style AS reviews_drinking_style, reviews.matching_food AS reviews_matching_food, reviews.comment AS reviews_comment, reviews.recorded_at AS reviews_recorded_at, reviews.created_at AS reviews_created_at, reviews.updated_at AS reviews_updated_at, reviews.f1 AS reviews_f1, reviews.f2 AS reviews_f2, reviews.f3 AS reviews_f3, reviews.f4 AS reviews_f4, reviews.f5 AS reviews_f5, reviews.f6 AS reviews_f6 
+FROM reviews 
+WHERE %(param_1)s = reviews.sake_id ORDER BY reviews.created_at DESC
+2025-01-05 04:34:44,960 - sqlalchemy.engine.Engine - INFO - [cached since 2125s ago] {'param_1': 5841}
+2025-01-05 04:34:45,203 - sqlalchemy.engine.Engine - INFO - SELECT users.id AS users_id, users.email AS users_email, users.username AS users_username, users.encrypted_password AS users_encrypted_password, users.reset_password_token AS users_reset_password_token, users.reset_password_sent_at AS users_reset_password_sent_at, users.remember_created_at AS users_remember_created_at, users.created_at AS users_created_at, users.updated_at AS users_updated_at, users.gender AS users_gender, users.birthdate AS users_birthdate, users.comment AS users_comment 
+FROM users 
+WHERE users.id = %(pk_1)s
+2025-01-05 04:34:45,203 - sqlalchemy.engine.Engine - INFO - [cached since 2061s ago] {'pk_1': 2}
+2025-01-05 04:34:45,437 - sqlalchemy.engine.Engine - INFO - SELECT breweries.id AS breweries_id, breweries.name AS breweries_name, breweries.sakenowa_brewery_id AS breweries_sakenowa_brewery_id, breweries.region_id AS breweries_region_id, breweries.created_at AS breweries_created_at, breweries.updated_at AS breweries_updated_at 
+FROM breweries 
+WHERE breweries.id = %(pk_1)s
+2025-01-05 04:34:45,438 - sqlalchemy.engine.Engine - INFO - [cached since 2125s ago] {'pk_1': 2275}
+2025-01-05 04:34:45,674 - sqlalchemy.engine.Engine - INFO - SELECT regions.id AS regions_id, regions.name AS regions_name, regions."sakenowaId" AS "regions_sakenowaId", regions.created_at AS regions_created_at, regions.updated_at AS regions_updated_at 
+FROM regions 
+WHERE regions.id = %(pk_1)s
+2025-01-05 04:34:45,674 - sqlalchemy.engine.Engine - INFO - [cached since 2125s ago] {'pk_1': 35}
+2025-01-05 04:34:45,909 - sqlalchemy.engine.Engine - INFO - SELECT reviews.id AS reviews_id, reviews.user_id AS reviews_user_id, reviews.sake_id AS reviews_sake_id, reviews.rating AS reviews_rating, reviews.aroma AS reviews_aroma, reviews.aftertaste AS reviews_aftertaste, reviews.drinking_style AS reviews_drinking_style, reviews.matching_food AS reviews_matching_food, reviews.comment AS reviews_comment, reviews.recorded_at AS reviews_recorded_at, reviews.created_at AS reviews_created_at, reviews.updated_at AS reviews_updated_at, reviews.f1 AS reviews_f1, reviews.f2 AS reviews_f2, reviews.f3 AS reviews_f3, reviews.f4 AS reviews_f4, reviews.f5 AS reviews_f5, reviews.f6 AS reviews_f6 
+FROM reviews 
+WHERE %(param_1)s = reviews.sake_id
+2025-01-05 04:34:45,909 - sqlalchemy.engine.Engine - INFO - [cached since 2125s ago] {'param_1': 5841}
+2025-01-05 04:34:46,143 - sqlalchemy.engine.Engine - INFO - SELECT count(*) AS count_1 
+FROM (SELECT reviews.id AS reviews_id, reviews.user_id AS reviews_user_id, reviews.sake_id AS reviews_sake_id, reviews.rating AS reviews_rating, reviews.aroma AS reviews_aroma, reviews.aftertaste AS reviews_aftertaste, reviews.drinking_style AS reviews_drinking_style, reviews.matching_food AS reviews_matching_food, reviews.comment AS reviews_comment, reviews.recorded_at AS reviews_recorded_at, reviews.created_at AS reviews_created_at, reviews.updated_at AS reviews_updated_at, reviews.f1 AS reviews_f1, reviews.f2 AS reviews_f2, reviews.f3 AS reviews_f3, reviews.f4 AS reviews_f4, reviews.f5 AS reviews_f5, reviews.f6 AS reviews_f6 
+FROM reviews 
+WHERE %(param_1)s = reviews.sake_id) AS anon_1
+2025-01-05 04:34:46,144 - sqlalchemy.engine.Engine - INFO - [cached since 2125s ago] {'param_1': 5841}
+2025-01-05 04:34:46,384 - sqlalchemy.engine.Engine - INFO - ROLLBACK
+2025-01-05 04:34:46,617 - werkzeug - INFO - 172.31.196.46 - - [05/Jan/2025 04:34:46] "GET /sake/5841 HTTP/1.1" 200 -
+2025-01-05 04:34:48,175 - werkzeug - INFO - 172.31.196.46 - - [05/Jan/2025 04:34:48] "[36mGET /static/css/custom.css HTTP/1.1[0m" 304 -
+2025-01-05 04:34:48,184 - werkzeug - INFO - 172.31.196.46 - - [05/Jan/2025 04:34:48] "[36mGET /static/js/main.js HTTP/1.1[0m" 304 -
+2025-01-05 04:35:03,435 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2025-01-05 04:35:03,436 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2025-01-05 04:35:03,437 - sqlalchemy.engine.Engine - INFO - SELECT users.id AS users_id, users.email AS users_email, users.username AS users_username, users.encrypted_password AS users_encrypted_password, users.reset_password_token AS users_reset_password_token, users.reset_password_sent_at AS users_reset_password_sent_at, users.remember_created_at AS users_remember_created_at, users.created_at AS users_created_at, users.updated_at AS users_updated_at, users.gender AS users_gender, users.birthdate AS users_birthdate, users.comment AS users_comment 
+FROM users 
+WHERE users.id = %(pk_1)s
+2025-01-05 04:35:03,438 - sqlalchemy.engine.Engine - INFO - SELECT users.id AS users_id, users.email AS users_email, users.username AS users_username, users.encrypted_password AS users_encrypted_password, users.reset_password_token AS users_reset_password_token, users.reset_password_sent_at AS users_reset_password_sent_at, users.remember_created_at AS users_remember_created_at, users.created_at AS users_created_at, users.updated_at AS users_updated_at, users.gender AS users_gender, users.birthdate AS users_birthdate, users.comment AS users_comment 
+FROM users 
+WHERE users.id = %(pk_1)s
+2025-01-05 04:35:03,438 - sqlalchemy.engine.Engine - INFO - [cached since 2079s ago] {'pk_1': 2}
+2025-01-05 04:35:03,438 - sqlalchemy.engine.Engine - INFO - [cached since 2079s ago] {'pk_1': 2}
+2025-01-05 04:35:03,907 - sqlalchemy.engine.Engine - INFO - SELECT sakes.id AS sakes_id, sakes.sakenowa_id AS sakes_sakenowa_id, sakes.name AS sakes_name, sakes.brewery_id AS sakes_brewery_id, sakes.created_at AS sakes_created_at, sakes.updated_at AS sakes_updated_at 
+FROM sakes 
+WHERE sakes.id = %(pk_1)s
+2025-01-05 04:35:03,907 - sqlalchemy.engine.Engine - INFO - [generated in 0.00043s] {'pk_1': 5841}
+2025-01-05 04:35:03,911 - sqlalchemy.engine.Engine - INFO - ROLLBACK
+2025-01-05 04:35:04,142 - sqlalchemy.engine.Engine - INFO - INSERT INTO reviews (user_id, sake_id, rating, aroma, aftertaste, drinking_style, matching_food, comment, recorded_at, created_at, updated_at, f1, f2, f3, f4, f5, f6) VALUES (%(user_id)s, %(sake_id)s, %(rating)s, %(aroma)s, %(aftertaste)s, %(drinking_style)s, %(matching_food)s, %(comment)s, %(recorded_at)s, %(created_at)s, %(updated_at)s, %(f1)s, %(f2)s, %(f3)s, %(f4)s, %(f5)s, %(f6)s) RETURNING reviews.id
+2025-01-05 04:35:04,143 - sqlalchemy.engine.Engine - INFO - [generated in 0.00089s] {'user_id': 2, 'sake_id': 5841, 'rating': 4, 'aroma': None, 'aftertaste': None, 'drinking_style': None, 'matching_food': None, 'comment': '飲みやすいです', 'recorded_at': datetime.date(2025, 1, 5), 'created_at': datetime.datetime(2025, 1, 5, 4, 35, 4, 142892), 'updated_at': datetime.datetime(2025, 1, 5, 4, 35, 4, 142893), 'f1': None, 'f2': None, 'f3': None, 'f4': None, 'f5': None, 'f6': None}
+2025-01-05 04:35:04,146 - werkzeug - INFO - 172.31.196.46 - - [05/Jan/2025 04:35:04] "[31m[1mPOST /review/5841 HTTP/1.1[0m" 400 -
+2025-01-05 04:35:04,387 - sqlalchemy.engine.Engine - INFO - COMMIT
+2025-01-05 04:35:04,622 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2025-01-05 04:35:04,624 - sqlalchemy.engine.Engine - INFO - SELECT users.id AS users_id, users.email AS users_email, users.username AS users_username, users.encrypted_password AS users_encrypted_password, users.reset_password_token AS users_reset_password_token, users.reset_password_sent_at AS users_reset_password_sent_at, users.remember_created_at AS users_remember_created_at, users.created_at AS users_created_at, users.updated_at AS users_updated_at, users.gender AS users_gender, users.birthdate AS users_birthdate, users.comment AS users_comment 
+FROM users 
+WHERE users.id = %(pk_1)s
+2025-01-05 04:35:04,624 - sqlalchemy.engine.Engine - INFO - [generated in 0.00030s] {'pk_1': 2}
+2025-01-05 04:35:05,094 - routes - INFO - Added new review for sake 5841 by user 2
+2025-01-05 04:35:05,094 - sqlalchemy.engine.Engine - INFO - ROLLBACK
+2025-01-05 04:35:05,329 - werkzeug - INFO - 172.31.196.46 - - [05/Jan/2025 04:35:05] "POST /review/5841 HTTP/1.1" 200 -
+2025-01-05 04:35:07,423 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2025-01-05 04:35:07,424 - sqlalchemy.engine.Engine - INFO - SELECT sakes.id AS sakes_id, sakes.sakenowa_id AS sakes_sakenowa_id, sakes.name AS sakes_name, sakes.brewery_id AS sakes_brewery_id, sakes.created_at AS sakes_created_at, sakes.updated_at AS sakes_updated_at 
+FROM sakes JOIN breweries ON breweries.id = sakes.brewery_id JOIN regions ON regions.id = breweries.region_id 
+WHERE sakes.id = %(id_1)s 
+ LIMIT %(param_1)s
+2025-01-05 04:35:07,424 - sqlalchemy.engine.Engine - INFO - [cached since 2148s ago] {'id_1': 5841, 'param_1': 1}
+2025-01-05 04:35:07,892 - sqlalchemy.engine.Engine - INFO - SELECT reviews.id AS reviews_id, reviews.user_id AS reviews_user_id, reviews.sake_id AS reviews_sake_id, reviews.rating AS reviews_rating, reviews.aroma AS reviews_aroma, reviews.aftertaste AS reviews_aftertaste, reviews.drinking_style AS reviews_drinking_style, reviews.matching_food AS reviews_matching_food, reviews.comment AS reviews_comment, reviews.recorded_at AS reviews_recorded_at, reviews.created_at AS reviews_created_at, reviews.updated_at AS reviews_updated_at, reviews.f1 AS reviews_f1, reviews.f2 AS reviews_f2, reviews.f3 AS reviews_f3, reviews.f4 AS reviews_f4, reviews.f5 AS reviews_f5, reviews.f6 AS reviews_f6 
+FROM reviews 
+WHERE %(param_1)s = reviews.sake_id ORDER BY reviews.created_at DESC
+2025-01-05 04:35:07,892 - sqlalchemy.engine.Engine - INFO - [cached since 2147s ago] {'param_1': 5841}
+2025-01-05 04:35:08,126 - sqlalchemy.engine.Engine - INFO - SELECT users.id AS users_id, users.email AS users_email, users.username AS users_username, users.encrypted_password AS users_encrypted_password, users.reset_password_token AS users_reset_password_token, users.reset_password_sent_at AS users_reset_password_sent_at, users.remember_created_at AS users_remember_created_at, users.created_at AS users_created_at, users.updated_at AS users_updated_at, users.gender AS users_gender, users.birthdate AS users_birthdate, users.comment AS users_comment 
+FROM users 
+WHERE users.id = %(pk_1)s
+2025-01-05 04:35:08,126 - sqlalchemy.engine.Engine - INFO - [cached since 2084s ago] {'pk_1': 2}
+2025-01-05 04:35:08,361 - sqlalchemy.engine.Engine - INFO - SELECT breweries.id AS breweries_id, breweries.name AS breweries_name, breweries.sakenowa_brewery_id AS breweries_sakenowa_brewery_id, breweries.region_id AS breweries_region_id, breweries.created_at AS breweries_created_at, breweries.updated_at AS breweries_updated_at 
+FROM breweries 
+WHERE breweries.id = %(pk_1)s
+2025-01-05 04:35:08,361 - sqlalchemy.engine.Engine - INFO - [cached since 2148s ago] {'pk_1': 2275}
+2025-01-05 04:35:08,595 - sqlalchemy.engine.Engine - INFO - SELECT regions.id AS regions_id, regions.name AS regions_name, regions."sakenowaId" AS "regions_sakenowaId", regions.created_at AS regions_created_at, regions.updated_at AS regions_updated_at 
+FROM regions 
+WHERE regions.id = %(pk_1)s
+2025-01-05 04:35:08,596 - sqlalchemy.engine.Engine - INFO - [cached since 2148s ago] {'pk_1': 35}
+2025-01-05 04:35:08,830 - sqlalchemy.engine.Engine - INFO - SELECT reviews.id AS reviews_id, reviews.user_id AS reviews_user_id, reviews.sake_id AS reviews_sake_id, reviews.rating AS reviews_rating, reviews.aroma AS reviews_aroma, reviews.aftertaste AS reviews_aftertaste, reviews.drinking_style AS reviews_drinking_style, reviews.matching_food AS reviews_matching_food, reviews.comment AS reviews_comment, reviews.recorded_at AS reviews_recorded_at, reviews.created_at AS reviews_created_at, reviews.updated_at AS reviews_updated_at, reviews.f1 AS reviews_f1, reviews.f2 AS reviews_f2, reviews.f3 AS reviews_f3, reviews.f4 AS reviews_f4, reviews.f5 AS reviews_f5, reviews.f6 AS reviews_f6 
+FROM reviews 
+WHERE %(param_1)s = reviews.sake_id
+2025-01-05 04:35:08,830 - sqlalchemy.engine.Engine - INFO - [cached since 2148s ago] {'param_1': 5841}
+2025-01-05 04:35:09,065 - sqlalchemy.engine.Engine - INFO - SELECT count(*) AS count_1 
+FROM (SELECT reviews.id AS reviews_id, reviews.user_id AS reviews_user_id, reviews.sake_id AS reviews_sake_id, reviews.rating AS reviews_rating, reviews.aroma AS reviews_aroma, reviews.aftertaste AS reviews_aftertaste, reviews.drinking_style AS reviews_drinking_style, reviews.matching_food AS reviews_matching_food, reviews.comment AS reviews_comment, reviews.recorded_at AS reviews_recorded_at, reviews.created_at AS reviews_created_at, reviews.updated_at AS reviews_updated_at, reviews.f1 AS reviews_f1, reviews.f2 AS reviews_f2, reviews.f3 AS reviews_f3, reviews.f4 AS reviews_f4, reviews.f5 AS reviews_f5, reviews.f6 AS reviews_f6 
+FROM reviews 
+WHERE %(param_1)s = reviews.sake_id) AS anon_1
+2025-01-05 04:35:09,066 - sqlalchemy.engine.Engine - INFO - [cached since 2148s ago] {'param_1': 5841}
+2025-01-05 04:35:09,300 - sqlalchemy.engine.Engine - INFO - ROLLBACK
+2025-01-05 04:35:09,533 - werkzeug - INFO - 172.31.196.46 - - [05/Jan/2025 04:35:09] "GET /sake/5841 HTTP/1.1" 200 -
+2025-01-05 04:35:09,784 - werkzeug - INFO - 172.31.196.46 - - [05/Jan/2025 04:35:09] "[36mGET /static/css/custom.css HTTP/1.1[0m" 304 -
+2025-01-05 04:35:10,867 - werkzeug - INFO - 172.31.196.46 - - [05/Jan/2025 04:35:10] "[36mGET /static/js/main.js HTTP/1.1[0m" 304 -
+2025-01-05 04:45:05,447 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2025-01-05 04:45:05,447 - sqlalchemy.engine.Engine - INFO - SELECT sakes.id AS sakes_id, sakes.sakenowa_id AS sakes_sakenowa_id, sakes.name AS sakes_name, sakes.brewery_id AS sakes_brewery_id, sakes.created_at AS sakes_created_at, sakes.updated_at AS sakes_updated_at 
+FROM sakes JOIN breweries ON breweries.id = sakes.brewery_id JOIN regions ON regions.id = breweries.region_id 
+WHERE sakes.id = %(id_1)s 
+ LIMIT %(param_1)s
+2025-01-05 04:45:05,447 - sqlalchemy.engine.Engine - INFO - [cached since 2746s ago] {'id_1': 5841, 'param_1': 1}
+2025-01-05 04:45:05,448 - sqlalchemy.pool.impl.QueuePool - INFO - Invalidate connection <connection object at 0x7f7756dd1e40; dsn: 'user=neondb_owner password=xxx dbname=neondb host=ep-restless-cloud-a6aak0tl.us-west-2.aws.neon.tech sslmode=require', closed: 2> (reason: OperationalError:SSL connection has been closed unexpectedly
+)
+2025-01-05 04:45:05,448 - routes - ERROR - Error in sake_detail route for ID 5841: (psycopg2.OperationalError) SSL connection has been closed unexpectedly
+
+[SQL: SELECT sakes.id AS sakes_id, sakes.sakenowa_id AS sakes_sakenowa_id, sakes.name AS sakes_name, sakes.brewery_id AS sakes_brewery_id, sakes.created_at AS sakes_created_at, sakes.updated_at AS sakes_updated_at 
+FROM sakes JOIN breweries ON breweries.id = sakes.brewery_id JOIN regions ON regions.id = breweries.region_id 
+WHERE sakes.id = %(id_1)s 
+ LIMIT %(param_1)s]
+[parameters: {'id_1': 5841, 'param_1': 1}]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+2025-01-05 04:45:05,449 - werkzeug - INFO - 172.31.196.46 - - [05/Jan/2025 04:45:05] "[32mGET /sake/5841 HTTP/1.1[0m" 302 -
+2025-01-05 04:45:05,595 - sqlalchemy.pool.impl.QueuePool - INFO - Connection <connection object at 0x7f7756dd1940; dsn: 'user=neondb_owner password=xxx dbname=neondb host=ep-restless-cloud-a6aak0tl.us-west-2.aws.neon.tech sslmode=require', closed: 0> invalidated due to pool invalidation; recycling
+2025-01-05 04:45:08,567 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2025-01-05 04:45:08,568 - sqlalchemy.engine.Engine - INFO - SELECT sakes.id AS sakes_id, sakes.sakenowa_id AS sakes_sakenowa_id, sakes.name AS sakes_name, sakes.brewery_id AS sakes_brewery_id, sakes.created_at AS sakes_created_at, sakes.updated_at AS sakes_updated_at 
+FROM sakes ORDER BY sakes.created_at DESC
+2025-01-05 04:45:08,568 - sqlalchemy.engine.Engine - INFO - [cached since 2811s ago] {}
+2025-01-05 04:45:10,010 - sqlalchemy.engine.Engine - INFO - SELECT users.id AS users_id, users.email AS users_email, users.username AS users_username, users.encrypted_password AS users_encrypted_password, users.reset_password_token AS users_reset_password_token, users.reset_password_sent_at AS users_reset_password_sent_at, users.remember_created_at AS users_remember_created_at, users.created_at AS users_created_at, users.updated_at AS users_updated_at, users.gender AS users_gender, users.birthdate AS users_birthdate, users.comment AS users_comment 
+FROM users 
+WHERE users.id = %(pk_1)s
+2025-01-05 04:45:10,011 - sqlalchemy.engine.Engine - INFO - [cached since 2686s ago] {'pk_1': 2}
+2025-01-05 04:45:10,260 - sqlalchemy.engine.Engine - INFO - ROLLBACK
+2025-01-05 04:45:10,490 - werkzeug - INFO - 172.31.196.46 - - [05/Jan/2025 04:45:10] "GET / HTTP/1.1" 200 -
+2025-01-05 04:45:11,094 - werkzeug - INFO - 172.31.196.46 - - [05/Jan/2025 04:45:11] "[36mGET /static/css/custom.css HTTP/1.1[0m" 304 -
+2025-01-05 04:45:15,627 - werkzeug - INFO - 172.31.196.46 - - [05/Jan/2025 04:45:15] "[36mGET /static/js/main.js HTTP/1.1[0m" 304 -
+2025-01-05 04:45:18,156 - routes - INFO - Received query: 獺祭
+2025-01-05 04:45:19,585 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2025-01-05 04:45:19,585 - sqlalchemy.engine.Engine - INFO - SELECT sakes.id AS sakes_id, sakes.sakenowa_id AS sakes_sakenowa_id, sakes.name AS sakes_name, sakes.brewery_id AS sakes_brewery_id, sakes.created_at AS sakes_created_at, sakes.updated_at AS sakes_updated_at 
+FROM sakes 
+WHERE sakes.name ILIKE %(name_1)s ORDER BY sakes.created_at DESC
+2025-01-05 04:45:19,585 - sqlalchemy.engine.Engine - INFO - [cached since 2766s ago] {'name_1': '%獺祭%'}
+2025-01-05 04:45:20,080 - sqlalchemy.engine.Engine - INFO - SELECT users.id AS users_id, users.email AS users_email, users.username AS users_username, users.encrypted_password AS users_encrypted_password, users.reset_password_token AS users_reset_password_token, users.reset_password_sent_at AS users_reset_password_sent_at, users.remember_created_at AS users_remember_created_at, users.created_at AS users_created_at, users.updated_at AS users_updated_at, users.gender AS users_gender, users.birthdate AS users_birthdate, users.comment AS users_comment 
+FROM users 
+WHERE users.id = %(pk_1)s
+2025-01-05 04:45:20,081 - sqlalchemy.engine.Engine - INFO - [cached since 2696s ago] {'pk_1': 2}
+2025-01-05 04:45:20,314 - sqlalchemy.engine.Engine - INFO - ROLLBACK
+2025-01-05 04:45:20,549 - werkzeug - INFO - 172.31.196.46 - - [05/Jan/2025 04:45:20] "GET /search?q=獺祭 HTTP/1.1" 200 -
+2025-01-05 04:45:21,418 - werkzeug - INFO - 172.31.196.46 - - [05/Jan/2025 04:45:21] "[36mGET /static/css/custom.css HTTP/1.1[0m" 304 -
+2025-01-05 04:45:21,427 - werkzeug - INFO - 172.31.196.46 - - [05/Jan/2025 04:45:21] "[36mGET /static/js/main.js HTTP/1.1[0m" 304 -
+2025-01-05 04:45:23,420 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2025-01-05 04:45:23,421 - sqlalchemy.engine.Engine - INFO - SELECT sakes.id AS sakes_id, sakes.sakenowa_id AS sakes_sakenowa_id, sakes.name AS sakes_name, sakes.brewery_id AS sakes_brewery_id, sakes.created_at AS sakes_created_at, sakes.updated_at AS sakes_updated_at 
+FROM sakes JOIN breweries ON breweries.id = sakes.brewery_id JOIN regions ON regions.id = breweries.region_id 
+WHERE sakes.id = %(id_1)s 
+ LIMIT %(param_1)s
+2025-01-05 04:45:23,421 - sqlalchemy.engine.Engine - INFO - [cached since 2764s ago] {'id_1': 5841, 'param_1': 1}
+2025-01-05 04:45:23,903 - sqlalchemy.engine.Engine - INFO - SELECT reviews.id AS reviews_id, reviews.user_id AS reviews_user_id, reviews.sake_id AS reviews_sake_id, reviews.rating AS reviews_rating, reviews.aroma AS reviews_aroma, reviews.aftertaste AS reviews_aftertaste, reviews.drinking_style AS reviews_drinking_style, reviews.matching_food AS reviews_matching_food, reviews.comment AS reviews_comment, reviews.recorded_at AS reviews_recorded_at, reviews.created_at AS reviews_created_at, reviews.updated_at AS reviews_updated_at, reviews.f1 AS reviews_f1, reviews.f2 AS reviews_f2, reviews.f3 AS reviews_f3, reviews.f4 AS reviews_f4, reviews.f5 AS reviews_f5, reviews.f6 AS reviews_f6 
+FROM reviews 
+WHERE %(param_1)s = reviews.sake_id ORDER BY reviews.created_at DESC
+2025-01-05 04:45:23,904 - sqlalchemy.engine.Engine - INFO - [cached since 2764s ago] {'param_1': 5841}
+2025-01-05 04:45:24,144 - sqlalchemy.engine.Engine - INFO - SELECT users.id AS users_id, users.email AS users_email, users.username AS users_username, users.encrypted_password AS users_encrypted_password, users.reset_password_token AS users_reset_password_token, users.reset_password_sent_at AS users_reset_password_sent_at, users.remember_created_at AS users_remember_created_at, users.created_at AS users_created_at, users.updated_at AS users_updated_at, users.gender AS users_gender, users.birthdate AS users_birthdate, users.comment AS users_comment 
+FROM users 
+WHERE users.id = %(pk_1)s
+2025-01-05 04:45:24,144 - sqlalchemy.engine.Engine - INFO - [cached since 2700s ago] {'pk_1': 2}
+2025-01-05 04:45:24,375 - sqlalchemy.engine.Engine - INFO - SELECT breweries.id AS breweries_id, breweries.name AS breweries_name, breweries.sakenowa_brewery_id AS breweries_sakenowa_brewery_id, breweries.region_id AS breweries_region_id, breweries.created_at AS breweries_created_at, breweries.updated_at AS breweries_updated_at 
+FROM breweries 
+WHERE breweries.id = %(pk_1)s
+2025-01-05 04:45:24,376 - sqlalchemy.engine.Engine - INFO - [cached since 2764s ago] {'pk_1': 2275}
+2025-01-05 04:45:24,609 - sqlalchemy.engine.Engine - INFO - SELECT regions.id AS regions_id, regions.name AS regions_name, regions."sakenowaId" AS "regions_sakenowaId", regions.created_at AS regions_created_at, regions.updated_at AS regions_updated_at 
+FROM regions 
+WHERE regions.id = %(pk_1)s
+2025-01-05 04:45:24,609 - sqlalchemy.engine.Engine - INFO - [cached since 2764s ago] {'pk_1': 35}
+2025-01-05 04:45:24,840 - sqlalchemy.engine.Engine - INFO - SELECT reviews.id AS reviews_id, reviews.user_id AS reviews_user_id, reviews.sake_id AS reviews_sake_id, reviews.rating AS reviews_rating, reviews.aroma AS reviews_aroma, reviews.aftertaste AS reviews_aftertaste, reviews.drinking_style AS reviews_drinking_style, reviews.matching_food AS reviews_matching_food, reviews.comment AS reviews_comment, reviews.recorded_at AS reviews_recorded_at, reviews.created_at AS reviews_created_at, reviews.updated_at AS reviews_updated_at, reviews.f1 AS reviews_f1, reviews.f2 AS reviews_f2, reviews.f3 AS reviews_f3, reviews.f4 AS reviews_f4, reviews.f5 AS reviews_f5, reviews.f6 AS reviews_f6 
+FROM reviews 
+WHERE %(param_1)s = reviews.sake_id
+2025-01-05 04:45:24,840 - sqlalchemy.engine.Engine - INFO - [cached since 2764s ago] {'param_1': 5841}
+2025-01-05 04:45:25,071 - sqlalchemy.engine.Engine - INFO - SELECT count(*) AS count_1 
+FROM (SELECT reviews.id AS reviews_id, reviews.user_id AS reviews_user_id, reviews.sake_id AS reviews_sake_id, reviews.rating AS reviews_rating, reviews.aroma AS reviews_aroma, reviews.aftertaste AS reviews_aftertaste, reviews.drinking_style AS reviews_drinking_style, reviews.matching_food AS reviews_matching_food, reviews.comment AS reviews_comment, reviews.recorded_at AS reviews_recorded_at, reviews.created_at AS reviews_created_at, reviews.updated_at AS reviews_updated_at, reviews.f1 AS reviews_f1, reviews.f2 AS reviews_f2, reviews.f3 AS reviews_f3, reviews.f4 AS reviews_f4, reviews.f5 AS reviews_f5, reviews.f6 AS reviews_f6 
+FROM reviews 
+WHERE %(param_1)s = reviews.sake_id) AS anon_1
+2025-01-05 04:45:25,071 - sqlalchemy.engine.Engine - INFO - [cached since 2764s ago] {'param_1': 5841}
+2025-01-05 04:45:25,308 - sqlalchemy.engine.Engine - INFO - ROLLBACK
+2025-01-05 04:45:25,539 - werkzeug - INFO - 172.31.196.46 - - [05/Jan/2025 04:45:25] "GET /sake/5841 HTTP/1.1" 200 -
+2025-01-05 04:45:25,799 - werkzeug - INFO - 172.31.196.46 - - [05/Jan/2025 04:45:25] "[36mGET /static/css/custom.css HTTP/1.1[0m" 304 -
+2025-01-05 04:45:25,819 - werkzeug - INFO - 172.31.196.46 - - [05/Jan/2025 04:45:25] "[36mGET /static/js/main.js HTTP/1.1[0m" 304 -
+2025-01-05 04:45:48,702 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2025-01-05 04:45:48,702 - sqlalchemy.engine.Engine - INFO - SELECT sakes.id AS sakes_id, sakes.sakenowa_id AS sakes_sakenowa_id, sakes.name AS sakes_name, sakes.brewery_id AS sakes_brewery_id, sakes.created_at AS sakes_created_at, sakes.updated_at AS sakes_updated_at 
+FROM sakes JOIN breweries ON breweries.id = sakes.brewery_id JOIN regions ON regions.id = breweries.region_id 
+WHERE sakes.id = %(id_1)s 
+ LIMIT %(param_1)s
+2025-01-05 04:45:48,702 - sqlalchemy.engine.Engine - INFO - [cached since 2789s ago] {'id_1': 5841, 'param_1': 1}
+2025-01-05 04:45:49,171 - sqlalchemy.engine.Engine - INFO - SELECT reviews.id AS reviews_id, reviews.user_id AS reviews_user_id, reviews.sake_id AS reviews_sake_id, reviews.rating AS reviews_rating, reviews.aroma AS reviews_aroma, reviews.aftertaste AS reviews_aftertaste, reviews.drinking_style AS reviews_drinking_style, reviews.matching_food AS reviews_matching_food, reviews.comment AS reviews_comment, reviews.recorded_at AS reviews_recorded_at, reviews.created_at AS reviews_created_at, reviews.updated_at AS reviews_updated_at, reviews.f1 AS reviews_f1, reviews.f2 AS reviews_f2, reviews.f3 AS reviews_f3, reviews.f4 AS reviews_f4, reviews.f5 AS reviews_f5, reviews.f6 AS reviews_f6 
+FROM reviews 
+WHERE %(param_1)s = reviews.sake_id ORDER BY reviews.created_at DESC
+2025-01-05 04:45:49,172 - sqlalchemy.engine.Engine - INFO - [cached since 2789s ago] {'param_1': 5841}
+2025-01-05 04:45:49,412 - sqlalchemy.engine.Engine - INFO - SELECT users.id AS users_id, users.email AS users_email, users.username AS users_username, users.encrypted_password AS users_encrypted_password, users.reset_password_token AS users_reset_password_token, users.reset_password_sent_at AS users_reset_password_sent_at, users.remember_created_at AS users_remember_created_at, users.created_at AS users_created_at, users.updated_at AS users_updated_at, users.gender AS users_gender, users.birthdate AS users_birthdate, users.comment AS users_comment 
+FROM users 
+WHERE users.id = %(pk_1)s
+2025-01-05 04:45:49,412 - sqlalchemy.engine.Engine - INFO - [cached since 2725s ago] {'pk_1': 2}
+2025-01-05 04:45:49,645 - sqlalchemy.engine.Engine - INFO - SELECT breweries.id AS breweries_id, breweries.name AS breweries_name, breweries.sakenowa_brewery_id AS breweries_sakenowa_brewery_id, breweries.region_id AS breweries_region_id, breweries.created_at AS breweries_created_at, breweries.updated_at AS breweries_updated_at 
+FROM breweries 
+WHERE breweries.id = %(pk_1)s
+2025-01-05 04:45:49,646 - sqlalchemy.engine.Engine - INFO - [cached since 2789s ago] {'pk_1': 2275}
+2025-01-05 04:45:49,879 - sqlalchemy.engine.Engine - INFO - SELECT regions.id AS regions_id, regions.name AS regions_name, regions."sakenowaId" AS "regions_sakenowaId", regions.created_at AS regions_created_at, regions.updated_at AS regions_updated_at 
+FROM regions 
+WHERE regions.id = %(pk_1)s
+2025-01-05 04:45:49,879 - sqlalchemy.engine.Engine - INFO - [cached since 2789s ago] {'pk_1': 35}
+2025-01-05 04:45:50,113 - sqlalchemy.engine.Engine - INFO - SELECT reviews.id AS reviews_id, reviews.user_id AS reviews_user_id, reviews.sake_id AS reviews_sake_id, reviews.rating AS reviews_rating, reviews.aroma AS reviews_aroma, reviews.aftertaste AS reviews_aftertaste, reviews.drinking_style AS reviews_drinking_style, reviews.matching_food AS reviews_matching_food, reviews.comment AS reviews_comment, reviews.recorded_at AS reviews_recorded_at, reviews.created_at AS reviews_created_at, reviews.updated_at AS reviews_updated_at, reviews.f1 AS reviews_f1, reviews.f2 AS reviews_f2, reviews.f3 AS reviews_f3, reviews.f4 AS reviews_f4, reviews.f5 AS reviews_f5, reviews.f6 AS reviews_f6 
+FROM reviews 
+WHERE %(param_1)s = reviews.sake_id
+2025-01-05 04:45:50,113 - sqlalchemy.engine.Engine - INFO - [cached since 2789s ago] {'param_1': 5841}
+2025-01-05 04:45:50,347 - sqlalchemy.engine.Engine - INFO - SELECT count(*) AS count_1 
+FROM (SELECT reviews.id AS reviews_id, reviews.user_id AS reviews_user_id, reviews.sake_id AS reviews_sake_id, reviews.rating AS reviews_rating, reviews.aroma AS reviews_aroma, reviews.aftertaste AS reviews_aftertaste, reviews.drinking_style AS reviews_drinking_style, reviews.matching_food AS reviews_matching_food, reviews.comment AS reviews_comment, reviews.recorded_at AS reviews_recorded_at, reviews.created_at AS reviews_created_at, reviews.updated_at AS reviews_updated_at, reviews.f1 AS reviews_f1, reviews.f2 AS reviews_f2, reviews.f3 AS reviews_f3, reviews.f4 AS reviews_f4, reviews.f5 AS reviews_f5, reviews.f6 AS reviews_f6 
+FROM reviews 
+WHERE %(param_1)s = reviews.sake_id) AS anon_1
+2025-01-05 04:45:50,347 - sqlalchemy.engine.Engine - INFO - [cached since 2789s ago] {'param_1': 5841}
+2025-01-05 04:45:50,580 - sqlalchemy.engine.Engine - INFO - ROLLBACK
+2025-01-05 04:45:50,813 - werkzeug - INFO - 172.31.196.46 - - [05/Jan/2025 04:45:50] "GET /sake/5841 HTTP/1.1" 200 -
+2025-01-05 04:45:51,258 - werkzeug - INFO - 172.31.196.46 - - [05/Jan/2025 04:45:51] "[36mGET /static/css/custom.css HTTP/1.1[0m" 304 -
+2025-01-05 04:45:51,269 - werkzeug - INFO - 172.31.196.46 - - [05/Jan/2025 04:45:51] "[36mGET /static/js/main.js HTTP/1.1[0m" 304 -
+2025-01-05 04:46:49,462 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2025-01-05 04:46:49,463 - sqlalchemy.engine.Engine - INFO - SELECT sakes.id AS sakes_id, sakes.sakenowa_id AS sakes_sakenowa_id, sakes.name AS sakes_name, sakes.brewery_id AS sakes_brewery_id, sakes.created_at AS sakes_created_at, sakes.updated_at AS sakes_updated_at 
+FROM sakes JOIN breweries ON breweries.id = sakes.brewery_id JOIN regions ON regions.id = breweries.region_id 
+WHERE sakes.id = %(id_1)s 
+ LIMIT %(param_1)s
+2025-01-05 04:46:49,463 - sqlalchemy.engine.Engine - INFO - [cached since 2850s ago] {'id_1': 5841, 'param_1': 1}
+2025-01-05 04:46:49,924 - sqlalchemy.engine.Engine - INFO - SELECT reviews.id AS reviews_id, reviews.user_id AS reviews_user_id, reviews.sake_id AS reviews_sake_id, reviews.rating AS reviews_rating, reviews.aroma AS reviews_aroma, reviews.aftertaste AS reviews_aftertaste, reviews.drinking_style AS reviews_drinking_style, reviews.matching_food AS reviews_matching_food, reviews.comment AS reviews_comment, reviews.recorded_at AS reviews_recorded_at, reviews.created_at AS reviews_created_at, reviews.updated_at AS reviews_updated_at, reviews.f1 AS reviews_f1, reviews.f2 AS reviews_f2, reviews.f3 AS reviews_f3, reviews.f4 AS reviews_f4, reviews.f5 AS reviews_f5, reviews.f6 AS reviews_f6 
+FROM reviews 
+WHERE %(param_1)s = reviews.sake_id ORDER BY reviews.created_at DESC
+2025-01-05 04:46:49,924 - sqlalchemy.engine.Engine - INFO - [cached since 2850s ago] {'param_1': 5841}
+2025-01-05 04:46:50,155 - sqlalchemy.engine.Engine - INFO - SELECT users.id AS users_id, users.email AS users_email, users.username AS users_username, users.encrypted_password AS users_encrypted_password, users.reset_password_token AS users_reset_password_token, users.reset_password_sent_at AS users_reset_password_sent_at, users.remember_created_at AS users_remember_created_at, users.created_at AS users_created_at, users.updated_at AS users_updated_at, users.gender AS users_gender, users.birthdate AS users_birthdate, users.comment AS users_comment 
+FROM users 
+WHERE users.id = %(pk_1)s
+2025-01-05 04:46:50,155 - sqlalchemy.engine.Engine - INFO - [cached since 2786s ago] {'pk_1': 2}
+2025-01-05 04:46:50,387 - sqlalchemy.engine.Engine - INFO - SELECT breweries.id AS breweries_id, breweries.name AS breweries_name, breweries.sakenowa_brewery_id AS breweries_sakenowa_brewery_id, breweries.region_id AS breweries_region_id, breweries.created_at AS breweries_created_at, breweries.updated_at AS breweries_updated_at 
+FROM breweries 
+WHERE breweries.id = %(pk_1)s
+2025-01-05 04:46:50,387 - sqlalchemy.engine.Engine - INFO - [cached since 2850s ago] {'pk_1': 2275}
+2025-01-05 04:46:50,618 - sqlalchemy.engine.Engine - INFO - SELECT regions.id AS regions_id, regions.name AS regions_name, regions."sakenowaId" AS "regions_sakenowaId", regions.created_at AS regions_created_at, regions.updated_at AS regions_updated_at 
+FROM regions 
+WHERE regions.id = %(pk_1)s
+2025-01-05 04:46:50,618 - sqlalchemy.engine.Engine - INFO - [cached since 2850s ago] {'pk_1': 35}
+2025-01-05 04:46:50,849 - sqlalchemy.engine.Engine - INFO - SELECT reviews.id AS reviews_id, reviews.user_id AS reviews_user_id, reviews.sake_id AS reviews_sake_id, reviews.rating AS reviews_rating, reviews.aroma AS reviews_aroma, reviews.aftertaste AS reviews_aftertaste, reviews.drinking_style AS reviews_drinking_style, reviews.matching_food AS reviews_matching_food, reviews.comment AS reviews_comment, reviews.recorded_at AS reviews_recorded_at, reviews.created_at AS reviews_created_at, reviews.updated_at AS reviews_updated_at, reviews.f1 AS reviews_f1, reviews.f2 AS reviews_f2, reviews.f3 AS reviews_f3, reviews.f4 AS reviews_f4, reviews.f5 AS reviews_f5, reviews.f6 AS reviews_f6 
+FROM reviews 
+WHERE %(param_1)s = reviews.sake_id
+2025-01-05 04:46:50,849 - sqlalchemy.engine.Engine - INFO - [cached since 2850s ago] {'param_1': 5841}
+2025-01-05 04:46:51,080 - sqlalchemy.engine.Engine - INFO - SELECT count(*) AS count_1 
+FROM (SELECT reviews.id AS reviews_id, reviews.user_id AS reviews_user_id, reviews.sake_id AS reviews_sake_id, reviews.rating AS reviews_rating, reviews.aroma AS reviews_aroma, reviews.aftertaste AS reviews_aftertaste, reviews.drinking_style AS reviews_drinking_style, reviews.matching_food AS reviews_matching_food, reviews.comment AS reviews_comment, reviews.recorded_at AS reviews_recorded_at, reviews.created_at AS reviews_created_at, reviews.updated_at AS reviews_updated_at, reviews.f1 AS reviews_f1, reviews.f2 AS reviews_f2, reviews.f3 AS reviews_f3, reviews.f4 AS reviews_f4, reviews.f5 AS reviews_f5, reviews.f6 AS reviews_f6 
+FROM reviews 
+WHERE %(param_1)s = reviews.sake_id) AS anon_1
+2025-01-05 04:46:51,080 - sqlalchemy.engine.Engine - INFO - [cached since 2850s ago] {'param_1': 5841}
+2025-01-05 04:46:51,311 - sqlalchemy.engine.Engine - INFO - ROLLBACK
+2025-01-05 04:46:51,541 - werkzeug - INFO - 172.31.196.46 - - [05/Jan/2025 04:46:51] "GET /sake/5841 HTTP/1.1" 200 -
+2025-01-05 04:46:51,823 - werkzeug - INFO - 172.31.196.46 - - [05/Jan/2025 04:46:51] "[36mGET /static/css/custom.css HTTP/1.1[0m" 304 -
+2025-01-05 04:46:51,836 - werkzeug - INFO - 172.31.196.46 - - [05/Jan/2025 04:46:51] "[36mGET /static/js/main.js HTTP/1.1[0m" 304 -
+2025-01-05 04:47:12,916 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2025-01-05 04:47:12,917 - sqlalchemy.engine.Engine - INFO - SELECT sakes.id AS sakes_id, sakes.sakenowa_id AS sakes_sakenowa_id, sakes.name AS sakes_name, sakes.brewery_id AS sakes_brewery_id, sakes.created_at AS sakes_created_at, sakes.updated_at AS sakes_updated_at 
+FROM sakes JOIN breweries ON breweries.id = sakes.brewery_id JOIN regions ON regions.id = breweries.region_id 
+WHERE sakes.id = %(id_1)s 
+ LIMIT %(param_1)s
+2025-01-05 04:47:12,917 - sqlalchemy.engine.Engine - INFO - [cached since 2873s ago] {'id_1': 5841, 'param_1': 1}
+2025-01-05 04:47:13,384 - sqlalchemy.engine.Engine - INFO - SELECT reviews.id AS reviews_id, reviews.user_id AS reviews_user_id, reviews.sake_id AS reviews_sake_id, reviews.rating AS reviews_rating, reviews.aroma AS reviews_aroma, reviews.aftertaste AS reviews_aftertaste, reviews.drinking_style AS reviews_drinking_style, reviews.matching_food AS reviews_matching_food, reviews.comment AS reviews_comment, reviews.recorded_at AS reviews_recorded_at, reviews.created_at AS reviews_created_at, reviews.updated_at AS reviews_updated_at, reviews.f1 AS reviews_f1, reviews.f2 AS reviews_f2, reviews.f3 AS reviews_f3, reviews.f4 AS reviews_f4, reviews.f5 AS reviews_f5, reviews.f6 AS reviews_f6 
+FROM reviews 
+WHERE %(param_1)s = reviews.sake_id ORDER BY reviews.created_at DESC
+2025-01-05 04:47:13,384 - sqlalchemy.engine.Engine - INFO - [cached since 2873s ago] {'param_1': 5841}
+2025-01-05 04:47:13,626 - sqlalchemy.engine.Engine - INFO - SELECT users.id AS users_id, users.email AS users_email, users.username AS users_username, users.encrypted_password AS users_encrypted_password, users.reset_password_token AS users_reset_password_token, users.reset_password_sent_at AS users_reset_password_sent_at, users.remember_created_at AS users_remember_created_at, users.created_at AS users_created_at, users.updated_at AS users_updated_at, users.gender AS users_gender, users.birthdate AS users_birthdate, users.comment AS users_comment 
+FROM users 
+WHERE users.id = %(pk_1)s
+2025-01-05 04:47:13,627 - sqlalchemy.engine.Engine - INFO - [cached since 2810s ago] {'pk_1': 2}
+2025-01-05 04:47:13,861 - sqlalchemy.engine.Engine - INFO - SELECT breweries.id AS breweries_id, breweries.name AS breweries_name, breweries.sakenowa_brewery_id AS breweries_sakenowa_brewery_id, breweries.region_id AS breweries_region_id, breweries.created_at AS breweries_created_at, breweries.updated_at AS breweries_updated_at 
+FROM breweries 
+WHERE breweries.id = %(pk_1)s
+2025-01-05 04:47:13,863 - sqlalchemy.engine.Engine - INFO - [cached since 2873s ago] {'pk_1': 2275}
+2025-01-05 04:47:14,096 - sqlalchemy.engine.Engine - INFO - SELECT regions.id AS regions_id, regions.name AS regions_name, regions."sakenowaId" AS "regions_sakenowaId", regions.created_at AS regions_created_at, regions.updated_at AS regions_updated_at 
+FROM regions 
+WHERE regions.id = %(pk_1)s
+2025-01-05 04:47:14,097 - sqlalchemy.engine.Engine - INFO - [cached since 2873s ago] {'pk_1': 35}
+2025-01-05 04:47:14,330 - sqlalchemy.engine.Engine - INFO - SELECT reviews.id AS reviews_id, reviews.user_id AS reviews_user_id, reviews.sake_id AS reviews_sake_id, reviews.rating AS reviews_rating, reviews.aroma AS reviews_aroma, reviews.aftertaste AS reviews_aftertaste, reviews.drinking_style AS reviews_drinking_style, reviews.matching_food AS reviews_matching_food, reviews.comment AS reviews_comment, reviews.recorded_at AS reviews_recorded_at, reviews.created_at AS reviews_created_at, reviews.updated_at AS reviews_updated_at, reviews.f1 AS reviews_f1, reviews.f2 AS reviews_f2, reviews.f3 AS reviews_f3, reviews.f4 AS reviews_f4, reviews.f5 AS reviews_f5, reviews.f6 AS reviews_f6 
+FROM reviews 
+WHERE %(param_1)s = reviews.sake_id
+2025-01-05 04:47:14,330 - sqlalchemy.engine.Engine - INFO - [cached since 2873s ago] {'param_1': 5841}
+2025-01-05 04:47:14,563 - sqlalchemy.engine.Engine - INFO - SELECT count(*) AS count_1 
+FROM (SELECT reviews.id AS reviews_id, reviews.user_id AS reviews_user_id, reviews.sake_id AS reviews_sake_id, reviews.rating AS reviews_rating, reviews.aroma AS reviews_aroma, reviews.aftertaste AS reviews_aftertaste, reviews.drinking_style AS reviews_drinking_style, reviews.matching_food AS reviews_matching_food, reviews.comment AS reviews_comment, reviews.recorded_at AS reviews_recorded_at, reviews.created_at AS reviews_created_at, reviews.updated_at AS reviews_updated_at, reviews.f1 AS reviews_f1, reviews.f2 AS reviews_f2, reviews.f3 AS reviews_f3, reviews.f4 AS reviews_f4, reviews.f5 AS reviews_f5, reviews.f6 AS reviews_f6 
+FROM reviews 
+WHERE %(param_1)s = reviews.sake_id) AS anon_1
+2025-01-05 04:47:14,568 - sqlalchemy.engine.Engine - INFO - [cached since 2873s ago] {'param_1': 5841}
+2025-01-05 04:47:14,803 - sqlalchemy.engine.Engine - INFO - ROLLBACK
+2025-01-05 04:47:15,036 - werkzeug - INFO - 172.31.196.46 - - [05/Jan/2025 04:47:15] "GET /sake/5841 HTTP/1.1" 200 -
+2025-01-05 04:47:15,277 - werkzeug - INFO - 172.31.196.46 - - [05/Jan/2025 04:47:15] "[36mGET /static/css/custom.css HTTP/1.1[0m" 304 -
+2025-01-05 04:47:15,396 - werkzeug - INFO - 172.31.196.46 - - [05/Jan/2025 04:47:15] "[36mGET /static/js/main.js HTTP/1.1[0m" 304 -
+2025-01-05 05:24:53,229 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2025-01-05 05:24:53,230 - sqlalchemy.engine.Engine - INFO - SELECT sakes.id AS sakes_id, sakes.sakenowa_id AS sakes_sakenowa_id, sakes.name AS sakes_name, sakes.brewery_id AS sakes_brewery_id, sakes.created_at AS sakes_created_at, sakes.updated_at AS sakes_updated_at 
+FROM sakes JOIN breweries ON breweries.id = sakes.brewery_id JOIN regions ON regions.id = breweries.region_id 
+WHERE sakes.id = %(id_1)s 
+ LIMIT %(param_1)s
+2025-01-05 05:24:53,232 - sqlalchemy.engine.Engine - INFO - [cached since 5133s ago] {'id_1': 5841, 'param_1': 1}
+2025-01-05 05:24:53,233 - sqlalchemy.pool.impl.QueuePool - INFO - Invalidate connection <connection object at 0x7f7756dd1940; dsn: 'user=neondb_owner password=xxx dbname=neondb host=ep-restless-cloud-a6aak0tl.us-west-2.aws.neon.tech sslmode=require', closed: 2> (reason: OperationalError:SSL connection has been closed unexpectedly
+)
+2025-01-05 05:24:53,233 - routes - ERROR - Error in sake_detail route for ID 5841: (psycopg2.OperationalError) SSL connection has been closed unexpectedly
+
+[SQL: SELECT sakes.id AS sakes_id, sakes.sakenowa_id AS sakes_sakenowa_id, sakes.name AS sakes_name, sakes.brewery_id AS sakes_brewery_id, sakes.created_at AS sakes_created_at, sakes.updated_at AS sakes_updated_at 
+FROM sakes JOIN breweries ON breweries.id = sakes.brewery_id JOIN regions ON regions.id = breweries.region_id 
+WHERE sakes.id = %(id_1)s 
+ LIMIT %(param_1)s]
+[parameters: {'id_1': 5841, 'param_1': 1}]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+2025-01-05 05:24:53,234 - werkzeug - INFO - 172.31.196.46 - - [05/Jan/2025 05:24:53] "[32mGET /sake/5841 HTTP/1.1[0m" 302 -
+2025-01-05 05:24:53,378 - sqlalchemy.pool.impl.QueuePool - INFO - Connection <connection object at 0x7f7756dd2340; dsn: 'user=neondb_owner password=xxx dbname=neondb host=ep-restless-cloud-a6aak0tl.us-west-2.aws.neon.tech sslmode=require', closed: 0> invalidated due to pool invalidation; recycling
+2025-01-05 05:24:55,388 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2025-01-05 05:24:55,389 - sqlalchemy.engine.Engine - INFO - SELECT sakes.id AS sakes_id, sakes.sakenowa_id AS sakes_sakenowa_id, sakes.name AS sakes_name, sakes.brewery_id AS sakes_brewery_id, sakes.created_at AS sakes_created_at, sakes.updated_at AS sakes_updated_at 
+FROM sakes ORDER BY sakes.created_at DESC
+2025-01-05 05:24:55,389 - sqlalchemy.engine.Engine - INFO - [cached since 5198s ago] {}
+2025-01-05 05:24:56,858 - sqlalchemy.engine.Engine - INFO - SELECT users.id AS users_id, users.email AS users_email, users.username AS users_username, users.encrypted_password AS users_encrypted_password, users.reset_password_token AS users_reset_password_token, users.reset_password_sent_at AS users_reset_password_sent_at, users.remember_created_at AS users_remember_created_at, users.created_at AS users_created_at, users.updated_at AS users_updated_at, users.gender AS users_gender, users.birthdate AS users_birthdate, users.comment AS users_comment 
+FROM users 
+WHERE users.id = %(pk_1)s
+2025-01-05 05:24:56,859 - sqlalchemy.engine.Engine - INFO - [cached since 5073s ago] {'pk_1': 2}
+2025-01-05 05:24:57,109 - sqlalchemy.engine.Engine - INFO - ROLLBACK
+2025-01-05 05:24:57,340 - werkzeug - INFO - 172.31.196.46 - - [05/Jan/2025 05:24:57] "GET / HTTP/1.1" 200 -
+2025-01-05 05:24:57,685 - werkzeug - INFO - 172.31.196.46 - - [05/Jan/2025 05:24:57] "[36mGET /static/css/custom.css HTTP/1.1[0m" 304 -
+2025-01-05 05:25:00,005 - werkzeug - INFO - 172.31.196.46 - - [05/Jan/2025 05:25:00] "[36mGET /static/js/main.js HTTP/1.1[0m" 304 -
+2025-01-05 05:25:01,597 - werkzeug - INFO - 172.31.196.46 - - [05/Jan/2025 05:25:01] "[36mGET /static/js/main.js HTTP/1.1[0m" 304 -
+2025-01-05 05:25:10,991 - routes - INFO - Received query: 獺祭
+2025-01-05 05:25:12,497 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2025-01-05 05:25:12,498 - sqlalchemy.engine.Engine - INFO - SELECT sakes.id AS sakes_id, sakes.sakenowa_id AS sakes_sakenowa_id, sakes.name AS sakes_name, sakes.brewery_id AS sakes_brewery_id, sakes.created_at AS sakes_created_at, sakes.updated_at AS sakes_updated_at 
+FROM sakes 
+WHERE sakes.name ILIKE %(name_1)s ORDER BY sakes.created_at DESC
+2025-01-05 05:25:12,498 - sqlalchemy.engine.Engine - INFO - [cached since 5159s ago] {'name_1': '%獺祭%'}
+2025-01-05 05:25:12,977 - sqlalchemy.engine.Engine - INFO - SELECT users.id AS users_id, users.email AS users_email, users.username AS users_username, users.encrypted_password AS users_encrypted_password, users.reset_password_token AS users_reset_password_token, users.reset_password_sent_at AS users_reset_password_sent_at, users.remember_created_at AS users_remember_created_at, users.created_at AS users_created_at, users.updated_at AS users_updated_at, users.gender AS users_gender, users.birthdate AS users_birthdate, users.comment AS users_comment 
+FROM users 
+WHERE users.id = %(pk_1)s
+2025-01-05 05:25:12,978 - sqlalchemy.engine.Engine - INFO - [cached since 5089s ago] {'pk_1': 2}
+2025-01-05 05:25:13,212 - sqlalchemy.engine.Engine - INFO - ROLLBACK
+2025-01-05 05:25:13,445 - werkzeug - INFO - 172.31.196.46 - - [05/Jan/2025 05:25:13] "GET /search?q=獺祭 HTTP/1.1" 200 -
+2025-01-05 05:25:13,762 - werkzeug - INFO - 172.31.196.46 - - [05/Jan/2025 05:25:13] "[36mGET /static/css/custom.css HTTP/1.1[0m" 304 -
+2025-01-05 05:25:13,772 - werkzeug - INFO - 172.31.196.46 - - [05/Jan/2025 05:25:13] "[36mGET /static/js/main.js HTTP/1.1[0m" 304 -
+2025-01-05 05:25:13,934 - werkzeug - INFO - 172.31.196.46 - - [05/Jan/2025 05:25:13] "[36mGET /static/js/main.js HTTP/1.1[0m" 304 -
+2025-01-05 05:25:17,754 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2025-01-05 05:25:17,755 - sqlalchemy.engine.Engine - INFO - SELECT sakes.id AS sakes_id, sakes.sakenowa_id AS sakes_sakenowa_id, sakes.name AS sakes_name, sakes.brewery_id AS sakes_brewery_id, sakes.created_at AS sakes_created_at, sakes.updated_at AS sakes_updated_at 
+FROM sakes JOIN breweries ON breweries.id = sakes.brewery_id JOIN regions ON regions.id = breweries.region_id 
+WHERE sakes.id = %(id_1)s 
+ LIMIT %(param_1)s
+2025-01-05 05:25:17,755 - sqlalchemy.engine.Engine - INFO - [cached since 5158s ago] {'id_1': 5841, 'param_1': 1}
+2025-01-05 05:25:18,245 - sqlalchemy.engine.Engine - INFO - SELECT reviews.id AS reviews_id, reviews.user_id AS reviews_user_id, reviews.sake_id AS reviews_sake_id, reviews.rating AS reviews_rating, reviews.aroma AS reviews_aroma, reviews.aftertaste AS reviews_aftertaste, reviews.drinking_style AS reviews_drinking_style, reviews.matching_food AS reviews_matching_food, reviews.comment AS reviews_comment, reviews.recorded_at AS reviews_recorded_at, reviews.created_at AS reviews_created_at, reviews.updated_at AS reviews_updated_at, reviews.f1 AS reviews_f1, reviews.f2 AS reviews_f2, reviews.f3 AS reviews_f3, reviews.f4 AS reviews_f4, reviews.f5 AS reviews_f5, reviews.f6 AS reviews_f6 
+FROM reviews 
+WHERE %(param_1)s = reviews.sake_id ORDER BY reviews.created_at DESC
+2025-01-05 05:25:18,245 - sqlalchemy.engine.Engine - INFO - [cached since 5158s ago] {'param_1': 5841}
+2025-01-05 05:25:18,490 - sqlalchemy.engine.Engine - INFO - SELECT users.id AS users_id, users.email AS users_email, users.username AS users_username, users.encrypted_password AS users_encrypted_password, users.reset_password_token AS users_reset_password_token, users.reset_password_sent_at AS users_reset_password_sent_at, users.remember_created_at AS users_remember_created_at, users.created_at AS users_created_at, users.updated_at AS users_updated_at, users.gender AS users_gender, users.birthdate AS users_birthdate, users.comment AS users_comment 
+FROM users 
+WHERE users.id = %(pk_1)s
+2025-01-05 05:25:18,490 - sqlalchemy.engine.Engine - INFO - [cached since 5095s ago] {'pk_1': 2}
+2025-01-05 05:25:18,725 - sqlalchemy.engine.Engine - INFO - SELECT breweries.id AS breweries_id, breweries.name AS breweries_name, breweries.sakenowa_brewery_id AS breweries_sakenowa_brewery_id, breweries.region_id AS breweries_region_id, breweries.created_at AS breweries_created_at, breweries.updated_at AS breweries_updated_at 
+FROM breweries 
+WHERE breweries.id = %(pk_1)s
+2025-01-05 05:25:18,725 - sqlalchemy.engine.Engine - INFO - [cached since 5158s ago] {'pk_1': 2275}
+2025-01-05 05:25:18,961 - sqlalchemy.engine.Engine - INFO - SELECT regions.id AS regions_id, regions.name AS regions_name, regions."sakenowaId" AS "regions_sakenowaId", regions.created_at AS regions_created_at, regions.updated_at AS regions_updated_at 
+FROM regions 
+WHERE regions.id = %(pk_1)s
+2025-01-05 05:25:18,961 - sqlalchemy.engine.Engine - INFO - [cached since 5158s ago] {'pk_1': 35}
+2025-01-05 05:25:19,195 - sqlalchemy.engine.Engine - INFO - SELECT reviews.id AS reviews_id, reviews.user_id AS reviews_user_id, reviews.sake_id AS reviews_sake_id, reviews.rating AS reviews_rating, reviews.aroma AS reviews_aroma, reviews.aftertaste AS reviews_aftertaste, reviews.drinking_style AS reviews_drinking_style, reviews.matching_food AS reviews_matching_food, reviews.comment AS reviews_comment, reviews.recorded_at AS reviews_recorded_at, reviews.created_at AS reviews_created_at, reviews.updated_at AS reviews_updated_at, reviews.f1 AS reviews_f1, reviews.f2 AS reviews_f2, reviews.f3 AS reviews_f3, reviews.f4 AS reviews_f4, reviews.f5 AS reviews_f5, reviews.f6 AS reviews_f6 
+FROM reviews 
+WHERE %(param_1)s = reviews.sake_id
+2025-01-05 05:25:19,196 - sqlalchemy.engine.Engine - INFO - [cached since 5158s ago] {'param_1': 5841}
+2025-01-05 05:25:19,431 - sqlalchemy.engine.Engine - INFO - SELECT count(*) AS count_1 
+FROM (SELECT reviews.id AS reviews_id, reviews.user_id AS reviews_user_id, reviews.sake_id AS reviews_sake_id, reviews.rating AS reviews_rating, reviews.aroma AS reviews_aroma, reviews.aftertaste AS reviews_aftertaste, reviews.drinking_style AS reviews_drinking_style, reviews.matching_food AS reviews_matching_food, reviews.comment AS reviews_comment, reviews.recorded_at AS reviews_recorded_at, reviews.created_at AS reviews_created_at, reviews.updated_at AS reviews_updated_at, reviews.f1 AS reviews_f1, reviews.f2 AS reviews_f2, reviews.f3 AS reviews_f3, reviews.f4 AS reviews_f4, reviews.f5 AS reviews_f5, reviews.f6 AS reviews_f6 
+FROM reviews 
+WHERE %(param_1)s = reviews.sake_id) AS anon_1
+2025-01-05 05:25:19,432 - sqlalchemy.engine.Engine - INFO - [cached since 5158s ago] {'param_1': 5841}
+2025-01-05 05:25:19,672 - sqlalchemy.engine.Engine - INFO - ROLLBACK
+2025-01-05 05:25:19,905 - werkzeug - INFO - 172.31.196.46 - - [05/Jan/2025 05:25:19] "GET /sake/5841 HTTP/1.1" 200 -
+2025-01-05 05:25:20,192 - werkzeug - INFO - 172.31.196.46 - - [05/Jan/2025 05:25:20] "[36mGET /static/css/custom.css HTTP/1.1[0m" 304 -
+2025-01-05 05:25:20,301 - werkzeug - INFO - 172.31.196.46 - - [05/Jan/2025 05:25:20] "[36mGET /static/js/main.js HTTP/1.1[0m" 304 -
+2025-01-05 05:25:20,461 - werkzeug - INFO - 172.31.196.46 - - [05/Jan/2025 05:25:20] "[36mGET /static/js/main.js HTTP/1.1[0m" 304 -
+2025-01-05 05:38:10,053 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2025-01-05 05:38:10,053 - sqlalchemy.engine.Engine - INFO - SELECT sakes.id AS sakes_id, sakes.sakenowa_id AS sakes_sakenowa_id, sakes.name AS sakes_name, sakes.brewery_id AS sakes_brewery_id, sakes.created_at AS sakes_created_at, sakes.updated_at AS sakes_updated_at 
+FROM sakes JOIN breweries ON breweries.id = sakes.brewery_id JOIN regions ON regions.id = breweries.region_id 
+WHERE sakes.id = %(id_1)s 
+ LIMIT %(param_1)s
+2025-01-05 05:38:10,054 - sqlalchemy.engine.Engine - INFO - [cached since 5930s ago] {'id_1': 5841, 'param_1': 1}
+2025-01-05 05:38:10,054 - sqlalchemy.pool.impl.QueuePool - INFO - Invalidate connection <connection object at 0x7f7756dd16c0; dsn: 'user=neondb_owner password=xxx dbname=neondb host=ep-restless-cloud-a6aak0tl.us-west-2.aws.neon.tech sslmode=require', closed: 2> (reason: OperationalError:SSL connection has been closed unexpectedly
+)
+2025-01-05 05:38:10,054 - routes - ERROR - Error in sake_detail route for ID 5841: (psycopg2.OperationalError) SSL connection has been closed unexpectedly
+
+[SQL: SELECT sakes.id AS sakes_id, sakes.sakenowa_id AS sakes_sakenowa_id, sakes.name AS sakes_name, sakes.brewery_id AS sakes_brewery_id, sakes.created_at AS sakes_created_at, sakes.updated_at AS sakes_updated_at 
+FROM sakes JOIN breweries ON breweries.id = sakes.brewery_id JOIN regions ON regions.id = breweries.region_id 
+WHERE sakes.id = %(id_1)s 
+ LIMIT %(param_1)s]
+[parameters: {'id_1': 5841, 'param_1': 1}]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+2025-01-05 05:38:10,055 - werkzeug - INFO - 172.31.196.46 - - [05/Jan/2025 05:38:10] "[32mGET /sake/5841 HTTP/1.1[0m" 302 -
+2025-01-05 05:38:10,200 - sqlalchemy.pool.impl.QueuePool - INFO - Connection <connection object at 0x7f7756dd2340; dsn: 'user=neondb_owner password=xxx dbname=neondb host=ep-restless-cloud-a6aak0tl.us-west-2.aws.neon.tech sslmode=require', closed: 0> invalidated due to pool invalidation; recycling
+2025-01-05 05:38:13,005 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2025-01-05 05:38:13,005 - sqlalchemy.engine.Engine - INFO - SELECT sakes.id AS sakes_id, sakes.sakenowa_id AS sakes_sakenowa_id, sakes.name AS sakes_name, sakes.brewery_id AS sakes_brewery_id, sakes.created_at AS sakes_created_at, sakes.updated_at AS sakes_updated_at 
+FROM sakes ORDER BY sakes.created_at DESC
+2025-01-05 05:38:13,005 - sqlalchemy.engine.Engine - INFO - [cached since 5996s ago] {}
+2025-01-05 05:38:14,455 - sqlalchemy.engine.Engine - INFO - SELECT users.id AS users_id, users.email AS users_email, users.username AS users_username, users.encrypted_password AS users_encrypted_password, users.reset_password_token AS users_reset_password_token, users.reset_password_sent_at AS users_reset_password_sent_at, users.remember_created_at AS users_remember_created_at, users.created_at AS users_created_at, users.updated_at AS users_updated_at, users.gender AS users_gender, users.birthdate AS users_birthdate, users.comment AS users_comment 
+FROM users 
+WHERE users.id = %(pk_1)s
+2025-01-05 05:38:14,456 - sqlalchemy.engine.Engine - INFO - [cached since 5871s ago] {'pk_1': 2}
+2025-01-05 05:38:14,709 - sqlalchemy.engine.Engine - INFO - ROLLBACK
+2025-01-05 05:38:14,941 - werkzeug - INFO - 172.31.196.46 - - [05/Jan/2025 05:38:14] "GET / HTTP/1.1" 200 -
+2025-01-05 05:38:15,318 - werkzeug - INFO - 172.31.196.46 - - [05/Jan/2025 05:38:15] "[36mGET /static/css/custom.css HTTP/1.1[0m" 304 -
+2025-01-05 05:38:19,526 - werkzeug - INFO - 172.31.196.46 - - [05/Jan/2025 05:38:19] "[36mGET /static/js/main.js HTTP/1.1[0m" 304 -
+2025-01-05 05:38:20,977 - werkzeug - INFO - 172.31.196.46 - - [05/Jan/2025 05:38:20] "[36mGET /static/js/main.js HTTP/1.1[0m" 304 -
+2025-01-05 05:38:21,977 - routes - INFO - Received query: 獺祭
+2025-01-05 05:38:23,373 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2025-01-05 05:38:23,374 - sqlalchemy.engine.Engine - INFO - SELECT sakes.id AS sakes_id, sakes.sakenowa_id AS sakes_sakenowa_id, sakes.name AS sakes_name, sakes.brewery_id AS sakes_brewery_id, sakes.created_at AS sakes_created_at, sakes.updated_at AS sakes_updated_at 
+FROM sakes 
+WHERE sakes.name ILIKE %(name_1)s ORDER BY sakes.created_at DESC
+2025-01-05 05:38:23,374 - sqlalchemy.engine.Engine - INFO - [cached since 5950s ago] {'name_1': '%獺祭%'}
+2025-01-05 05:38:23,945 - sqlalchemy.engine.Engine - INFO - SELECT users.id AS users_id, users.email AS users_email, users.username AS users_username, users.encrypted_password AS users_encrypted_password, users.reset_password_token AS users_reset_password_token, users.reset_password_sent_at AS users_reset_password_sent_at, users.remember_created_at AS users_remember_created_at, users.created_at AS users_created_at, users.updated_at AS users_updated_at, users.gender AS users_gender, users.birthdate AS users_birthdate, users.comment AS users_comment 
+FROM users 
+WHERE users.id = %(pk_1)s
+2025-01-05 05:38:23,945 - sqlalchemy.engine.Engine - INFO - [cached since 5880s ago] {'pk_1': 2}
+2025-01-05 05:38:24,177 - sqlalchemy.engine.Engine - INFO - ROLLBACK
+2025-01-05 05:38:24,407 - werkzeug - INFO - 172.31.196.46 - - [05/Jan/2025 05:38:24] "GET /search?q=獺祭 HTTP/1.1" 200 -
+2025-01-05 05:38:24,771 - werkzeug - INFO - 172.31.196.46 - - [05/Jan/2025 05:38:24] "[36mGET /static/js/main.js HTTP/1.1[0m" 304 -
+2025-01-05 05:38:24,771 - werkzeug - INFO - 172.31.196.46 - - [05/Jan/2025 05:38:24] "[36mGET /static/css/custom.css HTTP/1.1[0m" 304 -
+2025-01-05 05:38:24,923 - werkzeug - INFO - 172.31.196.46 - - [05/Jan/2025 05:38:24] "[36mGET /static/js/main.js HTTP/1.1[0m" 304 -
+2025-01-05 05:38:42,778 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2025-01-05 05:38:42,778 - sqlalchemy.engine.Engine - INFO - SELECT sakes.id AS sakes_id, sakes.sakenowa_id AS sakes_sakenowa_id, sakes.name AS sakes_name, sakes.brewery_id AS sakes_brewery_id, sakes.created_at AS sakes_created_at, sakes.updated_at AS sakes_updated_at 
+FROM sakes JOIN breweries ON breweries.id = sakes.brewery_id JOIN regions ON regions.id = breweries.region_id 
+WHERE sakes.id = %(id_1)s 
+ LIMIT %(param_1)s
+2025-01-05 05:38:42,778 - sqlalchemy.engine.Engine - INFO - [cached since 5963s ago] {'id_1': 5841, 'param_1': 1}
+2025-01-05 05:38:43,263 - sqlalchemy.engine.Engine - INFO - SELECT reviews.id AS reviews_id, reviews.user_id AS reviews_user_id, reviews.sake_id AS reviews_sake_id, reviews.rating AS reviews_rating, reviews.aroma AS reviews_aroma, reviews.aftertaste AS reviews_aftertaste, reviews.drinking_style AS reviews_drinking_style, reviews.matching_food AS reviews_matching_food, reviews.comment AS reviews_comment, reviews.recorded_at AS reviews_recorded_at, reviews.created_at AS reviews_created_at, reviews.updated_at AS reviews_updated_at, reviews.f1 AS reviews_f1, reviews.f2 AS reviews_f2, reviews.f3 AS reviews_f3, reviews.f4 AS reviews_f4, reviews.f5 AS reviews_f5, reviews.f6 AS reviews_f6 
+FROM reviews 
+WHERE %(param_1)s = reviews.sake_id ORDER BY reviews.created_at DESC
+2025-01-05 05:38:43,263 - sqlalchemy.engine.Engine - INFO - [cached since 5963s ago] {'param_1': 5841}
+2025-01-05 05:38:43,506 - sqlalchemy.engine.Engine - INFO - SELECT users.id AS users_id, users.email AS users_email, users.username AS users_username, users.encrypted_password AS users_encrypted_password, users.reset_password_token AS users_reset_password_token, users.reset_password_sent_at AS users_reset_password_sent_at, users.remember_created_at AS users_remember_created_at, users.created_at AS users_created_at, users.updated_at AS users_updated_at, users.gender AS users_gender, users.birthdate AS users_birthdate, users.comment AS users_comment 
+FROM users 
+WHERE users.id = %(pk_1)s
+2025-01-05 05:38:43,507 - sqlalchemy.engine.Engine - INFO - [cached since 5900s ago] {'pk_1': 2}
+2025-01-05 05:38:43,740 - sqlalchemy.engine.Engine - INFO - SELECT breweries.id AS breweries_id, breweries.name AS breweries_name, breweries.sakenowa_brewery_id AS breweries_sakenowa_brewery_id, breweries.region_id AS breweries_region_id, breweries.created_at AS breweries_created_at, breweries.updated_at AS breweries_updated_at 
+FROM breweries 
+WHERE breweries.id = %(pk_1)s
+2025-01-05 05:38:43,740 - sqlalchemy.engine.Engine - INFO - [cached since 5963s ago] {'pk_1': 2275}
+2025-01-05 05:38:43,975 - sqlalchemy.engine.Engine - INFO - SELECT regions.id AS regions_id, regions.name AS regions_name, regions."sakenowaId" AS "regions_sakenowaId", regions.created_at AS regions_created_at, regions.updated_at AS regions_updated_at 
+FROM regions 
+WHERE regions.id = %(pk_1)s
+2025-01-05 05:38:43,976 - sqlalchemy.engine.Engine - INFO - [cached since 5963s ago] {'pk_1': 35}
+2025-01-05 05:38:44,209 - sqlalchemy.engine.Engine - INFO - SELECT reviews.id AS reviews_id, reviews.user_id AS reviews_user_id, reviews.sake_id AS reviews_sake_id, reviews.rating AS reviews_rating, reviews.aroma AS reviews_aroma, reviews.aftertaste AS reviews_aftertaste, reviews.drinking_style AS reviews_drinking_style, reviews.matching_food AS reviews_matching_food, reviews.comment AS reviews_comment, reviews.recorded_at AS reviews_recorded_at, reviews.created_at AS reviews_created_at, reviews.updated_at AS reviews_updated_at, reviews.f1 AS reviews_f1, reviews.f2 AS reviews_f2, reviews.f3 AS reviews_f3, reviews.f4 AS reviews_f4, reviews.f5 AS reviews_f5, reviews.f6 AS reviews_f6 
+FROM reviews 
+WHERE %(param_1)s = reviews.sake_id
+2025-01-05 05:38:44,209 - sqlalchemy.engine.Engine - INFO - [cached since 5963s ago] {'param_1': 5841}
+2025-01-05 05:38:44,442 - sqlalchemy.engine.Engine - INFO - SELECT count(*) AS count_1 
+FROM (SELECT reviews.id AS reviews_id, reviews.user_id AS reviews_user_id, reviews.sake_id AS reviews_sake_id, reviews.rating AS reviews_rating, reviews.aroma AS reviews_aroma, reviews.aftertaste AS reviews_aftertaste, reviews.drinking_style AS reviews_drinking_style, reviews.matching_food AS reviews_matching_food, reviews.comment AS reviews_comment, reviews.recorded_at AS reviews_recorded_at, reviews.created_at AS reviews_created_at, reviews.updated_at AS reviews_updated_at, reviews.f1 AS reviews_f1, reviews.f2 AS reviews_f2, reviews.f3 AS reviews_f3, reviews.f4 AS reviews_f4, reviews.f5 AS reviews_f5, reviews.f6 AS reviews_f6 
+FROM reviews 
+WHERE %(param_1)s = reviews.sake_id) AS anon_1
+2025-01-05 05:38:44,443 - sqlalchemy.engine.Engine - INFO - [cached since 5963s ago] {'param_1': 5841}
+2025-01-05 05:38:44,682 - sqlalchemy.engine.Engine - INFO - ROLLBACK
+2025-01-05 05:38:44,914 - werkzeug - INFO - 172.31.196.46 - - [05/Jan/2025 05:38:44] "GET /sake/5841 HTTP/1.1" 200 -
+2025-01-05 05:38:45,236 - werkzeug - INFO - 172.31.196.46 - - [05/Jan/2025 05:38:45] "[36mGET /static/css/custom.css HTTP/1.1[0m" 304 -
+2025-01-05 05:38:45,250 - werkzeug - INFO - 172.31.196.46 - - [05/Jan/2025 05:38:45] "[36mGET /static/js/main.js HTTP/1.1[0m" 304 -
+2025-01-05 05:38:45,407 - werkzeug - INFO - 172.31.196.46 - - [05/Jan/2025 05:38:45] "[36mGET /static/js/main.js HTTP/1.1[0m" 304 -
+2025-01-05 05:39:04,554 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2025-01-05 05:39:04,554 - sqlalchemy.engine.Engine - INFO - SELECT sakes.id AS sakes_id, sakes.sakenowa_id AS sakes_sakenowa_id, sakes.name AS sakes_name, sakes.brewery_id AS sakes_brewery_id, sakes.created_at AS sakes_created_at, sakes.updated_at AS sakes_updated_at 
+FROM sakes JOIN breweries ON breweries.id = sakes.brewery_id JOIN regions ON regions.id = breweries.region_id 
+WHERE sakes.id = %(id_1)s 
+ LIMIT %(param_1)s
+2025-01-05 05:39:04,555 - sqlalchemy.engine.Engine - INFO - [cached since 5985s ago] {'id_1': 5841, 'param_1': 1}
+2025-01-05 05:39:05,020 - sqlalchemy.engine.Engine - INFO - SELECT reviews.id AS reviews_id, reviews.user_id AS reviews_user_id, reviews.sake_id AS reviews_sake_id, reviews.rating AS reviews_rating, reviews.aroma AS reviews_aroma, reviews.aftertaste AS reviews_aftertaste, reviews.drinking_style AS reviews_drinking_style, reviews.matching_food AS reviews_matching_food, reviews.comment AS reviews_comment, reviews.recorded_at AS reviews_recorded_at, reviews.created_at AS reviews_created_at, reviews.updated_at AS reviews_updated_at, reviews.f1 AS reviews_f1, reviews.f2 AS reviews_f2, reviews.f3 AS reviews_f3, reviews.f4 AS reviews_f4, reviews.f5 AS reviews_f5, reviews.f6 AS reviews_f6 
+FROM reviews 
+WHERE %(param_1)s = reviews.sake_id ORDER BY reviews.created_at DESC
+2025-01-05 05:39:05,020 - sqlalchemy.engine.Engine - INFO - [cached since 5985s ago] {'param_1': 5841}
+2025-01-05 05:39:05,260 - sqlalchemy.engine.Engine - INFO - SELECT users.id AS users_id, users.email AS users_email, users.username AS users_username, users.encrypted_password AS users_encrypted_password, users.reset_password_token AS users_reset_password_token, users.reset_password_sent_at AS users_reset_password_sent_at, users.remember_created_at AS users_remember_created_at, users.created_at AS users_created_at, users.updated_at AS users_updated_at, users.gender AS users_gender, users.birthdate AS users_birthdate, users.comment AS users_comment 
+FROM users 
+WHERE users.id = %(pk_1)s
+2025-01-05 05:39:05,260 - sqlalchemy.engine.Engine - INFO - [cached since 5921s ago] {'pk_1': 2}
+2025-01-05 05:39:05,491 - sqlalchemy.engine.Engine - INFO - SELECT breweries.id AS breweries_id, breweries.name AS breweries_name, breweries.sakenowa_brewery_id AS breweries_sakenowa_brewery_id, breweries.region_id AS breweries_region_id, breweries.created_at AS breweries_created_at, breweries.updated_at AS breweries_updated_at 
+FROM breweries 
+WHERE breweries.id = %(pk_1)s
+2025-01-05 05:39:05,492 - sqlalchemy.engine.Engine - INFO - [cached since 5985s ago] {'pk_1': 2275}
+2025-01-05 05:39:05,723 - sqlalchemy.engine.Engine - INFO - SELECT regions.id AS regions_id, regions.name AS regions_name, regions."sakenowaId" AS "regions_sakenowaId", regions.created_at AS regions_created_at, regions.updated_at AS regions_updated_at 
+FROM regions 
+WHERE regions.id = %(pk_1)s
+2025-01-05 05:39:05,723 - sqlalchemy.engine.Engine - INFO - [cached since 5985s ago] {'pk_1': 35}
+2025-01-05 05:39:05,955 - sqlalchemy.engine.Engine - INFO - SELECT reviews.id AS reviews_id, reviews.user_id AS reviews_user_id, reviews.sake_id AS reviews_sake_id, reviews.rating AS reviews_rating, reviews.aroma AS reviews_aroma, reviews.aftertaste AS reviews_aftertaste, reviews.drinking_style AS reviews_drinking_style, reviews.matching_food AS reviews_matching_food, reviews.comment AS reviews_comment, reviews.recorded_at AS reviews_recorded_at, reviews.created_at AS reviews_created_at, reviews.updated_at AS reviews_updated_at, reviews.f1 AS reviews_f1, reviews.f2 AS reviews_f2, reviews.f3 AS reviews_f3, reviews.f4 AS reviews_f4, reviews.f5 AS reviews_f5, reviews.f6 AS reviews_f6 
+FROM reviews 
+WHERE %(param_1)s = reviews.sake_id
+2025-01-05 05:39:05,956 - sqlalchemy.engine.Engine - INFO - [cached since 5985s ago] {'param_1': 5841}
+2025-01-05 05:39:06,188 - sqlalchemy.engine.Engine - INFO - SELECT count(*) AS count_1 
+FROM (SELECT reviews.id AS reviews_id, reviews.user_id AS reviews_user_id, reviews.sake_id AS reviews_sake_id, reviews.rating AS reviews_rating, reviews.aroma AS reviews_aroma, reviews.aftertaste AS reviews_aftertaste, reviews.drinking_style AS reviews_drinking_style, reviews.matching_food AS reviews_matching_food, reviews.comment AS reviews_comment, reviews.recorded_at AS reviews_recorded_at, reviews.created_at AS reviews_created_at, reviews.updated_at AS reviews_updated_at, reviews.f1 AS reviews_f1, reviews.f2 AS reviews_f2, reviews.f3 AS reviews_f3, reviews.f4 AS reviews_f4, reviews.f5 AS reviews_f5, reviews.f6 AS reviews_f6 
+FROM reviews 
+WHERE %(param_1)s = reviews.sake_id) AS anon_1
+2025-01-05 05:39:06,188 - sqlalchemy.engine.Engine - INFO - [cached since 5985s ago] {'param_1': 5841}
+2025-01-05 05:39:06,419 - sqlalchemy.engine.Engine - INFO - ROLLBACK
+2025-01-05 05:39:06,650 - werkzeug - INFO - 172.31.196.46 - - [05/Jan/2025 05:39:06] "GET /sake/5841 HTTP/1.1" 200 -
+2025-01-05 05:39:06,960 - werkzeug - INFO - 172.31.196.46 - - [05/Jan/2025 05:39:06] "[36mGET /static/css/custom.css HTTP/1.1[0m" 304 -
+2025-01-05 05:39:06,971 - werkzeug - INFO - 172.31.196.46 - - [05/Jan/2025 05:39:06] "[36mGET /static/js/main.js HTTP/1.1[0m" 304 -
+2025-01-05 05:39:07,210 - werkzeug - INFO - 172.31.196.46 - - [05/Jan/2025 05:39:07] "[36mGET /static/js/main.js HTTP/1.1[0m" 304 -
+2025-01-05 05:41:53,212 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2025-01-05 05:41:53,212 - sqlalchemy.engine.Engine - INFO - SELECT sakes.id AS sakes_id, sakes.sakenowa_id AS sakes_sakenowa_id, sakes.name AS sakes_name, sakes.brewery_id AS sakes_brewery_id, sakes.created_at AS sakes_created_at, sakes.updated_at AS sakes_updated_at 
+FROM sakes ORDER BY sakes.created_at DESC
+2025-01-05 05:41:53,213 - sqlalchemy.engine.Engine - INFO - [cached since 6216s ago] {}
+2025-01-05 05:41:54,620 - sqlalchemy.engine.Engine - INFO - SELECT users.id AS users_id, users.email AS users_email, users.username AS users_username, users.encrypted_password AS users_encrypted_password, users.reset_password_token AS users_reset_password_token, users.reset_password_sent_at AS users_reset_password_sent_at, users.remember_created_at AS users_remember_created_at, users.created_at AS users_created_at, users.updated_at AS users_updated_at, users.gender AS users_gender, users.birthdate AS users_birthdate, users.comment AS users_comment 
+FROM users 
+WHERE users.id = %(pk_1)s
+2025-01-05 05:41:54,620 - sqlalchemy.engine.Engine - INFO - [cached since 6091s ago] {'pk_1': 2}
+2025-01-05 05:41:54,860 - sqlalchemy.engine.Engine - INFO - ROLLBACK
+2025-01-05 05:41:55,092 - werkzeug - INFO - 172.31.196.46 - - [05/Jan/2025 05:41:55] "GET / HTTP/1.1" 200 -
+2025-01-05 05:41:55,400 - werkzeug - INFO - 172.31.196.46 - - [05/Jan/2025 05:41:55] "[36mGET /static/css/custom.css HTTP/1.1[0m" 304 -
+2025-01-05 05:41:57,022 - werkzeug - INFO - 172.31.196.46 - - [05/Jan/2025 05:41:57] "[36mGET /static/js/main.js HTTP/1.1[0m" 304 -
+2025-01-05 05:41:57,983 - werkzeug - INFO - 172.31.196.46 - - [05/Jan/2025 05:41:57] "[36mGET /static/js/main.js HTTP/1.1[0m" 304 -
+2025-01-05 05:42:41,248 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2025-01-05 05:42:41,251 - sqlalchemy.engine.Engine - INFO - SELECT sakes.id AS sakes_id, sakes.sakenowa_id AS sakes_sakenowa_id, sakes.name AS sakes_name, sakes.brewery_id AS sakes_brewery_id, sakes.created_at AS sakes_created_at, sakes.updated_at AS sakes_updated_at 
+FROM sakes ORDER BY sakes.created_at DESC
+2025-01-05 05:42:41,252 - sqlalchemy.engine.Engine - INFO - [cached since 6264s ago] {}
+2025-01-05 05:42:42,676 - sqlalchemy.engine.Engine - INFO - SELECT users.id AS users_id, users.email AS users_email, users.username AS users_username, users.encrypted_password AS users_encrypted_password, users.reset_password_token AS users_reset_password_token, users.reset_password_sent_at AS users_reset_password_sent_at, users.remember_created_at AS users_remember_created_at, users.created_at AS users_created_at, users.updated_at AS users_updated_at, users.gender AS users_gender, users.birthdate AS users_birthdate, users.comment AS users_comment 
+FROM users 
+WHERE users.id = %(pk_1)s
+2025-01-05 05:42:42,676 - sqlalchemy.engine.Engine - INFO - [cached since 6139s ago] {'pk_1': 2}
+2025-01-05 05:42:42,915 - sqlalchemy.engine.Engine - INFO - ROLLBACK
+2025-01-05 05:42:43,146 - werkzeug - INFO - 172.31.196.46 - - [05/Jan/2025 05:42:43] "GET / HTTP/1.1" 200 -
+2025-01-05 05:42:43,455 - werkzeug - INFO - 172.31.196.46 - - [05/Jan/2025 05:42:43] "[36mGET /static/css/custom.css HTTP/1.1[0m" 304 -
+2025-01-05 05:42:43,874 - werkzeug - INFO - 172.31.196.46 - - [05/Jan/2025 05:42:43] "[36mGET /static/js/main.js HTTP/1.1[0m" 304 -
+2025-01-05 05:42:44,033 - werkzeug - INFO - 172.31.196.46 - - [05/Jan/2025 05:42:44] "[36mGET /static/js/main.js HTTP/1.1[0m" 304 -
+2025-01-05 05:44:39,642 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2025-01-05 05:44:39,643 - sqlalchemy.engine.Engine - INFO - SELECT sakes.id AS sakes_id, sakes.sakenowa_id AS sakes_sakenowa_id, sakes.name AS sakes_name, sakes.brewery_id AS sakes_brewery_id, sakes.created_at AS sakes_created_at, sakes.updated_at AS sakes_updated_at 
+FROM sakes ORDER BY sakes.created_at DESC
+2025-01-05 05:44:39,643 - sqlalchemy.engine.Engine - INFO - [cached since 6382s ago] {}
+2025-01-05 05:44:41,070 - sqlalchemy.engine.Engine - INFO - SELECT users.id AS users_id, users.email AS users_email, users.username AS users_username, users.encrypted_password AS users_encrypted_password, users.reset_password_token AS users_reset_password_token, users.reset_password_sent_at AS users_reset_password_sent_at, users.remember_created_at AS users_remember_created_at, users.created_at AS users_created_at, users.updated_at AS users_updated_at, users.gender AS users_gender, users.birthdate AS users_birthdate, users.comment AS users_comment 
+FROM users 
+WHERE users.id = %(pk_1)s
+2025-01-05 05:44:41,073 - sqlalchemy.engine.Engine - INFO - [cached since 6257s ago] {'pk_1': 2}
+2025-01-05 05:44:41,329 - sqlalchemy.engine.Engine - INFO - ROLLBACK
+2025-01-05 05:44:41,565 - werkzeug - INFO - 172.31.196.46 - - [05/Jan/2025 05:44:41] "GET / HTTP/1.1" 200 -
+2025-01-05 05:44:41,907 - werkzeug - INFO - 172.31.196.46 - - [05/Jan/2025 05:44:41] "[36mGET /static/css/custom.css HTTP/1.1[0m" 304 -
+2025-01-05 05:44:42,735 - werkzeug - INFO - 172.31.196.46 - - [05/Jan/2025 05:44:42] "[36mGET /static/js/main.js HTTP/1.1[0m" 304 -
+2025-01-05 05:44:42,892 - werkzeug - INFO - 172.31.196.46 - - [05/Jan/2025 05:44:42] "[36mGET /static/js/main.js HTTP/1.1[0m" 304 -

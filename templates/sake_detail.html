@@ -27,7 +27,8 @@
                             <div class="rating mb-2">
                                 {% set rating = sake.average_rating() | round(1) %}
                                 {% for i in range(5) %}
-                                    <i class="bi bi-star-fill {% if i < rating %}text-warning{% endif %}"></i>
+                                    <!-- <i class="bi bi-star-fill {% if i < rating %}text-warning{% endif %}"></i> -->
+                                <i class="bi {% if i < rating %}bi-star-fill{% else %}bi-star{% endif %}"></i>
                                 {% endfor %}
                                 <span class="ms-2">{{ rating }} / 5.0</span>
                             </div>
@@ -42,30 +43,33 @@
                 <form id="review-form" data-sake-id="{{ sake.id }}">
                     <div class="mb-3">
                         <label class="form-label">評価</label>
-                        <div class="star-rating mb-2">
+                        <div id="star-container" class="star-rating mb-2">
                             {% for i in range(5) %}
                             <i class="bi bi-star rating-star" data-rating="{{ i + 1 }}"></i>
                             {% endfor %}
                         </div>
-                        <input type="hidden" id="rating-value" value="0">
+                        <input type="hidden" id="rating-value" name="rating" value="0">
                     </div>
                     <div class="mb-3">
                         <label for="review-comment" class="form-label">レビュー内容</label>
-                        <textarea id="review-comment" class="form-control" rows="3" required></textarea>
+                        <textarea id="review-comment" name="comment" class="form-control" rows="3" required></textarea>
                     </div>
                     <button type="submit" class="btn btn-primary">レビューを投稿</button>
                 </form>
             </div>
+
 
             <div class="reviews-section">
                 <h3 class="mb-4">レビュー一覧</h3>
                 {% for review in reviews %}
                 <div class="card bg-dark mb-3">
                     <div class="card-body">
+                        <p class="card-text mt-3">{{ review.comment }}</p>
                         <div class="d-flex justify-content-between">
                             <div class="rating">
                                 {% for i in range(5) %}
-                                    <i class="bi bi-star-fill {% if i < review.rating %}text-warning{% endif %}"></i>
+                                    <!-- <i class="bi bi-star-fill {% if i < review.rating %}text-warning{% endif %}"></i> -->
+                                <i class="bi {% if i < review.rating %}bi-star-fill{% else %}bi-star{% endif %}"></i>
                                 {% endfor %}
                             </div>
                             <small class="text-muted">
@@ -86,4 +90,64 @@
         </div>
     </div>
 </div>
+
+<script>
+    // 星評価のクリックイベント
+    document.addEventListener('DOMContentLoaded', function () {
+        const stars = document.querySelectorAll('.rating-star');
+        const ratingInput = document.getElementById('rating-value');
+
+        stars.forEach(star => {
+            star.addEventListener('click', function () {
+                const rating = parseInt(this.getAttribute('data-rating'), 10);
+                ratingInput.value = rating;
+
+                // 星の色をリセット
+                stars.forEach(s => s.classList.remove('text-warning', 'bi-star-fill'));
+                stars.forEach(s => s.classList.add('bi-star'));
+
+                // 選択した評価分まで星をハイライト
+                for (let i = 0; i < rating; i++) {
+                    stars[i].classList.add('text-warning', 'bi-star-fill');
+                    stars[i].classList.remove('bi-star');
+                }
+            });
+        });
+
+        // フォーム送信時の処理
+        document.getElementById('review-form').addEventListener('submit', function (event) {
+            event.preventDefault();
+
+            const sakeId = this.getAttribute('data-sake-id');
+            const rating = ratingInput.value;
+            const comment = document.getElementById('review-comment').value;
+
+            // データを送信
+            fetch(`/review/${sakeId}`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    rating: parseInt(rating, 10),
+                    comment: comment
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    alert('レビューが投稿されました！');
+                    location.reload();
+                } else {
+                    alert(data.error || 'レビューの投稿に失敗しました。');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('サーバーエラーが発生しました。');
+            });
+        });
+    });
+</script>
+
 {% endblock %}
