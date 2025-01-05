@@ -6,6 +6,7 @@
 
 body {
   font-family: 'Noto Sans JP', sans-serif;
+  background-color: #ece0c9;
 }
 
 .hero-section {
@@ -53,6 +54,10 @@ body {
 .star-rating {
   color: var(--japanese-gold);
   font-size: 24px;
+}
+
+.bg-grn {
+  background-color: #c2cbae;
 }
 
 @media (max-width: 768px) {

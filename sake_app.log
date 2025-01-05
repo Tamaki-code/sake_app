@@ -29762,3 +29762,434 @@ WHERE users.id = %(pk_1)s
 2025-01-05 05:44:41,907 - werkzeug - INFO - 172.31.196.46 - - [05/Jan/2025 05:44:41] "[36mGET /static/css/custom.css HTTP/1.1[0m" 304 -
 2025-01-05 05:44:42,735 - werkzeug - INFO - 172.31.196.46 - - [05/Jan/2025 05:44:42] "[36mGET /static/js/main.js HTTP/1.1[0m" 304 -
 2025-01-05 05:44:42,892 - werkzeug - INFO - 172.31.196.46 - - [05/Jan/2025 05:44:42] "[36mGET /static/js/main.js HTTP/1.1[0m" 304 -
+2025-01-05 09:46:40,286 - __main__ - INFO - Flask extensions initialized successfully
+2025-01-05 09:46:40,332 - __main__ - INFO - Blueprints registered successfully
+2025-01-05 09:46:43,081 - sqlalchemy.engine.Engine - INFO - select pg_catalog.version()
+2025-01-05 09:46:43,081 - sqlalchemy.engine.Engine - INFO - [raw sql] {}
+2025-01-05 09:46:43,548 - sqlalchemy.engine.Engine - INFO - select current_schema()
+2025-01-05 09:46:43,549 - sqlalchemy.engine.Engine - INFO - [raw sql] {}
+2025-01-05 09:46:44,015 - sqlalchemy.engine.Engine - INFO - show standard_conforming_strings
+2025-01-05 09:46:44,015 - sqlalchemy.engine.Engine - INFO - [raw sql] {}
+2025-01-05 09:46:44,479 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2025-01-05 09:46:44,481 - sqlalchemy.engine.Engine - INFO - SELECT 1
+2025-01-05 09:46:44,481 - sqlalchemy.engine.Engine - INFO - [generated in 0.00047s] {}
+2025-01-05 09:46:44,944 - __main__ - INFO - Database connection verified successfully
+2025-01-05 09:46:44,945 - sqlalchemy.engine.Engine - INFO - ROLLBACK
+2025-01-05 09:46:45,229 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://172.31.196.81:5000
+2025-01-05 09:46:45,229 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-01-05 09:46:45,230 - werkzeug - INFO -  * Restarting with stat
+2025-01-05 09:46:45,596 - __main__ - INFO - Flask extensions initialized successfully
+2025-01-05 09:46:45,605 - __main__ - INFO - Blueprints registered successfully
+2025-01-05 09:46:47,672 - sqlalchemy.engine.Engine - INFO - select pg_catalog.version()
+2025-01-05 09:46:47,672 - sqlalchemy.engine.Engine - INFO - [raw sql] {}
+2025-01-05 09:46:48,129 - sqlalchemy.engine.Engine - INFO - select current_schema()
+2025-01-05 09:46:48,129 - sqlalchemy.engine.Engine - INFO - [raw sql] {}
+2025-01-05 09:46:48,585 - sqlalchemy.engine.Engine - INFO - show standard_conforming_strings
+2025-01-05 09:46:48,585 - sqlalchemy.engine.Engine - INFO - [raw sql] {}
+2025-01-05 09:46:49,041 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2025-01-05 09:46:49,042 - sqlalchemy.engine.Engine - INFO - SELECT 1
+2025-01-05 09:46:49,042 - sqlalchemy.engine.Engine - INFO - [generated in 0.00020s] {}
+2025-01-05 09:46:49,499 - __main__ - INFO - Database connection verified successfully
+2025-01-05 09:46:49,500 - sqlalchemy.engine.Engine - INFO - ROLLBACK
+2025-01-05 09:46:49,741 - werkzeug - WARNING -  * Debugger is active!
+2025-01-05 09:46:49,743 - werkzeug - INFO -  * Debugger PIN: 740-358-386
+2025-01-05 09:46:49,804 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2025-01-05 09:46:49,809 - sqlalchemy.engine.Engine - INFO - SELECT sakes.id AS sakes_id, sakes.sakenowa_id AS sakes_sakenowa_id, sakes.name AS sakes_name, sakes.brewery_id AS sakes_brewery_id, sakes.created_at AS sakes_created_at, sakes.updated_at AS sakes_updated_at 
+FROM sakes ORDER BY sakes.created_at DESC
+2025-01-05 09:46:49,810 - sqlalchemy.engine.Engine - INFO - [generated in 0.00050s] {}
+2025-01-05 09:46:51,299 - sqlalchemy.engine.Engine - INFO - ROLLBACK
+2025-01-05 09:46:51,528 - werkzeug - INFO - 172.31.196.81 - - [05/Jan/2025 09:46:51] "GET / HTTP/1.1" 200 -
+2025-01-05 09:46:52,106 - werkzeug - INFO - 172.31.196.81 - - [05/Jan/2025 09:46:52] "[36mGET /static/css/custom.css HTTP/1.1[0m" 304 -
+2025-01-05 09:46:52,242 - werkzeug - INFO - 172.31.196.81 - - [05/Jan/2025 09:46:52] "[36mGET /static/js/main.js HTTP/1.1[0m" 304 -
+2025-01-05 09:48:14,249 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2025-01-05 09:48:14,250 - sqlalchemy.engine.Engine - INFO - SELECT sakes.id AS sakes_id, sakes.sakenowa_id AS sakes_sakenowa_id, sakes.name AS sakes_name, sakes.brewery_id AS sakes_brewery_id, sakes.created_at AS sakes_created_at, sakes.updated_at AS sakes_updated_at 
+FROM sakes ORDER BY sakes.created_at DESC
+2025-01-05 09:48:14,251 - sqlalchemy.engine.Engine - INFO - [cached since 84.44s ago] {}
+2025-01-05 09:48:15,693 - sqlalchemy.engine.Engine - INFO - ROLLBACK
+2025-01-05 09:48:15,925 - werkzeug - INFO - 172.31.196.81 - - [05/Jan/2025 09:48:15] "GET / HTTP/1.1" 200 -
+2025-01-05 09:48:16,113 - werkzeug - INFO - 172.31.196.81 - - [05/Jan/2025 09:48:16] "GET /static/css/custom.css HTTP/1.1" 200 -
+2025-01-05 09:48:17,278 - werkzeug - INFO - 172.31.196.81 - - [05/Jan/2025 09:48:17] "[36mGET /static/js/main.js HTTP/1.1[0m" 304 -
+2025-01-05 09:48:17,505 - werkzeug - INFO - 172.31.196.81 - - [05/Jan/2025 09:48:17] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2025-01-05 09:52:41,630 - werkzeug - INFO - 172.31.196.81 - - [05/Jan/2025 09:52:41] "[36mGET /static/css/custom.css HTTP/1.1[0m" 304 -
+2025-01-05 09:55:01,688 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2025-01-05 09:55:01,688 - sqlalchemy.engine.Engine - INFO - SELECT sakes.id AS sakes_id, sakes.sakenowa_id AS sakes_sakenowa_id, sakes.name AS sakes_name, sakes.brewery_id AS sakes_brewery_id, sakes.created_at AS sakes_created_at, sakes.updated_at AS sakes_updated_at 
+FROM sakes ORDER BY sakes.created_at DESC
+2025-01-05 09:55:01,689 - sqlalchemy.engine.Engine - INFO - [cached since 491.9s ago] {}
+2025-01-05 09:55:01,689 - sqlalchemy.pool.impl.QueuePool - INFO - Invalidate connection <connection object at 0x7fa7456d5bc0; dsn: 'user=neondb_owner password=xxx dbname=neondb host=ep-restless-cloud-a6aak0tl.us-west-2.aws.neon.tech sslmode=require', closed: 2> (reason: OperationalError:SSL connection has been closed unexpectedly
+)
+2025-01-05 09:55:01,689 - routes - ERROR - Error in index route: (psycopg2.OperationalError) SSL connection has been closed unexpectedly
+
+[SQL: SELECT sakes.id AS sakes_id, sakes.sakenowa_id AS sakes_sakenowa_id, sakes.name AS sakes_name, sakes.brewery_id AS sakes_brewery_id, sakes.created_at AS sakes_created_at, sakes.updated_at AS sakes_updated_at 
+FROM sakes ORDER BY sakes.created_at DESC]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+2025-01-05 09:55:01,691 - werkzeug - INFO - 172.31.196.81 - - [05/Jan/2025 09:55:01] "GET / HTTP/1.1" 200 -
+2025-01-05 09:55:02,450 - werkzeug - INFO - 172.31.196.81 - - [05/Jan/2025 09:55:02] "[36mGET /static/css/custom.css HTTP/1.1[0m" 304 -
+2025-01-05 09:55:02,591 - werkzeug - INFO - 172.31.196.81 - - [05/Jan/2025 09:55:02] "[36mGET /static/js/main.js HTTP/1.1[0m" 304 -
+2025-01-05 10:00:06,604 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2025-01-05 10:00:06,605 - sqlalchemy.engine.Engine - INFO - SELECT sakes.id AS sakes_id, sakes.sakenowa_id AS sakes_sakenowa_id, sakes.name AS sakes_name, sakes.brewery_id AS sakes_brewery_id, sakes.created_at AS sakes_created_at, sakes.updated_at AS sakes_updated_at 
+FROM sakes ORDER BY sakes.created_at DESC
+2025-01-05 10:00:06,605 - sqlalchemy.engine.Engine - INFO - [cached since 796.8s ago] {}
+2025-01-05 10:00:08,082 - sqlalchemy.engine.Engine - INFO - ROLLBACK
+2025-01-05 10:00:08,320 - werkzeug - INFO - 172.31.196.81 - - [05/Jan/2025 10:00:08] "GET / HTTP/1.1" 200 -
+2025-01-05 10:00:08,599 - werkzeug - INFO - 172.31.196.81 - - [05/Jan/2025 10:00:08] "GET /static/css/custom.css HTTP/1.1" 200 -
+2025-01-05 10:00:09,983 - werkzeug - INFO - 172.31.196.81 - - [05/Jan/2025 10:00:09] "[36mGET /static/js/main.js HTTP/1.1[0m" 304 -
+2025-01-05 10:03:20,479 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2025-01-05 10:03:20,480 - sqlalchemy.engine.Engine - INFO - SELECT sakes.id AS sakes_id, sakes.sakenowa_id AS sakes_sakenowa_id, sakes.name AS sakes_name, sakes.brewery_id AS sakes_brewery_id, sakes.created_at AS sakes_created_at, sakes.updated_at AS sakes_updated_at 
+FROM sakes ORDER BY sakes.created_at DESC
+2025-01-05 10:03:20,480 - sqlalchemy.engine.Engine - INFO - [cached since 990.7s ago] {}
+2025-01-05 10:03:21,902 - sqlalchemy.engine.Engine - INFO - ROLLBACK
+2025-01-05 10:03:22,135 - werkzeug - INFO - 172.31.196.81 - - [05/Jan/2025 10:03:22] "GET / HTTP/1.1" 200 -
+2025-01-05 10:03:22,480 - werkzeug - INFO - 172.31.196.81 - - [05/Jan/2025 10:03:22] "GET /static/css/custom.css HTTP/1.1" 200 -
+2025-01-05 10:03:23,639 - werkzeug - INFO - 172.31.196.81 - - [05/Jan/2025 10:03:23] "[36mGET /static/js/main.js HTTP/1.1[0m" 304 -
+2025-01-05 10:04:48,162 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2025-01-05 10:04:48,163 - sqlalchemy.engine.Engine - INFO - SELECT sakes.id AS sakes_id, sakes.sakenowa_id AS sakes_sakenowa_id, sakes.name AS sakes_name, sakes.brewery_id AS sakes_brewery_id, sakes.created_at AS sakes_created_at, sakes.updated_at AS sakes_updated_at 
+FROM sakes ORDER BY sakes.created_at DESC
+2025-01-05 10:04:48,163 - sqlalchemy.engine.Engine - INFO - [cached since 1078s ago] {}
+2025-01-05 10:04:49,603 - sqlalchemy.engine.Engine - INFO - ROLLBACK
+2025-01-05 10:04:49,837 - werkzeug - INFO - 172.31.196.81 - - [05/Jan/2025 10:04:49] "GET / HTTP/1.1" 200 -
+2025-01-05 10:04:50,122 - werkzeug - INFO - 172.31.196.81 - - [05/Jan/2025 10:04:50] "GET /static/css/custom.css HTTP/1.1" 200 -
+2025-01-05 10:04:51,144 - werkzeug - INFO - 172.31.196.81 - - [05/Jan/2025 10:04:51] "[36mGET /static/js/main.js HTTP/1.1[0m" 304 -
+2025-01-05 10:05:19,210 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2025-01-05 10:05:19,211 - sqlalchemy.engine.Engine - INFO - SELECT sakes.id AS sakes_id, sakes.sakenowa_id AS sakes_sakenowa_id, sakes.name AS sakes_name, sakes.brewery_id AS sakes_brewery_id, sakes.created_at AS sakes_created_at, sakes.updated_at AS sakes_updated_at 
+FROM sakes ORDER BY sakes.created_at DESC
+2025-01-05 10:05:19,211 - sqlalchemy.engine.Engine - INFO - [cached since 1109s ago] {}
+2025-01-05 10:05:20,657 - sqlalchemy.engine.Engine - INFO - ROLLBACK
+2025-01-05 10:05:20,891 - werkzeug - INFO - 172.31.196.81 - - [05/Jan/2025 10:05:20] "GET / HTTP/1.1" 200 -
+2025-01-05 10:05:21,170 - werkzeug - INFO - 172.31.196.81 - - [05/Jan/2025 10:05:21] "[36mGET /static/css/custom.css HTTP/1.1[0m" 304 -
+2025-01-05 10:05:22,040 - werkzeug - INFO - 172.31.196.81 - - [05/Jan/2025 10:05:22] "[36mGET /static/js/main.js HTTP/1.1[0m" 304 -
+2025-01-05 10:13:51,201 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2025-01-05 10:13:51,201 - sqlalchemy.engine.Engine - INFO - SELECT sakes.id AS sakes_id, sakes.sakenowa_id AS sakes_sakenowa_id, sakes.name AS sakes_name, sakes.brewery_id AS sakes_brewery_id, sakes.created_at AS sakes_created_at, sakes.updated_at AS sakes_updated_at 
+FROM sakes ORDER BY sakes.created_at DESC
+2025-01-05 10:13:51,201 - sqlalchemy.engine.Engine - INFO - [cached since 1621s ago] {}
+2025-01-05 10:13:51,202 - sqlalchemy.pool.impl.QueuePool - INFO - Invalidate connection <connection object at 0x7fa7456d5bc0; dsn: 'user=neondb_owner password=xxx dbname=neondb host=ep-restless-cloud-a6aak0tl.us-west-2.aws.neon.tech sslmode=require', closed: 2> (reason: OperationalError:SSL connection has been closed unexpectedly
+)
+2025-01-05 10:13:51,202 - routes - ERROR - Error in index route: (psycopg2.OperationalError) SSL connection has been closed unexpectedly
+
+[SQL: SELECT sakes.id AS sakes_id, sakes.sakenowa_id AS sakes_sakenowa_id, sakes.name AS sakes_name, sakes.brewery_id AS sakes_brewery_id, sakes.created_at AS sakes_created_at, sakes.updated_at AS sakes_updated_at 
+FROM sakes ORDER BY sakes.created_at DESC]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+2025-01-05 10:13:51,203 - werkzeug - INFO - 172.31.196.81 - - [05/Jan/2025 10:13:51] "GET / HTTP/1.1" 200 -
+2025-01-05 10:13:51,474 - werkzeug - INFO - 172.31.196.81 - - [05/Jan/2025 10:13:51] "GET /static/css/custom.css HTTP/1.1" 200 -
+2025-01-05 10:13:51,756 - werkzeug - INFO - 172.31.196.81 - - [05/Jan/2025 10:13:51] "[36mGET /static/js/main.js HTTP/1.1[0m" 304 -
+2025-01-05 10:14:24,653 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2025-01-05 10:14:24,653 - sqlalchemy.engine.Engine - INFO - SELECT sakes.id AS sakes_id, sakes.sakenowa_id AS sakes_sakenowa_id, sakes.name AS sakes_name, sakes.brewery_id AS sakes_brewery_id, sakes.created_at AS sakes_created_at, sakes.updated_at AS sakes_updated_at 
+FROM sakes ORDER BY sakes.created_at DESC
+2025-01-05 10:14:24,653 - sqlalchemy.engine.Engine - INFO - [cached since 1655s ago] {}
+2025-01-05 10:14:26,149 - sqlalchemy.engine.Engine - INFO - ROLLBACK
+2025-01-05 10:14:26,385 - werkzeug - INFO - 172.31.196.81 - - [05/Jan/2025 10:14:26] "GET / HTTP/1.1" 200 -
+2025-01-05 10:14:26,758 - werkzeug - INFO - 172.31.196.81 - - [05/Jan/2025 10:14:26] "[36mGET /static/css/custom.css HTTP/1.1[0m" 304 -
+2025-01-05 10:14:27,224 - werkzeug - INFO - 172.31.196.81 - - [05/Jan/2025 10:14:27] "[36mGET /static/js/main.js HTTP/1.1[0m" 304 -
+2025-01-05 10:15:29,184 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2025-01-05 10:15:29,184 - sqlalchemy.engine.Engine - INFO - SELECT sakes.id AS sakes_id, sakes.sakenowa_id AS sakes_sakenowa_id, sakes.name AS sakes_name, sakes.brewery_id AS sakes_brewery_id, sakes.created_at AS sakes_created_at, sakes.updated_at AS sakes_updated_at 
+FROM sakes ORDER BY sakes.created_at DESC
+2025-01-05 10:15:29,184 - sqlalchemy.engine.Engine - INFO - [cached since 1719s ago] {}
+2025-01-05 10:15:30,618 - sqlalchemy.engine.Engine - INFO - ROLLBACK
+2025-01-05 10:15:30,853 - werkzeug - INFO - 172.31.196.81 - - [05/Jan/2025 10:15:30] "GET / HTTP/1.1" 200 -
+2025-01-05 10:15:31,166 - werkzeug - INFO - 172.31.196.81 - - [05/Jan/2025 10:15:31] "GET /static/css/custom.css HTTP/1.1" 200 -
+2025-01-05 10:15:31,508 - werkzeug - INFO - 172.31.196.81 - - [05/Jan/2025 10:15:31] "[36mGET /static/js/main.js HTTP/1.1[0m" 304 -
+2025-01-05 10:17:18,036 - app - INFO - Flask extensions initialized successfully
+2025-01-05 10:17:18,079 - app - INFO - Blueprints registered successfully
+2025-01-05 10:17:19,169 - __main__ - INFO - Flask extensions initialized successfully
+2025-01-05 10:17:19,186 - __main__ - INFO - Blueprints registered successfully
+2025-01-05 10:17:20,212 - sqlalchemy.engine.Engine - INFO - select pg_catalog.version()
+2025-01-05 10:17:20,212 - sqlalchemy.engine.Engine - INFO - [raw sql] {}
+2025-01-05 10:17:20,677 - sqlalchemy.engine.Engine - INFO - select current_schema()
+2025-01-05 10:17:20,683 - sqlalchemy.engine.Engine - INFO - [raw sql] {}
+2025-01-05 10:17:21,151 - sqlalchemy.engine.Engine - INFO - show standard_conforming_strings
+2025-01-05 10:17:21,154 - sqlalchemy.engine.Engine - INFO - [raw sql] {}
+2025-01-05 10:17:21,300 - sqlalchemy.engine.Engine - INFO - select pg_catalog.version()
+2025-01-05 10:17:21,301 - sqlalchemy.engine.Engine - INFO - [raw sql] {}
+2025-01-05 10:17:21,615 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2025-01-05 10:17:21,616 - sqlalchemy.engine.Engine - INFO - SELECT 1
+2025-01-05 10:17:21,616 - sqlalchemy.engine.Engine - INFO - [generated in 0.00026s] {}
+2025-01-05 10:17:21,763 - sqlalchemy.engine.Engine - INFO - select current_schema()
+2025-01-05 10:17:21,764 - sqlalchemy.engine.Engine - INFO - [raw sql] {}
+2025-01-05 10:17:22,077 - app - INFO - Database connection verified successfully
+2025-01-05 10:17:22,077 - sqlalchemy.engine.Engine - INFO - ROLLBACK
+2025-01-05 10:17:22,226 - sqlalchemy.engine.Engine - INFO - show standard_conforming_strings
+2025-01-05 10:17:22,226 - sqlalchemy.engine.Engine - INFO - [raw sql] {}
+2025-01-05 10:17:22,307 - __main__ - INFO - Verifying database encoding settings...
+2025-01-05 10:17:22,307 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2025-01-05 10:17:22,308 - sqlalchemy.engine.Engine - INFO - SHOW client_encoding
+2025-01-05 10:17:22,308 - sqlalchemy.engine.Engine - INFO - [generated in 0.00023s] {}
+2025-01-05 10:17:22,689 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2025-01-05 10:17:22,690 - sqlalchemy.engine.Engine - INFO - SELECT 1
+2025-01-05 10:17:22,690 - sqlalchemy.engine.Engine - INFO - [generated in 0.00026s] {}
+2025-01-05 10:17:22,769 - sqlalchemy.engine.Engine - INFO - SHOW server_encoding
+2025-01-05 10:17:22,769 - sqlalchemy.engine.Engine - INFO - [generated in 0.00036s] {}
+2025-01-05 10:17:23,000 - sqlalchemy.engine.Engine - INFO - SELECT datcollate FROM pg_database WHERE datname = current_database()
+2025-01-05 10:17:23,000 - sqlalchemy.engine.Engine - INFO - [generated in 0.00032s] {}
+2025-01-05 10:17:23,152 - __main__ - INFO - Database connection verified successfully
+2025-01-05 10:17:23,152 - sqlalchemy.engine.Engine - INFO - ROLLBACK
+2025-01-05 10:17:23,234 - __main__ - INFO - Database Encoding Settings:
+2025-01-05 10:17:23,234 - __main__ - INFO - Client Encoding: UTF8
+2025-01-05 10:17:23,234 - __main__ - INFO - Server Encoding: UTF8
+2025-01-05 10:17:23,234 - __main__ - INFO - Database Collation: C.UTF-8
+2025-01-05 10:17:23,234 - sqlalchemy.engine.Engine - INFO - SELECT convert_to(%(text)s, 'UTF8') <> ''::bytea as is_valid
+2025-01-05 10:17:23,235 - sqlalchemy.engine.Engine - INFO - [generated in 0.00025s] {'text': 'テスト日本語'}
+2025-01-05 10:17:23,470 - __main__ - INFO - Japanese character encoding test: Passed
+2025-01-05 10:17:24,866 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2025-01-05 10:17:24,876 - sqlalchemy.engine.Engine - INFO - SELECT pg_catalog.pg_class.relname 
+FROM pg_catalog.pg_class JOIN pg_catalog.pg_namespace ON pg_catalog.pg_namespace.oid = pg_catalog.pg_class.relnamespace 
+WHERE pg_catalog.pg_class.relname = %(table_name)s AND pg_catalog.pg_class.relkind = ANY (ARRAY[%(param_1)s, %(param_2)s, %(param_3)s, %(param_4)s, %(param_5)s]) AND pg_catalog.pg_table_is_visible(pg_catalog.pg_class.oid) AND pg_catalog.pg_namespace.nspname != %(nspname_1)s
+2025-01-05 10:17:24,876 - sqlalchemy.engine.Engine - INFO - [generated in 0.00038s] {'table_name': 'sakes', 'param_1': 'r', 'param_2': 'p', 'param_3': 'f', 'param_4': 'v', 'param_5': 'm', 'nspname_1': 'pg_catalog'}
+2025-01-05 10:17:25,356 - sqlalchemy.engine.Engine - INFO - SELECT pg_catalog.pg_class.relname 
+FROM pg_catalog.pg_class JOIN pg_catalog.pg_namespace ON pg_catalog.pg_namespace.oid = pg_catalog.pg_class.relnamespace 
+WHERE pg_catalog.pg_class.relname = %(table_name)s AND pg_catalog.pg_class.relkind = ANY (ARRAY[%(param_1)s, %(param_2)s, %(param_3)s, %(param_4)s, %(param_5)s]) AND pg_catalog.pg_table_is_visible(pg_catalog.pg_class.oid) AND pg_catalog.pg_namespace.nspname != %(nspname_1)s
+2025-01-05 10:17:25,357 - sqlalchemy.engine.Engine - INFO - [cached since 0.4806s ago] {'table_name': 'breweries', 'param_1': 'r', 'param_2': 'p', 'param_3': 'f', 'param_4': 'v', 'param_5': 'm', 'nspname_1': 'pg_catalog'}
+2025-01-05 10:17:25,588 - sqlalchemy.engine.Engine - INFO - SELECT pg_catalog.pg_class.relname 
+FROM pg_catalog.pg_class JOIN pg_catalog.pg_namespace ON pg_catalog.pg_namespace.oid = pg_catalog.pg_class.relnamespace 
+WHERE pg_catalog.pg_class.relname = %(table_name)s AND pg_catalog.pg_class.relkind = ANY (ARRAY[%(param_1)s, %(param_2)s, %(param_3)s, %(param_4)s, %(param_5)s]) AND pg_catalog.pg_table_is_visible(pg_catalog.pg_class.oid) AND pg_catalog.pg_namespace.nspname != %(nspname_1)s
+2025-01-05 10:17:25,588 - sqlalchemy.engine.Engine - INFO - [cached since 0.712s ago] {'table_name': 'regions', 'param_1': 'r', 'param_2': 'p', 'param_3': 'f', 'param_4': 'v', 'param_5': 'm', 'nspname_1': 'pg_catalog'}
+2025-01-05 10:17:25,819 - sqlalchemy.engine.Engine - INFO - SELECT pg_catalog.pg_class.relname 
+FROM pg_catalog.pg_class JOIN pg_catalog.pg_namespace ON pg_catalog.pg_namespace.oid = pg_catalog.pg_class.relnamespace 
+WHERE pg_catalog.pg_class.relname = %(table_name)s AND pg_catalog.pg_class.relkind = ANY (ARRAY[%(param_1)s, %(param_2)s, %(param_3)s, %(param_4)s, %(param_5)s]) AND pg_catalog.pg_table_is_visible(pg_catalog.pg_class.oid) AND pg_catalog.pg_namespace.nspname != %(nspname_1)s
+2025-01-05 10:17:25,819 - sqlalchemy.engine.Engine - INFO - [cached since 0.9431s ago] {'table_name': 'users', 'param_1': 'r', 'param_2': 'p', 'param_3': 'f', 'param_4': 'v', 'param_5': 'm', 'nspname_1': 'pg_catalog'}
+2025-01-05 10:17:26,052 - sqlalchemy.engine.Engine - INFO - SELECT pg_catalog.pg_class.relname 
+FROM pg_catalog.pg_class JOIN pg_catalog.pg_namespace ON pg_catalog.pg_namespace.oid = pg_catalog.pg_class.relnamespace 
+WHERE pg_catalog.pg_class.relname = %(table_name)s AND pg_catalog.pg_class.relkind = ANY (ARRAY[%(param_1)s, %(param_2)s, %(param_3)s, %(param_4)s, %(param_5)s]) AND pg_catalog.pg_table_is_visible(pg_catalog.pg_class.oid) AND pg_catalog.pg_namespace.nspname != %(nspname_1)s
+2025-01-05 10:17:26,052 - sqlalchemy.engine.Engine - INFO - [cached since 1.176s ago] {'table_name': 'reviews', 'param_1': 'r', 'param_2': 'p', 'param_3': 'f', 'param_4': 'v', 'param_5': 'm', 'nspname_1': 'pg_catalog'}
+2025-01-05 10:17:26,283 - sqlalchemy.engine.Engine - INFO - SELECT pg_catalog.pg_class.relname 
+FROM pg_catalog.pg_class JOIN pg_catalog.pg_namespace ON pg_catalog.pg_namespace.oid = pg_catalog.pg_class.relnamespace 
+WHERE pg_catalog.pg_class.relname = %(table_name)s AND pg_catalog.pg_class.relkind = ANY (ARRAY[%(param_1)s, %(param_2)s, %(param_3)s, %(param_4)s, %(param_5)s]) AND pg_catalog.pg_table_is_visible(pg_catalog.pg_class.oid) AND pg_catalog.pg_namespace.nspname != %(nspname_1)s
+2025-01-05 10:17:26,283 - sqlalchemy.engine.Engine - INFO - [cached since 1.407s ago] {'table_name': 'flavor_charts', 'param_1': 'r', 'param_2': 'p', 'param_3': 'f', 'param_4': 'v', 'param_5': 'm', 'nspname_1': 'pg_catalog'}
+2025-01-05 10:17:26,514 - sqlalchemy.engine.Engine - INFO - SELECT pg_catalog.pg_class.relname 
+FROM pg_catalog.pg_class JOIN pg_catalog.pg_namespace ON pg_catalog.pg_namespace.oid = pg_catalog.pg_class.relnamespace 
+WHERE pg_catalog.pg_class.relname = %(table_name)s AND pg_catalog.pg_class.relkind = ANY (ARRAY[%(param_1)s, %(param_2)s, %(param_3)s, %(param_4)s, %(param_5)s]) AND pg_catalog.pg_table_is_visible(pg_catalog.pg_class.oid) AND pg_catalog.pg_namespace.nspname != %(nspname_1)s
+2025-01-05 10:17:26,515 - sqlalchemy.engine.Engine - INFO - [cached since 1.639s ago] {'table_name': 'flavor_tags', 'param_1': 'r', 'param_2': 'p', 'param_3': 'f', 'param_4': 'v', 'param_5': 'm', 'nspname_1': 'pg_catalog'}
+2025-01-05 10:17:26,747 - sqlalchemy.engine.Engine - INFO - COMMIT
+2025-01-05 10:17:26,977 - __main__ - INFO - Database tables created successfully
+2025-01-05 10:17:27,000 - sqlalchemy.engine.Engine - INFO - SELECT users.id AS users_id, users.email AS users_email, users.username AS users_username, users.encrypted_password AS users_encrypted_password, users.reset_password_token AS users_reset_password_token, users.reset_password_sent_at AS users_reset_password_sent_at, users.remember_created_at AS users_remember_created_at, users.created_at AS users_created_at, users.updated_at AS users_updated_at, users.gender AS users_gender, users.birthdate AS users_birthdate, users.comment AS users_comment 
+FROM users 
+ LIMIT %(param_1)s
+2025-01-05 10:17:27,000 - sqlalchemy.engine.Engine - INFO - [generated in 0.00039s] {'param_1': 1}
+2025-01-05 10:17:27,241 - sqlalchemy.engine.Engine - INFO - SELECT regions.id AS regions_id, regions.name AS regions_name, regions."sakenowaId" AS "regions_sakenowaId", regions.created_at AS regions_created_at, regions.updated_at AS regions_updated_at 
+FROM regions 
+ LIMIT %(param_1)s
+2025-01-05 10:17:27,241 - sqlalchemy.engine.Engine - INFO - [generated in 0.00026s] {'param_1': 1}
+2025-01-05 10:17:27,476 - sqlalchemy.engine.Engine - INFO - ROLLBACK
+2025-01-05 10:17:36,517 - __main__ - INFO - Flask extensions initialized successfully
+2025-01-05 10:17:36,527 - __main__ - INFO - Blueprints registered successfully
+2025-01-05 10:17:38,634 - sqlalchemy.engine.Engine - INFO - select pg_catalog.version()
+2025-01-05 10:17:38,634 - sqlalchemy.engine.Engine - INFO - [raw sql] {}
+2025-01-05 10:17:39,101 - sqlalchemy.engine.Engine - INFO - select current_schema()
+2025-01-05 10:17:39,101 - sqlalchemy.engine.Engine - INFO - [raw sql] {}
+2025-01-05 10:17:39,567 - sqlalchemy.engine.Engine - INFO - show standard_conforming_strings
+2025-01-05 10:17:39,567 - sqlalchemy.engine.Engine - INFO - [raw sql] {}
+2025-01-05 10:17:40,033 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2025-01-05 10:17:40,034 - sqlalchemy.engine.Engine - INFO - SELECT 1
+2025-01-05 10:17:40,034 - sqlalchemy.engine.Engine - INFO - [generated in 0.00029s] {}
+2025-01-05 10:17:40,500 - __main__ - INFO - Database connection verified successfully
+2025-01-05 10:17:40,500 - sqlalchemy.engine.Engine - INFO - ROLLBACK
+2025-01-05 10:18:06,866 - werkzeug - INFO -  * Detected change in '/home/runner/New-Repl/app.py', reloading
+2025-01-05 10:18:06,944 - werkzeug - INFO -  * Restarting with stat
+2025-01-05 10:18:07,551 - __main__ - INFO - Flask extensions initialized successfully
+2025-01-05 10:18:07,568 - __main__ - INFO - Blueprints registered successfully
+2025-01-05 10:18:08,981 - __main__ - INFO - Flask extensions initialized successfully
+2025-01-05 10:18:08,991 - __main__ - INFO - Blueprints registered successfully
+2025-01-05 10:18:09,710 - sqlalchemy.engine.Engine - INFO - select pg_catalog.version()
+2025-01-05 10:18:09,711 - sqlalchemy.engine.Engine - INFO - [raw sql] {}
+2025-01-05 10:18:10,184 - sqlalchemy.engine.Engine - INFO - select current_schema()
+2025-01-05 10:18:10,184 - sqlalchemy.engine.Engine - INFO - [raw sql] {}
+2025-01-05 10:18:10,656 - sqlalchemy.engine.Engine - INFO - show standard_conforming_strings
+2025-01-05 10:18:10,657 - sqlalchemy.engine.Engine - INFO - [raw sql] {}
+2025-01-05 10:18:11,062 - sqlalchemy.engine.Engine - INFO - select pg_catalog.version()
+2025-01-05 10:18:11,062 - sqlalchemy.engine.Engine - INFO - [raw sql] {}
+2025-01-05 10:18:11,129 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2025-01-05 10:18:11,130 - sqlalchemy.engine.Engine - INFO - SELECT 1
+2025-01-05 10:18:11,130 - sqlalchemy.engine.Engine - INFO - [generated in 0.00036s] {}
+2025-01-05 10:18:11,519 - sqlalchemy.engine.Engine - INFO - select current_schema()
+2025-01-05 10:18:11,520 - sqlalchemy.engine.Engine - INFO - [raw sql] {}
+2025-01-05 10:18:11,603 - __main__ - INFO - Database connection verified successfully
+2025-01-05 10:18:11,603 - sqlalchemy.engine.Engine - INFO - ROLLBACK
+2025-01-05 10:18:11,850 - werkzeug - WARNING -  * Debugger is active!
+2025-01-05 10:18:11,851 - werkzeug - INFO -  * Debugger PIN: 357-129-381
+2025-01-05 10:18:11,977 - sqlalchemy.engine.Engine - INFO - show standard_conforming_strings
+2025-01-05 10:18:11,977 - sqlalchemy.engine.Engine - INFO - [raw sql] {}
+2025-01-05 10:18:12,434 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2025-01-05 10:18:12,435 - sqlalchemy.engine.Engine - INFO - SELECT 1
+2025-01-05 10:18:12,435 - sqlalchemy.engine.Engine - INFO - [generated in 0.00023s] {}
+2025-01-05 10:18:12,892 - __main__ - INFO - Database connection verified successfully
+2025-01-05 10:18:12,892 - sqlalchemy.engine.Engine - INFO - ROLLBACK
+2025-01-05 10:18:13,140 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5001
+ * Running on http://172.31.196.81:5001
+2025-01-05 10:18:13,140 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-01-05 10:18:13,141 - werkzeug - INFO -  * Restarting with stat
+2025-01-05 10:18:13,510 - __main__ - INFO - Flask extensions initialized successfully
+2025-01-05 10:19:05,376 - werkzeug - INFO -  * Detected change in '/home/runner/New-Repl/app.py', reloading
+2025-01-05 10:19:05,444 - werkzeug - INFO -  * Restarting with stat
+2025-01-05 10:19:05,980 - __main__ - INFO - Flask extensions initialized successfully
+2025-01-05 10:19:06,019 - __main__ - INFO - Blueprints registered successfully
+2025-01-05 10:19:08,092 - sqlalchemy.engine.Engine - INFO - select pg_catalog.version()
+2025-01-05 10:19:08,092 - sqlalchemy.engine.Engine - INFO - [raw sql] {}
+2025-01-05 10:19:08,550 - sqlalchemy.engine.Engine - INFO - select current_schema()
+2025-01-05 10:19:08,550 - sqlalchemy.engine.Engine - INFO - [raw sql] {}
+2025-01-05 10:19:09,008 - sqlalchemy.engine.Engine - INFO - show standard_conforming_strings
+2025-01-05 10:19:09,008 - sqlalchemy.engine.Engine - INFO - [raw sql] {}
+2025-01-05 10:19:09,466 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2025-01-05 10:19:09,467 - sqlalchemy.engine.Engine - INFO - SELECT 1
+2025-01-05 10:19:09,467 - sqlalchemy.engine.Engine - INFO - [generated in 0.00025s] {}
+2025-01-05 10:19:09,925 - __main__ - INFO - Database connection verified successfully
+2025-01-05 10:19:09,926 - sqlalchemy.engine.Engine - INFO - ROLLBACK
+2025-01-05 10:19:10,206 - werkzeug - WARNING -  * Debugger is active!
+2025-01-05 10:19:10,208 - werkzeug - INFO -  * Debugger PIN: 593-728-639
+2025-01-05 10:19:22,126 - __main__ - INFO - Flask extensions initialized successfully
+2025-01-05 10:19:22,136 - __main__ - INFO - Blueprints registered successfully
+2025-01-05 10:19:24,263 - sqlalchemy.engine.Engine - INFO - select pg_catalog.version()
+2025-01-05 10:19:24,263 - sqlalchemy.engine.Engine - INFO - [raw sql] {}
+2025-01-05 10:19:24,732 - sqlalchemy.engine.Engine - INFO - select current_schema()
+2025-01-05 10:19:24,733 - sqlalchemy.engine.Engine - INFO - [raw sql] {}
+2025-01-05 10:19:25,202 - sqlalchemy.engine.Engine - INFO - show standard_conforming_strings
+2025-01-05 10:19:25,202 - sqlalchemy.engine.Engine - INFO - [raw sql] {}
+2025-01-05 10:19:25,672 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2025-01-05 10:19:25,672 - sqlalchemy.engine.Engine - INFO - SELECT 1
+2025-01-05 10:19:25,673 - sqlalchemy.engine.Engine - INFO - [generated in 0.00028s] {}
+2025-01-05 10:19:26,142 - __main__ - INFO - Database connection verified successfully
+2025-01-05 10:19:26,142 - sqlalchemy.engine.Engine - INFO - ROLLBACK
+2025-01-05 10:19:26,408 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5001
+ * Running on http://172.31.196.81:5001
+2025-01-05 10:19:26,409 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-01-05 10:19:26,409 - werkzeug - INFO -  * Restarting with stat
+2025-01-05 10:19:26,779 - __main__ - INFO - Flask extensions initialized successfully
+2025-01-05 10:19:26,790 - __main__ - INFO - Blueprints registered successfully
+2025-01-05 10:19:27,465 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2025-01-05 10:19:27,467 - sqlalchemy.engine.Engine - INFO - SELECT sakes.id AS sakes_id, sakes.sakenowa_id AS sakes_sakenowa_id, sakes.name AS sakes_name, sakes.brewery_id AS sakes_brewery_id, sakes.created_at AS sakes_created_at, sakes.updated_at AS sakes_updated_at 
+FROM sakes ORDER BY sakes.created_at DESC
+2025-01-05 10:19:27,467 - sqlalchemy.engine.Engine - INFO - [generated in 0.00023s] {}
+2025-01-05 10:19:27,936 - app - INFO - Flask extensions initialized successfully
+2025-01-05 10:19:27,947 - app - INFO - Blueprints registered successfully
+2025-01-05 10:19:28,872 - sqlalchemy.engine.Engine - INFO - ROLLBACK
+2025-01-05 10:19:29,101 - werkzeug - INFO - 172.31.196.81 - - [05/Jan/2025 10:19:29] "GET / HTTP/1.1" 200 -
+2025-01-05 10:19:29,263 - __main__ - INFO - Flask extensions initialized successfully
+2025-01-05 10:19:29,277 - __main__ - INFO - Blueprints registered successfully
+2025-01-05 10:19:29,729 - werkzeug - INFO - 172.31.196.81 - - [05/Jan/2025 10:19:29] "GET /static/css/custom.css HTTP/1.1" 200 -
+2025-01-05 10:19:29,777 - werkzeug - INFO - 172.31.196.81 - - [05/Jan/2025 10:19:29] "[36mGET /static/js/main.js HTTP/1.1[0m" 304 -
+2025-01-05 10:19:30,040 - sqlalchemy.engine.Engine - INFO - select pg_catalog.version()
+2025-01-05 10:19:30,041 - sqlalchemy.engine.Engine - INFO - [raw sql] {}
+2025-01-05 10:19:30,504 - sqlalchemy.engine.Engine - INFO - select current_schema()
+2025-01-05 10:19:30,505 - sqlalchemy.engine.Engine - INFO - [raw sql] {}
+2025-01-05 10:19:30,969 - sqlalchemy.engine.Engine - INFO - show standard_conforming_strings
+2025-01-05 10:19:30,969 - sqlalchemy.engine.Engine - INFO - [raw sql] {}
+2025-01-05 10:19:31,369 - sqlalchemy.engine.Engine - INFO - select pg_catalog.version()
+2025-01-05 10:19:31,369 - sqlalchemy.engine.Engine - INFO - [raw sql] {}
+2025-01-05 10:19:31,433 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2025-01-05 10:19:31,434 - sqlalchemy.engine.Engine - INFO - SELECT 1
+2025-01-05 10:19:31,434 - sqlalchemy.engine.Engine - INFO - [generated in 0.00023s] {}
+2025-01-05 10:19:31,832 - sqlalchemy.engine.Engine - INFO - select current_schema()
+2025-01-05 10:19:31,832 - sqlalchemy.engine.Engine - INFO - [raw sql] {}
+2025-01-05 10:19:31,897 - app - INFO - Database connection verified successfully
+2025-01-05 10:19:31,897 - sqlalchemy.engine.Engine - INFO - ROLLBACK
+2025-01-05 10:19:32,129 - __main__ - INFO - Verifying database encoding settings...
+2025-01-05 10:19:32,129 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2025-01-05 10:19:32,130 - sqlalchemy.engine.Engine - INFO - SHOW client_encoding
+2025-01-05 10:19:32,130 - sqlalchemy.engine.Engine - INFO - [generated in 0.00019s] {}
+2025-01-05 10:19:32,295 - sqlalchemy.engine.Engine - INFO - show standard_conforming_strings
+2025-01-05 10:19:32,295 - sqlalchemy.engine.Engine - INFO - [raw sql] {}
+2025-01-05 10:19:32,593 - sqlalchemy.engine.Engine - INFO - SHOW server_encoding
+2025-01-05 10:19:32,593 - sqlalchemy.engine.Engine - INFO - [generated in 0.00039s] {}
+2025-01-05 10:19:32,759 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2025-01-05 10:19:32,759 - sqlalchemy.engine.Engine - INFO - SELECT 1
+2025-01-05 10:19:32,759 - sqlalchemy.engine.Engine - INFO - [generated in 0.00022s] {}
+2025-01-05 10:19:32,825 - sqlalchemy.engine.Engine - INFO - SELECT datcollate FROM pg_database WHERE datname = current_database()
+2025-01-05 10:19:32,825 - sqlalchemy.engine.Engine - INFO - [generated in 0.00029s] {}
+2025-01-05 10:19:33,057 - __main__ - INFO - Database Encoding Settings:
+2025-01-05 10:19:33,058 - __main__ - INFO - Client Encoding: UTF8
+2025-01-05 10:19:33,058 - __main__ - INFO - Server Encoding: UTF8
+2025-01-05 10:19:33,058 - __main__ - INFO - Database Collation: C.UTF-8
+2025-01-05 10:19:33,058 - sqlalchemy.engine.Engine - INFO - SELECT convert_to(%(text)s, 'UTF8') <> ''::bytea as is_valid
+2025-01-05 10:19:33,058 - sqlalchemy.engine.Engine - INFO - [generated in 0.00025s] {'text': 'テスト日本語'}
+2025-01-05 10:19:33,223 - __main__ - INFO - Database connection verified successfully
+2025-01-05 10:19:33,223 - sqlalchemy.engine.Engine - INFO - ROLLBACK
+2025-01-05 10:19:33,290 - __main__ - INFO - Japanese character encoding test: Passed
+2025-01-05 10:19:33,473 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5001
+ * Running on http://172.31.196.81:5001
+2025-01-05 10:19:33,473 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-01-05 10:19:33,474 - werkzeug - INFO -  * Restarting with stat
+2025-01-05 10:19:33,845 - __main__ - INFO - Flask extensions initialized successfully
+2025-01-05 10:19:33,854 - __main__ - INFO - Blueprints registered successfully
+2025-01-05 10:19:34,226 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2025-01-05 10:19:34,226 - sqlalchemy.engine.Engine - INFO - SELECT sakes.id AS sakes_id, sakes.sakenowa_id AS sakes_sakenowa_id, sakes.name AS sakes_name, sakes.brewery_id AS sakes_brewery_id, sakes.created_at AS sakes_created_at, sakes.updated_at AS sakes_updated_at 
+FROM sakes ORDER BY sakes.created_at DESC
+2025-01-05 10:19:34,226 - sqlalchemy.engine.Engine - INFO - [cached since 6.759s ago] {}
+2025-01-05 10:19:34,713 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2025-01-05 10:19:34,717 - sqlalchemy.engine.Engine - INFO - SELECT pg_catalog.pg_class.relname 
+FROM pg_catalog.pg_class JOIN pg_catalog.pg_namespace ON pg_catalog.pg_namespace.oid = pg_catalog.pg_class.relnamespace 
+WHERE pg_catalog.pg_class.relname = %(table_name)s AND pg_catalog.pg_class.relkind = ANY (ARRAY[%(param_1)s, %(param_2)s, %(param_3)s, %(param_4)s, %(param_5)s]) AND pg_catalog.pg_table_is_visible(pg_catalog.pg_class.oid) AND pg_catalog.pg_namespace.nspname != %(nspname_1)s
+2025-01-05 10:19:34,717 - sqlalchemy.engine.Engine - INFO - [generated in 0.00025s] {'table_name': 'sakes', 'param_1': 'r', 'param_2': 'p', 'param_3': 'f', 'param_4': 'v', 'param_5': 'm', 'nspname_1': 'pg_catalog'}
+2025-01-05 10:19:35,179 - sqlalchemy.engine.Engine - INFO - SELECT pg_catalog.pg_class.relname 
+FROM pg_catalog.pg_class JOIN pg_catalog.pg_namespace ON pg_catalog.pg_namespace.oid = pg_catalog.pg_class.relnamespace 
+WHERE pg_catalog.pg_class.relname = %(table_name)s AND pg_catalog.pg_class.relkind = ANY (ARRAY[%(param_1)s, %(param_2)s, %(param_3)s, %(param_4)s, %(param_5)s]) AND pg_catalog.pg_table_is_visible(pg_catalog.pg_class.oid) AND pg_catalog.pg_namespace.nspname != %(nspname_1)s
+2025-01-05 10:19:35,179 - sqlalchemy.engine.Engine - INFO - [cached since 0.4621s ago] {'table_name': 'breweries', 'param_1': 'r', 'param_2': 'p', 'param_3': 'f', 'param_4': 'v', 'param_5': 'm', 'nspname_1': 'pg_catalog'}
+2025-01-05 10:19:35,410 - sqlalchemy.engine.Engine - INFO - SELECT pg_catalog.pg_class.relname 
+FROM pg_catalog.pg_class JOIN pg_catalog.pg_namespace ON pg_catalog.pg_namespace.oid = pg_catalog.pg_class.relnamespace 
+WHERE pg_catalog.pg_class.relname = %(table_name)s AND pg_catalog.pg_class.relkind = ANY (ARRAY[%(param_1)s, %(param_2)s, %(param_3)s, %(param_4)s, %(param_5)s]) AND pg_catalog.pg_table_is_visible(pg_catalog.pg_class.oid) AND pg_catalog.pg_namespace.nspname != %(nspname_1)s
+2025-01-05 10:19:35,410 - sqlalchemy.engine.Engine - INFO - [cached since 0.6933s ago] {'table_name': 'regions', 'param_1': 'r', 'param_2': 'p', 'param_3': 'f', 'param_4': 'v', 'param_5': 'm', 'nspname_1': 'pg_catalog'}
+2025-01-05 10:19:35,641 - sqlalchemy.engine.Engine - INFO - SELECT pg_catalog.pg_class.relname 
+FROM pg_catalog.pg_class JOIN pg_catalog.pg_namespace ON pg_catalog.pg_namespace.oid = pg_catalog.pg_class.relnamespace 
+WHERE pg_catalog.pg_class.relname = %(table_name)s AND pg_catalog.pg_class.relkind = ANY (ARRAY[%(param_1)s, %(param_2)s, %(param_3)s, %(param_4)s, %(param_5)s]) AND pg_catalog.pg_table_is_visible(pg_catalog.pg_class.oid) AND pg_catalog.pg_namespace.nspname != %(nspname_1)s
+2025-01-05 10:19:35,642 - sqlalchemy.engine.Engine - INFO - [cached since 0.9245s ago] {'table_name': 'users', 'param_1': 'r', 'param_2': 'p', 'param_3': 'f', 'param_4': 'v', 'param_5': 'm', 'nspname_1': 'pg_catalog'}
+2025-01-05 10:19:35,645 - sqlalchemy.engine.Engine - INFO - ROLLBACK
+2025-01-05 10:19:35,873 - sqlalchemy.engine.Engine - INFO - SELECT pg_catalog.pg_class.relname 
+FROM pg_catalog.pg_class JOIN pg_catalog.pg_namespace ON pg_catalog.pg_namespace.oid = pg_catalog.pg_class.relnamespace 
+WHERE pg_catalog.pg_class.relname = %(table_name)s AND pg_catalog.pg_class.relkind = ANY (ARRAY[%(param_1)s, %(param_2)s, %(param_3)s, %(param_4)s, %(param_5)s]) AND pg_catalog.pg_table_is_visible(pg_catalog.pg_class.oid) AND pg_catalog.pg_namespace.nspname != %(nspname_1)s
+2025-01-05 10:19:35,873 - sqlalchemy.engine.Engine - INFO - [cached since 1.156s ago] {'table_name': 'reviews', 'param_1': 'r', 'param_2': 'p', 'param_3': 'f', 'param_4': 'v', 'param_5': 'm', 'nspname_1': 'pg_catalog'}
+2025-01-05 10:19:35,875 - werkzeug - INFO - 172.31.196.81 - - [05/Jan/2025 10:19:35] "GET / HTTP/1.1" 200 -
+2025-01-05 10:19:35,950 - sqlalchemy.engine.Engine - INFO - select pg_catalog.version()
+2025-01-05 10:19:35,950 - sqlalchemy.engine.Engine - INFO - [raw sql] {}
+2025-01-05 10:19:36,037 - werkzeug - INFO - 172.31.196.81 - - [05/Jan/2025 10:19:36] "[36mGET /static/css/custom.css HTTP/1.1[0m" 304 -
+2025-01-05 10:19:36,104 - sqlalchemy.engine.Engine - INFO - SELECT pg_catalog.pg_class.relname 
+FROM pg_catalog.pg_class JOIN pg_catalog.pg_namespace ON pg_catalog.pg_namespace.oid = pg_catalog.pg_class.relnamespace 
+WHERE pg_catalog.pg_class.relname = %(table_name)s AND pg_catalog.pg_class.relkind = ANY (ARRAY[%(param_1)s, %(param_2)s, %(param_3)s, %(param_4)s, %(param_5)s]) AND pg_catalog.pg_table_is_visible(pg_catalog.pg_class.oid) AND pg_catalog.pg_namespace.nspname != %(nspname_1)s
+2025-01-05 10:19:36,104 - sqlalchemy.engine.Engine - INFO - [cached since 1.387s ago] {'table_name': 'flavor_charts', 'param_1': 'r', 'param_2': 'p', 'param_3': 'f', 'param_4': 'v', 'param_5': 'm', 'nspname_1': 'pg_catalog'}
+2025-01-05 10:19:36,332 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2025-01-05 10:19:36,333 - sqlalchemy.engine.Engine - INFO - SELECT sakes.id AS sakes_id, sakes.sakenowa_id AS sakes_sakenowa_id, sakes.name AS sakes_name, sakes.brewery_id AS sakes_brewery_id, sakes.created_at AS sakes_created_at, sakes.updated_at AS sakes_updated_at 
+FROM sakes ORDER BY sakes.created_at DESC
+2025-01-05 10:19:36,333 - sqlalchemy.engine.Engine - INFO - [cached since 8.866s ago] {}
+2025-01-05 10:19:36,335 - sqlalchemy.engine.Engine - INFO - SELECT pg_catalog.pg_class.relname 
+FROM pg_catalog.pg_class JOIN pg_catalog.pg_namespace ON pg_catalog.pg_namespace.oid = pg_catalog.pg_class.relnamespace 
+WHERE pg_catalog.pg_class.relname = %(table_name)s AND pg_catalog.pg_class.relkind = ANY (ARRAY[%(param_1)s, %(param_2)s, %(param_3)s, %(param_4)s, %(param_5)s]) AND pg_catalog.pg_table_is_visible(pg_catalog.pg_class.oid) AND pg_catalog.pg_namespace.nspname != %(nspname_1)s
+2025-01-05 10:19:36,335 - sqlalchemy.engine.Engine - INFO - [cached since 1.618s ago] {'table_name': 'flavor_tags', 'param_1': 'r', 'param_2': 'p', 'param_3': 'f', 'param_4': 'v', 'param_5': 'm', 'nspname_1': 'pg_catalog'}
+2025-01-05 10:19:36,413 - sqlalchemy.engine.Engine - INFO - select current_schema()
+2025-01-05 10:19:36,414 - sqlalchemy.engine.Engine - INFO - [raw sql] {}
+2025-01-05 10:19:36,515 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2025-01-05 10:19:36,516 - sqlalchemy.engine.Engine - INFO - SELECT sakes.id AS sakes_id, sakes.sakenowa_id AS sakes_sakenowa_id, sakes.name AS sakes_name, sakes.brewery_id AS sakes_brewery_id, sakes.created_at AS sakes_created_at, sakes.updated_at AS sakes_updated_at 
+FROM sakes ORDER BY sakes.created_at DESC
+2025-01-05 10:19:36,516 - sqlalchemy.engine.Engine - INFO - [cached since 9.049s ago] {}
+2025-01-05 10:19:36,566 - sqlalchemy.engine.Engine - INFO - COMMIT
+2025-01-05 10:19:36,796 - __main__ - INFO - Database tables created successfully
+2025-01-05 10:19:36,814 - sqlalchemy.engine.Engine - INFO - SELECT users.id AS users_id, users.email AS users_email, users.username AS users_username, users.encrypted_password AS users_encrypted_password, users.reset_password_token AS users_reset_password_token, users.reset_password_sent_at AS users_reset_password_sent_at, users.remember_created_at AS users_remember_created_at, users.created_at AS users_created_at, users.updated_at AS users_updated_at, users.gender AS users_gender, users.birthdate AS users_birthdate, users.comment AS users_comment 
+FROM users 
+ LIMIT %(param_1)s
+2025-01-05 10:19:36,814 - sqlalchemy.engine.Engine - INFO - [generated in 0.00024s] {'param_1': 1}
+2025-01-05 10:19:36,876 - sqlalchemy.engine.Engine - INFO - show standard_conforming_strings
+2025-01-05 10:19:36,877 - sqlalchemy.engine.Engine - INFO - [raw sql] {}
+2025-01-05 10:19:37,048 - sqlalchemy.engine.Engine - INFO - SELECT regions.id AS regions_id, regions.name AS regions_name, regions."sakenowaId" AS "regions_sakenowaId", regions.created_at AS regions_created_at, regions.updated_at AS regions_updated_at 
+FROM regions 
+ LIMIT %(param_1)s
+2025-01-05 10:19:37,048 - sqlalchemy.engine.Engine - INFO - [generated in 0.00044s] {'param_1': 1}
+2025-01-05 10:19:37,081 - werkzeug - INFO - 172.31.196.81 - - [05/Jan/2025 10:19:37] "[36mGET /static/js/main.js HTTP/1.1[0m" 304 -
+2025-01-05 10:19:37,224 - sqlalchemy.engine.Engine - INFO - ROLLBACK
+2025-01-05 10:19:37,281 - sqlalchemy.engine.Engine - INFO - ROLLBACK
+2025-01-05 10:19:37,340 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2025-01-05 10:19:37,340 - sqlalchemy.engine.Engine - INFO - SELECT 1
+2025-01-05 10:19:37,341 - sqlalchemy.engine.Engine - INFO - [generated in 0.00024s] {}
+2025-01-05 10:19:37,454 - werkzeug - INFO - 172.31.196.81 - - [05/Jan/2025 10:19:37] "GET / HTTP/1.1" 200 -
+2025-01-05 10:19:37,799 - werkzeug - INFO - 172.31.196.81 - - [05/Jan/2025 10:19:37] "[36mGET /static/css/custom.css HTTP/1.1[0m" 304 -
+2025-01-05 10:19:37,803 - __main__ - INFO - Database connection verified successfully
+2025-01-05 10:19:37,804 - sqlalchemy.engine.Engine - INFO - ROLLBACK
+2025-01-05 10:19:37,995 - sqlalchemy.engine.Engine - INFO - ROLLBACK
+2025-01-05 10:19:38,033 - werkzeug - INFO - 172.31.196.81 - - [05/Jan/2025 10:19:38] "[36mGET /static/js/main.js HTTP/1.1[0m" 304 -
+2025-01-05 10:19:38,048 - werkzeug - WARNING -  * Debugger is active!
+2025-01-05 10:19:38,049 - werkzeug - INFO -  * Debugger PIN: 125-261-337
+2025-01-05 10:19:38,230 - werkzeug - INFO - 172.31.196.81 - - [05/Jan/2025 10:19:38] "GET / HTTP/1.1" 200 -
+2025-01-05 10:19:38,243 - werkzeug - INFO - 172.31.196.81 - - [05/Jan/2025 10:19:38] "GET /static/css/custom.css HTTP/1.1" 200 -
+2025-01-05 10:19:38,250 - werkzeug - INFO - 172.31.196.81 - - [05/Jan/2025 10:19:38] "GET /static/js/main.js HTTP/1.1" 200 -
