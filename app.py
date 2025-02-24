@@ -1,17 +1,18 @@
 import os
 import logging
+import sys
 from flask import Flask
 from flask_login import LoginManager
-from models import db
 from sqlalchemy import text
+from models import db
 
 # Configure logging
 logging.basicConfig(
-    level=logging.DEBUG,  # Changed to DEBUG for more detailed logs
+    level=logging.DEBUG,
     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
     handlers=[
         logging.FileHandler("sake_app.log"),
-        logging.StreamHandler()
+        logging.StreamHandler(sys.stdout)
     ])
 logger = logging.getLogger(__name__)
 
@@ -20,41 +21,43 @@ login_manager = LoginManager()
 
 def create_app():
     """Application factory function"""
-    app = Flask(__name__)
-
-    # Configure database URL
-    database_url = os.environ.get('DATABASE_URL')
-    if not database_url:
-        # Construct from individual components
-        try:
-            database_url = (
-                f"postgresql://{os.environ['PGUSER']}:{os.environ['PGPASSWORD']}"
-                f"@{os.environ['PGHOST']}:{os.environ['PGPORT']}/{os.environ['PGDATABASE']}"
-            )
-            logger.info("Database URL constructed from environment variables")
-        except KeyError as e:
-            logger.error(f"Missing required environment variable: {e}")
-            raise ValueError(f"Missing required database configuration: {e}")
-
-    # Handle Heroku-style postgres:// URLs
-    if database_url.startswith('postgres://'):
-        database_url = database_url.replace('postgres://', 'postgresql://', 1)
-
-    # Configure Flask application
-    app.config.update(
-        SQLALCHEMY_DATABASE_URI=database_url,
-        SQLALCHEMY_TRACK_MODIFICATIONS=False,
-        SQLALCHEMY_ECHO=True,  # Enable SQL query logging
-        SECRET_KEY=os.environ.get('SECRET_KEY', os.urandom(24)),
-        DEBUG=True  # Enable debug mode
-    )
-
     try:
+        logger.info("Starting application creation...")
+        app = Flask(__name__)
+
+        # Configure database URL
+        database_url = os.environ.get('DATABASE_URL')
+        if not database_url:
+            logger.debug("No DATABASE_URL found, constructing from components...")
+            try:
+                database_url = (
+                    f"postgresql://{os.environ['PGUSER']}:{os.environ['PGPASSWORD']}"
+                    f"@{os.environ['PGHOST']}:{os.environ['PGPORT']}/{os.environ['PGDATABASE']}"
+                )
+                logger.info("Successfully constructed database URL")
+            except KeyError as e:
+                logger.error(f"Missing required environment variable: {e}")
+                raise ValueError(f"Missing required database configuration: {e}")
+
+        # Handle Heroku-style postgres:// URLs
+        if database_url.startswith('postgres://'):
+            database_url = database_url.replace('postgres://', 'postgresql://', 1)
+            logger.info("Converted postgres:// URL to postgresql://")
+
+        # Configure Flask application
+        app.config.update(
+            SQLALCHEMY_DATABASE_URI=database_url,
+            SQLALCHEMY_TRACK_MODIFICATIONS=False,
+            SECRET_KEY=os.environ.get('SECRET_KEY', os.urandom(24)),
+            DEBUG=True
+        )
+        logger.info("Flask configuration completed")
+
         # Initialize extensions
         db.init_app(app)
         login_manager.init_app(app)
         login_manager.login_view = 'main.login'
-        logger.info("Flask extensions initialized successfully")
+        logger.info("Flask extensions initialized")
 
         with app.app_context():
             # Import and configure user loader
@@ -71,19 +74,28 @@ def create_app():
             # Import and register blueprints
             from routes import bp
             app.register_blueprint(bp)
-            logger.info("Blueprints registered successfully")
+            logger.info("Blueprints registered")
 
             # Verify database connection
-            db.session.execute(text('SELECT 1'))
-            logger.info("Database connection verified successfully")
+            try:
+                db.session.execute(text('SELECT 1'))
+                logger.info("Database connection verified")
+            except Exception as e:
+                logger.error(f"Database connection failed: {e}")
+                raise
 
             return app
 
     except Exception as e:
-        logger.error(f"Error creating application: {e}")
+        logger.error(f"Error creating application: {str(e)}", exc_info=True)
         raise
 
 if __name__ == "__main__":
-    app = create_app()
-    port = int(os.environ.get('PORT', 5001))  # Default to port 5001
-    app.run(host='0.0.0.0', port=port, debug=True)
+    try:
+        app = create_app()
+        port = 5000  # ALWAYS use port 5000
+        logger.info(f"Starting Flask application on port {port}")
+        app.run(host='0.0.0.0', port=port)
+    except Exception as e:
+        logger.error(f"Failed to start application: {str(e)}", exc_info=True)
+        sys.exit(1)

@@ -4,7 +4,7 @@
 <div class="container my-5">
     <div class="row mb-4">
         <div class="col-md-8">
-            <h2 class="text-light">日本酒を探すよ</h2>
+            <h2 class="text-light">SakeReview</h2>
         </div>
     </div>
 
@@ -12,8 +12,8 @@
         <div class="col-md-8">
             <form action="{{ url_for('main.search') }}" method="GET" class="mt-4">
                 <div class="input-group">
-                    <input type="text" name="q" class="form-control form-control-lg" placeholder="銘柄名で検索...">
-                    <button type="submit" class="btn btn-primary btn-lg">検索</button>
+                    <input type="text" name="q" class="form-input form-control-lg" placeholder="銘柄名で日本酒を検索...">
+                    <button type="submit" class="btn btn-input btn-lg">検索</button>
                 </div>
             </form>
             <!-- <form id="search-form" class="card card-body bg-dark">
@@ -45,7 +45,7 @@
                 <div class="card-body">
                     <div class="d-flex justify-content-between align-items-start">
                         <div>
-                            <a href="{{ url_for('main.sake_detail', sake_id=sake.id) }}">{{ sake.name }}</a>
+                            <a href="{{ url_for('main.sake_detail', sake_id=sake.id) }}" class="sake-result">{{ sake.name }}</a>
                         </div>
                     </div>
                 </div>

@@ -6,12 +6,15 @@
     <div class="container position-relative text-light">
         <div class="row">
             <div class="col-md-8">
-                <h1 class="display-4 mb-4">日本酒を探す</h1>
-                <p class="lead">全国の酒蔵から厳選された日本酒をお探しください</p>
+                <h1 class="display-4 mb-4">SakeReview</h1>
+                <p class="lead">「自分の舌を記録する」<br>
+                好みの味を覚えておこう</p>
                 <form action="{{ url_for('main.search') }}" method="GET" class="mt-4">
                     <div class="input-group">
-                        <input type="text" name="q" class="form-control form-control-lg" placeholder="銘柄名で検索...">
-                        <button type="submit" class="btn btn-primary btn-lg">検索</button>
+                        <input type="text" name="q" class="form-input form-control-lg" placeholder="銘柄名で日本酒を検索...">
+                        <!-- <input type="text" name="q" class="form-control form-control-lg" placeholder="銘柄名で日本酒を検索..."> -->
+                        <button type="submit" class="btn btn-input btn-lg">検索</button>
+                        <!-- <button type="submit" class="btn btn-primary btn-lg">検索</button> -->
                     </div>
                 </form>
             </div>
@@ -74,7 +77,7 @@
                 <p class="text-light">日本の伝統的な発酵技術と職人の技が生み出す日本酒。大吟醸から純米酒まで、様々な種類の日本酒をお楽しみください。</p>
             </div>
             <div class="col-md-6">
-                <img src="https://images.unsplash.com/photo-1528360458789-d7774f47397b" class="img-fluid rounded" alt="日本酒の瓶">
+                <img src="{{ url_for('static', filename='images/sake2.jpg') }}" alt="日本酒の画像" class="img-fluid">
             </div>
         </div>
     </div>

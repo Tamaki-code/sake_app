@@ -10,7 +10,7 @@ body {
 }
 
 .hero-section {
-  background-image: url('https://images.unsplash.com/photo-1541491263892-731bc0c6a2ae');
+  background-image:url("../images/sakeImage.jpg");
   background-size: cover;
   background-position: center;
   min-height: 60vh;
@@ -29,11 +29,25 @@ body {
 .sake-card {
   transition: transform 0.2s;
   border: none;
-  background: var(--bs-dark);
+  background: #daccaf;
 }
 
 .sake-card:hover {
   transform: translateY(-5px);
+}
+
+.sake-result{
+    color: #fff;
+    text-decoration: none;
+}
+
+.sake-detail-card{
+  border: none;
+  background: #ad8f52;
+}
+
+.sake-result:hover {
+    color: #9f713c;
 }
 
 .rating {
@@ -41,8 +55,16 @@ body {
 }
 
 .japanese-pattern {
-  background-color: var(--bs-dark);
-  background-image: url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23BC002D' fill-opacity='0.1' fill-rule='evenodd'%3E%3Cpath d='M0 20L20 0v20H0zm20 0l20-20v20H20z'/%3E%3C/g%3E%3C/svg%3E");
+  background-color: #ece0c9;
+}
+
+.btn-input{
+  background-color:#c2cbae;
+  border-color: #515661;
+}
+
+.btn-input:hover{
+  background-color:#8c937b;
 }
 
 .review-section {
@@ -58,6 +80,22 @@ body {
 
 .bg-grn {
   background-color: #c2cbae;
+}
+
+.flavor-profile .progress {
+  height: 8px;
+  background-color: rgba(0, 0, 0, 0.1);
+  margin-bottom: 15px;
+}
+
+.flavor-profile .progress-bar {
+  background-color: var(--japanese-navy);
+}
+
+.flavor-profile small {
+  color: var(--bs-body-color);
+  font-size: 0.875rem;
+  margin-bottom: 4px;
 }
 
 @media (max-width: 768px) {
