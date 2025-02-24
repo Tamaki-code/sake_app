@@ -23,6 +23,15 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
+    // フレーバースライダーの値更新
+    const flavorRanges = document.querySelectorAll('.flavor-range');
+    flavorRanges.forEach(range => {
+        const valueDisplay = range.parentElement.querySelector('.current-value');
+        range.addEventListener('input', () => {
+            valueDisplay.textContent = range.value;
+        });
+    });
+
     // Review submission
     const reviewForm = document.getElementById('review-form');
     if (reviewForm) {
