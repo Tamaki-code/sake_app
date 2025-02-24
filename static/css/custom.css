@@ -43,7 +43,7 @@ body {
 
 .sake-detail-card{
   border: none;
-  background: #ad8f52;
+  background: #daccaf;
 }
 
 .sake-result:hover {
@@ -68,7 +68,7 @@ body {
 }
 
 .review-section {
-  background: #ad8f52;  /* ベージュブラウンに変更 */
+  background: #daccaf;  /* より柔らかいベージュに変更 */
   border-radius: 8px;
   padding: 20px;
 }
