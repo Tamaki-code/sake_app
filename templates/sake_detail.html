@@ -54,7 +54,7 @@
 
             <div class="review-section mb-4">
                 <h3 class="mb-4">レビューを書く</h3>
-                <form id="review-form" data-sake-id="{{ sake.id }}">
+                <form id="review-form" data-sake-id="{{ sake.id }}" class="sake-detail-card p-4">
                     <div class="mb-3">
                         <label class="form-label">評価</label>
                         <div id="star-container" class="star-rating mb-2">
@@ -147,7 +147,7 @@
             <div class="reviews-section">
                 <h3 class="mb-4">レビュー一覧</h3>
                 {% for review in reviews %}
-                    <div class="card bg-dark mb-3">
+                    <div class="card sake-detail-card mb-3">
                         <div class="card-body">
                             <div class="d-flex justify-content-between">
                                 <div>
