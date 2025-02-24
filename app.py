@@ -8,7 +8,7 @@ from models import db
 
 # Configure logging
 logging.basicConfig(
-    level=logging.DEBUG,
+    level=logging.INFO,
     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
     handlers=[
         logging.FileHandler("sake_app.log"),
@@ -49,7 +49,6 @@ def create_app():
             SQLALCHEMY_DATABASE_URI=database_url,
             SQLALCHEMY_TRACK_MODIFICATIONS=False,
             SECRET_KEY=os.environ.get('SECRET_KEY', os.urandom(24)),
-            DEBUG=True
         )
         logger.info("Flask configuration completed")
 
@@ -93,9 +92,8 @@ def create_app():
 if __name__ == "__main__":
     try:
         app = create_app()
-        port = 5000  # ALWAYS use port 5000
-        logger.info(f"Starting Flask application on port {port}")
-        app.run(host='0.0.0.0', port=port)
+        # ALWAYS serve the app on port 5000
+        app.run(host='0.0.0.0', port=5000)
     except Exception as e:
         logger.error(f"Failed to start application: {str(e)}", exc_info=True)
         sys.exit(1)

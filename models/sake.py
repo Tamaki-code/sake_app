@@ -10,8 +10,7 @@ class Sake(db.Model):
     created_at = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
     updated_at = db.Column(db.DateTime, nullable=False, default=datetime.utcnow, onupdate=datetime.utcnow)
     reviews = db.relationship('Review', backref='sake', lazy='dynamic')
-    flavor_chart = db.relationship('FlavorChart', backref='sake', uselist=False) # Added relationship
-
+    flavor_chart = db.relationship('FlavorChart', backref=db.backref('sake_info', uselist=False), uselist=False)
 
     def average_rating(self):
         reviews = self.reviews.all()

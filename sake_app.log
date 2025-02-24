@@ -32009,3 +32009,72 @@ WHERE pg_catalog.pg_class.relname = %(table_name)s AND pg_catalog.pg_class.relki
 2025-02-24 10:39:17,385 - werkzeug - INFO -  * Debugger PIN: 136-221-600
 2025-02-24 10:39:18,834 - __main__ - INFO - Database connection verified
 2025-02-24 10:39:19,065 - __main__ - INFO - Starting Flask application on port 5000
+2025-02-24 10:41:10,361 - routes - ERROR - Error in index route: Error creating backref 'sake' on relationship 'Sake.flavor_chart': property of that name exists on mapper 'Mapper[FlavorChart(flavor_charts)]'
+2025-02-24 10:41:10,373 - werkzeug - INFO - 172.31.128.19 - - [24/Feb/2025 10:41:10] "GET / HTTP/1.1" 200 -
+2025-02-24 10:41:11,022 - werkzeug - INFO - 172.31.128.19 - - [24/Feb/2025 10:41:11] "[36mGET /static/css/custom.css HTTP/1.1[0m" 304 -
+2025-02-24 10:41:11,027 - werkzeug - INFO - 172.31.128.19 - - [24/Feb/2025 10:41:11] "[36mGET /static/images/sake2.jpg HTTP/1.1[0m" 304 -
+2025-02-24 10:41:11,173 - werkzeug - INFO - 172.31.128.19 - - [24/Feb/2025 10:41:11] "[36mGET /static/js/main.js HTTP/1.1[0m" 304 -
+2025-02-24 10:41:16,302 - routes - INFO - Received query: 山
+2025-02-24 10:41:16,303 - routes - ERROR - Error in search route: One or more mappers failed to initialize - can't proceed with initialization of other mappers. Triggering mapper: 'Mapper[Sake(sakes)]'. Original exception was: Error creating backref 'sake' on relationship 'Sake.flavor_chart': property of that name exists on mapper 'Mapper[FlavorChart(flavor_charts)]'
+2025-02-24 10:41:16,309 - werkzeug - INFO - 172.31.128.19 - - [24/Feb/2025 10:41:16] "GET /search?q=山 HTTP/1.1" 200 -
+2025-02-24 10:41:16,511 - werkzeug - INFO - 172.31.128.19 - - [24/Feb/2025 10:41:16] "[36mGET /static/css/custom.css HTTP/1.1[0m" 304 -
+2025-02-24 10:41:16,519 - werkzeug - INFO - 172.31.128.19 - - [24/Feb/2025 10:41:16] "[36mGET /static/js/main.js HTTP/1.1[0m" 304 -
+2025-02-24 10:42:11,613 - werkzeug - INFO -  * Detected change in '/home/runner/workspace/app.py', reloading
+2025-02-24 10:42:11,752 - werkzeug - INFO -  * Restarting with stat
+2025-02-24 10:42:12,450 - __main__ - INFO - Starting Sake Review application...
+2025-02-24 10:42:12,480 - app - INFO - Starting application creation...
+2025-02-24 10:42:12,482 - app - INFO - Flask configuration completed
+2025-02-24 10:42:12,535 - app - INFO - Flask extensions initialized
+2025-02-24 10:42:12,552 - app - INFO - Blueprints registered
+2025-02-24 10:42:16,573 - app - INFO - Database connection verified
+2025-02-24 10:42:17,269 - __main__ - INFO - Database connection successful
+2025-02-24 10:42:17,270 - __main__ - INFO - Database verification successful
+2025-02-24 10:42:17,439 - app - INFO - Starting application creation...
+2025-02-24 10:42:17,441 - app - INFO - Flask configuration completed
+2025-02-24 10:42:17,473 - app - INFO - Flask extensions initialized
+2025-02-24 10:42:17,484 - app - INFO - Blueprints registered
+2025-02-24 10:42:17,504 - __main__ - INFO - Starting Flask application on port 5000...
+2025-02-24 10:42:20,078 - __main__ - INFO - Starting application creation...
+2025-02-24 10:42:20,079 - __main__ - INFO - Flask configuration completed
+2025-02-24 10:42:20,117 - __main__ - INFO - Flask extensions initialized
+2025-02-24 10:42:20,130 - __main__ - INFO - Blueprints registered
+2025-02-24 10:42:21,492 - app - INFO - Database connection verified
+2025-02-24 10:42:21,724 - __main__ - INFO - Verifying database encoding settings...
+2025-02-24 10:42:22,651 - __main__ - INFO - Database Encoding Settings:
+2025-02-24 10:42:22,651 - __main__ - INFO - Client Encoding: UTF8
+2025-02-24 10:42:22,652 - __main__ - INFO - Server Encoding: UTF8
+2025-02-24 10:42:22,652 - __main__ - INFO - Database Collation: C.UTF-8
+2025-02-24 10:42:22,884 - __main__ - INFO - Japanese character encoding test: Passed
+2025-02-24 10:42:24,116 - __main__ - INFO - Database connection verified
+2025-02-24 10:42:26,471 - __main__ - INFO - Database tables created successfully
+2025-02-24 10:42:26,708 - __main__ - ERROR - Error initializing database: Error creating backref 'sake' on relationship 'Sake.flavor_chart': property of that name exists on mapper 'Mapper[FlavorChart(flavor_charts)]'
+2025-02-24 10:42:37,769 - __main__ - INFO - Starting Sake Review application...
+2025-02-24 10:42:37,789 - app - INFO - Starting application creation...
+2025-02-24 10:42:37,791 - app - INFO - Flask configuration completed
+2025-02-24 10:42:37,830 - app - INFO - Flask extensions initialized
+2025-02-24 10:42:37,841 - app - INFO - Blueprints registered
+2025-02-24 10:42:41,899 - app - INFO - Database connection verified
+2025-02-24 10:42:42,602 - __main__ - INFO - Database connection successful
+2025-02-24 10:42:42,603 - __main__ - INFO - Database verification successful
+2025-02-24 10:42:42,838 - __main__ - INFO - Starting Flask application on port 5000...
+2025-02-24 10:43:15,153 - app - INFO - Starting application creation...
+2025-02-24 10:43:15,154 - app - INFO - Flask configuration completed
+2025-02-24 10:43:15,188 - app - INFO - Flask extensions initialized
+2025-02-24 10:43:15,198 - app - INFO - Blueprints registered
+2025-02-24 10:43:17,552 - __main__ - INFO - Starting Sake Review application...
+2025-02-24 10:43:17,572 - app - INFO - Starting application creation...
+2025-02-24 10:43:17,574 - app - INFO - Flask configuration completed
+2025-02-24 10:43:17,610 - app - INFO - Flask extensions initialized
+2025-02-24 10:43:17,620 - app - INFO - Blueprints registered
+2025-02-24 10:43:19,240 - app - INFO - Database connection verified
+2025-02-24 10:43:19,473 - __main__ - INFO - Verifying database encoding settings...
+2025-02-24 10:43:20,409 - __main__ - INFO - Database Encoding Settings:
+2025-02-24 10:43:20,409 - __main__ - INFO - Client Encoding: UTF8
+2025-02-24 10:43:20,409 - __main__ - INFO - Server Encoding: UTF8
+2025-02-24 10:43:20,410 - __main__ - INFO - Database Collation: C.UTF-8
+2025-02-24 10:43:20,644 - __main__ - INFO - Japanese character encoding test: Passed
+2025-02-24 10:43:21,596 - app - INFO - Database connection verified
+2025-02-24 10:43:22,284 - __main__ - INFO - Database connection successful
+2025-02-24 10:43:22,285 - __main__ - INFO - Database verification successful
+2025-02-24 10:43:22,514 - __main__ - INFO - Starting Flask application on port 5000...
+2025-02-24 10:43:24,271 - __main__ - INFO - Database tables created successfully

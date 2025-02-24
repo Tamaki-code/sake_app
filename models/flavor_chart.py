@@ -13,4 +13,3 @@ class FlavorChart(db.Model):
     f6 = db.Column(db.Float)
     created_at = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
     updated_at = db.Column(db.DateTime, nullable=False, default=datetime.utcnow, onupdate=datetime.utcnow)
-    sake = db.relationship('Sake', backref=db.backref('flavor_chart', uselist=False))
