@@ -32435,3 +32435,54 @@ WHERE pg_catalog.pg_class.relname = %(table_name)s AND pg_catalog.pg_class.relki
 2025-02-24 23:04:03,938 - werkzeug - INFO - 172.31.128.15 - - [24/Feb/2025 23:04:03] "[36mGET /static/js/main.js HTTP/1.1[0m" 304 -
 2025-02-24 23:04:03,978 - werkzeug - INFO - 172.31.128.15 - - [24/Feb/2025 23:04:03] "GET /static/images/sakeImage.jpg HTTP/1.1" 200 -
 2025-02-24 23:04:04,576 - werkzeug - INFO - 172.31.128.15 - - [24/Feb/2025 23:04:04] "[36mGET /static/images/sakeImage.jpg HTTP/1.1[0m" 304 -
+2025-02-24 23:04:30,617 - werkzeug - INFO - 172.31.128.15 - - [24/Feb/2025 23:04:30] "GET / HTTP/1.1" 200 -
+2025-02-24 23:04:30,940 - werkzeug - INFO - 172.31.128.15 - - [24/Feb/2025 23:04:30] "GET /static/css/custom.css HTTP/1.1" 200 -
+2025-02-24 23:04:31,214 - werkzeug - INFO - 172.31.128.15 - - [24/Feb/2025 23:04:31] "[36mGET /static/images/sakeImage.jpg HTTP/1.1[0m" 304 -
+2025-02-24 23:04:31,367 - werkzeug - INFO - 172.31.128.15 - - [24/Feb/2025 23:04:31] "GET /static/js/main.js HTTP/1.1" 200 -
+2025-02-24 23:04:31,368 - werkzeug - INFO - 172.31.128.15 - - [24/Feb/2025 23:04:31] "[36mGET /static/images/sake2.jpg HTTP/1.1[0m" 304 -
+2025-02-24 23:04:32,450 - werkzeug - INFO - 172.31.128.15 - - [24/Feb/2025 23:04:32] "[36mGET /static/js/main.js HTTP/1.1[0m" 304 -
+2025-02-24 23:05:56,833 - routes - INFO - Received query: 山
+2025-02-24 23:05:57,780 - werkzeug - INFO - 172.31.128.15 - - [24/Feb/2025 23:05:57] "GET /search?q=山 HTTP/1.1" 200 -
+2025-02-24 23:05:58,002 - werkzeug - INFO - 172.31.128.15 - - [24/Feb/2025 23:05:58] "[36mGET /static/css/custom.css HTTP/1.1[0m" 304 -
+2025-02-24 23:05:58,231 - werkzeug - INFO - 172.31.128.15 - - [24/Feb/2025 23:05:58] "[36mGET /static/js/main.js HTTP/1.1[0m" 304 -
+2025-02-24 23:05:58,381 - werkzeug - INFO - 172.31.128.15 - - [24/Feb/2025 23:05:58] "[36mGET /static/js/main.js HTTP/1.1[0m" 304 -
+2025-02-24 23:06:03,675 - werkzeug - INFO - 172.31.128.15 - - [24/Feb/2025 23:06:03] "GET /sake/8154 HTTP/1.1" 200 -
+2025-02-24 23:06:03,848 - werkzeug - INFO - 172.31.128.15 - - [24/Feb/2025 23:06:03] "[36mGET /static/css/custom.css HTTP/1.1[0m" 304 -
+2025-02-24 23:06:03,959 - werkzeug - INFO - 172.31.128.15 - - [24/Feb/2025 23:06:03] "[36mGET /static/js/main.js HTTP/1.1[0m" 304 -
+2025-02-24 23:08:22,629 - app - INFO - Starting application creation...
+2025-02-24 23:08:22,630 - app - INFO - Flask configuration completed
+2025-02-24 23:08:22,661 - app - INFO - Flask extensions initialized
+2025-02-24 23:08:22,672 - app - INFO - Blueprints registered
+2025-02-24 23:08:23,919 - __main__ - INFO - Starting application creation...
+2025-02-24 23:08:23,920 - __main__ - INFO - Flask configuration completed
+2025-02-24 23:08:23,950 - __main__ - INFO - Flask extensions initialized
+2025-02-24 23:08:23,960 - __main__ - INFO - Blueprints registered
+2025-02-24 23:08:26,725 - app - INFO - Database connection verified
+2025-02-24 23:08:26,960 - __main__ - INFO - Verifying database encoding settings...
+2025-02-24 23:08:27,897 - __main__ - INFO - Database Encoding Settings:
+2025-02-24 23:08:27,897 - __main__ - INFO - Client Encoding: UTF8
+2025-02-24 23:08:27,897 - __main__ - INFO - Server Encoding: UTF8
+2025-02-24 23:08:27,897 - __main__ - INFO - Database Collation: C.UTF-8
+2025-02-24 23:08:28,001 - __main__ - INFO - Database connection verified
+2025-02-24 23:08:28,132 - __main__ - INFO - Japanese character encoding test: Passed
+2025-02-24 23:08:28,242 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://172.31.128.15:5000
+2025-02-24 23:08:28,242 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-02-24 23:08:30,763 - werkzeug - INFO - 172.31.128.15 - - [24/Feb/2025 23:08:30] "GET / HTTP/1.1" 200 -
+2025-02-24 23:08:30,935 - werkzeug - INFO - 172.31.128.15 - - [24/Feb/2025 23:08:30] "[36mGET /static/css/custom.css HTTP/1.1[0m" 304 -
+2025-02-24 23:08:31,343 - werkzeug - INFO - 172.31.128.15 - - [24/Feb/2025 23:08:31] "[36mGET /static/images/sake2.jpg HTTP/1.1[0m" 304 -
+2025-02-24 23:08:31,346 - werkzeug - INFO - 172.31.128.15 - - [24/Feb/2025 23:08:31] "[36mGET /static/js/main.js HTTP/1.1[0m" 304 -
+2025-02-24 23:08:31,723 - __main__ - INFO - Database tables created successfully
+2025-02-24 23:08:32,094 - werkzeug - INFO - 172.31.128.15 - - [24/Feb/2025 23:08:32] "GET / HTTP/1.1" 200 -
+2025-02-24 23:08:32,278 - werkzeug - INFO - 172.31.128.15 - - [24/Feb/2025 23:08:32] "[36mGET /static/css/custom.css HTTP/1.1[0m" 304 -
+2025-02-24 23:08:33,069 - werkzeug - INFO - 172.31.128.15 - - [24/Feb/2025 23:08:33] "[36mGET /static/images/sakeImage.jpg HTTP/1.1[0m" 304 -
+2025-02-24 23:08:33,258 - werkzeug - INFO - 172.31.128.15 - - [24/Feb/2025 23:08:33] "GET / HTTP/1.1" 200 -
+2025-02-24 23:08:33,271 - werkzeug - INFO - 172.31.128.15 - - [24/Feb/2025 23:08:33] "GET /static/css/custom.css HTTP/1.1" 200 -
+2025-02-24 23:08:33,414 - werkzeug - INFO - 172.31.128.15 - - [24/Feb/2025 23:08:33] "GET /static/js/main.js HTTP/1.1" 200 -
+2025-02-24 23:08:33,415 - werkzeug - INFO - 172.31.128.15 - - [24/Feb/2025 23:08:33] "GET /static/images/sake2.jpg HTTP/1.1" 200 -
+2025-02-24 23:08:33,706 - werkzeug - INFO - 172.31.128.15 - - [24/Feb/2025 23:08:33] "[36mGET /static/images/sake2.jpg HTTP/1.1[0m" 304 -
+2025-02-24 23:08:33,707 - werkzeug - INFO - 172.31.128.15 - - [24/Feb/2025 23:08:33] "[36mGET /static/js/main.js HTTP/1.1[0m" 304 -
+2025-02-24 23:08:33,873 - werkzeug - INFO - 172.31.128.15 - - [24/Feb/2025 23:08:33] "GET /static/images/sakeImage.jpg HTTP/1.1" 200 -
+2025-02-24 23:08:34,126 - werkzeug - INFO - 172.31.128.15 - - [24/Feb/2025 23:08:34] "[36mGET /static/images/sakeImage.jpg HTTP/1.1[0m" 304 -

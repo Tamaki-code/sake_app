@@ -196,3 +196,16 @@ def update_database():
         flash('データベースの更新中にエラーが発生しました', 'error')
 
     return redirect(url_for('main.index'))
+
+@bp.route('/mypage')
+@login_required
+def mypage():
+    try:
+        reviews = Review.query.filter_by(user_id=current_user.id)\
+            .order_by(Review.created_at.desc())\
+            .all()
+        return render_template('mypage.html', reviews=reviews)
+    except Exception as e:
+        logger.error(f"Error in mypage route: {str(e)}")
+        flash('マイページの表示中にエラーが発生しました。', 'error')
+        return redirect(url_for('main.index'))
