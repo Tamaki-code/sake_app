@@ -32078,3 +32078,86 @@ WHERE pg_catalog.pg_class.relname = %(table_name)s AND pg_catalog.pg_class.relki
 2025-02-24 10:43:22,285 - __main__ - INFO - Database verification successful
 2025-02-24 10:43:22,514 - __main__ - INFO - Starting Flask application on port 5000...
 2025-02-24 10:43:24,271 - __main__ - INFO - Database tables created successfully
+2025-02-24 10:45:15,876 - __main__ - INFO - Starting Sake Review application...
+2025-02-24 10:45:15,901 - app - INFO - Starting application creation...
+2025-02-24 10:45:15,903 - app - INFO - Flask configuration completed
+2025-02-24 10:45:15,947 - app - INFO - Flask extensions initialized
+2025-02-24 10:45:15,959 - app - INFO - Blueprints registered
+2025-02-24 10:45:19,991 - app - INFO - Database connection verified
+2025-02-24 10:45:20,691 - __main__ - INFO - Database connection successful
+2025-02-24 10:45:20,691 - __main__ - INFO - Database verification successful
+2025-02-24 10:45:20,924 - __main__ - INFO - Starting Flask application on port 5000...
+2025-02-24 10:45:38,647 - app - INFO - Starting application creation...
+2025-02-24 10:45:38,649 - app - INFO - Flask configuration completed
+2025-02-24 10:45:38,691 - app - INFO - Flask extensions initialized
+2025-02-24 10:45:38,703 - app - INFO - Blueprints registered
+2025-02-24 10:45:42,713 - app - INFO - Database connection verified
+2025-02-24 10:45:42,945 - __main__ - INFO - Verifying database encoding settings...
+2025-02-24 10:45:43,281 - __main__ - INFO - Starting Sake Review application...
+2025-02-24 10:45:43,302 - app - INFO - Starting application creation...
+2025-02-24 10:45:43,304 - app - INFO - Flask configuration completed
+2025-02-24 10:45:43,343 - app - INFO - Flask extensions initialized
+2025-02-24 10:45:43,355 - app - INFO - Blueprints registered
+2025-02-24 10:45:43,873 - __main__ - INFO - Database Encoding Settings:
+2025-02-24 10:45:43,873 - __main__ - INFO - Client Encoding: UTF8
+2025-02-24 10:45:43,873 - __main__ - INFO - Server Encoding: UTF8
+2025-02-24 10:45:43,873 - __main__ - INFO - Database Collation: C.UTF-8
+2025-02-24 10:45:44,106 - __main__ - INFO - Japanese character encoding test: Passed
+2025-02-24 10:45:47,366 - app - INFO - Database connection verified
+2025-02-24 10:45:47,651 - __main__ - INFO - Database tables created successfully
+2025-02-24 10:45:48,061 - __main__ - INFO - Database connection successful
+2025-02-24 10:45:48,062 - __main__ - INFO - Database verification successful
+2025-02-24 10:45:48,294 - __main__ - INFO - Starting Flask application on port 5000...
+2025-02-24 10:46:16,045 - __main__ - INFO - Starting Sake Review application...
+2025-02-24 10:46:16,065 - app - INFO - Starting application creation...
+2025-02-24 10:46:16,066 - app - INFO - Flask configuration completed
+2025-02-24 10:46:16,100 - app - INFO - Flask extensions initialized
+2025-02-24 10:46:16,110 - app - INFO - Blueprints registered
+2025-02-24 10:46:20,176 - app - INFO - Database connection verified
+2025-02-24 10:46:20,881 - __main__ - INFO - Database connection successful
+2025-02-24 10:46:20,881 - __main__ - INFO - Database verification successful
+2025-02-24 10:46:21,116 - __main__ - INFO - Starting Flask application on port 5000...
+2025-02-24 10:47:29,932 - __main__ - INFO - Starting Sake Review application...
+2025-02-24 10:47:29,959 - app - INFO - Starting application creation...
+2025-02-24 10:47:29,961 - app - INFO - Flask configuration completed
+2025-02-24 10:47:30,001 - app - INFO - Flask extensions initialized
+2025-02-24 10:47:30,015 - app - INFO - Blueprints registered
+2025-02-24 10:47:34,005 - app - INFO - Database connection verified
+2025-02-24 10:47:34,696 - __main__ - INFO - Database connection successful
+2025-02-24 10:47:34,697 - __main__ - INFO - Database verification successful
+2025-02-24 10:47:34,929 - __main__ - INFO - Starting Flask application on port 5000...
+2025-02-24 10:48:00,513 - __main__ - INFO - Starting Sake Review application...
+2025-02-24 10:48:00,534 - app - INFO - Starting application creation...
+2025-02-24 10:48:00,536 - app - INFO - Flask configuration completed
+2025-02-24 10:48:00,572 - app - INFO - Flask extensions initialized
+2025-02-24 10:48:00,582 - app - INFO - Blueprints registered
+2025-02-24 10:48:04,570 - app - INFO - Database connection verified
+2025-02-24 10:48:05,262 - __main__ - INFO - Database connection successful
+2025-02-24 10:48:05,262 - __main__ - INFO - Database verification successful
+2025-02-24 10:48:05,493 - __main__ - ERROR - Port 5000 is already in use. Please stop other processes using this port.
+2025-02-24 10:48:41,225 - app - INFO - Starting application creation...
+2025-02-24 10:48:41,227 - app - INFO - Flask configuration completed
+2025-02-24 10:48:41,270 - app - INFO - Flask extensions initialized
+2025-02-24 10:48:41,283 - app - INFO - Blueprints registered
+2025-02-24 10:48:43,544 - __main__ - INFO - Starting Sake Review application...
+2025-02-24 10:48:43,570 - app - INFO - Starting application creation...
+2025-02-24 10:48:43,572 - app - INFO - Flask configuration completed
+2025-02-24 10:48:43,611 - app - INFO - Flask extensions initialized
+2025-02-24 10:48:43,622 - app - INFO - Blueprints registered
+2025-02-24 10:48:45,322 - app - INFO - Database connection verified
+2025-02-24 10:48:45,556 - __main__ - INFO - Verifying database encoding settings...
+2025-02-24 10:48:46,489 - __main__ - INFO - Database Encoding Settings:
+2025-02-24 10:48:46,490 - __main__ - INFO - Client Encoding: UTF8
+2025-02-24 10:48:46,490 - __main__ - INFO - Server Encoding: UTF8
+2025-02-24 10:48:46,490 - __main__ - INFO - Database Collation: C.UTF-8
+2025-02-24 10:48:46,724 - __main__ - INFO - Japanese character encoding test: Passed
+2025-02-24 10:48:47,693 - app - INFO - Database connection verified
+2025-02-24 10:48:48,399 - __main__ - INFO - Database connection successful
+2025-02-24 10:48:48,399 - __main__ - INFO - Database verification successful
+2025-02-24 10:48:48,634 - __main__ - ERROR - Port 5000 is already in use. Please stop other processes using this port.
+2025-02-24 10:48:50,318 - __main__ - INFO - Database tables created successfully
+2025-02-24 10:49:04,430 - __main__ - INFO - Starting application creation...
+2025-02-24 10:49:04,431 - __main__ - INFO - Flask configuration completed
+2025-02-24 10:49:04,475 - __main__ - INFO - Flask extensions initialized
+2025-02-24 10:49:04,489 - __main__ - INFO - Blueprints registered
+2025-02-24 10:49:08,549 - __main__ - INFO - Database connection verified
