@@ -32807,3 +32807,51 @@ FROM sakes ORDER BY sakes.created_at DESC]
 2025-02-24 23:44:17,738 - werkzeug - INFO - 172.31.128.15 - - [24/Feb/2025 23:44:17] "[36mGET /static/js/main.js HTTP/1.1[0m" 304 -
 2025-02-24 23:44:17,738 - werkzeug - INFO - 172.31.128.15 - - [24/Feb/2025 23:44:17] "[36mGET /static/images/sake2.jpg HTTP/1.1[0m" 304 -
 2025-02-24 23:44:19,738 - werkzeug - INFO - 172.31.128.15 - - [24/Feb/2025 23:44:19] "[36mGET /static/images/sakeImage.jpg HTTP/1.1[0m" 304 -
+2025-02-24 23:49:35,499 - routes - ERROR - Error in index route: (psycopg2.OperationalError) SSL connection has been closed unexpectedly
+
+[SQL: SELECT sakes.id AS sakes_id, sakes.sakenowa_id AS sakes_sakenowa_id, sakes.name AS sakes_name, sakes.brewery_id AS sakes_brewery_id, sakes.created_at AS sakes_created_at, sakes.updated_at AS sakes_updated_at 
+FROM sakes ORDER BY sakes.created_at DESC]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+2025-02-24 23:49:35,500 - werkzeug - INFO - 172.31.128.15 - - [24/Feb/2025 23:49:35] "GET / HTTP/1.1" 200 -
+2025-02-24 23:49:36,238 - werkzeug - INFO - 172.31.128.15 - - [24/Feb/2025 23:49:36] "[36mGET /static/images/sake2.jpg HTTP/1.1[0m" 304 -
+2025-02-24 23:49:36,241 - werkzeug - INFO - 172.31.128.15 - - [24/Feb/2025 23:49:36] "[36mGET /static/css/custom.css HTTP/1.1[0m" 304 -
+2025-02-24 23:49:36,379 - werkzeug - INFO - 172.31.128.15 - - [24/Feb/2025 23:49:36] "[36mGET /static/js/main.js HTTP/1.1[0m" 304 -
+2025-02-24 23:49:39,427 - werkzeug - INFO - 172.31.128.15 - - [24/Feb/2025 23:49:39] "GET / HTTP/1.1" 200 -
+2025-02-24 23:49:39,795 - werkzeug - INFO - 172.31.128.15 - - [24/Feb/2025 23:49:39] "[36mGET /static/css/custom.css HTTP/1.1[0m" 304 -
+2025-02-24 23:49:40,073 - werkzeug - INFO - 172.31.128.15 - - [24/Feb/2025 23:49:40] "[36mGET /static/images/sake2.jpg HTTP/1.1[0m" 304 -
+2025-02-24 23:49:40,074 - werkzeug - INFO - 172.31.128.15 - - [24/Feb/2025 23:49:40] "[36mGET /static/js/main.js HTTP/1.1[0m" 304 -
+2025-02-24 23:55:59,943 - __main__ - INFO - Starting application creation...
+2025-02-24 23:55:59,947 - __main__ - INFO - Flask configuration completed
+2025-02-24 23:56:00,285 - __main__ - INFO - Flask extensions initialized
+2025-02-24 23:56:00,333 - __main__ - INFO - Blueprints registered
+2025-02-24 23:56:04,445 - __main__ - INFO - Database connection verified
+2025-02-24 23:56:04,690 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://172.31.128.9:5000
+2025-02-24 23:56:04,690 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-02-24 23:56:06,778 - werkzeug - INFO - 172.31.128.9 - - [24/Feb/2025 23:56:06] "GET / HTTP/1.1" 200 -
+2025-02-24 23:56:07,425 - werkzeug - INFO - 172.31.128.9 - - [24/Feb/2025 23:56:07] "[36mGET /static/css/custom.css HTTP/1.1[0m" 304 -
+2025-02-24 23:56:07,605 - werkzeug - INFO - 172.31.128.9 - - [24/Feb/2025 23:56:07] "[36mGET /static/js/main.js HTTP/1.1[0m" 304 -
+2025-02-24 23:56:07,607 - werkzeug - INFO - 172.31.128.9 - - [24/Feb/2025 23:56:07] "[36mGET /static/images/sake2.jpg HTTP/1.1[0m" 304 -
+2025-02-24 23:56:10,881 - app - INFO - Starting application creation...
+2025-02-24 23:56:10,882 - app - INFO - Flask configuration completed
+2025-02-24 23:56:10,912 - app - INFO - Flask extensions initialized
+2025-02-24 23:56:10,922 - app - INFO - Blueprints registered
+2025-02-24 23:56:13,755 - werkzeug - INFO - 172.31.128.9 - - [24/Feb/2025 23:56:13] "GET / HTTP/1.1" 200 -
+2025-02-24 23:56:13,767 - werkzeug - INFO - 172.31.128.9 - - [24/Feb/2025 23:56:13] "GET /static/css/custom.css HTTP/1.1" 200 -
+2025-02-24 23:56:13,774 - werkzeug - INFO - 172.31.128.9 - - [24/Feb/2025 23:56:13] "GET /static/js/main.js HTTP/1.1" 200 -
+2025-02-24 23:56:13,905 - werkzeug - INFO - 172.31.128.9 - - [24/Feb/2025 23:56:13] "GET /static/images/sake2.jpg HTTP/1.1" 200 -
+2025-02-24 23:56:14,449 - werkzeug - INFO - 172.31.128.9 - - [24/Feb/2025 23:56:14] "GET /static/images/sakeImage.jpg HTTP/1.1" 200 -
+2025-02-24 23:56:14,980 - app - INFO - Database connection verified
+2025-02-24 23:56:15,214 - __main__ - INFO - Verifying database encoding settings...
+2025-02-24 23:56:15,967 - werkzeug - INFO - 172.31.128.9 - - [24/Feb/2025 23:56:15] "GET / HTTP/1.1" 200 -
+2025-02-24 23:56:16,157 - __main__ - INFO - Database Encoding Settings:
+2025-02-24 23:56:16,158 - __main__ - INFO - Client Encoding: UTF8
+2025-02-24 23:56:16,158 - __main__ - INFO - Server Encoding: UTF8
+2025-02-24 23:56:16,158 - __main__ - INFO - Database Collation: C.UTF-8
+2025-02-24 23:56:16,191 - werkzeug - INFO - 172.31.128.9 - - [24/Feb/2025 23:56:16] "[36mGET /static/css/custom.css HTTP/1.1[0m" 304 -
+2025-02-24 23:56:16,396 - __main__ - INFO - Japanese character encoding test: Passed
+2025-02-24 23:56:16,595 - werkzeug - INFO - 172.31.128.9 - - [24/Feb/2025 23:56:16] "[36mGET /static/js/main.js HTTP/1.1[0m" 304 -
+2025-02-24 23:56:16,595 - werkzeug - INFO - 172.31.128.9 - - [24/Feb/2025 23:56:16] "[36mGET /static/images/sake2.jpg HTTP/1.1[0m" 304 -
+2025-02-24 23:56:19,930 - __main__ - INFO - Database tables created successfully
