@@ -1,6 +1,6 @@
 :root {
   --japanese-red: #BC002D;
-  --japanese-navy: #223A70;
+  --japanese-navy: #8c937b;  /* グリーンに変更 */
   --japanese-gold: #B8860B;
 }
 
@@ -18,7 +18,7 @@ body {
 }
 
 .hero-overlay {
-  background: rgba(34, 58, 112, 0.5); /* #223A70 with opacity */
+  background: rgba(140, 147, 123, 0.5); /* #8c937b with opacity */
   position: absolute;
   top: 0;
   left: 0;
@@ -68,7 +68,7 @@ body {
 }
 
 .review-section {
-  background: var(--japanese-navy);
+  background: #ad8f52;  /* ベージュブラウンに変更 */
   border-radius: 8px;
   padding: 20px;
 }
@@ -84,7 +84,7 @@ body {
 
 .flavor-profile .progress {
   height: 8px;
-  background-color: rgba(34, 58, 112, 0.1);
+  background-color: rgba(140, 147, 123, 0.1);
   margin-bottom: 15px;
 }
 
@@ -123,7 +123,7 @@ body {
 .flavor-range {
     width: 100%;
     height: 8px;
-    background-color: rgba(34, 58, 112, 0.1);
+    background-color: rgba(140, 147, 123, 0.1);
     outline: none;
     opacity: 0.7;
     transition: opacity .2s;
