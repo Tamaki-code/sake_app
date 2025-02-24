@@ -32293,3 +32293,51 @@ WHERE pg_catalog.pg_class.relname = %(table_name)s AND pg_catalog.pg_class.relki
 2025-02-24 11:26:40,083 - werkzeug - INFO - 172.31.128.19 - - [24/Feb/2025 11:26:40] "GET /static/js/main.js HTTP/1.1" 200 -
 2025-02-24 11:26:40,123 - werkzeug - INFO - 172.31.128.19 - - [24/Feb/2025 11:26:40] "GET /static/images/sake2.jpg HTTP/1.1" 200 -
 2025-02-24 11:26:40,694 - werkzeug - INFO - 172.31.128.19 - - [24/Feb/2025 11:26:40] "GET /static/images/sakeImage.jpg HTTP/1.1" 200 -
+2025-02-24 11:28:17,860 - routes - INFO - Received query: 山
+2025-02-24 11:28:18,806 - werkzeug - INFO - 172.31.128.19 - - [24/Feb/2025 11:28:18] "GET /search?q=山 HTTP/1.1" 200 -
+2025-02-24 11:28:19,271 - werkzeug - INFO - 172.31.128.19 - - [24/Feb/2025 11:28:19] "[36mGET /static/css/custom.css HTTP/1.1[0m" 304 -
+2025-02-24 11:28:20,082 - werkzeug - INFO - 172.31.128.19 - - [24/Feb/2025 11:28:20] "[36mGET /static/js/main.js HTTP/1.1[0m" 304 -
+2025-02-24 11:28:20,247 - werkzeug - INFO - 172.31.128.19 - - [24/Feb/2025 11:28:20] "[36mGET /static/js/main.js HTTP/1.1[0m" 304 -
+2025-02-24 11:28:25,603 - werkzeug - INFO - 172.31.128.19 - - [24/Feb/2025 11:28:25] "GET /sake/8154 HTTP/1.1" 200 -
+2025-02-24 11:28:25,839 - werkzeug - INFO - 172.31.128.19 - - [24/Feb/2025 11:28:25] "[36mGET /static/css/custom.css HTTP/1.1[0m" 304 -
+2025-02-24 11:28:25,909 - werkzeug - INFO - 172.31.128.19 - - [24/Feb/2025 11:28:25] "[36mGET /static/js/main.js HTTP/1.1[0m" 304 -
+2025-02-24 11:28:26,057 - werkzeug - INFO - 172.31.128.19 - - [24/Feb/2025 11:28:26] "[36mGET /static/js/main.js HTTP/1.1[0m" 304 -
+2025-02-24 11:30:55,498 - app - INFO - Starting application creation...
+2025-02-24 11:30:55,500 - app - INFO - Flask configuration completed
+2025-02-24 11:30:55,540 - app - INFO - Flask extensions initialized
+2025-02-24 11:30:55,553 - app - INFO - Blueprints registered
+2025-02-24 11:30:56,765 - __main__ - INFO - Starting application creation...
+2025-02-24 11:30:56,767 - __main__ - INFO - Flask configuration completed
+2025-02-24 11:30:56,799 - __main__ - INFO - Flask extensions initialized
+2025-02-24 11:30:56,810 - __main__ - INFO - Blueprints registered
+2025-02-24 11:30:59,613 - app - INFO - Database connection verified
+2025-02-24 11:30:59,845 - __main__ - INFO - Verifying database encoding settings...
+2025-02-24 11:31:00,773 - __main__ - INFO - Database Encoding Settings:
+2025-02-24 11:31:00,773 - __main__ - INFO - Client Encoding: UTF8
+2025-02-24 11:31:00,773 - __main__ - INFO - Server Encoding: UTF8
+2025-02-24 11:31:00,773 - __main__ - INFO - Database Collation: C.UTF-8
+2025-02-24 11:31:00,848 - __main__ - INFO - Database connection verified
+2025-02-24 11:31:01,006 - __main__ - INFO - Japanese character encoding test: Passed
+2025-02-24 11:31:01,095 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://172.31.128.19:5000
+2025-02-24 11:31:01,095 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-02-24 11:31:03,687 - werkzeug - INFO - 172.31.128.19 - - [24/Feb/2025 11:31:03] "GET / HTTP/1.1" 200 -
+2025-02-24 11:31:04,010 - werkzeug - INFO - 172.31.128.19 - - [24/Feb/2025 11:31:04] "[36mGET /static/css/custom.css HTTP/1.1[0m" 304 -
+2025-02-24 11:31:04,418 - werkzeug - INFO - 172.31.128.19 - - [24/Feb/2025 11:31:04] "GET /static/js/main.js HTTP/1.1" 200 -
+2025-02-24 11:31:04,420 - werkzeug - INFO - 172.31.128.19 - - [24/Feb/2025 11:31:04] "[36mGET /static/images/sake2.jpg HTTP/1.1[0m" 304 -
+2025-02-24 11:31:04,581 - werkzeug - INFO - 172.31.128.19 - - [24/Feb/2025 11:31:04] "GET /static/js/main.js HTTP/1.1" 200 -
+2025-02-24 11:31:04,604 - __main__ - INFO - Database tables created successfully
+2025-02-24 11:31:04,810 - werkzeug - INFO - 172.31.128.19 - - [24/Feb/2025 11:31:04] "GET / HTTP/1.1" 200 -
+2025-02-24 11:31:04,983 - werkzeug - INFO - 172.31.128.19 - - [24/Feb/2025 11:31:04] "[36mGET /static/css/custom.css HTTP/1.1[0m" 304 -
+2025-02-24 11:31:05,985 - werkzeug - INFO - 172.31.128.19 - - [24/Feb/2025 11:31:05] "GET / HTTP/1.1" 200 -
+2025-02-24 11:31:05,997 - werkzeug - INFO - 172.31.128.19 - - [24/Feb/2025 11:31:05] "GET /static/css/custom.css HTTP/1.1" 200 -
+2025-02-24 11:31:06,049 - werkzeug - INFO - 172.31.128.19 - - [24/Feb/2025 11:31:06] "[36mGET /static/js/main.js HTTP/1.1[0m" 304 -
+2025-02-24 11:31:06,049 - werkzeug - INFO - 172.31.128.19 - - [24/Feb/2025 11:31:06] "[36mGET /static/images/sake2.jpg HTTP/1.1[0m" 304 -
+2025-02-24 11:31:06,165 - werkzeug - INFO - 172.31.128.19 - - [24/Feb/2025 11:31:06] "GET /static/js/main.js HTTP/1.1" 200 -
+2025-02-24 11:31:06,167 - werkzeug - INFO - 172.31.128.19 - - [24/Feb/2025 11:31:06] "GET /static/images/sake2.jpg HTTP/1.1" 200 -
+2025-02-24 11:31:06,198 - werkzeug - INFO - 172.31.128.19 - - [24/Feb/2025 11:31:06] "[36mGET /static/js/main.js HTTP/1.1[0m" 304 -
+2025-02-24 11:31:06,608 - werkzeug - INFO - 172.31.128.19 - - [24/Feb/2025 11:31:06] "GET /static/images/sakeImage.jpg HTTP/1.1" 200 -
+2025-02-24 11:31:07,410 - werkzeug - INFO - 172.31.128.19 - - [24/Feb/2025 11:31:07] "[36mGET /static/images/sakeImage.jpg HTTP/1.1[0m" 304 -
+2025-02-24 11:31:07,898 - werkzeug - INFO - 172.31.128.19 - - [24/Feb/2025 11:31:07] "[36mGET /static/images/sakeImage.jpg HTTP/1.1[0m" 304 -

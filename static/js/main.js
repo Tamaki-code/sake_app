@@ -42,14 +42,14 @@ document.addEventListener('DOMContentLoaded', function() {
             const rating = document.getElementById('rating-value').value;
             const comment = document.getElementById('review-comment').value;
 
-            // フレーバー値の取得（0-100のレンジを0-1に変換）
+            // フレーバー値の取得（0-10のレンジを0-1に変換）
             const flavorData = {
-                f1: document.getElementById('f1').value / 100,
-                f2: document.getElementById('f2').value / 100,
-                f3: document.getElementById('f3').value / 100,
-                f4: document.getElementById('f4').value / 100,
-                f5: document.getElementById('f5').value / 100,
-                f6: document.getElementById('f6').value / 100
+                f1: document.getElementById('f1').value / 10,
+                f2: document.getElementById('f2').value / 10,
+                f3: document.getElementById('f3').value / 10,
+                f4: document.getElementById('f4').value / 10,
+                f5: document.getElementById('f5').value / 10,
+                f6: document.getElementById('f6').value / 10
             };
 
             try {
