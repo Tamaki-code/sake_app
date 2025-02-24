@@ -13,7 +13,7 @@ body {
   background-image:url("../images/sakeImage.jpg");
   background-size: cover;
   background-position: center;
-  min-height: 60vh;
+  min-height: 80vh; /* 60vhから80vhに変更 */
   position: relative;
 }
 
@@ -100,7 +100,7 @@ body {
 
 @media (max-width: 768px) {
   .hero-section {
-    min-height: 40vh;
+    min-height: 60vh; /* 40vhから60vhに変更 */
   }
 }
 
@@ -119,7 +119,6 @@ body {
     font-weight: bold;
     color: var(--bs-light);
 }
-
 
 .flavor-range {
     width: 100%;
