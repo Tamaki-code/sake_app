@@ -21,3 +21,17 @@ class Review(db.Model):
     f4 = db.Column(db.Float)
     f5 = db.Column(db.Float)
     f6 = db.Column(db.Float)
+
+    def get_flavor_profile(self):
+        """Get the review's flavor profile"""
+        if all(v is None for v in [self.f1, self.f2, self.f3, self.f4, self.f5, self.f6]):
+            return None
+
+        return {
+            '華やか-重厚': self.f1,
+            '薫酒-燗酒': self.f2,
+            '淡麗-濃醇': self.f3,
+            '甘口-辛口': self.f4,
+            '特性-個性': self.f5,
+            '若年-熟成': self.f6
+        }

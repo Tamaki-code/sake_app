@@ -142,22 +142,31 @@ def add_review(sake_id):
     rating = data.get('rating')
     comment = data.get('comment')
 
-    if not rating or not isinstance(rating,
-                                    (int, float)) or rating < 1 or rating > 5:
+    # フレーバー値の取得と検証
+    flavor_values = {}
+    for i in range(1, 7):
+        key = f'f{i}'
+        value = data.get(key)
+        if value is not None and isinstance(value, (int, float)) and 0 <= value <= 1:
+            flavor_values[key] = value
+
+    if not rating or not isinstance(rating, (int, float)) or rating < 1 or rating > 5:
         return jsonify({'error': 'Invalid rating'}), 400
 
     try:
         sake = Sake.query.get_or_404(sake_id)
-        review = Review(sake_id=sake_id,
-                        user_id=current_user.id,
-                        rating=rating,
-                        comment=comment,
-                        recorded_at=datetime.utcnow().date())
+        review = Review(
+            sake_id=sake_id,
+            user_id=current_user.id,
+            rating=rating,
+            comment=comment,
+            recorded_at=datetime.utcnow().date(),
+            **flavor_values  # フレーバー値を追加
+        )
 
         db.session.add(review)
         db.session.commit()
-        logger.info(
-            f"Added new review for sake {sake_id} by user {current_user.id}")
+        logger.info(f"Added new review with flavor profile for sake {sake_id} by user {current_user.id}")
         return jsonify({'success': True})
     except Exception as e:
         logger.error(f"Error adding review: {str(e)}")
