@@ -18,7 +18,7 @@ body {
 }
 
 .hero-overlay {
-  background: rgba(0, 0, 0, 0.5);
+  background: rgba(34, 58, 112, 0.5); /* #223A70 with opacity */
   position: absolute;
   top: 0;
   left: 0;
@@ -60,7 +60,7 @@ body {
 
 .btn-input{
   background-color:#c2cbae;
-  border-color: #515661;
+  border-color: var(--japanese-navy);
 }
 
 .btn-input:hover{
@@ -68,7 +68,7 @@ body {
 }
 
 .review-section {
-  background: var(--bs-dark);
+  background: var(--japanese-navy);
   border-radius: 8px;
   padding: 20px;
 }
@@ -84,7 +84,7 @@ body {
 
 .flavor-profile .progress {
   height: 8px;
-  background-color: rgba(0, 0, 0, 0.1);
+  background-color: rgba(34, 58, 112, 0.1);
   margin-bottom: 15px;
 }
 
@@ -123,7 +123,7 @@ body {
 .flavor-range {
     width: 100%;
     height: 8px;
-    background-color: rgba(0, 0, 0, 0.1);
+    background-color: rgba(34, 58, 112, 0.1);
     outline: none;
     opacity: 0.7;
     transition: opacity .2s;
@@ -151,7 +151,7 @@ body {
 .flavor-range::-webkit-slider-runnable-track {
     height: 8px;
     background: linear-gradient(to right,
-        #666 2px,
+        var(--japanese-navy) 2px,
         transparent 2px
     ) repeat-x;
     background-size: 20% 100%;
@@ -160,7 +160,7 @@ body {
 .flavor-range::-moz-range-track {
     height: 8px;
     background: linear-gradient(to right,
-        #666 2px,
+        var(--japanese-navy) 2px,
         transparent 2px
     ) repeat-x;
     background-size: 20% 100%;
