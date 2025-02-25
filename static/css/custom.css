@@ -165,3 +165,16 @@ body {
     ) repeat-x;
     background-size: 20% 100%;
 }
+
+/* 既存のスタイルは残したまま、以下を追加 */
+.flavor-chart-container {
+    width: 100%;
+    max-width: 400px;
+    margin: 20px auto;
+    padding: 10px;
+}
+
+/* レーダーチャートの背景を透明に */
+canvas#flavorChart {
+    background-color: transparent;
+}

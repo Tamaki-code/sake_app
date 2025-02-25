@@ -16,25 +16,66 @@
                             {% if sake.get_flavor_profile() %}
                             <h5 class="mt-4">味わいの特徴</h5>
                             <p>{{ sake.get_flavor_description() }}日本酒です。</p>
-                            <div class="flavor-profile">
-                                {% for label, value in sake.get_flavor_profile().items() %}
-                                <div class="mb-2">
-                                    <small class="d-flex justify-content-between">
-                                        {% set left, right = label.split('-') %}
-                                        <span>{{ left }}</span>
-                                        <span class="current-value">{{ (value * 10) | round(1) }}</span>
-                                        <span>{{ right }}</span>
-                                    </small>
-                                    <div class="progress">
-                                        <div class="progress-bar" role="progressbar" 
-                                             style="width: {{ value * 100 }}%"
-                                             aria-valuenow="{{ value * 100 }}" 
-                                             aria-valuemin="0" 
-                                             aria-valuemax="100"></div>
-                                    </div>
-                                </div>
-                                {% endfor %}
+                            <div class="flavor-chart-container">
+                                <canvas id="flavorChart"></canvas>
                             </div>
+                            <script>
+                                document.addEventListener('DOMContentLoaded', function() {
+                                    const ctx = document.getElementById('flavorChart').getContext('2d');
+                                    const flavorData = {{ sake.get_flavor_profile() | tojson }};
+
+                                    const labels = Object.keys(flavorData).map(key => {
+                                        const [left, right] = key.split('-');
+                                        return `${left}\n${right}`;
+                                    });
+
+                                    const values = Object.values(flavorData).map(v => v * 10);
+
+                                    new Chart(ctx, {
+                                        type: 'radar',
+                                        data: {
+                                            labels: labels,
+                                            datasets: [{
+                                                label: '味わいプロファイル',
+                                                data: values,
+                                                backgroundColor: 'rgba(194, 203, 174, 0.2)',
+                                                borderColor: '#8c937b',
+                                                pointBackgroundColor: '#8c937b',
+                                                pointBorderColor: '#fff',
+                                                pointHoverBackgroundColor: '#fff',
+                                                pointHoverBorderColor: '#8c937b'
+                                            }]
+                                        },
+                                        options: {
+                                            scales: {
+                                                r: {
+                                                    beginAtZero: true,
+                                                    max: 10,
+                                                    ticks: {
+                                                        stepSize: 2
+                                                    },
+                                                    grid: {
+                                                        color: 'rgba(140, 147, 123, 0.2)'
+                                                    },
+                                                    angleLines: {
+                                                        color: 'rgba(140, 147, 123, 0.2)'
+                                                    },
+                                                    pointLabels: {
+                                                        font: {
+                                                            family: "'Noto Sans JP', sans-serif"
+                                                        }
+                                                    }
+                                                }
+                                            },
+                                            plugins: {
+                                                legend: {
+                                                    display: false
+                                                }
+                                            }
+                                        }
+                                    });
+                                });
+                            </script>
                             {% endif %}
                         </div>
                         <div class="col-md-6">
