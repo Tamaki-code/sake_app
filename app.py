@@ -93,7 +93,7 @@ if __name__ == "__main__":
     try:
         app = create_app()
         # ALWAYS serve the app on port 5000
-        app.run(host='0.0.0.0', port=5000)
+        app.run(host='0.0.0.0', port=5000, debug=True)
     except Exception as e:
         logger.error(f"Failed to start application: {str(e)}", exc_info=True)
         sys.exit(1)
