@@ -32950,3 +32950,42 @@ FROM sakes ORDER BY sakes.created_at DESC]
 2025-02-25 00:06:45,692 - werkzeug - INFO - 172.31.128.33 - - [25/Feb/2025 00:06:45] "GET /sake/8154 HTTP/1.1" 200 -
 2025-02-25 00:06:45,974 - werkzeug - INFO - 172.31.128.33 - - [25/Feb/2025 00:06:45] "GET /static/css/custom.css HTTP/1.1" 200 -
 2025-02-25 00:06:46,124 - werkzeug - INFO - 172.31.128.33 - - [25/Feb/2025 00:06:46] "[36mGET /static/js/main.js HTTP/1.1[0m" 304 -
+2025-02-25 00:08:54,674 - werkzeug - INFO - 172.31.128.33 - - [25/Feb/2025 00:08:54] "GET /sake/8154 HTTP/1.1" 200 -
+2025-02-25 00:08:54,865 - werkzeug - INFO - 172.31.128.33 - - [25/Feb/2025 00:08:54] "[36mGET /static/css/custom.css HTTP/1.1[0m" 304 -
+2025-02-25 00:08:54,880 - werkzeug - INFO - 172.31.128.33 - - [25/Feb/2025 00:08:54] "[36mGET /static/js/main.js HTTP/1.1[0m" 304 -
+2025-02-25 00:13:08,589 - app - INFO - Starting application creation...
+2025-02-25 00:13:08,744 - app - INFO - Flask configuration completed
+2025-02-25 00:13:08,992 - app - INFO - Flask extensions initialized
+2025-02-25 00:13:09,024 - app - INFO - Blueprints registered
+2025-02-25 00:13:09,321 - __main__ - INFO - Starting application creation...
+2025-02-25 00:13:09,323 - __main__ - INFO - Flask configuration completed
+2025-02-25 00:13:09,352 - __main__ - INFO - Flask extensions initialized
+2025-02-25 00:13:09,362 - __main__ - INFO - Blueprints registered
+2025-02-25 00:13:13,116 - app - INFO - Database connection verified
+2025-02-25 00:13:13,349 - __main__ - INFO - Verifying database encoding settings...
+2025-02-25 00:13:13,436 - __main__ - INFO - Database connection verified
+2025-02-25 00:13:13,682 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://172.31.128.22:5000
+2025-02-25 00:13:13,682 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-02-25 00:13:14,279 - __main__ - INFO - Database Encoding Settings:
+2025-02-25 00:13:14,279 - __main__ - INFO - Client Encoding: UTF8
+2025-02-25 00:13:14,279 - __main__ - INFO - Server Encoding: UTF8
+2025-02-25 00:13:14,279 - __main__ - INFO - Database Collation: C.UTF-8
+2025-02-25 00:13:14,512 - __main__ - INFO - Japanese character encoding test: Passed
+2025-02-25 00:13:16,728 - werkzeug - INFO - 172.31.128.22 - - [25/Feb/2025 00:13:16] "GET / HTTP/1.1" 200 -
+2025-02-25 00:13:16,965 - werkzeug - INFO - 172.31.128.22 - - [25/Feb/2025 00:13:16] "GET /static/css/custom.css HTTP/1.1" 200 -
+2025-02-25 00:13:18,102 - werkzeug - INFO - 172.31.128.22 - - [25/Feb/2025 00:13:18] "GET / HTTP/1.1" 200 -
+2025-02-25 00:13:18,219 - __main__ - INFO - Database tables created successfully
+2025-02-25 00:13:18,749 - werkzeug - INFO - 172.31.128.22 - - [25/Feb/2025 00:13:18] "[36mGET /static/css/custom.css HTTP/1.1[0m" 304 -
+2025-02-25 00:13:18,749 - werkzeug - INFO - 172.31.128.22 - - [25/Feb/2025 00:13:18] "[36mGET /static/images/sake2.jpg HTTP/1.1[0m" 304 -
+2025-02-25 00:13:18,783 - werkzeug - INFO - 172.31.128.22 - - [25/Feb/2025 00:13:18] "[36mGET /static/images/sakeImage.jpg HTTP/1.1[0m" 304 -
+2025-02-25 00:13:19,412 - werkzeug - INFO - 172.31.128.22 - - [25/Feb/2025 00:13:19] "GET / HTTP/1.1" 200 -
+2025-02-25 00:13:19,424 - werkzeug - INFO - 172.31.128.22 - - [25/Feb/2025 00:13:19] "GET /static/css/custom.css HTTP/1.1" 200 -
+2025-02-25 00:13:19,556 - werkzeug - INFO - 172.31.128.22 - - [25/Feb/2025 00:13:19] "GET /static/images/sake2.jpg HTTP/1.1" 200 -
+2025-02-25 00:13:19,569 - werkzeug - INFO - 172.31.128.22 - - [25/Feb/2025 00:13:19] "GET /static/js/main.js HTTP/1.1" 200 -
+2025-02-25 00:13:19,773 - werkzeug - INFO - 172.31.128.22 - - [25/Feb/2025 00:13:19] "[36mGET /static/js/main.js HTTP/1.1[0m" 304 -
+2025-02-25 00:13:19,773 - werkzeug - INFO - 172.31.128.22 - - [25/Feb/2025 00:13:19] "[36mGET /static/images/sake2.jpg HTTP/1.1[0m" 304 -
+2025-02-25 00:13:20,136 - werkzeug - INFO - 172.31.128.22 - - [25/Feb/2025 00:13:20] "GET /static/images/sakeImage.jpg HTTP/1.1" 200 -
+2025-02-25 00:13:20,234 - werkzeug - INFO - 172.31.128.22 - - [25/Feb/2025 00:13:20] "[36mGET /static/js/main.js HTTP/1.1[0m" 304 -

@@ -16,54 +16,90 @@
                             {% if sake.get_flavor_profile() %}
                             <h5 class="mt-4">味わいの特徴</h5>
                             <p>{{ sake.get_flavor_description() }}日本酒です。</p>
-                            <div class="flavor-chart-container">
-                                <canvas id="flavorChart"></canvas>
+                            <div class="flavor-map-container">
+                                <canvas id="flavorMap"></canvas>
+                            </div>
+                            <div class="flavor-details mt-4">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <h6>香り</h6>
+                                        <p class="flavor-text">
+                                            {% if sake.get_flavor_profile()['華やか-重厚'] < 0.4 %}
+                                                華やかな香り
+                                            {% elif sake.get_flavor_profile()['華やか-重厚'] > 0.6 %}
+                                                重厚な香り
+                                            {% else %}
+                                                バランスの取れた香り
+                                            {% endif %}
+                                        </p>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <h6>温度帯</h6>
+                                        <p class="flavor-text">
+                                            {% if sake.get_flavor_profile()['薫酒-燗酒'] < 0.4 %}
+                                                冷酒向き
+                                            {% elif sake.get_flavor_profile()['薫酒-燗酒'] > 0.6 %}
+                                                燗酒向き
+                                            {% else %}
+                                                幅広い温度帯で楽しめる
+                                            {% endif %}
+                                        </p>
+                                    </div>
+                                </div>
                             </div>
                             <script>
                                 document.addEventListener('DOMContentLoaded', function() {
-                                    const ctx = document.getElementById('flavorChart').getContext('2d');
+                                    const ctx = document.getElementById('flavorMap').getContext('2d');
                                     const flavorData = {{ sake.get_flavor_profile() | tojson }};
 
-                                    const labels = Object.keys(flavorData).map(key => {
-                                        const [left, right] = key.split('-');
-                                        return `${left}\n${right}`;
-                                    });
-
-                                    const values = Object.values(flavorData).map(v => v * 10);
+                                    // X軸: 甘口-辛口（f4）, Y軸: 淡麗-濃醇（f3）
+                                    const data = [{
+                                        x: flavorData['甘口-辛口'] * 10,
+                                        y: flavorData['淡麗-濃醇'] * 10
+                                    }];
 
                                     new Chart(ctx, {
-                                        type: 'radar',
+                                        type: 'scatter',
                                         data: {
-                                            labels: labels,
                                             datasets: [{
-                                                label: '味わいプロファイル',
-                                                data: values,
-                                                backgroundColor: 'rgba(194, 203, 174, 0.2)',
+                                                label: '味わいの位置',
+                                                data: data,
+                                                backgroundColor: '#8c937b',
                                                 borderColor: '#8c937b',
-                                                pointBackgroundColor: '#8c937b',
-                                                pointBorderColor: '#fff',
-                                                pointHoverBackgroundColor: '#fff',
-                                                pointHoverBorderColor: '#8c937b'
+                                                pointRadius: 8,
+                                                pointHoverRadius: 10
                                             }]
                                         },
                                         options: {
                                             scales: {
-                                                r: {
-                                                    beginAtZero: true,
+                                                x: {
+                                                    min: 0,
                                                     max: 10,
-                                                    ticks: {
-                                                        stepSize: 2
+                                                    title: {
+                                                        display: true,
+                                                        text: '甘口 ← → 辛口',
+                                                        font: {
+                                                            family: "'Noto Sans JP', sans-serif",
+                                                            size: 14
+                                                        }
                                                     },
                                                     grid: {
                                                         color: 'rgba(140, 147, 123, 0.2)'
-                                                    },
-                                                    angleLines: {
-                                                        color: 'rgba(140, 147, 123, 0.2)'
-                                                    },
-                                                    pointLabels: {
+                                                    }
+                                                },
+                                                y: {
+                                                    min: 0,
+                                                    max: 10,
+                                                    title: {
+                                                        display: true,
+                                                        text: '淡麗 ← → 濃醇',
                                                         font: {
-                                                            family: "'Noto Sans JP', sans-serif"
+                                                            family: "'Noto Sans JP', sans-serif",
+                                                            size: 14
                                                         }
+                                                    },
+                                                    grid: {
+                                                        color: 'rgba(140, 147, 123, 0.2)'
                                                     }
                                                 }
                                             },
