@@ -20,13 +20,22 @@
                                 {% for label, value in sake.get_flavor_profile().items() %}
                                 <div class="mb-2">
                                     <small class="d-flex justify-content-between">
-                                        <span>{{ label }}</span>
-                                        <span class="current-value">{{ (value * 10) | round(1) }}</span>
-                                        <span></span> </small>
+                                        {% if value is mapping %}
+                                            <span>{{ label }}</span>
+                                            <span class="current-value">{{ (value.value * 10) | round(1) }}</span>
+                                            <span></span>
+                                            <small class="text-muted d-block">{{ value.description }}</small>
+                                        {% else %}
+                                            {% set left, right = label.split('-') %}
+                                            <span>{{ left }}</span>
+                                            <span class="current-value">{{ (value * 10) | round(1) }}</span>
+                                            <span>{{ right }}</span>
+                                        {% endif %}
+                                    </small>
                                     <div class="progress">
                                         <div class="progress-bar" role="progressbar"
-                                             style="width: {{ value * 100 }}%"
-                                             aria-valuenow="{{ value * 100 }}"
+                                             style="width: {{ value.value * 100 if value is mapping else value * 100 }}%"
+                                             aria-valuenow="{{ value.value * 100 if value is mapping else value * 100 }}"
                                              aria-valuemin="0"
                                              aria-valuemax="100"></div>
                                     </div>
@@ -160,14 +169,22 @@
                                 {% for label, value in review.get_flavor_profile().items() %}
                                 <div class="mb-2">
                                     <small class="d-flex justify-content-between">
-                                        <span>{{ label }}</span>
-                                        <span class="current-value">{{ (value * 10) | round(1) }}</span>
-                                        <span></span>
+                                        {% if value is mapping %}
+                                            <span>{{ label }}</span>
+                                            <span class="current-value">{{ (value.value * 10) | round(1) }}</span>
+                                            <span></span>
+                                            <small class="text-muted d-block">{{ value.description }}</small>
+                                        {% else %}
+                                            {% set left, right = label.split('-') %}
+                                            <span>{{ left }}</span>
+                                            <span class="current-value">{{ (value * 10) | round(1) }}</span>
+                                            <span>{{ right }}</span>
+                                        {% endif %}
                                     </small>
                                     <div class="progress">
                                         <div class="progress-bar" role="progressbar"
-                                             style="width: {{ value * 100 }}%"
-                                             aria-valuenow="{{ value * 100 }}"
+                                             style="width: {{ value.value * 100 if value is mapping else value * 100 }}%"
+                                             aria-valuenow="{{ value.value * 100 if value is mapping else value * 100 }}"
                                              aria-valuemin="0"
                                              aria-valuemax="100"></div>
                                     </div>
