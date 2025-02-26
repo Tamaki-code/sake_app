@@ -165,3 +165,26 @@ body {
     ) repeat-x;
     background-size: 20% 100%;
 }
+
+/* 既存のスタイルに追加 */
+.review-section textarea.form-control {
+    background-color: #ece0c9;
+    border: 1px solid #8c937b;
+    color: var(--bs-body-color);
+}
+
+.review-section .btn-primary {
+    background-color: #8c937b;
+    border-color: #8c937b;
+}
+
+.review-section .btn-primary:hover {
+    background-color: #737c64;
+    border-color: #737c64;
+}
+
+.review-section textarea.form-control:focus {
+    background-color: #ece0c9;
+    border-color: #8c937b;
+    box-shadow: 0 0 0 0.25rem rgba(140, 147, 123, 0.25);
+}
