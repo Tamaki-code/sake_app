@@ -20,16 +20,14 @@
                                 {% for label, value in sake.get_flavor_profile().items() %}
                                 <div class="mb-2">
                                     <small class="d-flex justify-content-between">
-                                        {% set left, right = label.split('-') %}
-                                        <span>{{ left }}</span>
+                                        <span>{{ label }}</span>
                                         <span class="current-value">{{ (value * 10) | round(1) }}</span>
-                                        <span>{{ right }}</span>
-                                    </small>
+                                        <span></span> </small>
                                     <div class="progress">
-                                        <div class="progress-bar" role="progressbar" 
+                                        <div class="progress-bar" role="progressbar"
                                              style="width: {{ value * 100 }}%"
-                                             aria-valuenow="{{ value * 100 }}" 
-                                             aria-valuemin="0" 
+                                             aria-valuenow="{{ value * 100 }}"
+                                             aria-valuemin="0"
                                              aria-valuemax="100"></div>
                                     </div>
                                 </div>
@@ -59,6 +57,82 @@
                         <label for="review-comment" class="form-label">レビュー内容</label>
                         <textarea id="review-comment" name="comment" class="form-control" rows="3" required></textarea>
                     </div>
+                    <!-- フレーバー情報入力欄 -->
+                    <div class="flavor-inputs mb-4">
+                        <h5>味わいの特徴</h5>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="flavor-slider mb-3">
+                                    <label class="form-label d-flex justify-content-between">
+                                        <span>華やか</span>
+                                        <span class="current-value">5</span>
+                                        <span>重厚</span>
+                                    </label>
+                                    <input type="range" class="form-range flavor-range" id="f1" name="f1"
+                                           min="0" max="10" value="5" step="1">
+                                </div>
+                                <!-- f2を2つに分離 -->
+                                <div class="flavor-slider mb-3">
+                                    <label class="form-label d-flex justify-content-between">
+                                        <span>香り 弱い</span>
+                                        <span class="current-value">5</span>
+                                        <span>強い</span>
+                                    </label>
+                                    <input type="range" class="form-range flavor-range" id="f2_aroma" name="f2_aroma"
+                                           min="0" max="10" value="5" step="1">
+                                    <small class="text-muted">※日本酒の香りの強さを評価</small>
+                                </div>
+                                <div class="flavor-slider mb-3">
+                                    <label class="form-label d-flex justify-content-between">
+                                        <span>冷酒向き</span>
+                                        <span class="current-value">5</span>
+                                        <span>燗向き</span>
+                                    </label>
+                                    <input type="range" class="form-range flavor-range" id="f2_temp" name="f2_temp"
+                                           min="0" max="10" value="5" step="1">
+                                    <small class="text-muted">※飲用温度の適性を評価</small>
+                                </div>
+                                <div class="flavor-slider mb-3">
+                                    <label class="form-label d-flex justify-content-between">
+                                        <span>淡麗</span>
+                                        <span class="current-value">5</span>
+                                        <span>濃醇</span>
+                                    </label>
+                                    <input type="range" class="form-range flavor-range" id="f3" name="f3"
+                                           min="0" max="10" value="5" step="1">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="flavor-slider mb-3">
+                                    <label class="form-label d-flex justify-content-between">
+                                        <span>甘口</span>
+                                        <span class="current-value">5</span>
+                                        <span>辛口</span>
+                                    </label>
+                                    <input type="range" class="form-range flavor-range" id="f4" name="f4"
+                                           min="0" max="10" value="5" step="1">
+                                </div>
+                                <div class="flavor-slider mb-3">
+                                    <label class="form-label d-flex justify-content-between">
+                                        <span>特性</span>
+                                        <span class="current-value">5</span>
+                                        <span>個性</span>
+                                    </label>
+                                    <input type="range" class="form-range flavor-range" id="f5" name="f5"
+                                           min="0" max="10" value="5" step="1">
+                                </div>
+                                <div class="flavor-slider mb-3">
+                                    <label class="form-label d-flex justify-content-between">
+                                        <span>若年</span>
+                                        <span class="current-value">5</span>
+                                        <span>熟成</span>
+                                    </label>
+                                    <input type="range" class="form-range flavor-range" id="f6" name="f6"
+                                           min="0" max="10" value="5" step="1">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                     <button type="submit" class="btn btn-primary">レビューを投稿</button>
                 </form>
             </div>
@@ -86,16 +160,15 @@
                                 {% for label, value in review.get_flavor_profile().items() %}
                                 <div class="mb-2">
                                     <small class="d-flex justify-content-between">
-                                        {% set left, right = label.split('-') %}
-                                        <span>{{ left }}</span>
+                                        <span>{{ label }}</span>
                                         <span class="current-value">{{ (value * 10) | round(1) }}</span>
-                                        <span>{{ right }}</span>
+                                        <span></span>
                                     </small>
                                     <div class="progress">
-                                        <div class="progress-bar" role="progressbar" 
+                                        <div class="progress-bar" role="progressbar"
                                              style="width: {{ value * 100 }}%"
-                                             aria-valuenow="{{ value * 100 }}" 
-                                             aria-valuemin="0" 
+                                             aria-valuenow="{{ value * 100 }}"
+                                             aria-valuemin="0"
                                              aria-valuemax="100"></div>
                                     </div>
                                 </div>

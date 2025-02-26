@@ -33009,3 +33009,53 @@ FROM sakes ORDER BY sakes.created_at DESC]
 2025-02-26 23:18:42,213 - werkzeug - INFO - 172.31.128.7 - - [26/Feb/2025 23:18:42] "GET /sake/8154 HTTP/1.1" 200 -
 2025-02-26 23:18:42,462 - werkzeug - INFO - 172.31.128.7 - - [26/Feb/2025 23:18:42] "[36mGET /static/css/custom.css HTTP/1.1[0m" 304 -
 2025-02-26 23:18:42,636 - werkzeug - INFO - 172.31.128.7 - - [26/Feb/2025 23:18:42] "[36mGET /static/js/main.js HTTP/1.1[0m" 304 -
+2025-02-26 23:29:35,299 - werkzeug - INFO -  * Detected change in '/home/runner/workspace/models/sake.py', reloading
+2025-02-26 23:29:35,416 - werkzeug - INFO -  * Restarting with stat
+2025-02-26 23:29:35,886 - __main__ - INFO - Starting application creation...
+2025-02-26 23:29:35,887 - __main__ - INFO - Flask configuration completed
+2025-02-26 23:29:35,920 - __main__ - INFO - Flask extensions initialized
+2025-02-26 23:29:35,930 - __main__ - INFO - Blueprints registered
+2025-02-26 23:29:40,694 - __main__ - INFO - Database connection verified
+2025-02-26 23:29:40,948 - werkzeug - WARNING -  * Debugger is active!
+2025-02-26 23:29:40,950 - werkzeug - INFO -  * Debugger PIN: 107-779-700
+2025-02-26 23:29:48,127 - app - INFO - Starting application creation...
+2025-02-26 23:29:48,128 - app - INFO - Flask configuration completed
+2025-02-26 23:29:48,160 - app - INFO - Flask extensions initialized
+2025-02-26 23:29:48,170 - app - INFO - Blueprints registered
+2025-02-26 23:29:49,788 - __main__ - INFO - Starting application creation...
+2025-02-26 23:29:49,789 - __main__ - INFO - Flask configuration completed
+2025-02-26 23:29:49,830 - __main__ - INFO - Flask extensions initialized
+2025-02-26 23:29:49,844 - __main__ - INFO - Blueprints registered
+2025-02-26 23:29:52,194 - app - INFO - Database connection verified
+2025-02-26 23:29:52,426 - __main__ - INFO - Verifying database encoding settings...
+2025-02-26 23:29:53,359 - __main__ - INFO - Database Encoding Settings:
+2025-02-26 23:29:53,360 - __main__ - INFO - Client Encoding: UTF8
+2025-02-26 23:29:53,360 - __main__ - INFO - Server Encoding: UTF8
+2025-02-26 23:29:53,360 - __main__ - INFO - Database Collation: C.UTF-8
+2025-02-26 23:29:53,595 - __main__ - INFO - Japanese character encoding test: Passed
+2025-02-26 23:29:53,832 - __main__ - INFO - Database connection verified
+2025-02-26 23:29:54,096 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://172.31.128.7:5000
+2025-02-26 23:29:54,097 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-02-26 23:29:54,097 - werkzeug - INFO -  * Restarting with stat
+2025-02-26 23:29:54,667 - __main__ - INFO - Starting application creation...
+2025-02-26 23:29:54,668 - __main__ - INFO - Flask configuration completed
+2025-02-26 23:29:54,709 - __main__ - INFO - Flask extensions initialized
+2025-02-26 23:29:54,724 - __main__ - INFO - Blueprints registered
+2025-02-26 23:29:57,167 - __main__ - INFO - Database tables created successfully
+2025-02-26 23:29:58,773 - __main__ - INFO - Database connection verified
+2025-02-26 23:29:59,030 - werkzeug - WARNING -  * Debugger is active!
+2025-02-26 23:29:59,035 - werkzeug - INFO -  * Debugger PIN: 493-367-444
+2025-02-26 23:30:00,850 - werkzeug - INFO - 172.31.128.7 - - [26/Feb/2025 23:30:00] "GET / HTTP/1.1" 200 -
+2025-02-26 23:30:01,500 - werkzeug - INFO - 172.31.128.7 - - [26/Feb/2025 23:30:01] "[36mGET /static/css/custom.css HTTP/1.1[0m" 304 -
+2025-02-26 23:30:01,582 - werkzeug - INFO - 172.31.128.7 - - [26/Feb/2025 23:30:01] "[36mGET /static/images/sake2.jpg HTTP/1.1[0m" 304 -
+2025-02-26 23:30:01,641 - werkzeug - INFO - 172.31.128.7 - - [26/Feb/2025 23:30:01] "GET /static/js/main.js HTTP/1.1" 200 -
+2025-02-26 23:30:02,340 - werkzeug - INFO - 172.31.128.7 - - [26/Feb/2025 23:30:02] "GET / HTTP/1.1" 200 -
+2025-02-26 23:30:02,694 - werkzeug - INFO - 172.31.128.7 - - [26/Feb/2025 23:30:02] "[36mGET /static/images/sakeImage.jpg HTTP/1.1[0m" 304 -
+2025-02-26 23:30:04,029 - werkzeug - INFO - 172.31.128.7 - - [26/Feb/2025 23:30:04] "GET / HTTP/1.1" 200 -
+2025-02-26 23:30:04,045 - werkzeug - INFO - 172.31.128.7 - - [26/Feb/2025 23:30:04] "GET /static/css/custom.css HTTP/1.1" 200 -
+2025-02-26 23:30:04,056 - werkzeug - INFO - 172.31.128.7 - - [26/Feb/2025 23:30:04] "GET /static/js/main.js HTTP/1.1" 200 -
+2025-02-26 23:30:04,066 - werkzeug - INFO - 172.31.128.7 - - [26/Feb/2025 23:30:04] "GET /static/images/sake2.jpg HTTP/1.1" 200 -
+2025-02-26 23:30:04,656 - werkzeug - INFO - 172.31.128.7 - - [26/Feb/2025 23:30:04] "GET /static/images/sakeImage.jpg HTTP/1.1" 200 -

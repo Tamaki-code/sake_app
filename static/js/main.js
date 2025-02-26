@@ -42,10 +42,15 @@ document.addEventListener('DOMContentLoaded', function() {
             const rating = document.getElementById('rating-value').value;
             const comment = document.getElementById('review-comment').value;
 
+            // f2の値を平均化して送信
+            const f2_aroma = parseFloat(document.getElementById('f2_aroma').value) / 10;
+            const f2_temp = parseFloat(document.getElementById('f2_temp').value) / 10;
+            const f2_combined = (f2_aroma + f2_temp) / 2;
+
             // フレーバー値の取得（0-10のレンジを0-1に変換）
             const flavorData = {
                 f1: document.getElementById('f1').value / 10,
-                f2: document.getElementById('f2').value / 10,
+                f2: f2_combined, // 平均値を使用
                 f3: document.getElementById('f3').value / 10,
                 f4: document.getElementById('f4').value / 10,
                 f5: document.getElementById('f5').value / 10,

@@ -23,9 +23,11 @@ class Sake(db.Model):
         if not hasattr(self, 'flavor_chart') or not self.flavor_chart:
             return None
 
+        f2_value = self.flavor_chart.f2
         return {
             '華やか-重厚': self.flavor_chart.f1,
-            '薫酒-燗酒': self.flavor_chart.f2,
+            '香り': {'value': f2_value, 'description': '弱い-強い'},
+            '温度適性': {'value': f2_value, 'description': '冷酒向き-燗向き'},
             '淡麗-濃醇': self.flavor_chart.f3,
             '甘口-辛口': self.flavor_chart.f4,
             '特性-個性': self.flavor_chart.f5,
@@ -40,10 +42,14 @@ class Sake(db.Model):
 
         descriptions = []
         for key, value in profile.items():
-            left, right = key.split('-')
+            if isinstance(value, dict):
+                # f2の場合（香りと温度適性）
+                continue
             if value < 0.4:
+                left = key.split('-')[0]
                 descriptions.append(f"やや{left}な")
             elif value > 0.6:
+                right = key.split('-')[1]
                 descriptions.append(f"やや{right}な")
 
         return ''.join(descriptions) if descriptions else '標準的な'
