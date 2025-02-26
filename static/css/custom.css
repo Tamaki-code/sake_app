@@ -166,11 +166,17 @@ body {
     background-size: 20% 100%;
 }
 
-/* 既存のスタイルに追加 */
-.review-section textarea.form-control {
+/* フォーム入力欄のスタイル */
+.form-control {
+    border: 1px solid rgba(218, 204, 175, 0.5);  /* #daccafを薄く */
     background-color: #ece0c9;
-    border: 1px solid #8c937b;
     color: var(--bs-body-color);
+}
+
+.form-control:focus {
+    border-color: rgba(140, 147, 123, 0.5);  /* #8c937bを薄く */
+    background-color: #ece0c9;
+    box-shadow: 0 0 0 0.15rem rgba(140, 147, 123, 0.15);  /* シャドウを薄く、小さく */
 }
 
 .review-section .btn-primary {
@@ -181,10 +187,4 @@ body {
 .review-section .btn-primary:hover {
     background-color: #737c64;
     border-color: #737c64;
-}
-
-.review-section textarea.form-control:focus {
-    background-color: #ece0c9;
-    border-color: #8c937b;
-    box-shadow: 0 0 0 0.25rem rgba(140, 147, 123, 0.25);
 }
