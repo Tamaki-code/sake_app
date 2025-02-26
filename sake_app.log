@@ -32996,3 +32996,16 @@ FROM sakes ORDER BY sakes.created_at DESC]
 2025-02-26 23:16:49,931 - werkzeug - INFO - 172.31.128.7 - - [26/Feb/2025 23:16:49] "GET /static/images/sake2.jpg HTTP/1.1" 200 -
 2025-02-26 23:16:49,939 - werkzeug - INFO - 172.31.128.7 - - [26/Feb/2025 23:16:49] "GET /static/js/main.js HTTP/1.1" 200 -
 2025-02-26 23:16:50,405 - werkzeug - INFO - 172.31.128.7 - - [26/Feb/2025 23:16:50] "GET /static/images/sakeImage.jpg HTTP/1.1" 200 -
+2025-02-26 23:17:24,474 - werkzeug - INFO - 172.31.128.7 - - [26/Feb/2025 23:17:24] "GET / HTTP/1.1" 200 -
+2025-02-26 23:17:24,796 - werkzeug - INFO - 172.31.128.7 - - [26/Feb/2025 23:17:24] "GET /static/css/custom.css HTTP/1.1" 200 -
+2025-02-26 23:17:25,031 - werkzeug - INFO - 172.31.128.7 - - [26/Feb/2025 23:17:25] "[36mGET /static/images/sakeImage.jpg HTTP/1.1[0m" 304 -
+2025-02-26 23:17:25,453 - werkzeug - INFO - 172.31.128.7 - - [26/Feb/2025 23:17:25] "[36mGET /static/images/sake2.jpg HTTP/1.1[0m" 304 -
+2025-02-26 23:17:25,457 - werkzeug - INFO - 172.31.128.7 - - [26/Feb/2025 23:17:25] "[36mGET /static/js/main.js HTTP/1.1[0m" 304 -
+2025-02-26 23:18:34,396 - routes - INFO - Received query: 山
+2025-02-26 23:18:35,360 - werkzeug - INFO - 172.31.128.7 - - [26/Feb/2025 23:18:35] "GET /search?q=山 HTTP/1.1" 200 -
+2025-02-26 23:18:35,603 - werkzeug - INFO - 172.31.128.7 - - [26/Feb/2025 23:18:35] "[36mGET /static/css/custom.css HTTP/1.1[0m" 304 -
+2025-02-26 23:18:36,366 - werkzeug - INFO - 172.31.128.7 - - [26/Feb/2025 23:18:36] "[36mGET /static/js/main.js HTTP/1.1[0m" 304 -
+2025-02-26 23:18:40,082 - werkzeug - INFO - 172.31.128.7 - - [26/Feb/2025 23:18:40] "GET /sake/8154 HTTP/1.1" 200 -
+2025-02-26 23:18:42,213 - werkzeug - INFO - 172.31.128.7 - - [26/Feb/2025 23:18:42] "GET /sake/8154 HTTP/1.1" 200 -
+2025-02-26 23:18:42,462 - werkzeug - INFO - 172.31.128.7 - - [26/Feb/2025 23:18:42] "[36mGET /static/css/custom.css HTTP/1.1[0m" 304 -
+2025-02-26 23:18:42,636 - werkzeug - INFO - 172.31.128.7 - - [26/Feb/2025 23:18:42] "[36mGET /static/js/main.js HTTP/1.1[0m" 304 -
