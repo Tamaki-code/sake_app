@@ -29,57 +29,43 @@ def fetch_data(endpoint):
         logger.info(f"Fetching data from {SAKENOWA_API_BASE}/{endpoint}")
         response = requests.get(f"{SAKENOWA_API_BASE}/{endpoint}",
                               headers={'Accept-Charset': 'utf-8'},
-                              timeout=60)  # タイムアウトを60秒に設定
+                              timeout=60)
         response.raise_for_status()
         data = response.json()
 
         # エンドポイントに応じたレスポンス処理
         if endpoint == "rankings":
+            logger.info(f"Raw rankings data: {str(data)[:500]}...")  # 最初の500文字をログ出力
+
+            # ランキングデータの配列を処理
+            all_rankings = []
             if isinstance(data, list):
-                # ランキングデータの最初の3件をログ出力
-                for i, item in enumerate(data[:3]):
-                    logger.info(f"Sample ranking data {i+1}: {item}")
-                logger.info(f"Successfully fetched {len(data)} ranking items")
-                return data
+                all_rankings = data
             elif isinstance(data, dict):
-                # 地域ごとのランキングを統合
-                all_rankings = []
+                # 地域ごとのランキングを処理
                 for area in data:
                     if isinstance(area, dict) and "ranking" in area:
-                        area_id = area.get("areaId")
-                        rankings = area["ranking"]
-                        # ランキングデータにエリアIDを追加
-                        for rank_data in rankings:
-                            rank_data["areaId"] = area_id
-                        all_rankings.extend(rankings)
+                        area_rankings = area["ranking"]
+                        for rank in area_rankings:
+                            rank["areaId"] = area.get("areaId")
+                        all_rankings.extend(area_rankings)
 
-                # サンプルデータをログ出力
-                for i, item in enumerate(all_rankings[:3]):
-                    logger.info(f"Sample ranking data {i+1}: {item}")
-                logger.info(f"Successfully fetched {len(all_rankings)} total ranking items")
-                return all_rankings
+            # サンプルデータをログ出力
+            for i, item in enumerate(all_rankings[:3]):
+                logger.info(f"Sample ranking {i+1}: {item}")
+            logger.info(f"Total rankings found: {len(all_rankings)}")
+            return all_rankings
 
-            logger.error(f"Unexpected rankings data format: {data}")
-            raise ValueError("Rankings data is not in expected format")
-
+        # その他のエンドポイントの処理
         if isinstance(data, dict):
             for key in ['areas', 'brands', 'breweries', 'flavorCharts', 'tags']:
                 if key in data:
                     logger.info(f"Successfully fetched {len(data[key])} items from {key}")
                     return data[key]
 
-            logger.error(f"Unknown data format in {endpoint}: {data}")
-            raise ValueError(f"Unknown data structure received from {endpoint}")
-
         return data
-    except requests.exceptions.RequestException as e:
-        logger.error(f"Network error while fetching {endpoint}: {str(e)}")
-        raise
-    except ValueError as e:
-        logger.error(f"Data parsing error for {endpoint}: {str(e)}")
-        raise
     except Exception as e:
-        logger.error(f"Unexpected error during API fetch: {str(e)}")
+        logger.error(f"Error fetching data from {endpoint}: {str(e)}")
         raise
 
 def update_rankings():
@@ -92,53 +78,57 @@ def update_rankings():
             logger.error("No rankings data received")
             return False
 
-        # Clear existing rankings before updating
+        # データベースの現在の状態をログ出力
+        sake_count = Sake.query.count()
+        logger.info(f"Current sake count in database: {sake_count}")
+
+        # サンプルのSakeデータをログ出力
+        sample_sakes = Sake.query.limit(5).all()
+        logger.info("Sample sake records:")
+        for sake in sample_sakes:
+            logger.info(f"Sake - ID: {sake.id}, Name: {sake.name}, Sakenowa ID: {sake.sakenowa_id}")
+
+        # 既存のランキングをクリア
         Ranking.query.delete()
         db.session.commit()
         logger.info("Cleared existing rankings")
 
-        # サンプルのSakeデータをログ出力
-        sample_sakes = Sake.query.limit(5).all()
-        logger.info("Sample sake records from database:")
-        for sake in sample_sakes:
-            logger.info(f"Sake ID: {sake.id}, Name: {sake.name}, Sakenowa ID: {sake.sakenowa_id}")
-
+        # ランキングデータを処理
         rankings_added = 0
         for rank_data in rankings_data:
             try:
                 brand_id = str(rank_data.get("brandId", "")).strip()
-                logger.debug(f"Processing ranking for brand ID: {brand_id}")
+                logger.info(f"Processing ranking for brand ID: {brand_id}")
 
                 # Case-insensitive brandId matching
                 sake = Sake.query.filter(
-                    Sake.sakenowa_id.ilike(f"%{brand_id}%")
+                    Sake.sakenowa_id.ilike(brand_id)
                 ).first()
 
                 if sake:
-                    # マッチしたSakeレコードの情報をログ出力
-                    logger.info(f"Found matching sake - ID: {sake.id}, Name: {sake.name}, Sakenowa ID: {sake.sakenowa_id}")
+                    logger.info(f"Found matching sake - ID: {sake.id}, Name: {sake.name}")
+                    # ランキングを作成
                     ranking = Ranking(
                         sake_id=sake.id,
-                        ranking_type='overall',  # このエンドポイントは総合ランキング
+                        ranking_type='overall',
                         rank=rank_data["rank"],
                         score=rank_data.get("score", 0.0),
-                        period=datetime.utcnow().strftime('%Y-%m'),  # 現在の年月を期間として設定
-                        created_at=datetime.utcnow()
+                        period=datetime.utcnow().strftime('%Y-%m')
                     )
                     db.session.add(ranking)
                     rankings_added += 1
-                    if rankings_added % 10 == 0:  # 10件ごとにログ出力
-                        logger.info(f"Processed {rankings_added} rankings")
+
+                    if rankings_added % 10 == 0:
+                        logger.info(f"Added {rankings_added} rankings so far")
+                        db.session.commit()
                 else:
-                    logger.warning(f"Sake not found for brand ID: {brand_id}")
-                    # 対象の日本酒が見つからない場合のデバッグ情報
-                    sake_check = Sake.query.filter(Sake.sakenowa_id.ilike(f"%{brand_id}%")).first()
-                    if sake_check:
-                        logger.warning(f"Similar sake found with sakenowa_id: {sake_check.sakenowa_id}")
+                    logger.warning(f"No sake found for brand ID: {brand_id}")
+
             except Exception as e:
-                logger.error(f"Error processing ranking for brand ID {rank_data.get('brandId')}: {str(e)}")
+                logger.error(f"Error processing ranking for brand ID {brand_id}: {str(e)}")
                 continue
 
+        # 最終コミット
         db.session.commit()
         logger.info(f"Successfully added {rankings_added} rankings")
         return True
