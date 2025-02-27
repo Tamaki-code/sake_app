@@ -41,6 +41,13 @@ def fetch_data(endpoint):
                     logger.info(f"Sample ranking data {i+1}: {item}")
                 logger.info(f"Successfully fetched {len(data)} ranking items")
                 return data
+            elif isinstance(data, dict) and "rankings" in data:
+                # データがdict形式で"rankings"キーがある場合
+                rankings = data["rankings"]
+                for i, item in enumerate(rankings[:3]):
+                    logger.info(f"Sample ranking data {i+1}: {item}")
+                logger.info(f"Successfully fetched {len(rankings)} ranking items from dictionary")
+                return rankings
             logger.error(f"Unexpected rankings data format: {data}")
             raise ValueError("Rankings data is not in expected format")
 
