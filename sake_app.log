@@ -33150,3 +33150,15 @@ FROM sakes ORDER BY sakes.created_at DESC]
 2025-02-27 23:12:28,745 - __main__ - INFO - Database Collation: C.UTF-8
 2025-02-27 23:12:28,980 - __main__ - INFO - Japanese character encoding test: Passed
 2025-02-27 23:12:32,529 - __main__ - INFO - Database tables created successfully
+2025-02-27 23:22:08,843 - app - INFO - Starting application creation...
+2025-02-27 23:22:08,844 - app - INFO - Flask configuration completed
+2025-02-27 23:22:08,890 - app - INFO - Flask extensions initialized
+2025-02-27 23:22:08,975 - app - INFO - Blueprints registered
+2025-02-27 23:22:13,589 - app - INFO - Database connection verified
+2025-02-27 23:22:13,824 - __main__ - INFO - Verifying database encoding settings...
+2025-02-27 23:22:14,753 - __main__ - INFO - Database Encoding Settings:
+2025-02-27 23:22:14,753 - __main__ - INFO - Client Encoding: UTF8
+2025-02-27 23:22:14,754 - __main__ - INFO - Server Encoding: UTF8
+2025-02-27 23:22:14,754 - __main__ - INFO - Database Collation: C.UTF-8
+2025-02-27 23:22:14,989 - __main__ - INFO - Japanese character encoding test: Passed
+2025-02-27 23:22:19,163 - __main__ - INFO - Database tables created successfully
