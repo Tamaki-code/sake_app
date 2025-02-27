@@ -41,13 +41,24 @@ def fetch_data(endpoint):
                     logger.info(f"Sample ranking data {i+1}: {item}")
                 logger.info(f"Successfully fetched {len(data)} ranking items")
                 return data
-            elif isinstance(data, dict) and "rankings" in data:
-                # データがdict形式で"rankings"キーがある場合
-                rankings = data["rankings"]
-                for i, item in enumerate(rankings[:3]):
+            elif isinstance(data, dict):
+                # 地域ごとのランキングを統合
+                all_rankings = []
+                for area in data:
+                    if isinstance(area, dict) and "ranking" in area:
+                        area_id = area.get("areaId")
+                        rankings = area["ranking"]
+                        # ランキングデータにエリアIDを追加
+                        for rank_data in rankings:
+                            rank_data["areaId"] = area_id
+                        all_rankings.extend(rankings)
+
+                # サンプルデータをログ出力
+                for i, item in enumerate(all_rankings[:3]):
                     logger.info(f"Sample ranking data {i+1}: {item}")
-                logger.info(f"Successfully fetched {len(rankings)} ranking items from dictionary")
-                return rankings
+                logger.info(f"Successfully fetched {len(all_rankings)} total ranking items")
+                return all_rankings
+
             logger.error(f"Unexpected rankings data format: {data}")
             raise ValueError("Rankings data is not in expected format")
 
@@ -87,18 +98,25 @@ def update_rankings():
         logger.info("Cleared existing rankings")
 
         # サンプルのSakeデータをログ出力
-        sample_sake = Sake.query.first()
-        if sample_sake:
-            logger.info(f"Sample sake data - ID: {sample_sake.id}, Sakenowa ID: {sample_sake.sakenowa_id}")
+        sample_sakes = Sake.query.limit(5).all()
+        logger.info("Sample sake records from database:")
+        for sake in sample_sakes:
+            logger.info(f"Sake ID: {sake.id}, Name: {sake.name}, Sakenowa ID: {sake.sakenowa_id}")
 
         rankings_added = 0
         for rank_data in rankings_data:
             try:
-                brand_id = str(rank_data.get("brandId", ""))
+                brand_id = str(rank_data.get("brandId", "")).strip()
                 logger.debug(f"Processing ranking for brand ID: {brand_id}")
 
-                sake = Sake.query.filter_by(sakenowa_id=brand_id).first()
+                # Case-insensitive brandId matching
+                sake = Sake.query.filter(
+                    Sake.sakenowa_id.ilike(f"%{brand_id}%")
+                ).first()
+
                 if sake:
+                    # マッチしたSakeレコードの情報をログ出力
+                    logger.info(f"Found matching sake - ID: {sake.id}, Name: {sake.name}, Sakenowa ID: {sake.sakenowa_id}")
                     ranking = Ranking(
                         sake_id=sake.id,
                         ranking_type='overall',  # このエンドポイントは総合ランキング
@@ -188,11 +206,13 @@ def update_database():
             try:
                 brewery = Brewery.query.filter_by(sakenowa_brewery_id=str(brand["breweryId"])).first()
                 if brewery:
-                    sake = Sake.query.filter_by(sakenowa_id=str(brand["id"])).first()
+                    # ここでbrandIdを文字列として正規化
+                    brand_id = str(brand["id"]).strip()
+                    sake = Sake.query.filter_by(sakenowa_id=brand_id).first()
                     if not sake:
                         sake = Sake(
                             name=brand["name"],
-                            sakenowa_id=str(brand["id"]),
+                            sakenowa_id=brand_id,  # 正規化したIDを使用
                             brewery_id=brewery.id
                         )
                         db.session.add(sake)
@@ -200,7 +220,7 @@ def update_database():
                         sakes_added += 1
 
                         # Add flavor chart if available
-                        flavor_data = flavor_chart_dict.get(str(brand["id"]))
+                        flavor_data = flavor_chart_dict.get(brand_id)  # 正規化したIDを使用
                         if flavor_data:
                             flavor_chart = FlavorChart(
                                 sake_id=sake.id,
