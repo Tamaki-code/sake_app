@@ -33115,3 +33115,38 @@ FROM sakes ORDER BY sakes.created_at DESC]
 2025-02-26 23:34:28,089 - werkzeug - INFO - 172.31.128.7 - - [26/Feb/2025 23:34:28] "GET /static/images/sake2.jpg HTTP/1.1" 200 -
 2025-02-26 23:34:28,091 - werkzeug - INFO - 172.31.128.7 - - [26/Feb/2025 23:34:28] "GET /static/js/main.js HTTP/1.1" 200 -
 2025-02-26 23:34:28,729 - werkzeug - INFO - 172.31.128.7 - - [26/Feb/2025 23:34:28] "GET /static/images/sakeImage.jpg HTTP/1.1" 200 -
+2025-02-26 23:35:23,336 - werkzeug - INFO - 172.31.128.7 - - [26/Feb/2025 23:35:23] "GET / HTTP/1.1" 200 -
+2025-02-26 23:35:23,654 - werkzeug - INFO - 172.31.128.7 - - [26/Feb/2025 23:35:23] "[36mGET /static/css/custom.css HTTP/1.1[0m" 304 -
+2025-02-26 23:35:24,210 - werkzeug - INFO - 172.31.128.7 - - [26/Feb/2025 23:35:24] "[36mGET /static/js/main.js HTTP/1.1[0m" 304 -
+2025-02-26 23:35:24,212 - werkzeug - INFO - 172.31.128.7 - - [26/Feb/2025 23:35:24] "[36mGET /static/images/sake2.jpg HTTP/1.1[0m" 304 -
+2025-02-26 23:35:29,006 - routes - INFO - Received query: 山
+2025-02-26 23:35:29,955 - werkzeug - INFO - 172.31.128.7 - - [26/Feb/2025 23:35:29] "GET /search?q=山 HTTP/1.1" 200 -
+2025-02-26 23:35:30,245 - werkzeug - INFO - 172.31.128.7 - - [26/Feb/2025 23:35:30] "[36mGET /static/css/custom.css HTTP/1.1[0m" 304 -
+2025-02-26 23:35:30,810 - werkzeug - INFO - 172.31.128.7 - - [26/Feb/2025 23:35:30] "[36mGET /static/js/main.js HTTP/1.1[0m" 304 -
+2025-02-26 23:35:34,643 - werkzeug - INFO - 172.31.128.7 - - [26/Feb/2025 23:35:34] "GET /sake/8154 HTTP/1.1" 200 -
+2025-02-26 23:35:34,896 - werkzeug - INFO - 172.31.128.7 - - [26/Feb/2025 23:35:34] "[36mGET /static/css/custom.css HTTP/1.1[0m" 304 -
+2025-02-26 23:35:35,047 - werkzeug - INFO - 172.31.128.7 - - [26/Feb/2025 23:35:35] "[36mGET /static/js/main.js HTTP/1.1[0m" 304 -
+2025-02-26 23:36:31,493 - werkzeug - INFO - 172.31.128.7 - - [26/Feb/2025 23:36:31] "GET /sake/8099 HTTP/1.1" 200 -
+2025-02-26 23:36:31,889 - werkzeug - INFO - 172.31.128.7 - - [26/Feb/2025 23:36:31] "[36mGET /static/js/main.js HTTP/1.1[0m" 304 -
+2025-02-26 23:36:31,890 - werkzeug - INFO - 172.31.128.7 - - [26/Feb/2025 23:36:31] "[36mGET /static/css/custom.css HTTP/1.1[0m" 304 -
+2025-02-26 23:36:39,880 - werkzeug - INFO - 172.31.128.7 - - [26/Feb/2025 23:36:39] "[36mGET /static/css/custom.css HTTP/1.1[0m" 304 -
+2025-02-26 23:36:44,115 - werkzeug - INFO - 172.31.128.7 - - [26/Feb/2025 23:36:44] "GET /sake/7903 HTTP/1.1" 200 -
+2025-02-26 23:36:44,452 - werkzeug - INFO - 172.31.128.7 - - [26/Feb/2025 23:36:44] "[36mGET /static/css/custom.css HTTP/1.1[0m" 304 -
+2025-02-26 23:36:44,531 - werkzeug - INFO - 172.31.128.7 - - [26/Feb/2025 23:36:44] "[36mGET /static/js/main.js HTTP/1.1[0m" 304 -
+2025-02-26 23:38:20,573 - werkzeug - INFO - 172.31.128.7 - - [26/Feb/2025 23:38:20] "GET / HTTP/1.1" 200 -
+2025-02-26 23:38:20,932 - werkzeug - INFO - 172.31.128.7 - - [26/Feb/2025 23:38:20] "[36mGET /static/css/custom.css HTTP/1.1[0m" 304 -
+2025-02-26 23:38:21,140 - werkzeug - INFO - 172.31.128.7 - - [26/Feb/2025 23:38:21] "[36mGET /static/images/sakeImage.jpg HTTP/1.1[0m" 304 -
+2025-02-26 23:38:21,466 - werkzeug - INFO - 172.31.128.7 - - [26/Feb/2025 23:38:21] "[36mGET /static/images/sake2.jpg HTTP/1.1[0m" 304 -
+2025-02-26 23:38:21,479 - werkzeug - INFO - 172.31.128.7 - - [26/Feb/2025 23:38:21] "[36mGET /static/js/main.js HTTP/1.1[0m" 304 -
+2025-02-27 23:12:22,423 - app - INFO - Starting application creation...
+2025-02-27 23:12:22,428 - app - INFO - Flask configuration completed
+2025-02-27 23:12:22,661 - app - INFO - Flask extensions initialized
+2025-02-27 23:12:22,859 - app - INFO - Blueprints registered
+2025-02-27 23:12:27,585 - app - INFO - Database connection verified
+2025-02-27 23:12:27,816 - __main__ - INFO - Verifying database encoding settings...
+2025-02-27 23:12:28,744 - __main__ - INFO - Database Encoding Settings:
+2025-02-27 23:12:28,744 - __main__ - INFO - Client Encoding: UTF8
+2025-02-27 23:12:28,745 - __main__ - INFO - Server Encoding: UTF8
+2025-02-27 23:12:28,745 - __main__ - INFO - Database Collation: C.UTF-8
+2025-02-27 23:12:28,980 - __main__ - INFO - Japanese character encoding test: Passed
+2025-02-27 23:12:32,529 - __main__ - INFO - Database tables created successfully
