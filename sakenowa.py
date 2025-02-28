@@ -35,31 +35,42 @@ def fetch_data(endpoint):
 
         # エンドポイントに応じたレスポンス処理
         if endpoint == "rankings":
-            logger.info(f"Raw rankings data: {str(data)[:500]}...")  # 最初の500文字をログ出力
+            logger.info("Received rankings data structure:")
+            logger.info(f"Raw data type: {type(data)}")
+            logger.info(f"Raw data: {str(data)[:1000]}...")  # より多くのデータをログ出力
 
-            # ランキングデータの配列を処理
             all_rankings = []
-            if isinstance(data, list):
+            if isinstance(data, dict):
+                # totalRankingキーがある場合
+                if "totalRanking" in data:
+                    all_rankings = data["totalRanking"]
+                    logger.info(f"Found totalRanking with {len(all_rankings)} items")
+                    logger.info(f"Sample totalRanking data: {str(all_rankings[:3])}")
+                # エリアごとのランキングがある場合
+                elif any(isinstance(v, dict) and "ranking" in v for v in data.values()):
+                    for key, area_data in data.items():
+                        if isinstance(area_data, dict) and "ranking" in area_data:
+                            rankings = area_data["ranking"]
+                            logger.info(f"Processing area {key} with {len(rankings)} rankings")
+                            for rank in rankings:
+                                rank["areaId"] = area_data.get("areaId")
+                                # brandIdの形式を確認
+                                logger.info(f"Rank data: brandId={rank.get('brandId')}, rank={rank.get('rank')}")
+                            all_rankings.extend(rankings)
+            elif isinstance(data, list):
                 all_rankings = data
-            elif isinstance(data, dict) and "totalRanking" in data:
-                # totalRankingがある場合はそれを使用
-                all_rankings = data["totalRanking"]
-            elif isinstance(data, dict):
-                # 地域ごとのランキングを処理
-                for area in data.values():
-                    if isinstance(area, dict) and "ranking" in area:
-                        area_rankings = area["ranking"]
-                        for rank in area_rankings:
-                            rank["areaId"] = area.get("areaId")
-                        all_rankings.extend(area_rankings)
+                logger.info(f"Direct list data with {len(all_rankings)} items")
+                if all_rankings:
+                    logger.info(f"Sample list data: {str(all_rankings[:3])}")
 
-            # サンプルデータをログ出力
-            for i, item in enumerate(all_rankings[:3]):
-                logger.info(f"Sample ranking {i+1}: {item}")
-            logger.info(f"Total rankings found: {len(all_rankings)}")
+            if not all_rankings:
+                logger.warning("No ranking items found in the response")
+            else:
+                logger.info(f"Total rankings processed: {len(all_rankings)}")
+
             return all_rankings
 
-        # その他のエンドポイントの処理
+        # その他のエンドポイントの処理（変更なし）
         if isinstance(data, dict):
             for key in ['areas', 'brands', 'breweries', 'flavorCharts', 'tags']:
                 if key in data:
@@ -188,10 +199,6 @@ def update_database():
         logger.info(f"Added {breweries_added} new breweries")
         db.session.commit()
 
-        # Create flavor chart lookup
-        flavor_chart_dict = {str(fc["brandId"]): fc for fc in flavor_charts}
-        logger.info(f"Created flavor chart lookup with {len(flavor_chart_dict)} entries")
-
         # Process sake brands and their flavor charts
         sakes_added = 0
         flavor_charts_added = 0
@@ -199,21 +206,23 @@ def update_database():
             try:
                 brewery = Brewery.query.filter_by(sakenowa_brewery_id=str(brand["breweryId"])).first()
                 if brewery:
-                    # ここでbrandIdを文字列として正規化
-                    brand_id = str(brand["id"]).strip()
+                    # Ensure brand ID is stored exactly as received from API
+                    brand_id = str(brand["id"])
+                    logger.info(f"Processing brand: ID={brand_id}, Name={brand['name']}")
+
                     sake = Sake.query.filter_by(sakenowa_id=brand_id).first()
                     if not sake:
                         sake = Sake(
                             name=brand["name"],
-                            sakenowa_id=brand_id,  # 正規化したIDを使用
+                            sakenowa_id=brand_id,
                             brewery_id=brewery.id
                         )
                         db.session.add(sake)
-                        db.session.flush()
+                        db.session.flush()  # Get the ID for the new sake
                         sakes_added += 1
 
                         # Add flavor chart if available
-                        flavor_data = flavor_chart_dict.get(brand_id)  # 正規化したIDを使用
+                        flavor_data = next((fc for fc in flavor_charts if str(fc["brandId"]) == brand_id), None)
                         if flavor_data:
                             flavor_chart = FlavorChart(
                                 sake_id=sake.id,
@@ -226,6 +235,10 @@ def update_database():
                             )
                             db.session.add(flavor_chart)
                             flavor_charts_added += 1
+
+                        if sakes_added % 100 == 0:
+                            logger.info(f"Processed {sakes_added} sakes so far")
+                            db.session.commit()
             except Exception as e:
                 logger.error(f"Error processing sake {brand.get('name', 'unknown')}: {str(e)}")
                 raise
