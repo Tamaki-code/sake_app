@@ -4,7 +4,7 @@ from . import db
 class Sake(db.Model):
     __tablename__ = 'sakes'
     id = db.Column(db.Integer, primary_key=True)
-    sakenowa_id = db.Column(db.String(100), unique=True)
+    sakenowaId = db.Column(db.String(100), unique=True)  # カラム名を修正
     name = db.Column(db.String(200))
     brewery_id = db.Column(db.Integer, db.ForeignKey('breweries.id'))
     created_at = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)

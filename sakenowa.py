@@ -215,9 +215,9 @@ def update_database():
                 try:
                     area_id = str(area["id"])  # Convert to string
                     # Check if region already exists
-                    existing_region = Region.query.filter_by(sakenowa_id=area_id).first()
+                    existing_region = Region.query.filter_by(sakenowaId=area_id).first()  # カラム名を修正
                     if not existing_region:
-                        region = Region(name=area["name"], sakenowa_id=area_id)
+                        region = Region(name=area["name"], sakenowaId=area_id)  # カラム名を修正
                         db.session.add(region)
                         regions_dict[area_id] = region
                         logger.debug(f"Added region: {area_id} - {area['name']}")
@@ -239,11 +239,11 @@ def update_database():
                     area_id = str(brewery["areaId"])  # Convert to string
 
                     # Check if brewery already exists
-                    existing_brewery = Brewery.query.filter_by(sakenowa_brewery_id=brewery_id).first()
+                    existing_brewery = Brewery.query.filter_by(sakenowaBreweryId=brewery_id).first()  # カラム名を修正
                     if not existing_brewery:
                         if area_id in regions_dict:
                             b = Brewery(name=brewery["name"],
-                                        sakenowa_brewery_id=brewery_id,
+                                        sakenowaBreweryId=brewery_id,  # カラム名を修正
                                         region_id=regions_dict[area_id].id)
                             db.session.add(b)
                             breweries_dict[brewery_id] = b
@@ -269,11 +269,11 @@ def update_database():
                     brewery_id = str(brand["breweryId"])  # Convert to string
 
                     # Check if sake already exists
-                    existing_sake = Sake.query.filter_by(sakenowa_id=brand_id).first()
+                    existing_sake = Sake.query.filter_by(sakenowaId=brand_id).first()  # カラム名を修正
                     if not existing_sake:
                         if brewery_id in breweries_dict:
                             sake = Sake(name=brand["name"],
-                                        sakenowa_id=brand_id,
+                                        sakenowaId=brand_id,  # カラム名を修正
                                         brewery_id=breweries_dict[brewery_id].id)
                             db.session.add(sake)
                             sake_dict[brand_id] = sake
@@ -289,10 +289,6 @@ def update_database():
                 except Exception as e:
                     logger.error(f"Error processing sake {brand.get('name', 'unknown')}: {str(e)}")
                     continue
-
-            # Log sake_dict keys for debugging
-            logger.info(f"Total sakes in sake_dict: {len(sake_dict)}")
-            logger.debug(f"sake_dict keys (first 10): {list(sake_dict.keys())[:10]}")
 
             # Process rankings if available
             if rankings:
@@ -313,7 +309,6 @@ def update_database():
         logger.error(f"Database update failed: {str(e)}", exc_info=True)
         db.session.rollback()
         return False
-
 
 if __name__ == '__main__':
     try:
