@@ -133,15 +133,19 @@ def update_database():
         # Clear existing data
         with db.session.begin():
             logger.info("Clearing existing data...")
-            BrandFlavorTag.query.delete()
-            Ranking.query.delete()
-            FlavorTag.query.delete()
-            FlavorChart.query.delete()
-            Sake.query.delete()
-            Brewery.query.delete()
-            Region.query.delete()
-            db.session.commit()
-            logger.info("Existing data cleared successfully")
+            try:
+                BrandFlavorTag.query.delete()
+                Ranking.query.delete()
+                FlavorTag.query.delete()
+                FlavorChart.query.delete()
+                Sake.query.delete()
+                Brewery.query.delete()
+                Region.query.delete()
+                db.session.commit()
+                logger.info("Existing data cleared successfully")
+            except Exception as e:
+                logger.warning(f"Some tables might not exist yet: {e}")
+                db.session.rollback()
 
         # Fetch all data
         areas = fetch_data("areas")
@@ -172,7 +176,7 @@ def update_database():
                     area_id = str(area["id"])
                     region = Region(
                         name=area["name"],
-                        sakenowaId=area_id
+                        sakenowa_id=area_id  # Changed from sakenowaId to sakenowa_id
                     )
                     db.session.add(region)
                     regions_dict[area_id] = region
@@ -190,7 +194,7 @@ def update_database():
                     if area_id in regions_dict:
                         b = Brewery(
                             name=brewery["name"],
-                            sakenowaBreweryId=brewery_id,
+                            sakenowa_brewery_id=brewery_id,  # Changed from sakenowaBreweryId
                             region_id=regions_dict[area_id].id
                         )
                         db.session.add(b)
@@ -211,7 +215,7 @@ def update_database():
                     if brewery_id in breweries_dict:
                         sake = Sake(
                             name=brand["name"],
-                            sakenowaId=brand_id,
+                            sakenowa_id=brand_id,  # Changed from sakenowaId
                             brewery_id=breweries_dict[brewery_id].id
                         )
                         db.session.add(sake)
@@ -225,25 +229,7 @@ def update_database():
 
                 # Process rankings
                 if rankings:
-                    ranking_count = 0
-                    for rank_data in rankings:
-                        brand_id = str(rank_data.get("brandId"))
-                        rank = rank_data.get("rank")
-                        score = rank_data.get("score", 0)
-
-                        if brand_id in sake_dict:
-                            ranking = Ranking(
-                                sake_id=sake_dict[brand_id].id,
-                                rank=rank,
-                                score=score,
-                                category='overall'
-                            )
-                            db.session.add(ranking)
-                            ranking_count += 1
-                            logger.debug(f"Added ranking for sake {brand_id}: rank={rank}, score={score}")
-                        else:
-                            logger.warning(f"Sake not found for brand_id {brand_id} in ranking")
-
+                    ranking_count = process_rankings(rankings, sake_dict)
                     logger.info(f"Added {ranking_count} rankings")
 
                 # Final commit

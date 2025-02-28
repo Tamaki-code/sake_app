@@ -67,16 +67,6 @@ def init_db():
                 db.session.commit()
                 logger.info("Test user created successfully!")
 
-            # Create a test region if none exists
-            if not Region.query.first():
-                test_region = Region(
-                    name='東京都',
-                    sakenowa_id='13'
-                )
-                db.session.add(test_region)
-                db.session.commit()
-                logger.info("Test region created successfully!")
-
             return True
 
     except Exception as e:
