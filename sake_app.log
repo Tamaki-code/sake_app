@@ -33548,3 +33548,17 @@ ValueError: invalid attr name 'connections'
 2025-02-28 00:51:13,225 - werkzeug - INFO - 172.31.128.21 - - [28/Feb/2025 00:51:13] "GET /static/images/sake2.jpg HTTP/1.1" 200 -
 2025-02-28 00:51:13,277 - werkzeug - INFO - 172.31.128.21 - - [28/Feb/2025 00:51:13] "GET /static/js/main.js HTTP/1.1" 200 -
 2025-02-28 00:51:13,696 - werkzeug - INFO - 172.31.128.21 - - [28/Feb/2025 00:51:13] "GET /static/images/sakeImage.jpg HTTP/1.1" 200 -
+2025-02-28 00:56:50,861 - werkzeug - INFO - 172.31.128.21 - - [28/Feb/2025 00:56:50] "GET / HTTP/1.1" 200 -
+2025-02-28 00:56:51,692 - werkzeug - INFO - 172.31.128.21 - - [28/Feb/2025 00:56:51] "[36mGET /static/css/custom.css HTTP/1.1[0m" 304 -
+2025-02-28 00:56:51,850 - werkzeug - INFO - 172.31.128.21 - - [28/Feb/2025 00:56:51] "[36mGET /static/images/sake2.jpg HTTP/1.1[0m" 304 -
+2025-02-28 00:56:51,895 - werkzeug - INFO - 172.31.128.21 - - [28/Feb/2025 00:56:51] "[36mGET /static/js/main.js HTTP/1.1[0m" 304 -
+2025-02-28 00:56:58,018 - werkzeug - INFO - 172.31.128.21 - - [28/Feb/2025 00:56:58] "[36mGET /static/images/sakeImage.jpg HTTP/1.1[0m" 304 -
+2025-02-28 00:57:59,482 - werkzeug - INFO - 172.31.128.21 - - [28/Feb/2025 00:57:59] "GET / HTTP/1.1" 200 -
+2025-02-28 00:57:59,674 - werkzeug - INFO - 172.31.128.21 - - [28/Feb/2025 00:57:59] "[36mGET /static/css/custom.css HTTP/1.1[0m" 304 -
+2025-02-28 00:57:59,731 - werkzeug - INFO - 172.31.128.21 - - [28/Feb/2025 00:57:59] "[36mGET /static/images/sake2.jpg HTTP/1.1[0m" 304 -
+2025-02-28 00:57:59,814 - werkzeug - INFO - 172.31.128.21 - - [28/Feb/2025 00:57:59] "[36mGET /static/js/main.js HTTP/1.1[0m" 304 -
+2025-02-28 00:58:00,039 - werkzeug - INFO - 172.31.128.21 - - [28/Feb/2025 00:58:00] "[36mGET /static/images/sakeImage.jpg HTTP/1.1[0m" 304 -
+2025-02-28 00:58:02,576 - routes - INFO - Received query: 山
+2025-02-28 00:58:03,289 - werkzeug - INFO - 172.31.128.21 - - [28/Feb/2025 00:58:03] "GET /search?q=山 HTTP/1.1" 200 -
+2025-02-28 00:58:03,511 - werkzeug - INFO - 172.31.128.21 - - [28/Feb/2025 00:58:03] "[36mGET /static/css/custom.css HTTP/1.1[0m" 304 -
+2025-02-28 00:58:03,514 - werkzeug - INFO - 172.31.128.21 - - [28/Feb/2025 00:58:03] "[36mGET /static/js/main.js HTTP/1.1[0m" 304 -
