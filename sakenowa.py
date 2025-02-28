@@ -16,7 +16,7 @@ SAKENOWA_API_BASE = "https://muro.sakenowa.com/sakenowa-data/api"
 def configure_logging():
     """Configure logging for Sakenowa API integration"""
     logging.basicConfig(
-        level=logging.INFO,
+        level=logging.DEBUG,
         format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
         handlers=[
             logging.FileHandler("sakenowa_update.log"),
@@ -29,162 +29,157 @@ logger = configure_logging()
 def fetch_data(endpoint):
     """Fetch data from Sakenowa API"""
     try:
-        logger.info(f"Fetching data from {endpoint}")
-        response = requests.get(f"{SAKENOWA_API_BASE}/{endpoint}",
-                              headers={'Accept-Charset': 'utf-8'},
-                              timeout=60)
+        url = f"{SAKENOWA_API_BASE}/{endpoint}"
+        logger.info(f"Fetching data from {url}")
+
+        response = requests.get(
+            url,
+            headers={'Accept-Charset': 'utf-8'},
+            timeout=60
+        )
         response.raise_for_status()
+
         data = response.json()
         logger.info(f"Successfully fetched data from {endpoint}")
+        logger.debug(f"Response status code: {response.status_code}")
+        logger.debug(f"Response content type: {response.headers.get('content-type')}")
+        logger.debug(f"Response keys: {list(data.keys())}")
 
-        if isinstance(data, dict):
-            for key in ['areas', 'brands', 'breweries', 'rankings', 'flavorCharts', 'flavorTags', 'brandFlavorTags']:
-                if key in data:
-                    return data[key]
-        return data
+        # Extract data based on endpoint and log sample data
+        extracted_data = []
+        if endpoint == "areas":
+            extracted_data = data.get("areas", [])
+        elif endpoint == "breweries":
+            extracted_data = data.get("breweries", [])
+            if extracted_data:
+                logger.debug(f"Sample brewery: ID={extracted_data[0]['id']}, Name={extracted_data[0]['name']}")
+        elif endpoint == "brands":
+            extracted_data = data.get("brands", [])
+            if extracted_data:
+                logger.debug(f"Sample brand: ID={extracted_data[0]['id']}, Name={extracted_data[0]['name']}, BreweryID={extracted_data[0]['breweryId']}")
+        elif endpoint == "flavor-charts":
+            extracted_data = data.get("flavorCharts", [])
+        elif endpoint == "flavor-tags":
+            extracted_data = data.get("tags", [])
+        elif endpoint == "brand-flavor-tags":
+            extracted_data = data.get("flavorTags", [])
+
+        logger.info(f"Extracted {len(extracted_data)} items from {endpoint}")
+        return extracted_data
 
     except Exception as e:
-        logger.error(f"Error fetching data from {endpoint}: {str(e)}")
-        return None
+        logger.error(f"Error fetching data from {endpoint}: {str(e)}", exc_info=True)
+        return []
+
+def process_chunks(items, chunk_size=100):
+    """Process items in chunks"""
+    for i in range(0, len(items), chunk_size):
+        yield items[i:i + chunk_size]
 
 def update_database():
     """Update database with Sakenowa data"""
     try:
+        logger.info("Starting database update process")
+
         # Fetch all required data
         areas = fetch_data("areas")
         breweries = fetch_data("breweries")
         brands = fetch_data("brands")
-        rankings = fetch_data("rankings")
-        flavor_charts = fetch_data("flavor-charts")
-        flavor_tags = fetch_data("flavor-tags")
-        brand_flavor_tags = fetch_data("brand-flavor-tags")
 
         if not all([areas, breweries, brands]):
             raise ValueError("Failed to fetch core data (areas, breweries, brands)")
 
-        logger.info("Starting database update process")
-
-        # Clear existing data
-        BrandFlavorTag.query.delete()
-        Ranking.query.delete()
-        FlavorTag.query.delete()
-        FlavorChart.query.delete()
-        Sake.query.delete()
-        Brewery.query.delete()
-        Region.query.delete()
-        db.session.commit()
-        logger.info("Cleared existing data")
-
-        # Process regions (areas)
+        # Process regions and create lookup dictionary
         regions_dict = {}
         for area in areas:
-            region = Region(
-                name=area["name"],
-                sakenowa_id=str(area["id"])
-            )
-            db.session.add(region)
+            region = Region.query.filter_by(sakenowa_id=str(area["id"])).first()
+            if not region:
+                region = Region(
+                    name=area["name"],
+                    sakenowa_id=str(area["id"])
+                )
+                db.session.add(region)
             regions_dict[str(area["id"])] = region
         db.session.commit()
-        logger.info(f"Added {len(regions_dict)} regions")
+        logger.info(f"Processed {len(regions_dict)} regions")
 
-        # Process breweries
+        # Process breweries in chunks
         breweries_dict = {}
-        for brewery_data in breweries:
-            brewery_id = str(brewery_data["id"])
-            area_id = str(brewery_data["areaId"])
+        for chunk in process_chunks(breweries):
+            for brewery_data in chunk:
+                try:
+                    brewery_id = str(int(brewery_data["id"]))  # Normalize ID
+                    area_id = str(brewery_data["areaId"])
 
-            if area_id in regions_dict:
-                brewery = Brewery(
-                    name=brewery_data["name"],
-                    sakenowa_brewery_id=brewery_id,
-                    region_id=regions_dict[area_id].id
-                )
-                db.session.add(brewery)
-                breweries_dict[brewery_id] = brewery
-
-        db.session.commit()
-        logger.info(f"Added {len(breweries_dict)} breweries")
-
-        # Process flavor tags
-        flavor_tags_dict = {}
-        if flavor_tags:
-            for tag_data in flavor_tags:
-                tag = FlavorTag(
-                    name=tag_data["name"],
-                    sakenowa_id=str(tag_data["id"])
-                )
-                db.session.add(tag)
-                flavor_tags_dict[str(tag_data["id"])] = tag
+                    brewery = Brewery.query.filter_by(sakenowa_brewery_id=brewery_id).first()
+                    if not brewery and area_id in regions_dict:
+                        brewery = Brewery(
+                            name=brewery_data["name"],
+                            sakenowa_brewery_id=brewery_id,
+                            region_id=regions_dict[area_id].id
+                        )
+                        db.session.add(brewery)
+                        breweries_dict[brewery_id] = brewery
+                except Exception as e:
+                    logger.error(f"Error processing brewery {brewery_data.get('name', 'unknown')}: {str(e)}")
+                    continue
             db.session.commit()
-            logger.info(f"Added {len(flavor_tags_dict)} flavor tags")
+            logger.info(f"Processed {len(breweries_dict)} breweries so far")
 
-        # Process sakes (brands)
+        # Log brewery IDs for debugging
+        logger.debug("Sample of brewery IDs in database:")
+        sample_breweries = Brewery.query.limit(5).all()
+        for b in sample_breweries:
+            logger.debug(f"Brewery ID: {b.sakenowa_brewery_id}, Name: {b.name}")
+
+        # Process sakes (brands) in chunks with normalized IDs
         sakes_dict = {}
-        for brand in brands:
-            brewery_id = str(brand["breweryId"])
-            if brewery_id in breweries_dict:
-                sake = Sake(
-                    name=brand["name"],
-                    sakenowa_id=str(brand["id"]),
-                    brewery_id=breweries_dict[brewery_id].id
-                )
-                db.session.add(sake)
-                sakes_dict[str(brand["id"])] = sake
+        for chunk in process_chunks(brands):
+            for brand in chunk:
+                try:
+                    brand_id = str(int(brand["id"]))  # Normalize ID
+                    brewery_id = str(int(brand["breweryId"]))  # Normalize ID
 
+                    # Debug logging for ID matching
+                    logger.debug(f"Processing sake: {brand['name']}")
+                    logger.debug(f"  Raw brewery ID: {brand['breweryId']}")
+                    logger.debug(f"  Normalized brewery ID: {brewery_id}")
+
+                    # Query for brewery directly
+                    brewery = Brewery.query.filter_by(sakenowa_brewery_id=brewery_id).first()
+                    if brewery:
+                        sake = Sake.query.filter_by(sakenowa_id=brand_id).first()
+                        if not sake:
+                            sake = Sake(
+                                name=brand["name"],
+                                sakenowa_id=brand_id,
+                                brewery_id=brewery.id
+                            )
+                            db.session.add(sake)
+                            sakes_dict[brand_id] = sake
+
+                            if len(sakes_dict) % 100 == 0:
+                                db.session.commit()
+                                logger.info(f"Added {len(sakes_dict)} sakes so far")
+                    else:
+                        logger.warning(f"Brewery not found for sake {brand['name']} (brewery_id: {brewery_id})")
+                        # Debug output for brewery search
+                        sample_brewery = Brewery.query.first()
+                        if sample_brewery:
+                            logger.debug(f"Sample brewery in DB - ID: {sample_brewery.sakenowa_brewery_id}, Name: {sample_brewery.name}")
+
+                except Exception as e:
+                    logger.error(f"Error processing sake {brand.get('name', 'unknown')}: {str(e)}")
+                    continue
+
+        # Final commit and logging
         db.session.commit()
-        logger.info(f"Added {len(sakes_dict)} sakes")
+        logger.info(f"Database update completed: {len(regions_dict)} regions, {len(breweries_dict)} breweries, {len(sakes_dict)} sakes")
 
-        # Process flavor charts
-        if flavor_charts:
-            for fc in flavor_charts:
-                brand_id = str(fc["brandId"])
-                if brand_id in sakes_dict:
-                    chart = FlavorChart(
-                        sake_id=sakes_dict[brand_id].id,
-                        f1=fc.get("f1", 0.0),
-                        f2=fc.get("f2", 0.0),
-                        f3=fc.get("f3", 0.0),
-                        f4=fc.get("f4", 0.0),
-                        f5=fc.get("f5", 0.0),
-                        f6=fc.get("f6", 0.0)
-                    )
-                    db.session.add(chart)
-            db.session.commit()
-            logger.info("Added flavor charts")
-
-        # Process brand flavor tags
-        if brand_flavor_tags:
-            for bft in brand_flavor_tags:
-                brand_id = str(bft["brandId"])
-                tag_id = str(bft["flavorTagId"])
-                if brand_id in sakes_dict and tag_id in flavor_tags_dict:
-                    link = BrandFlavorTag(
-                        sake_id=sakes_dict[brand_id].id,
-                        flavor_tag_id=flavor_tags_dict[tag_id].id
-                    )
-                    db.session.add(link)
-            db.session.commit()
-            logger.info("Added brand flavor tags")
-
-        # Process rankings
-        if rankings:
-            for rank_data in rankings:
-                brand_id = str(rank_data["brandId"])
-                if brand_id in sakes_dict:
-                    ranking = Ranking(
-                        sake_id=sakes_dict[brand_id].id,
-                        rank=rank_data["rank"],
-                        category=rank_data.get("category", "total")
-                    )
-                    db.session.add(ranking)
-            db.session.commit()
-            logger.info("Added rankings")
-
-        logger.info("Database update completed successfully")
         return True
 
     except Exception as e:
-        logger.error(f"Database update failed: {str(e)}")
+        logger.error(f"Database update failed: {str(e)}", exc_info=True)
         db.session.rollback()
         return False
 

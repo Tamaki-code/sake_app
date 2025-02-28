@@ -33690,3 +33690,7 @@ ValueError: invalid attr name 'connections'
 2025-02-28 01:15:15,873 - werkzeug - INFO - 172.31.128.21 - - [28/Feb/2025 01:15:15] "[36mGET /static/css/custom.css HTTP/1.1[0m" 304 -
 2025-02-28 01:15:15,874 - werkzeug - INFO - 172.31.128.21 - - [28/Feb/2025 01:15:15] "[36mGET /static/js/main.js HTTP/1.1[0m" 304 -
 2025-02-28 01:15:15,916 - werkzeug - INFO - 172.31.128.21 - - [28/Feb/2025 01:15:15] "GET /static/images/sakeImage.jpg HTTP/1.1" 200 -
+2025-02-28 01:15:40,171 - routes - INFO - Received query: 山
+2025-02-28 01:15:40,884 - werkzeug - INFO - 172.31.128.21 - - [28/Feb/2025 01:15:40] "GET /search?q=山 HTTP/1.1" 200 -
+2025-02-28 01:15:41,581 - werkzeug - INFO - 172.31.128.21 - - [28/Feb/2025 01:15:41] "[36mGET /static/css/custom.css HTTP/1.1[0m" 304 -
+2025-02-28 01:15:41,653 - werkzeug - INFO - 172.31.128.21 - - [28/Feb/2025 01:15:41] "[36mGET /static/js/main.js HTTP/1.1[0m" 304 -
