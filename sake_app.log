@@ -33369,3 +33369,54 @@ ValueError: invalid attr name 'connections'
 2025-02-28 00:36:30,299 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
 2025-02-28 00:36:30,300 - werkzeug - INFO -  * Restarting with stat
 2025-02-28 00:36:30,925 - __main__ - INFO - Killing process 7772 using port 5000
+2025-02-28 00:39:19,659 - app - INFO - Starting application creation...
+2025-02-28 00:39:19,660 - app - INFO - Flask configuration completed
+2025-02-28 00:39:19,709 - app - INFO - Flask extensions initialized
+2025-02-28 00:39:19,739 - app - INFO - Blueprints registered
+2025-02-28 00:39:23,686 - app - INFO - Database connection verified
+2025-02-28 00:39:23,707 - __main__ - INFO - Starting application creation...
+2025-02-28 00:39:23,708 - __main__ - INFO - Flask configuration completed
+2025-02-28 00:39:23,745 - __main__ - INFO - Flask extensions initialized
+2025-02-28 00:39:23,774 - __main__ - INFO - Blueprints registered
+2025-02-28 00:39:23,915 - __main__ - INFO - Verifying database encoding settings...
+2025-02-28 00:39:24,830 - __main__ - INFO - Database Encoding Settings:
+2025-02-28 00:39:24,831 - __main__ - INFO - Client Encoding: UTF8
+2025-02-28 00:39:24,831 - __main__ - INFO - Server Encoding: UTF8
+2025-02-28 00:39:24,831 - __main__ - INFO - Database Collation: C.UTF-8
+2025-02-28 00:39:25,060 - __main__ - INFO - Japanese character encoding test: Passed
+2025-02-28 00:39:27,794 - __main__ - INFO - Database connection verified
+2025-02-28 00:39:28,059 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://172.31.128.21:5000
+2025-02-28 00:39:28,059 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-02-28 00:39:28,060 - werkzeug - INFO -  * Restarting with stat
+2025-02-28 00:39:28,632 - __main__ - INFO - Database tables created successfully
+2025-02-28 00:39:28,688 - __main__ - INFO - Killing process 8121 using port 5000
+2025-02-28 00:39:28,688 - __main__ - INFO - Killed existing process on port 5000
+2025-02-28 00:40:07,470 - app - INFO - Starting application creation...
+2025-02-28 00:40:07,472 - app - INFO - Flask configuration completed
+2025-02-28 00:40:07,521 - app - INFO - Flask extensions initialized
+2025-02-28 00:40:07,551 - app - INFO - Blueprints registered
+2025-02-28 00:40:11,531 - app - INFO - Database connection verified
+2025-02-28 00:40:11,761 - __main__ - INFO - Verifying database encoding settings...
+2025-02-28 00:40:12,692 - __main__ - INFO - Database Encoding Settings:
+2025-02-28 00:40:12,692 - __main__ - INFO - Client Encoding: UTF8
+2025-02-28 00:40:12,692 - __main__ - INFO - Server Encoding: UTF8
+2025-02-28 00:40:12,693 - __main__ - INFO - Database Collation: C.UTF-8
+2025-02-28 00:40:12,923 - __main__ - INFO - Japanese character encoding test: Passed
+2025-02-28 00:40:15,318 - __main__ - INFO - Starting application creation...
+2025-02-28 00:40:15,321 - __main__ - INFO - Flask configuration completed
+2025-02-28 00:40:15,369 - __main__ - INFO - Flask extensions initialized
+2025-02-28 00:40:15,397 - __main__ - INFO - Blueprints registered
+2025-02-28 00:40:18,147 - __main__ - INFO - Database tables created successfully
+2025-02-28 00:40:18,956 - __main__ - INFO - Test user created successfully!
+2025-02-28 00:40:19,493 - __main__ - INFO - Database connection verified
+2025-02-28 00:40:19,761 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://172.31.128.21:5000
+2025-02-28 00:40:19,761 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-02-28 00:40:19,762 - werkzeug - INFO -  * Restarting with stat
+2025-02-28 00:40:19,888 - __main__ - INFO - Test region created successfully!
+2025-02-28 00:40:20,437 - __main__ - INFO - Killing process 8405 using port 5000
