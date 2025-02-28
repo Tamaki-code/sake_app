@@ -33214,3 +33214,158 @@ FROM sakes ORDER BY sakes.created_at DESC]
 2025-02-28 00:29:38,842 - werkzeug - INFO - 172.31.128.21 - - [28/Feb/2025 00:29:38] "[36mGET /static/css/custom.css HTTP/1.1[0m" 304 -
 2025-02-28 00:29:38,853 - werkzeug - INFO - 172.31.128.21 - - [28/Feb/2025 00:29:38] "[36mGET /static/js/main.js HTTP/1.1[0m" 304 -
 2025-02-28 00:29:38,855 - werkzeug - INFO - 172.31.128.21 - - [28/Feb/2025 00:29:38] "[36mGET /static/images/sake2.jpg HTTP/1.1[0m" 304 -
+2025-02-28 00:30:53,735 - app - INFO - Starting application creation...
+2025-02-28 00:30:53,737 - app - INFO - Flask configuration completed
+2025-02-28 00:30:53,771 - app - INFO - Flask extensions initialized
+2025-02-28 00:30:53,800 - app - INFO - Blueprints registered
+2025-02-28 00:30:58,374 - app - INFO - Database connection verified
+2025-02-28 00:30:58,593 - __main__ - INFO - Starting application creation...
+2025-02-28 00:30:58,594 - __main__ - INFO - Flask configuration completed
+2025-02-28 00:30:58,607 - __main__ - INFO - Verifying database encoding settings...
+2025-02-28 00:30:58,644 - __main__ - INFO - Flask extensions initialized
+2025-02-28 00:30:58,672 - __main__ - INFO - Blueprints registered
+2025-02-28 00:30:59,542 - __main__ - INFO - Database Encoding Settings:
+2025-02-28 00:30:59,542 - __main__ - INFO - Client Encoding: UTF8
+2025-02-28 00:30:59,542 - __main__ - INFO - Server Encoding: UTF8
+2025-02-28 00:30:59,542 - __main__ - INFO - Database Collation: C.UTF-8
+2025-02-28 00:30:59,778 - __main__ - INFO - Japanese character encoding test: Passed
+2025-02-28 00:31:02,679 - __main__ - INFO - Database connection verified
+2025-02-28 00:31:03,346 - __main__ - INFO - Database tables created successfully
+2025-02-28 00:31:31,660 - werkzeug - INFO -  * Detected change in '/home/runner/workspace/create_tables.py', reloading
+2025-02-28 00:31:31,741 - werkzeug - INFO -  * Restarting with stat
+2025-02-28 00:31:32,317 - __main__ - INFO - Starting application creation...
+2025-02-28 00:31:32,318 - __main__ - INFO - Flask configuration completed
+2025-02-28 00:31:32,368 - __main__ - INFO - Flask extensions initialized
+2025-02-28 00:31:32,396 - __main__ - INFO - Blueprints registered
+2025-02-28 00:31:36,537 - __main__ - INFO - Database connection verified
+2025-02-28 00:31:36,796 - werkzeug - WARNING -  * Debugger is active!
+2025-02-28 00:31:36,798 - werkzeug - INFO -  * Debugger PIN: 545-782-940
+2025-02-28 00:32:11,677 - app - INFO - Starting application creation...
+2025-02-28 00:32:11,678 - app - INFO - Flask configuration completed
+2025-02-28 00:32:11,714 - app - INFO - Flask extensions initialized
+2025-02-28 00:32:11,740 - app - INFO - Blueprints registered
+2025-02-28 00:32:15,757 - app - INFO - Database connection verified
+2025-02-28 00:32:15,990 - __main__ - INFO - Verifying database encoding settings...
+2025-02-28 00:32:16,495 - __main__ - INFO - Starting application creation...
+2025-02-28 00:32:16,496 - __main__ - INFO - Flask configuration completed
+2025-02-28 00:32:16,530 - __main__ - INFO - Flask extensions initialized
+2025-02-28 00:32:16,553 - __main__ - INFO - Blueprints registered
+2025-02-28 00:32:16,929 - __main__ - INFO - Database Encoding Settings:
+2025-02-28 00:32:16,929 - __main__ - INFO - Client Encoding: UTF8
+2025-02-28 00:32:16,929 - __main__ - INFO - Server Encoding: UTF8
+2025-02-28 00:32:16,929 - __main__ - INFO - Database Collation: C.UTF-8
+2025-02-28 00:32:17,162 - __main__ - INFO - Japanese character encoding test: Passed
+2025-02-28 00:32:20,646 - __main__ - INFO - Database connection verified
+2025-02-28 00:32:20,693 - __main__ - INFO - Database tables created successfully
+2025-02-28 00:32:56,848 - app - INFO - Starting application creation...
+2025-02-28 00:32:56,852 - app - INFO - Flask configuration completed
+2025-02-28 00:32:56,894 - app - INFO - Flask extensions initialized
+2025-02-28 00:32:56,926 - app - INFO - Blueprints registered
+2025-02-28 00:33:00,970 - app - INFO - Database connection verified
+2025-02-28 00:33:01,204 - __main__ - INFO - Verifying database encoding settings...
+2025-02-28 00:33:02,139 - __main__ - INFO - Database Encoding Settings:
+2025-02-28 00:33:02,139 - __main__ - INFO - Client Encoding: UTF8
+2025-02-28 00:33:02,139 - __main__ - INFO - Server Encoding: UTF8
+2025-02-28 00:33:02,139 - __main__ - INFO - Database Collation: C.UTF-8
+2025-02-28 00:33:02,373 - __main__ - INFO - Japanese character encoding test: Passed
+2025-02-28 00:33:02,907 - __main__ - INFO - Starting application creation...
+2025-02-28 00:33:02,911 - __main__ - INFO - Flask configuration completed
+2025-02-28 00:33:02,980 - __main__ - INFO - Flask extensions initialized
+2025-02-28 00:33:03,013 - __main__ - INFO - Blueprints registered
+2025-02-28 00:33:05,968 - __main__ - INFO - Database tables created successfully
+2025-02-28 00:33:06,995 - __main__ - INFO - Database connection verified
+2025-02-28 00:33:33,801 - werkzeug - INFO -  * Detected change in '/home/runner/workspace/main.py', reloading
+2025-02-28 00:33:33,886 - werkzeug - INFO -  * Restarting with stat
+2025-02-28 00:33:34,374 - __main__ - INFO - Starting application creation...
+2025-02-28 00:33:34,376 - __main__ - INFO - Flask configuration completed
+2025-02-28 00:33:34,426 - __main__ - INFO - Flask extensions initialized
+2025-02-28 00:33:34,463 - __main__ - INFO - Blueprints registered
+2025-02-28 00:33:38,458 - __main__ - INFO - Database connection verified
+2025-02-28 00:33:38,741 - werkzeug - WARNING -  * Debugger is active!
+2025-02-28 00:33:38,743 - werkzeug - INFO -  * Debugger PIN: 777-951-963
+2025-02-28 00:33:39,711 - __main__ - INFO - Starting application creation...
+2025-02-28 00:33:39,713 - __main__ - INFO - Flask configuration completed
+2025-02-28 00:33:39,767 - __main__ - INFO - Flask extensions initialized
+2025-02-28 00:33:39,823 - __main__ - INFO - Blueprints registered
+2025-02-28 00:33:43,889 - __main__ - INFO - Database connection verified
+2025-02-28 00:34:05,838 - app - INFO - Starting application creation...
+2025-02-28 00:34:05,839 - app - INFO - Flask configuration completed
+2025-02-28 00:34:05,876 - app - INFO - Flask extensions initialized
+2025-02-28 00:34:05,904 - app - INFO - Blueprints registered
+2025-02-28 00:34:09,909 - app - INFO - Database connection verified
+2025-02-28 00:34:10,140 - __main__ - INFO - Verifying database encoding settings...
+2025-02-28 00:34:11,066 - __main__ - INFO - Database Encoding Settings:
+2025-02-28 00:34:11,066 - __main__ - INFO - Client Encoding: UTF8
+2025-02-28 00:34:11,066 - __main__ - INFO - Server Encoding: UTF8
+2025-02-28 00:34:11,066 - __main__ - INFO - Database Collation: C.UTF-8
+2025-02-28 00:34:11,298 - __main__ - INFO - Japanese character encoding test: Passed
+2025-02-28 00:34:14,858 - __main__ - INFO - Database tables created successfully
+2025-02-28 00:34:17,572 - __main__ - INFO - Starting application creation...
+2025-02-28 00:34:17,575 - __main__ - INFO - Flask configuration completed
+2025-02-28 00:34:17,620 - __main__ - INFO - Flask extensions initialized
+2025-02-28 00:34:17,650 - __main__ - INFO - Blueprints registered
+2025-02-28 00:34:21,664 - __main__ - INFO - Database connection verified
+2025-02-28 00:35:11,873 - werkzeug - INFO -  * Detected change in '/home/runner/workspace/app.py', reloading
+2025-02-28 00:35:11,974 - werkzeug - INFO -  * Restarting with stat
+2025-02-28 00:35:12,627 - __main__ - ERROR - Failed to start application: invalid attr name 'connections'
+Traceback (most recent call last):
+  File "/home/runner/workspace/app.py", line 110, in <module>
+    if kill_process_on_port(5000):
+       ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/runner/workspace/app.py", line 26, in kill_process_on_port
+    for proc in psutil.process_iter(['pid', 'name', 'connections']):
+  File "/home/runner/workspace/.pythonlibs/lib/python3.11/site-packages/psutil/__init__.py", line 1527, in process_iter
+    proc.info = proc.as_dict(attrs=attrs, ad_value=ad_value)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/runner/workspace/.pythonlibs/lib/python3.11/site-packages/psutil/__init__.py", line 562, in as_dict
+    raise ValueError(msg)
+ValueError: invalid attr name 'connections'
+2025-02-28 00:35:19,481 - app - INFO - Starting application creation...
+2025-02-28 00:35:19,482 - app - INFO - Flask configuration completed
+2025-02-28 00:35:19,535 - app - INFO - Flask extensions initialized
+2025-02-28 00:35:19,564 - app - INFO - Blueprints registered
+2025-02-28 00:35:23,592 - app - INFO - Database connection verified
+2025-02-28 00:35:23,824 - __main__ - INFO - Verifying database encoding settings...
+2025-02-28 00:35:24,435 - __main__ - ERROR - Failed to start application: invalid attr name 'connections'
+Traceback (most recent call last):
+  File "/home/runner/workspace/app.py", line 110, in <module>
+    if kill_process_on_port(5000):
+       ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/runner/workspace/app.py", line 26, in kill_process_on_port
+    for proc in psutil.process_iter(['pid', 'name', 'connections']):
+  File "/home/runner/workspace/.pythonlibs/lib/python3.11/site-packages/psutil/__init__.py", line 1527, in process_iter
+    proc.info = proc.as_dict(attrs=attrs, ad_value=ad_value)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/runner/workspace/.pythonlibs/lib/python3.11/site-packages/psutil/__init__.py", line 562, in as_dict
+    raise ValueError(msg)
+ValueError: invalid attr name 'connections'
+2025-02-28 00:35:24,756 - __main__ - INFO - Database Encoding Settings:
+2025-02-28 00:35:24,757 - __main__ - INFO - Client Encoding: UTF8
+2025-02-28 00:35:24,757 - __main__ - INFO - Server Encoding: UTF8
+2025-02-28 00:35:24,758 - __main__ - INFO - Database Collation: C.UTF-8
+2025-02-28 00:35:24,991 - __main__ - INFO - Japanese character encoding test: Passed
+2025-02-28 00:35:28,537 - __main__ - INFO - Database tables created successfully
+2025-02-28 00:36:01,749 - app - INFO - Starting application creation...
+2025-02-28 00:36:01,751 - app - INFO - Flask configuration completed
+2025-02-28 00:36:01,794 - app - INFO - Flask extensions initialized
+2025-02-28 00:36:01,828 - app - INFO - Blueprints registered
+2025-02-28 00:36:05,859 - app - INFO - Database connection verified
+2025-02-28 00:36:06,093 - __main__ - INFO - Verifying database encoding settings...
+2025-02-28 00:36:07,025 - __main__ - INFO - Database Encoding Settings:
+2025-02-28 00:36:07,026 - __main__ - INFO - Client Encoding: UTF8
+2025-02-28 00:36:07,026 - __main__ - INFO - Server Encoding: UTF8
+2025-02-28 00:36:07,026 - __main__ - INFO - Database Collation: C.UTF-8
+2025-02-28 00:36:07,260 - __main__ - INFO - Japanese character encoding test: Passed
+2025-02-28 00:36:10,864 - __main__ - INFO - Database tables created successfully
+2025-02-28 00:36:25,891 - __main__ - INFO - Starting application creation...
+2025-02-28 00:36:25,892 - __main__ - INFO - Flask configuration completed
+2025-02-28 00:36:25,944 - __main__ - INFO - Flask extensions initialized
+2025-02-28 00:36:25,968 - __main__ - INFO - Blueprints registered
+2025-02-28 00:36:30,037 - __main__ - INFO - Database connection verified
+2025-02-28 00:36:30,299 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://172.31.128.21:5000
+2025-02-28 00:36:30,299 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-02-28 00:36:30,300 - werkzeug - INFO -  * Restarting with stat
+2025-02-28 00:36:30,925 - __main__ - INFO - Killing process 7772 using port 5000

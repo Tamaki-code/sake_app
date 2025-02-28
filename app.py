@@ -1,6 +1,8 @@
 import os
 import logging
 import sys
+import psutil
+import signal
 from flask import Flask
 from flask_login import LoginManager
 from sqlalchemy import text
@@ -18,6 +20,22 @@ logger = logging.getLogger(__name__)
 
 # Initialize login manager
 login_manager = LoginManager()
+
+def kill_process_on_port(port):
+    """Kill any process using the specified port"""
+    # プロセスの基本情報のみを取得
+    for proc in psutil.process_iter(['pid', 'name']):
+        try:
+            # 各プロセスのコネクション情報を個別に取得
+            connections = proc.connections()
+            for conn in connections:
+                if hasattr(conn, 'laddr') and conn.laddr.port == port:
+                    logger.info(f"Killing process {proc.pid} using port {port}")
+                    os.kill(proc.pid, signal.SIGTERM)
+                    return True
+        except (psutil.NoSuchProcess, psutil.AccessDenied, psutil.ZombieProcess):
+            continue
+    return False
 
 def create_app():
     """Application factory function"""
@@ -91,6 +109,10 @@ def create_app():
 
 if __name__ == "__main__":
     try:
+        # Kill any process using port 5000
+        if kill_process_on_port(5000):
+            logger.info("Killed existing process on port 5000")
+
         app = create_app()
         # ALWAYS serve the app on port 5000
         app.run(host='0.0.0.0', port=5000, debug=True)

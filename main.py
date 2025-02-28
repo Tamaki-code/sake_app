@@ -5,6 +5,8 @@ from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 import os
 import socket
+import signal
+import psutil
 
 # Configure logging
 logging.basicConfig(
@@ -15,6 +17,22 @@ logging.basicConfig(
         logging.StreamHandler(sys.stdout)
     ])
 logger = logging.getLogger(__name__)
+
+def kill_process_on_port(port):
+    """Kill any process using the specified port"""
+    # プロセスの基本情報のみを取得
+    for proc in psutil.process_iter(['pid', 'name']):
+        try:
+            # 各プロセスのコネクション情報を個別に取得
+            connections = proc.connections()
+            for conn in connections:
+                if hasattr(conn, 'laddr') and conn.laddr.port == port:
+                    logger.info(f"Killing process {proc.pid} using port {port}")
+                    os.kill(proc.pid, signal.SIGTERM)
+                    return True
+        except (psutil.NoSuchProcess, psutil.AccessDenied, psutil.ZombieProcess):
+            continue
+    return False
 
 def is_port_in_use(port):
     """Check if a port is in use"""
@@ -53,10 +71,14 @@ def main():
                 sys.exit(1)
             logger.info("Database verification successful")
 
-        # Check if port 5000 is available
+        # Check if port 5000 is available, if not, kill the process using it
         if is_port_in_use(5000):
-            logger.error("Port 5000 is already in use. Please stop other processes using this port.")
-            sys.exit(1)
+            logger.warning("Port 5000 is in use, attempting to kill the process...")
+            if kill_process_on_port(5000):
+                logger.info("Successfully killed process using port 5000")
+            else:
+                logger.error("Failed to kill process using port 5000")
+                sys.exit(1)
 
         # Start Flask application
         logger.info("Starting Flask application on port 5000...")
