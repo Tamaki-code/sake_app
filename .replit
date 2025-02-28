@@ -17,15 +17,29 @@ author = "agent"
 
 [[workflows.workflow.tasks]]
 task = "workflow.run"
+args = "Create Tables"
+
+[[workflows.workflow.tasks]]
+task = "workflow.run"
 args = "Update Database"
 
 [[workflows.workflow.tasks]]
 task = "workflow.run"
 args = "Flask Server"
 
+[[workflows.workflow]]
+name = "Create Tables"
+author = "agent"
+
+[workflows.workflow.metadata]
+agentRequireRestartOnSave = false
+
 [[workflows.workflow.tasks]]
-task = "workflow.run"
-args = "Create Tables"
+task = "packager.installForAll"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "python create_tables.py"
 
 [[workflows.workflow]]
 name = "Update Database"
@@ -55,20 +69,6 @@ task = "packager.installForAll"
 task = "shell.exec"
 args = "python -u app.py"
 waitForPort = 5000
-
-[[workflows.workflow]]
-name = "Create Tables"
-author = "agent"
-
-[workflows.workflow.metadata]
-agentRequireRestartOnSave = false
-
-[[workflows.workflow.tasks]]
-task = "packager.installForAll"
-
-[[workflows.workflow.tasks]]
-task = "shell.exec"
-args = "python create_tables.py"
 
 [[ports]]
 localPort = 3000

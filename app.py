@@ -3,6 +3,7 @@ import logging
 import sys
 import psutil
 import signal
+import socket
 from flask import Flask
 from flask_login import LoginManager
 from sqlalchemy import text
@@ -10,7 +11,7 @@ from models import db
 
 # Configure logging
 logging.basicConfig(
-    level=logging.INFO,
+    level=logging.DEBUG,  # DEBUGレベルに変更
     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
     handlers=[
         logging.FileHandler("sake_app.log"),
@@ -20,6 +21,15 @@ logger = logging.getLogger(__name__)
 
 # Initialize login manager
 login_manager = LoginManager()
+
+def is_port_in_use(port):
+    """Check if a port is in use"""
+    with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
+        try:
+            s.bind(('0.0.0.0', port))
+            return False
+        except socket.error:
+            return True
 
 def kill_process_on_port(port):
     """Kill any process using the specified port"""
@@ -46,31 +56,30 @@ def create_app():
         # Configure database URL
         database_url = os.environ.get('DATABASE_URL')
         if not database_url:
-            logger.debug("No DATABASE_URL found, constructing from components...")
-            try:
-                database_url = (
-                    f"postgresql://{os.environ['PGUSER']}:{os.environ['PGPASSWORD']}"
-                    f"@{os.environ['PGHOST']}:{os.environ['PGPORT']}/{os.environ['PGDATABASE']}"
-                )
-                logger.info("Successfully constructed database URL")
-            except KeyError as e:
-                logger.error(f"Missing required environment variable: {e}")
-                raise ValueError(f"Missing required database configuration: {e}")
+            logger.error("No DATABASE_URL found in environment variables")
+            raise ValueError("DATABASE_URL is required")
 
-        # Handle Heroku-style postgres:// URLs
-        if database_url.startswith('postgres://'):
-            database_url = database_url.replace('postgres://', 'postgresql://', 1)
-            logger.info("Converted postgres:// URL to postgresql://")
+        # Debug log for configuration
+        logger.debug("Configuring Flask application...")
+        logger.debug(f"DATABASE_URL is set: {'yes' if database_url else 'no'}")
+
+        # Generate a fixed SECRET_KEY if not set
+        if not os.environ.get('SECRET_KEY'):
+            os.environ['SECRET_KEY'] = 'sake-review-dev-key-2024'
+            logger.info("Generated fixed SECRET_KEY for development")
+
+        logger.debug(f"SECRET_KEY is set: {'yes' if os.environ.get('SECRET_KEY') else 'no'}")
 
         # Configure Flask application
         app.config.update(
             SQLALCHEMY_DATABASE_URI=database_url,
             SQLALCHEMY_TRACK_MODIFICATIONS=False,
-            SECRET_KEY=os.environ.get('SECRET_KEY', os.urandom(24)),
+            SECRET_KEY=os.environ.get('SECRET_KEY'),
         )
         logger.info("Flask configuration completed")
 
-        # Initialize extensions
+        # Initialize extensions with debug logs
+        logger.debug("Initializing Flask extensions...")
         db.init_app(app)
         login_manager.init_app(app)
         login_manager.login_view = 'main.login'
@@ -78,6 +87,7 @@ def create_app():
 
         with app.app_context():
             # Import and configure user loader
+            logger.debug("Configuring user loader...")
             from models.user import User
 
             @login_manager.user_loader
@@ -89,12 +99,14 @@ def create_app():
                     return None
 
             # Import and register blueprints
+            logger.debug("Registering blueprints...")
             from routes import bp
             app.register_blueprint(bp)
             logger.info("Blueprints registered")
 
             # Verify database connection
             try:
+                logger.debug("Verifying database connection...")
                 db.session.execute(text('SELECT 1'))
                 logger.info("Database connection verified")
             except Exception as e:
@@ -109,13 +121,21 @@ def create_app():
 
 if __name__ == "__main__":
     try:
-        # Kill any process using port 5000
-        if kill_process_on_port(5000):
-            logger.info("Killed existing process on port 5000")
+        port = 5000
+        # Check if port is in use
+        if is_port_in_use(port):
+            logger.warning(f"Port {port} is already in use")
+            # Try to kill the process using the port
+            if kill_process_on_port(port):
+                logger.info(f"Successfully killed process using port {port}")
+            else:
+                logger.error(f"Failed to kill process using port {port}")
+                sys.exit(1)
 
         app = create_app()
         # ALWAYS serve the app on port 5000
-        app.run(host='0.0.0.0', port=5000, debug=True)
+        logger.info(f"Starting Flask application on port {port}")
+        app.run(host='0.0.0.0', port=port)  # デバッグモードを無効化
     except Exception as e:
         logger.error(f"Failed to start application: {str(e)}", exc_info=True)
         sys.exit(1)
