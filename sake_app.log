@@ -33205,3 +33205,12 @@ FROM sakes ORDER BY sakes.created_at DESC]
 2025-02-28 00:22:59,576 - __main__ - INFO - Database connection verified
 2025-02-28 00:22:59,839 - werkzeug - WARNING -  * Debugger is active!
 2025-02-28 00:22:59,840 - werkzeug - INFO -  * Debugger PIN: 652-790-170
+2025-02-28 00:29:38,172 - routes - ERROR - Error in index route: (psycopg2.OperationalError) SSL connection has been closed unexpectedly
+
+[SQL: SELECT sakes.id AS sakes_id, sakes.sakenowa_id AS sakes_sakenowa_id, sakes.name AS sakes_name, sakes.brewery_id AS sakes_brewery_id, sakes.created_at AS sakes_created_at, sakes.updated_at AS sakes_updated_at 
+FROM sakes ORDER BY sakes.created_at DESC]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+2025-02-28 00:29:38,195 - werkzeug - INFO - 172.31.128.21 - - [28/Feb/2025 00:29:38] "GET / HTTP/1.1" 200 -
+2025-02-28 00:29:38,842 - werkzeug - INFO - 172.31.128.21 - - [28/Feb/2025 00:29:38] "[36mGET /static/css/custom.css HTTP/1.1[0m" 304 -
+2025-02-28 00:29:38,853 - werkzeug - INFO - 172.31.128.21 - - [28/Feb/2025 00:29:38] "[36mGET /static/js/main.js HTTP/1.1[0m" 304 -
+2025-02-28 00:29:38,855 - werkzeug - INFO - 172.31.128.21 - - [28/Feb/2025 00:29:38] "[36mGET /static/images/sake2.jpg HTTP/1.1[0m" 304 -
