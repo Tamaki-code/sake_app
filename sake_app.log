@@ -34107,3 +34107,65 @@ DETAIL:  Key ("sakenowaId")=(13) already exists.
 2025-02-28 03:15:07,781 - __main__ - INFO - Japanese character encoding test: Passed
 2025-02-28 03:15:11,830 - __main__ - INFO - Database tables created successfully
 2025-02-28 03:15:22,568 - __main__ - INFO - Test region created successfully!
+2025-02-28 03:16:45,566 - routes - ERROR - Error in sake_detail route for ID 6817: (psycopg2.OperationalError) SSL connection has been closed unexpectedly
+
+[SQL: SELECT sakes.id AS sakes_id, sakes.sakenowa_id AS sakes_sakenowa_id, sakes.name AS sakes_name, sakes.brewery_id AS sakes_brewery_id, sakes.created_at AS sakes_created_at, sakes.updated_at AS sakes_updated_at 
+FROM sakes JOIN breweries ON breweries.id = sakes.brewery_id JOIN regions ON regions.id = breweries.region_id 
+WHERE sakes.id = %(id_1)s 
+ LIMIT %(param_1)s]
+[parameters: {'id_1': 6817, 'param_1': 1}]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+2025-02-28 03:16:45,566 - werkzeug - INFO - 172.31.128.25 - - [28/Feb/2025 03:16:45] "[32mGET /sake/6817 HTTP/1.1[0m" 302 -
+2025-02-28 03:16:47,843 - werkzeug - INFO - 172.31.128.25 - - [28/Feb/2025 03:16:47] "GET / HTTP/1.1" 200 -
+2025-02-28 03:16:48,138 - werkzeug - INFO - 172.31.128.25 - - [28/Feb/2025 03:16:48] "[36mGET /static/css/custom.css HTTP/1.1[0m" 304 -
+2025-02-28 03:16:48,193 - werkzeug - INFO - 172.31.128.25 - - [28/Feb/2025 03:16:48] "[36mGET /static/images/sake2.jpg HTTP/1.1[0m" 304 -
+2025-02-28 03:16:48,279 - werkzeug - INFO - 172.31.128.25 - - [28/Feb/2025 03:16:48] "[36mGET /static/js/main.js HTTP/1.1[0m" 304 -
+2025-02-28 03:16:48,371 - werkzeug - INFO - 172.31.128.25 - - [28/Feb/2025 03:16:48] "[36mGET /static/images/sakeImage.jpg HTTP/1.1[0m" 304 -
+2025-02-28 03:16:56,611 - routes - INFO - Received query: 山
+2025-02-28 03:16:58,769 - werkzeug - INFO - 172.31.128.25 - - [28/Feb/2025 03:16:58] "GET /search?q=山 HTTP/1.1" 200 -
+2025-02-28 03:16:59,041 - werkzeug - INFO - 172.31.128.25 - - [28/Feb/2025 03:16:59] "[36mGET /static/css/custom.css HTTP/1.1[0m" 304 -
+2025-02-28 03:16:59,043 - werkzeug - INFO - 172.31.128.25 - - [28/Feb/2025 03:16:59] "[36mGET /static/js/main.js HTTP/1.1[0m" 304 -
+2025-02-28 03:17:58,378 - app - INFO - Starting application creation...
+2025-02-28 03:17:58,380 - app - DEBUG - Configuring Flask application...
+2025-02-28 03:17:58,380 - app - DEBUG - DATABASE_URL is set: yes
+2025-02-28 03:17:58,380 - app - INFO - Generated fixed SECRET_KEY for development
+2025-02-28 03:17:58,380 - app - DEBUG - SECRET_KEY is set: yes
+2025-02-28 03:17:58,380 - app - INFO - Flask configuration completed
+2025-02-28 03:17:58,380 - app - DEBUG - Initializing Flask extensions...
+2025-02-28 03:17:58,429 - app - INFO - Flask extensions initialized
+2025-02-28 03:17:58,430 - app - DEBUG - Configuring user loader...
+2025-02-28 03:17:58,430 - app - DEBUG - Registering blueprints...
+2025-02-28 03:17:58,458 - app - INFO - Blueprints registered
+2025-02-28 03:17:58,458 - app - DEBUG - Verifying database connection...
+2025-02-28 03:17:59,411 - __main__ - INFO - Starting application creation...
+2025-02-28 03:17:59,412 - __main__ - DEBUG - Configuring Flask application...
+2025-02-28 03:17:59,412 - __main__ - DEBUG - DATABASE_URL is set: yes
+2025-02-28 03:17:59,412 - __main__ - INFO - Generated fixed SECRET_KEY for development
+2025-02-28 03:17:59,412 - __main__ - DEBUG - SECRET_KEY is set: yes
+2025-02-28 03:17:59,412 - __main__ - INFO - Flask configuration completed
+2025-02-28 03:17:59,412 - __main__ - DEBUG - Initializing Flask extensions...
+2025-02-28 03:17:59,446 - __main__ - INFO - Flask extensions initialized
+2025-02-28 03:17:59,446 - __main__ - DEBUG - Configuring user loader...
+2025-02-28 03:17:59,446 - __main__ - DEBUG - Registering blueprints...
+2025-02-28 03:17:59,470 - __main__ - INFO - Blueprints registered
+2025-02-28 03:17:59,471 - __main__ - DEBUG - Verifying database connection...
+2025-02-28 03:18:02,438 - app - INFO - Database connection verified
+2025-02-28 03:18:02,668 - __main__ - INFO - Verifying database encoding settings...
+2025-02-28 03:18:03,558 - __main__ - INFO - Database connection verified
+2025-02-28 03:18:03,588 - __main__ - INFO - Database Encoding Settings:
+2025-02-28 03:18:03,588 - __main__ - INFO - Client Encoding: UTF8
+2025-02-28 03:18:03,588 - __main__ - INFO - Server Encoding: UTF8
+2025-02-28 03:18:03,589 - __main__ - INFO - Database Collation: C.UTF-8
+2025-02-28 03:18:03,793 - __main__ - INFO - Starting Flask application on port 5000
+2025-02-28 03:18:03,804 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://172.31.128.25:5000
+2025-02-28 03:18:03,804 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-02-28 03:18:03,819 - __main__ - INFO - Japanese character encoding test: Passed
+2025-02-28 03:18:06,001 - werkzeug - INFO - 172.31.128.25 - - [28/Feb/2025 03:18:06] "GET / HTTP/1.1" 200 -
+2025-02-28 03:18:06,763 - werkzeug - INFO - 172.31.128.25 - - [28/Feb/2025 03:18:06] "[36mGET /static/js/main.js HTTP/1.1[0m" 304 -
+2025-02-28 03:18:06,816 - werkzeug - INFO - 172.31.128.25 - - [28/Feb/2025 03:18:06] "[36mGET /static/css/custom.css HTTP/1.1[0m" 304 -
+2025-02-28 03:18:06,926 - werkzeug - INFO - 172.31.128.25 - - [28/Feb/2025 03:18:06] "[36mGET /static/images/sake2.jpg HTTP/1.1[0m" 304 -
+2025-02-28 03:18:07,227 - werkzeug - INFO - 172.31.128.25 - - [28/Feb/2025 03:18:07] "[36mGET /static/images/sakeImage.jpg HTTP/1.1[0m" 304 -
+2025-02-28 03:18:07,863 - __main__ - INFO - Database tables created successfully

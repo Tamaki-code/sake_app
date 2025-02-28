@@ -182,9 +182,7 @@ def clear_database():
 def update_database():
     """Update database with Sakenowa API data"""
     try:
-        # Clear existing data
-        if not clear_database():
-            raise ValueError("Failed to clear existing data")
+        # Note: Removed clear_database() call to prevent data loss
 
         # Fetch data with validation
         areas = fetch_data("areas")
@@ -216,17 +214,22 @@ def update_database():
             for area in areas:
                 try:
                     area_id = str(area["id"])  # Convert to string
-                    region = Region(name=area["name"], sakenowa_id=area_id)
-                    db.session.add(region)
-                    regions_dict[area_id] = region
-                    logger.debug(f"Added region: {area_id} - {area['name']}")
+                    # Check if region already exists
+                    existing_region = Region.query.filter_by(sakenowa_id=area_id).first()
+                    if not existing_region:
+                        region = Region(name=area["name"], sakenowa_id=area_id)
+                        db.session.add(region)
+                        regions_dict[area_id] = region
+                        logger.debug(f"Added region: {area_id} - {area['name']}")
+                    else:
+                        regions_dict[area_id] = existing_region
                 except Exception as e:
                     logger.error(f"Error processing area {area}: {str(e)}")
                     continue
 
             # Force flush to ensure regions are created before referenced
             db.session.flush()
-            logger.info(f"Added {len(regions_dict)} regions")
+            logger.info(f"Processed {len(regions_dict)} regions")
 
             # Process breweries
             breweries_dict = {}
@@ -235,22 +238,27 @@ def update_database():
                     brewery_id = str(brewery["id"])  # Convert to string
                     area_id = str(brewery["areaId"])  # Convert to string
 
-                    if area_id in regions_dict:
-                        b = Brewery(name=brewery["name"],
-                                    sakenowa_brewery_id=brewery_id,
-                                    region_id=regions_dict[area_id].id)
-                        db.session.add(b)
-                        breweries_dict[brewery_id] = b
-                        logger.debug(f"Added brewery: {brewery_id} - {brewery['name']}")
+                    # Check if brewery already exists
+                    existing_brewery = Brewery.query.filter_by(sakenowa_brewery_id=brewery_id).first()
+                    if not existing_brewery:
+                        if area_id in regions_dict:
+                            b = Brewery(name=brewery["name"],
+                                        sakenowa_brewery_id=brewery_id,
+                                        region_id=regions_dict[area_id].id)
+                            db.session.add(b)
+                            breweries_dict[brewery_id] = b
+                            logger.debug(f"Added brewery: {brewery_id} - {brewery['name']}")
+                        else:
+                            logger.warning(f"Region {area_id} not found for brewery {brewery['name']}")
                     else:
-                        logger.warning(f"Region {area_id} not found for brewery {brewery['name']}")
+                        breweries_dict[brewery_id] = existing_brewery
                 except Exception as e:
                     logger.error(f"Error processing brewery {brewery.get('name', 'unknown')}: {str(e)}")
                     continue
 
             # Force flush to ensure breweries are created before referenced
             db.session.flush()
-            logger.info(f"Added {len(breweries_dict)} breweries")
+            logger.info(f"Processed {len(breweries_dict)} breweries")
 
             # Process sakes
             sake_dict = {}
@@ -260,19 +268,24 @@ def update_database():
                     brand_id = str(brand["id"])  # Convert to string
                     brewery_id = str(brand["breweryId"])  # Convert to string
 
-                    if brewery_id in breweries_dict:
-                        sake = Sake(name=brand["name"],
-                                    sakenowa_id=brand_id,
-                                    brewery_id=breweries_dict[brewery_id].id)
-                        db.session.add(sake)
-                        sake_dict[brand_id] = sake
-                        sake_count += 1
+                    # Check if sake already exists
+                    existing_sake = Sake.query.filter_by(sakenowa_id=brand_id).first()
+                    if not existing_sake:
+                        if brewery_id in breweries_dict:
+                            sake = Sake(name=brand["name"],
+                                        sakenowa_id=brand_id,
+                                        brewery_id=breweries_dict[brewery_id].id)
+                            db.session.add(sake)
+                            sake_dict[brand_id] = sake
+                            sake_count += 1
 
-                        if sake_count % 100 == 0:
-                            logger.info(f"Processed {sake_count} sakes")
-                            db.session.flush()
+                            if sake_count % 100 == 0:
+                                logger.info(f"Processed {sake_count} sakes")
+                                db.session.flush()
+                        else:
+                            logger.warning(f"Brewery {brewery_id} not found for sake {brand['name']}")
                     else:
-                        logger.warning(f"Brewery {brewery_id} not found for sake {brand['name']}")
+                        sake_dict[brand_id] = existing_sake
                 except Exception as e:
                     logger.error(f"Error processing sake {brand.get('name', 'unknown')}: {str(e)}")
                     continue
