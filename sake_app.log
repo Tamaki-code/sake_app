@@ -33694,3 +33694,57 @@ ValueError: invalid attr name 'connections'
 2025-02-28 01:15:40,884 - werkzeug - INFO - 172.31.128.21 - - [28/Feb/2025 01:15:40] "GET /search?q=山 HTTP/1.1" 200 -
 2025-02-28 01:15:41,581 - werkzeug - INFO - 172.31.128.21 - - [28/Feb/2025 01:15:41] "[36mGET /static/css/custom.css HTTP/1.1[0m" 304 -
 2025-02-28 01:15:41,653 - werkzeug - INFO - 172.31.128.21 - - [28/Feb/2025 01:15:41] "[36mGET /static/js/main.js HTTP/1.1[0m" 304 -
+2025-02-28 02:26:19,449 - app - INFO - Starting application creation...
+2025-02-28 02:26:19,451 - app - DEBUG - Configuring Flask application...
+2025-02-28 02:26:19,451 - app - DEBUG - DATABASE_URL is set: yes
+2025-02-28 02:26:19,451 - app - INFO - Generated fixed SECRET_KEY for development
+2025-02-28 02:26:19,451 - app - DEBUG - SECRET_KEY is set: yes
+2025-02-28 02:26:19,451 - app - INFO - Flask configuration completed
+2025-02-28 02:26:19,451 - app - DEBUG - Initializing Flask extensions...
+2025-02-28 02:26:19,500 - app - INFO - Flask extensions initialized
+2025-02-28 02:26:19,500 - app - DEBUG - Configuring user loader...
+2025-02-28 02:26:19,500 - app - DEBUG - Registering blueprints...
+2025-02-28 02:26:19,532 - app - INFO - Blueprints registered
+2025-02-28 02:26:19,533 - app - DEBUG - Verifying database connection...
+2025-02-28 02:26:23,531 - app - INFO - Database connection verified
+2025-02-28 02:26:23,762 - __main__ - INFO - Verifying database encoding settings...
+2025-02-28 02:26:24,700 - __main__ - INFO - Database Encoding Settings:
+2025-02-28 02:26:24,700 - __main__ - INFO - Client Encoding: UTF8
+2025-02-28 02:26:24,700 - __main__ - INFO - Server Encoding: UTF8
+2025-02-28 02:26:24,700 - __main__ - INFO - Database Collation: C.UTF-8
+2025-02-28 02:26:24,934 - __main__ - INFO - Japanese character encoding test: Passed
+2025-02-28 02:26:28,984 - __main__ - INFO - Database tables created successfully
+2025-02-28 02:34:36,846 - __main__ - INFO - Starting application creation...
+2025-02-28 02:34:36,847 - __main__ - DEBUG - Configuring Flask application...
+2025-02-28 02:34:36,847 - __main__ - DEBUG - DATABASE_URL is set: yes
+2025-02-28 02:34:36,847 - __main__ - INFO - Generated fixed SECRET_KEY for development
+2025-02-28 02:34:36,847 - __main__ - DEBUG - SECRET_KEY is set: yes
+2025-02-28 02:34:36,847 - __main__ - INFO - Flask configuration completed
+2025-02-28 02:34:36,847 - __main__ - DEBUG - Initializing Flask extensions...
+2025-02-28 02:34:36,882 - __main__ - INFO - Flask extensions initialized
+2025-02-28 02:34:36,882 - __main__ - DEBUG - Configuring user loader...
+2025-02-28 02:34:36,882 - __main__ - DEBUG - Registering blueprints...
+2025-02-28 02:34:36,909 - __main__ - INFO - Blueprints registered
+2025-02-28 02:34:36,909 - __main__ - DEBUG - Verifying database connection...
+2025-02-28 02:34:41,600 - __main__ - INFO - Database connection verified
+2025-02-28 02:34:41,831 - __main__ - INFO - Starting Flask application on port 5000
+2025-02-28 02:34:41,841 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://172.31.128.25:5000
+2025-02-28 02:34:41,842 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-02-28 02:34:44,723 - werkzeug - INFO - 172.31.128.25 - - [28/Feb/2025 02:34:44] "GET / HTTP/1.1" 200 -
+2025-02-28 02:34:45,303 - werkzeug - INFO - 172.31.128.25 - - [28/Feb/2025 02:34:45] "[36mGET /static/css/custom.css HTTP/1.1[0m" 304 -
+2025-02-28 02:34:45,333 - werkzeug - INFO - 172.31.128.25 - - [28/Feb/2025 02:34:45] "[36mGET /static/images/sake2.jpg HTTP/1.1[0m" 304 -
+2025-02-28 02:34:45,448 - werkzeug - INFO - 172.31.128.25 - - [28/Feb/2025 02:34:45] "[36mGET /static/js/main.js HTTP/1.1[0m" 304 -
+2025-02-28 02:34:45,830 - werkzeug - INFO - 172.31.128.25 - - [28/Feb/2025 02:34:45] "GET / HTTP/1.1" 200 -
+2025-02-28 02:34:46,061 - werkzeug - INFO - 172.31.128.25 - - [28/Feb/2025 02:34:46] "[36mGET /static/css/custom.css HTTP/1.1[0m" 304 -
+2025-02-28 02:34:46,640 - werkzeug - INFO - 172.31.128.25 - - [28/Feb/2025 02:34:46] "GET / HTTP/1.1" 200 -
+2025-02-28 02:34:46,663 - werkzeug - INFO - 172.31.128.25 - - [28/Feb/2025 02:34:46] "GET /static/css/custom.css HTTP/1.1" 200 -
+2025-02-28 02:34:46,671 - werkzeug - INFO - 172.31.128.25 - - [28/Feb/2025 02:34:46] "[36mGET /static/images/sake2.jpg HTTP/1.1[0m" 304 -
+2025-02-28 02:34:46,681 - werkzeug - INFO - 172.31.128.25 - - [28/Feb/2025 02:34:46] "GET /static/images/sake2.jpg HTTP/1.1" 200 -
+2025-02-28 02:34:46,686 - werkzeug - INFO - 172.31.128.25 - - [28/Feb/2025 02:34:46] "GET /static/js/main.js HTTP/1.1" 200 -
+2025-02-28 02:34:46,866 - werkzeug - INFO - 172.31.128.25 - - [28/Feb/2025 02:34:46] "[36mGET /static/images/sakeImage.jpg HTTP/1.1[0m" 304 -
+2025-02-28 02:34:47,142 - werkzeug - INFO - 172.31.128.25 - - [28/Feb/2025 02:34:47] "[36mGET /static/js/main.js HTTP/1.1[0m" 304 -
+2025-02-28 02:34:47,486 - werkzeug - INFO - 172.31.128.25 - - [28/Feb/2025 02:34:47] "[36mGET /static/images/sakeImage.jpg HTTP/1.1[0m" 304 -
+2025-02-28 02:34:47,673 - werkzeug - INFO - 172.31.128.25 - - [28/Feb/2025 02:34:47] "GET /static/images/sakeImage.jpg HTTP/1.1" 200 -

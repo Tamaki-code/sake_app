@@ -35,37 +35,52 @@ def fetch_data(endpoint):
 
         response = requests.get(
             url,
-            headers={'Accept-Charset': 'utf-8'},
+            headers={'Accept': 'application/json'},
             timeout=60
         )
         response.raise_for_status()
+
+        # Log the raw response for debugging
+        logger.debug(f"Raw response content: {response.text[:1000]}")
+
         data = response.json()
 
-        # Detailed logging of response structure
-        logger.debug(f"Response headers: {dict(response.headers)}")
-        logger.debug(f"Response data structure: {list(data.keys())}")
-        logger.debug(f"Sample of response data: {str(data)[:500]}")
+        # Log the complete structure of the response
+        logger.debug(f"Complete response structure: {data.keys()}")
 
         # Extract data based on endpoint
         if endpoint == "areas":
             items = data.get("areas", [])
+            logger.info(f"Received {len(items)} areas")
             if items:
-                logger.debug(f"Sample area: {items[0]}")
+                logger.debug(f"First area sample: {items[0]}")
+                logger.debug(f"Last area sample: {items[-1]}")
         elif endpoint == "breweries":
             items = data.get("breweries", [])
+            logger.info(f"Received {len(items)} breweries")
             if items:
-                logger.debug(f"Sample brewery: {items[0]}")
+                logger.debug(f"First brewery sample: {items[0]}")
+                logger.debug(f"Last brewery sample: {items[-1]}")
         elif endpoint == "brands":
             items = data.get("brands", [])
+            logger.info(f"Received {len(items)} brands")
             if items:
-                logger.debug(f"Sample brand: {items[0]}")
+                logger.debug(f"First brand sample: {items[0]}")
+                logger.debug(f"Last brand sample: {items[-1]}")
         else:
             items = []
+            logger.warning(f"Unknown endpoint: {endpoint}")
 
         return items
 
+    except requests.exceptions.RequestException as e:
+        logger.error(f"HTTP Request failed for {endpoint}: {str(e)}", exc_info=True)
+        return []
+    except ValueError as e:
+        logger.error(f"JSON parsing failed for {endpoint}: {str(e)}", exc_info=True)
+        return []
     except Exception as e:
-        logger.error(f"Error fetching data from {endpoint}: {str(e)}", exc_info=True)
+        logger.error(f"Unexpected error fetching data from {endpoint}: {str(e)}", exc_info=True)
         return []
 
 def clear_database():
@@ -115,7 +130,7 @@ def update_database():
             regions_dict = {}
             for area in areas:
                 try:
-                    area_id = str(int(area["id"]))
+                    area_id = area["id"]  # Keep as integer
                     region = Region(
                         name=area["name"],
                         sakenowa_id=area_id
@@ -127,14 +142,16 @@ def update_database():
                     logger.error(f"Error processing area {area}: {str(e)}")
                     continue
 
+            # Force flush to ensure regions are created before referenced
+            db.session.flush()
             logger.info(f"Added {len(regions_dict)} regions")
 
             # Process breweries
             breweries_dict = {}
             for brewery in breweries:
                 try:
-                    brewery_id = str(int(brewery["id"]))
-                    area_id = str(int(brewery["areaId"]))
+                    brewery_id = brewery["id"]  # Keep as integer
+                    area_id = brewery["areaId"]  # Keep as integer
 
                     if area_id in regions_dict:
                         b = Brewery(
@@ -151,14 +168,16 @@ def update_database():
                     logger.error(f"Error processing brewery {brewery.get('name', 'unknown')}: {str(e)}")
                     continue
 
+            # Force flush to ensure breweries are created before referenced
+            db.session.flush()
             logger.info(f"Added {len(breweries_dict)} breweries")
 
             # Process sakes
             sake_count = 0
             for brand in brands:
                 try:
-                    brand_id = str(int(brand["id"]))
-                    brewery_id = str(int(brand["breweryId"]))
+                    brand_id = brand["id"]  # Keep as integer
+                    brewery_id = brand["breweryId"]  # Keep as integer
 
                     if brewery_id in breweries_dict:
                         sake = Sake(
@@ -171,6 +190,8 @@ def update_database():
 
                         if sake_count % 100 == 0:
                             logger.info(f"Processed {sake_count} sakes")
+                            # Periodically flush to avoid memory issues with large datasets
+                            db.session.flush()
                     else:
                         logger.warning(f"Brewery {brewery_id} not found for sake {brand['name']}")
                 except Exception as e:
