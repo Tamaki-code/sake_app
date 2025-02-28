@@ -67,6 +67,20 @@ def fetch_data(endpoint):
             if items:
                 logger.debug(f"First brand sample: {items[0]}")
                 logger.debug(f"Last brand sample: {items[-1]}")
+        elif endpoint == "ranking":  # エンドポイントを"ranking"に修正
+            logger.debug(f"Complete ranking response: {data}")  # ランキングデータの完全な構造をログ出力
+            items = []
+            if isinstance(data, dict):
+                items = data.get("ranking", [])
+            elif isinstance(data, list):
+                items = data
+            logger.info(f"Received {len(items)} rankings")
+            if items:
+                logger.debug(f"First ranking sample: {items[0]}")
+                logger.debug(f"Last ranking sample: {items[-1]}")
+                # ランキングデータの構造を詳しく確認
+                for key in items[0].keys():
+                    logger.debug(f"Ranking data key: {key}")
         else:
             items = []
             logger.warning(f"Unknown endpoint: {endpoint}")
@@ -124,6 +138,14 @@ def update_database():
             raise ValueError("No brands data received")
         logger.info(f"Fetched {len(brands)} brands")
 
+        rankings = fetch_data("ranking")  # エンドポイントを"ranking"に修正
+        if not rankings:
+            logger.warning("No rankings data received")
+        else:
+            logger.info(f"Fetched {len(rankings)} rankings")
+            # ランキングデータの詳細をログ出力
+            logger.debug(f"Sample ranking data structure: {rankings[0] if rankings else 'No data'}")
+
         # Process data within a transaction
         with db.session.begin():
             # Process regions
@@ -173,6 +195,7 @@ def update_database():
             logger.info(f"Added {len(breweries_dict)} breweries")
 
             # Process sakes
+            sake_dict = {}
             sake_count = 0
             for brand in brands:
                 try:
@@ -186,6 +209,7 @@ def update_database():
                             brewery_id=breweries_dict[brewery_id].id
                         )
                         db.session.add(sake)
+                        sake_dict[brand_id] = sake
                         sake_count += 1
 
                         if sake_count % 100 == 0:
@@ -198,14 +222,42 @@ def update_database():
                     logger.error(f"Error processing sake {brand.get('name', 'unknown')}: {str(e)}")
                     continue
 
-            logger.info(f"Added {sake_count} sakes")
+            # Process rankings if available
+            ranking_count = 0
+            if rankings:
+                for rank_data in rankings:
+                    try:
+                        # ランキングデータの詳細をログ出力
+                        logger.debug(f"Processing ranking data: {rank_data}")
+                        brand_id = rank_data["brandId"]
+                        if brand_id in sake_dict:
+                            ranking = Ranking(
+                                sake_id=sake_dict[brand_id].id,
+                                rank=rank_data.get("rank"),
+                                category=rank_data.get("type"),  # rank_type を category として保存
+                                created_at=datetime.utcnow()
+                            )
+                            db.session.add(ranking)
+                            ranking_count += 1
 
-        # Verify final counts
-        logger.info("Database update completed")
-        logger.info(f"Final counts:")
-        logger.info(f"Regions: {Region.query.count()}")
-        logger.info(f"Breweries: {Brewery.query.count()}")
-        logger.info(f"Sakes: {Sake.query.count()}")
+                            if ranking_count % 100 == 0:
+                                logger.info(f"Processed {ranking_count} rankings")
+                                db.session.flush()
+                        else:
+                            logger.warning(f"Sake not found for brand_id {brand_id} in ranking")
+                    except Exception as e:
+                        logger.error(f"Error processing ranking for brand {brand_id}: {str(e)}")
+                        continue
+
+            logger.info(f"Added {ranking_count} rankings")
+
+            # Verify final counts
+            logger.info("Database update completed")
+            logger.info(f"Final counts:")
+            logger.info(f"Regions: {Region.query.count()}")
+            logger.info(f"Breweries: {Brewery.query.count()}")
+            logger.info(f"Sakes: {Sake.query.count()}")
+            logger.info(f"Rankings: {Ranking.query.count()}")
 
         return True
 
