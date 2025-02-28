@@ -15,9 +15,11 @@ from .user import User
 from .review import Review
 from .flavor_chart import FlavorChart
 from .flavor_tag import FlavorTag
+from .ranking import Ranking
+from .brand_flavor_tag import BrandFlavorTag
 
 # Export database instance and models
 __all__ = [
     'db', 'Sake', 'Brewery', 'Region', 'User', 'Review', 'FlavorChart',
-    'FlavorTag'
+    'FlavorTag', 'Ranking', 'BrandFlavorTag'
 ]
