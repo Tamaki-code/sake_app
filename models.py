@@ -15,6 +15,7 @@ from models.sake import Sake
 from models.review import Review
 from models.flavor_chart import FlavorChart
 from models.flavor_tag import FlavorTag
+from models.ranking import Ranking
 
 # Export all models
-__all__ = ['db', 'User', 'Region', 'Brewery', 'Sake', 'Review', 'FlavorChart', 'FlavorTag']
+__all__ = ['db', 'User', 'Region', 'Brewery', 'Sake', 'Review', 'FlavorChart', 'FlavorTag', 'Ranking']

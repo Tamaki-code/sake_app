@@ -7,6 +7,7 @@ import os
 import socket
 import signal
 import psutil
+from models import db, Ranking  # Rankingモデルを追加
 
 # Configure logging
 logging.basicConfig(
@@ -50,6 +51,11 @@ def check_database():
         # Test database connection using SQLAlchemy with proper text() wrapper
         result = db.session.execute(text('SELECT 1'))
         result.scalar()
+
+        # Check if rankings table exists and has data
+        ranking_count = db.session.query(Ranking).count()
+        logger.info(f"Found {ranking_count} rankings in database")
+
         logger.info("Database connection successful")
         return True
     except Exception as e:
