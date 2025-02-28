@@ -6,6 +6,7 @@ class Ranking(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     sake_id = db.Column(db.Integer, db.ForeignKey('sakes.id'), nullable=False)
     rank = db.Column(db.Integer, nullable=False)
+    score = db.Column(db.Float, nullable=False)  # スコアフィールドを追加
     category = db.Column(db.String(50), nullable=False)  # 'total', 'monthly', etc
     created_at = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
     updated_at = db.Column(db.DateTime, nullable=False, default=datetime.utcnow, onupdate=datetime.utcnow)
