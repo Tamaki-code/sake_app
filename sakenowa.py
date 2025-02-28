@@ -28,8 +28,8 @@ def fetch_data(endpoint):
     try:
         logger.info(f"Fetching data from {SAKENOWA_API_BASE}/{endpoint}")
         response = requests.get(f"{SAKENOWA_API_BASE}/{endpoint}",
-                              headers={'Accept-Charset': 'utf-8'},
-                              timeout=60)
+                             headers={'Accept-Charset': 'utf-8'},
+                             timeout=60)
         response.raise_for_status()
         data = response.json()
 
@@ -41,9 +41,12 @@ def fetch_data(endpoint):
             all_rankings = []
             if isinstance(data, list):
                 all_rankings = data
+            elif isinstance(data, dict) and "totalRanking" in data:
+                # totalRankingがある場合はそれを使用
+                all_rankings = data["totalRanking"]
             elif isinstance(data, dict):
                 # 地域ごとのランキングを処理
-                for area in data:
+                for area in data.values():
                     if isinstance(area, dict) and "ranking" in area:
                         area_rankings = area["ranking"]
                         for rank in area_rankings:
@@ -100,9 +103,9 @@ def update_rankings():
                 brand_id = str(rank_data.get("brandId", "")).strip()
                 logger.info(f"Processing ranking for brand ID: {brand_id}")
 
-                # Case-insensitive brandId matching
+                # 完全一致で検索
                 sake = Sake.query.filter(
-                    Sake.sakenowa_id.ilike(brand_id)
+                    Sake.sakenowa_id == brand_id
                 ).first()
 
                 if sake:
