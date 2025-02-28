@@ -33868,3 +33868,70 @@ DETAIL:  Key ("sakenowaId")=(13) already exists.
 2025-02-28 02:46:29,913 - __main__ - INFO - Japanese character encoding test: Passed
 2025-02-28 02:46:33,937 - __main__ - INFO - Database tables created successfully
 2025-02-28 02:46:34,894 - __main__ - INFO - Test region created successfully!
+2025-02-28 03:02:47,619 - app - INFO - Starting application creation...
+2025-02-28 03:02:47,621 - app - DEBUG - Configuring Flask application...
+2025-02-28 03:02:47,621 - app - DEBUG - DATABASE_URL is set: yes
+2025-02-28 03:02:47,621 - app - INFO - Generated fixed SECRET_KEY for development
+2025-02-28 03:02:47,621 - app - DEBUG - SECRET_KEY is set: yes
+2025-02-28 03:02:47,621 - app - INFO - Flask configuration completed
+2025-02-28 03:02:47,621 - app - DEBUG - Initializing Flask extensions...
+2025-02-28 03:02:47,667 - app - INFO - Flask extensions initialized
+2025-02-28 03:02:47,668 - app - DEBUG - Configuring user loader...
+2025-02-28 03:02:47,668 - app - DEBUG - Registering blueprints...
+2025-02-28 03:02:47,700 - app - INFO - Blueprints registered
+2025-02-28 03:02:47,700 - app - DEBUG - Verifying database connection...
+2025-02-28 03:02:52,376 - app - INFO - Database connection verified
+2025-02-28 03:02:52,608 - __main__ - INFO - Verifying database encoding settings...
+2025-02-28 03:02:53,541 - __main__ - INFO - Database Encoding Settings:
+2025-02-28 03:02:53,541 - __main__ - INFO - Client Encoding: UTF8
+2025-02-28 03:02:53,541 - __main__ - INFO - Server Encoding: UTF8
+2025-02-28 03:02:53,541 - __main__ - INFO - Database Collation: C.UTF-8
+2025-02-28 03:02:53,776 - __main__ - INFO - Japanese character encoding test: Passed
+2025-02-28 03:02:57,861 - __main__ - INFO - Database tables created successfully
+2025-02-28 03:03:10,672 - __main__ - ERROR - Error initializing database: (psycopg2.errors.UniqueViolation) duplicate key value violates unique constraint "regions_sakenowaId_key"
+DETAIL:  Key ("sakenowaId")=(13) already exists.
+
+[SQL: INSERT INTO regions (name, "sakenowaId", created_at, updated_at) VALUES (%(name)s, %(sakenowaId)s, %(created_at)s, %(updated_at)s) RETURNING regions.id]
+[parameters: {'name': '東京都', 'sakenowaId': '13', 'created_at': datetime.datetime(2025, 2, 28, 3, 2, 58, 367345), 'updated_at': datetime.datetime(2025, 2, 28, 3, 2, 58, 367349)}]
+(Background on this error at: https://sqlalche.me/e/20/gkpj)
+2025-02-28 03:03:31,465 - app - INFO - Starting application creation...
+2025-02-28 03:03:31,466 - app - DEBUG - Configuring Flask application...
+2025-02-28 03:03:31,466 - app - DEBUG - DATABASE_URL is set: yes
+2025-02-28 03:03:31,466 - app - INFO - Generated fixed SECRET_KEY for development
+2025-02-28 03:03:31,467 - app - DEBUG - SECRET_KEY is set: yes
+2025-02-28 03:03:31,467 - app - INFO - Flask configuration completed
+2025-02-28 03:03:31,467 - app - DEBUG - Initializing Flask extensions...
+2025-02-28 03:03:31,515 - app - INFO - Flask extensions initialized
+2025-02-28 03:03:31,515 - app - DEBUG - Configuring user loader...
+2025-02-28 03:03:31,515 - app - DEBUG - Registering blueprints...
+2025-02-28 03:03:31,546 - app - INFO - Blueprints registered
+2025-02-28 03:03:31,547 - app - DEBUG - Verifying database connection...
+2025-02-28 03:03:35,563 - app - INFO - Database connection verified
+2025-02-28 03:03:35,795 - __main__ - INFO - Verifying database encoding settings...
+2025-02-28 03:03:36,722 - __main__ - INFO - Database Encoding Settings:
+2025-02-28 03:03:36,722 - __main__ - INFO - Client Encoding: UTF8
+2025-02-28 03:03:36,722 - __main__ - INFO - Server Encoding: UTF8
+2025-02-28 03:03:36,722 - __main__ - INFO - Database Collation: C.UTF-8
+2025-02-28 03:03:36,955 - __main__ - INFO - Japanese character encoding test: Passed
+2025-02-28 03:03:40,992 - __main__ - INFO - Database tables created successfully
+2025-02-28 03:03:41,947 - __main__ - INFO - Test region created successfully!
+2025-02-28 03:04:15,362 - app - INFO - Starting application creation...
+2025-02-28 03:04:15,364 - app - DEBUG - Configuring Flask application...
+2025-02-28 03:04:15,364 - app - DEBUG - DATABASE_URL is set: yes
+2025-02-28 03:04:15,364 - app - INFO - Generated fixed SECRET_KEY for development
+2025-02-28 03:04:15,364 - app - DEBUG - SECRET_KEY is set: yes
+2025-02-28 03:04:15,365 - app - INFO - Flask configuration completed
+2025-02-28 03:04:15,365 - app - DEBUG - Initializing Flask extensions...
+2025-02-28 03:04:15,418 - app - INFO - Flask extensions initialized
+2025-02-28 03:04:15,418 - app - DEBUG - Configuring user loader...
+2025-02-28 03:04:15,418 - app - DEBUG - Registering blueprints...
+2025-02-28 03:04:15,452 - app - INFO - Blueprints registered
+2025-02-28 03:04:15,452 - app - DEBUG - Verifying database connection...
+2025-02-28 03:04:19,407 - app - INFO - Database connection verified
+2025-02-28 03:04:19,635 - __main__ - INFO - Verifying database encoding settings...
+2025-02-28 03:04:20,548 - __main__ - INFO - Database Encoding Settings:
+2025-02-28 03:04:20,548 - __main__ - INFO - Client Encoding: UTF8
+2025-02-28 03:04:20,548 - __main__ - INFO - Server Encoding: UTF8
+2025-02-28 03:04:20,548 - __main__ - INFO - Database Collation: C.UTF-8
+2025-02-28 03:04:20,777 - __main__ - INFO - Japanese character encoding test: Passed
+2025-02-28 03:04:24,823 - __main__ - INFO - Database tables created successfully

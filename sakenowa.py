@@ -14,6 +14,7 @@ from models.brand_flavor_tag import BrandFlavorTag
 
 SAKENOWA_API_BASE = "https://muro.sakenowa.com/sakenowa-data/api"
 
+
 def configure_logging():
     """Configure logging for Sakenowa API integration"""
     logging.basicConfig(
@@ -25,7 +26,9 @@ def configure_logging():
         ])
     return logging.getLogger(__name__)
 
+
 logger = configure_logging()
+
 
 def fetch_data(endpoint):
     """Fetch data from Sakenowa API"""
@@ -33,11 +36,9 @@ def fetch_data(endpoint):
         url = f"{SAKENOWA_API_BASE}/{endpoint}"
         logger.info(f"Fetching data from {url}")
 
-        response = requests.get(
-            url,
-            headers={'Accept': 'application/json'},
-            timeout=60
-        )
+        response = requests.get(url,
+                                headers={'Accept': 'application/json'},
+                                timeout=60)
         response.raise_for_status()
 
         # Log the raw response for debugging
@@ -67,11 +68,16 @@ def fetch_data(endpoint):
             if items:
                 logger.debug(f"First brand sample: {items[0]}")
                 logger.debug(f"Last brand sample: {items[-1]}")
-        elif endpoint == "ranking":  # エンドポイントを"ranking"に修正
-            logger.debug(f"Complete ranking response: {data}")  # ランキングデータの完全な構造をログ出力
+        elif endpoint == "ranking":
+            logger.debug(f"Complete ranking response: {data}")
             items = []
             if isinstance(data, dict):
-                items = data.get("ranking", [])
+                items = data.get("overall", [])
+                if not items:  # overallキーが存在しないか空の場合
+                    items = []
+                    for key, value in data.items():
+                        if isinstance(value, list):
+                            items.extend(value)
             elif isinstance(data, list):
                 items = data
             logger.info(f"Received {len(items)} rankings")
@@ -81,6 +87,8 @@ def fetch_data(endpoint):
                 # ランキングデータの構造を詳しく確認
                 for key in items[0].keys():
                     logger.debug(f"Ranking data key: {key}")
+            else:
+                logger.warning("No ranking items found in response")
         else:
             items = []
             logger.warning(f"Unknown endpoint: {endpoint}")
@@ -88,14 +96,19 @@ def fetch_data(endpoint):
         return items
 
     except requests.exceptions.RequestException as e:
-        logger.error(f"HTTP Request failed for {endpoint}: {str(e)}", exc_info=True)
+        logger.error(f"HTTP Request failed for {endpoint}: {str(e)}",
+                     exc_info=True)
         return []
     except ValueError as e:
-        logger.error(f"JSON parsing failed for {endpoint}: {str(e)}", exc_info=True)
+        logger.error(f"JSON parsing failed for {endpoint}: {str(e)}",
+                     exc_info=True)
         return []
     except Exception as e:
-        logger.error(f"Unexpected error fetching data from {endpoint}: {str(e)}", exc_info=True)
+        logger.error(
+            f"Unexpected error fetching data from {endpoint}: {str(e)}",
+            exc_info=True)
         return []
+
 
 def clear_database():
     """Clear all data from the database"""
@@ -114,6 +127,7 @@ def clear_database():
     except Exception as e:
         logger.error(f"Error clearing database: {str(e)}", exc_info=True)
         return False
+
 
 def update_database():
     """Update database with Sakenowa API data"""
@@ -144,7 +158,9 @@ def update_database():
         else:
             logger.info(f"Fetched {len(rankings)} rankings")
             # ランキングデータの詳細をログ出力
-            logger.debug(f"Sample ranking data structure: {rankings[0] if rankings else 'No data'}")
+            logger.debug(
+                f"Sample ranking data structure: {rankings[0] if rankings else 'No data'}"
+            )
 
         # Process data within a transaction
         with db.session.begin():
@@ -153,10 +169,7 @@ def update_database():
             for area in areas:
                 try:
                     area_id = area["id"]  # Keep as integer
-                    region = Region(
-                        name=area["name"],
-                        sakenowa_id=area_id
-                    )
+                    region = Region(name=area["name"], sakenowa_id=area_id)
                     db.session.add(region)
                     regions_dict[area_id] = region
                     logger.debug(f"Added region: {area_id} - {area['name']}")
@@ -176,18 +189,21 @@ def update_database():
                     area_id = brewery["areaId"]  # Keep as integer
 
                     if area_id in regions_dict:
-                        b = Brewery(
-                            name=brewery["name"],
-                            sakenowa_brewery_id=brewery_id,
-                            region_id=regions_dict[area_id].id
-                        )
+                        b = Brewery(name=brewery["name"],
+                                    sakenowa_brewery_id=brewery_id,
+                                    region_id=regions_dict[area_id].id)
                         db.session.add(b)
                         breweries_dict[brewery_id] = b
-                        logger.debug(f"Added brewery: {brewery_id} - {brewery['name']}")
+                        logger.debug(
+                            f"Added brewery: {brewery_id} - {brewery['name']}")
                     else:
-                        logger.warning(f"Region {area_id} not found for brewery {brewery['name']}")
+                        logger.warning(
+                            f"Region {area_id} not found for brewery {brewery['name']}"
+                        )
                 except Exception as e:
-                    logger.error(f"Error processing brewery {brewery.get('name', 'unknown')}: {str(e)}")
+                    logger.error(
+                        f"Error processing brewery {brewery.get('name', 'unknown')}: {str(e)}"
+                    )
                     continue
 
             # Force flush to ensure breweries are created before referenced
@@ -203,11 +219,9 @@ def update_database():
                     brewery_id = brand["breweryId"]  # Keep as integer
 
                     if brewery_id in breweries_dict:
-                        sake = Sake(
-                            name=brand["name"],
-                            sakenowa_id=brand_id,
-                            brewery_id=breweries_dict[brewery_id].id
-                        )
+                        sake = Sake(name=brand["name"],
+                                    sakenowa_id=brand_id,
+                                    brewery_id=breweries_dict[brewery_id].id)
                         db.session.add(sake)
                         sake_dict[brand_id] = sake
                         sake_count += 1
@@ -217,9 +231,13 @@ def update_database():
                             # Periodically flush to avoid memory issues with large datasets
                             db.session.flush()
                     else:
-                        logger.warning(f"Brewery {brewery_id} not found for sake {brand['name']}")
+                        logger.warning(
+                            f"Brewery {brewery_id} not found for sake {brand['name']}"
+                        )
                 except Exception as e:
-                    logger.error(f"Error processing sake {brand.get('name', 'unknown')}: {str(e)}")
+                    logger.error(
+                        f"Error processing sake {brand.get('name', 'unknown')}: {str(e)}"
+                    )
                     continue
 
             # Process rankings if available
@@ -234,19 +252,24 @@ def update_database():
                             ranking = Ranking(
                                 sake_id=sake_dict[brand_id].id,
                                 rank=rank_data.get("rank"),
-                                category=rank_data.get("type"),  # rank_type を category として保存
-                                created_at=datetime.utcnow()
-                            )
+                                category=rank_data.get(
+                                    "type"),  # rank_type を category として保存
+                                created_at=datetime.utcnow())
                             db.session.add(ranking)
                             ranking_count += 1
 
                             if ranking_count % 100 == 0:
-                                logger.info(f"Processed {ranking_count} rankings")
+                                logger.info(
+                                    f"Processed {ranking_count} rankings")
                                 db.session.flush()
                         else:
-                            logger.warning(f"Sake not found for brand_id {brand_id} in ranking")
+                            logger.warning(
+                                f"Sake not found for brand_id {brand_id} in ranking"
+                            )
                     except Exception as e:
-                        logger.error(f"Error processing ranking for brand {brand_id}: {str(e)}")
+                        logger.error(
+                            f"Error processing ranking for brand {brand_id}: {str(e)}"
+                        )
                         continue
 
             logger.info(f"Added {ranking_count} rankings")
@@ -265,6 +288,7 @@ def update_database():
         logger.error(f"Database update failed: {str(e)}", exc_info=True)
         db.session.rollback()
         return False
+
 
 if __name__ == '__main__':
     try:
