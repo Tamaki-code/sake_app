@@ -33618,3 +33618,15 @@ ValueError: invalid attr name 'connections'
 2025-02-28 00:59:07,719 - werkzeug - INFO - 172.31.128.21 - - [28/Feb/2025 00:59:07] "GET /static/js/main.js HTTP/1.1" 200 -
 2025-02-28 00:59:08,042 - werkzeug - INFO - 172.31.128.21 - - [28/Feb/2025 00:59:08] "[36mGET /static/images/sakeImage.jpg HTTP/1.1[0m" 304 -
 2025-02-28 00:59:08,305 - werkzeug - INFO - 172.31.128.21 - - [28/Feb/2025 00:59:08] "GET /static/images/sakeImage.jpg HTTP/1.1" 200 -
+2025-02-28 01:01:01,879 - routes - INFO - Received query: 山
+2025-02-28 01:01:02,610 - werkzeug - INFO - 172.31.128.21 - - [28/Feb/2025 01:01:02] "GET /search?q=山 HTTP/1.1" 200 -
+2025-02-28 01:01:02,832 - werkzeug - INFO - 172.31.128.21 - - [28/Feb/2025 01:01:02] "[36mGET /static/css/custom.css HTTP/1.1[0m" 304 -
+2025-02-28 01:01:02,832 - werkzeug - INFO - 172.31.128.21 - - [28/Feb/2025 01:01:02] "[36mGET /static/js/main.js HTTP/1.1[0m" 304 -
+2025-02-28 01:01:05,607 - routes - INFO - Received query: 山
+2025-02-28 01:01:06,326 - werkzeug - INFO - 172.31.128.21 - - [28/Feb/2025 01:01:06] "GET /search?q=山 HTTP/1.1" 200 -
+2025-02-28 01:01:06,598 - werkzeug - INFO - 172.31.128.21 - - [28/Feb/2025 01:01:06] "[36mGET /static/js/main.js HTTP/1.1[0m" 304 -
+2025-02-28 01:01:06,599 - werkzeug - INFO - 172.31.128.21 - - [28/Feb/2025 01:01:06] "[36mGET /static/css/custom.css HTTP/1.1[0m" 304 -
+2025-02-28 01:01:10,051 - routes - INFO - Received query: 山
+2025-02-28 01:01:10,757 - werkzeug - INFO - 172.31.128.21 - - [28/Feb/2025 01:01:10] "GET /search?q=山 HTTP/1.1" 200 -
+2025-02-28 01:01:10,998 - werkzeug - INFO - 172.31.128.21 - - [28/Feb/2025 01:01:10] "[36mGET /static/css/custom.css HTTP/1.1[0m" 304 -
+2025-02-28 01:01:10,999 - werkzeug - INFO - 172.31.128.21 - - [28/Feb/2025 01:01:10] "[36mGET /static/js/main.js HTTP/1.1[0m" 304 -
