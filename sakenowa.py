@@ -7,7 +7,6 @@ from models.sake import Sake
 from models.region import Region
 from models.brewery import Brewery
 from models.flavor_chart import FlavorChart
-from models.ranking import Ranking
 
 SAKENOWA_API_BASE = "https://muro.sakenowa.com/sakenowa-data/api"
 
@@ -177,76 +176,6 @@ def update_database():
         db.session.rollback()
         return False
 
-def update_rankings():
-    """Update rankings data from Sakenowa API"""
-    try:
-        logger.info("Starting rankings update process")
-        rankings_data = fetch_data("rankings")
-
-        if not rankings_data:
-            logger.error("No rankings data received")
-            return False
-
-        # データベースの現在の状態をログ出力
-        sake_count = Sake.query.count()
-        logger.info(f"Current sake count in database: {sake_count}")
-
-        # サンプルのSakeデータをログ出力
-        sample_sakes = Sake.query.limit(5).all()
-        logger.info("Sample sake records:")
-        for sake in sample_sakes:
-            logger.info(f"Sake - ID: {sake.id}, Name: {sake.name}, Sakenowa ID: {sake.sakenowa_id}")
-
-        # 既存のランキングをクリア
-        Ranking.query.delete()
-        db.session.commit()
-        logger.info("Cleared existing rankings")
-
-        # ランキングデータを処理
-        rankings_added = 0
-        for rank_data in rankings_data:
-            try:
-                brand_id = str(rank_data.get("brandId", "")).strip()
-                logger.info(f"Processing ranking for brand ID: {brand_id}")
-
-                # 完全一致で検索
-                sake = Sake.query.filter(
-                    Sake.sakenowa_id == brand_id
-                ).first()
-
-                if sake:
-                    logger.info(f"Found matching sake - ID: {sake.id}, Name: {sake.name}")
-                    # ランキングを作成
-                    ranking = Ranking(
-                        sake_id=sake.id,
-                        ranking_type='overall',
-                        rank=rank_data["rank"],
-                        score=rank_data.get("score", 0.0),
-                        period=datetime.utcnow().strftime('%Y-%m')
-                    )
-                    db.session.add(ranking)
-                    rankings_added += 1
-
-                    if rankings_added % 10 == 0:
-                        logger.info(f"Added {rankings_added} rankings so far")
-                        db.session.commit()
-                else:
-                    logger.warning(f"No sake found for brand ID: {brand_id}")
-
-            except Exception as e:
-                logger.error(f"Error processing ranking for brand ID {brand_id}: {str(e)}")
-                continue
-
-        # 最終コミット
-        db.session.commit()
-        logger.info(f"Successfully added {rankings_added} rankings")
-        return True
-
-    except Exception as e:
-        logger.error(f"Rankings update failed: {str(e)}")
-        db.session.rollback()
-        return False
-
 if __name__ == '__main__':
     try:
         from app import create_app
@@ -256,11 +185,6 @@ if __name__ == '__main__':
                 logger.info("Database update completed successfully")
             else:
                 logger.error("Database update failed")
-                sys.exit(1)
-            if update_rankings():
-                logger.info("Rankings update completed successfully")
-            else:
-                logger.error("Rankings update failed")
                 sys.exit(1)
     except Exception as e:
         logger.error(f"Failed to run database update: {str(e)}", exc_info=True)
