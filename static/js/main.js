@@ -5,6 +5,72 @@ document.addEventListener('DOMContentLoaded', function() {
         return new bootstrap.Tooltip(tooltipTriggerEl)
     });
 
+    // Load regions into dropdown
+    const regionSelect = document.getElementById('region-select');
+    if (regionSelect) {
+        fetch('/regions')
+            .then(response => response.json())
+            .then(regions => {
+                regions.forEach(region => {
+                    const option = document.createElement('option');
+                    option.value = region.id;
+                    option.textContent = region.name;
+                    regionSelect.appendChild(option);
+                });
+            })
+            .catch(error => console.error('Error loading regions:', error));
+
+        // Handle region selection
+        regionSelect.addEventListener('change', function() {
+            const selectedRegion = this.value;
+            const areaRankingsContainer = document.getElementById('area-rankings');
+
+            if (!selectedRegion) {
+                areaRankingsContainer.innerHTML = '';
+                return;
+            }
+
+            fetch(`/area_rankings/${selectedRegion}`)
+                .then(response => response.json())
+                .then(rankings => {
+                    let html = '';
+                    rankings.forEach(ranking => {
+                        const stars = "★".repeat(Math.floor(ranking.score)) + 
+                                    "☆".repeat(5 - Math.floor(ranking.score));
+                        html += `
+                            <div class="col-md-6 col-lg-4">
+                                <a href="/sake/${ranking.sake_id}" class="card-link text-decoration-none">
+                                    <div class="card h-100 hover-card">
+                                        <div class="card-body">
+                                            <h5 class="card-title text-dark">
+                                                第${ranking.rank}位: ${ranking.sake_name}
+                                            </h5>
+                                            <p class="card-text">
+                                                <small class="text-muted">
+                                                    ${ranking.brewery_name} (${ranking.region_name})
+                                                </small>
+                                            </p>
+                                            <p class="card-text">
+                                                <span class="text-warning">
+                                                    ${stars}
+                                                </span>
+                                                <small class="text-muted ms-2">${ranking.score.toFixed(1)}</small>
+                                            </p>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                        `;
+                    });
+                    areaRankingsContainer.innerHTML = html;
+                })
+                .catch(error => {
+                    console.error('Error loading area rankings:', error);
+                    areaRankingsContainer.innerHTML = '<div class="col"><p class="text-danger">ランキングの読み込み中にエラーが発生しました。</p></div>';
+                });
+        });
+    }
+
     // Star rating functionality
     const ratingInputs = document.querySelectorAll('.rating-input');
     const ratingStars = document.querySelectorAll('.rating-star');

@@ -222,3 +222,36 @@ def mypage():
         logger.error(f"Error in mypage route: {str(e)}")
         flash('マイページの表示中にエラーが発生しました。', 'error')
         return redirect(url_for('main.index'))
+
+@bp.route('/area_rankings/<area_id>')
+def area_rankings(area_id):
+    try:
+        rankings = db.session.query(Ranking, Sake)\
+            .join(Sake)\
+            .filter(Ranking.category == f'area_{area_id}')\
+            .order_by(Ranking.rank)\
+            .limit(10)\
+            .all()
+        return jsonify([{
+            'rank': ranking.rank,
+            'score': ranking.score,
+            'sake_name': sake.name,
+            'brewery_name': sake.brewery.name,
+            'region_name': sake.brewery.region.name,
+            'sake_id': sake.id
+        } for ranking, sake in rankings])
+    except Exception as e:
+        logger.error(f"Error in area_rankings route: {str(e)}")
+        return jsonify({'error': 'エラーが発生しました'}), 500
+
+@bp.route('/regions')
+def get_regions():
+    try:
+        regions = Region.query.all()
+        return jsonify([{
+            'id': region.id,
+            'name': region.name
+        } for region in regions])
+    except Exception as e:
+        logger.error(f"Error in get_regions route: {str(e)}")
+        return jsonify({'error': 'エラーが発生しました'}), 500
