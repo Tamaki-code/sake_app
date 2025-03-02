@@ -4,21 +4,39 @@
   --japanese-gold: #B8860B;
 }
 
+/* 既存のスタイルは維持 */
 body {
   font-family: 'Noto Sans JP', sans-serif;
   background-color: #f1f0e8;
+}
+
+/* カードリンクのスタイル */
+.card-link {
+  color: inherit;
+  text-decoration: none;
+}
+
+.hover-card {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  border: none;
+  background-color: #ffffff;
+}
+
+.hover-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
 }
 
 .hero-section {
   background-image:url("../images/sakeImage.jpg");
   background-size: cover;
   background-position: center;
-  min-height: 80vh; /* 60vhから80vhに変更 */
+  min-height: 80vh;
   position: relative;
 }
 
 .hero-overlay {
-  background: rgba(140, 147, 123, 0.5); /* #8c937b with opacity */
+  background: rgba(140, 147, 123, 0.5);
   position: absolute;
   top: 0;
   left: 0;
@@ -68,7 +86,7 @@ body {
 }
 
 .review-section {
-  background: #daccaf;  /* より柔らかいベージュに変更 */
+  background: #daccaf;
   border-radius: 8px;
   padding: 20px;
 }
@@ -100,7 +118,7 @@ body {
 
 @media (max-width: 768px) {
   .hero-section {
-    min-height: 60vh; /* 40vhから60vhに変更 */
+    min-height: 60vh;
   }
 }
 
@@ -168,15 +186,15 @@ body {
 
 /* フォーム入力欄のスタイル */
 .form-control {
-    border: 1px solid rgba(218, 204, 175, 0.5);  /* #daccafを薄く */
+    border: 1px solid rgba(218, 204, 175, 0.5);
     background-color: #ece0c9;
     color: var(--bs-body-color);
 }
 
 .form-control:focus {
-    border-color: rgba(140, 147, 123, 0.5);  /* #8c937bを薄く */
+    border-color: rgba(140, 147, 123, 0.5);
     background-color: #ece0c9;
-    box-shadow: 0 0 0 0.15rem rgba(140, 147, 123, 0.15);  /* シャドウを薄く、小さく */
+    box-shadow: 0 0 0 0.15rem rgba(140, 147, 123, 0.15);
 }
 
 .review-section .btn-primary {

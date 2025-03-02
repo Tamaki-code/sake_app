@@ -27,25 +27,30 @@
             <div class="row g-4">
                 {% for ranking, sake in top_rankings %}
                 <div class="col-md-6 col-lg-4">
-                    <div class="card h-100">
-                        <div class="card-body">
-                            <h5 class="card-title">
-                                第{{ ranking.rank }}位: {{ sake.name }}
-                            </h5>
-                            <p class="card-text">
-                                <small class="text-muted">
-                                    {{ sake.brewery.name }} ({{ sake.brewery.region.name }})
-                                </small>
-                            </p>
-                            <p class="card-text">
-                                スコア: {{ "%.2f"|format(ranking.score) }}
-                            </p>
-                            <a href="{{ url_for('main.sake_detail', sake_id=sake.id) }}" 
-                               class="btn btn-outline-primary">
-                                詳細を見る
-                            </a>
+                    <a href="{{ url_for('main.sake_detail', sake_id=sake.id) }}" 
+                       class="card-link text-decoration-none">
+                        <div class="card h-100 hover-card">
+                            <div class="card-body">
+                                <h5 class="card-title text-dark">
+                                    第{{ ranking.rank }}位: {{ sake.name }}
+                                </h5>
+                                <p class="card-text">
+                                    <small class="text-muted">
+                                        {{ sake.brewery.name }} ({{ sake.brewery.region.name }})
+                                    </small>
+                                </p>
+                                <p class="card-text">
+                                    <span class="text-warning">
+                                        {% set stars = (ranking.score / 5 * 5) | round(1) %}
+                                        {% for i in range(5) %}
+                                            {% if i < stars %}★{% else %}☆{% endif %}
+                                        {% endfor %}
+                                    </span>
+                                    <small class="text-muted ms-2">{{ "%.1f"|format(ranking.score) }}</small>
+                                </p>
+                            </div>
                         </div>
-                    </div>
+                    </a>
                 </div>
                 {% endfor %}
             </div>
