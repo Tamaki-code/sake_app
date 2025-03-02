@@ -45,14 +45,14 @@
                             {% endif %}
                         </div>
                         <div class="col-md-6">
-                            <h5>評価</h5>
+                            <!-- <h5>評価</h5>
                             <div class="rating mb-2">
                                 {% set rating = sake.average_rating() | round(1) %}
                                 {% for i in range(5) %}
                                 <i class="bi {% if i < rating %}bi-star-fill{% else %}bi-star{% endif %}"></i>
                                 {% endfor %}
                                 <span class="ms-2">{{ rating }} / 5.0</span>
-                            </div>
+                            </div> -->
                             <p>{{ sake.reviews.count() }}件のレビュー</p>
                         </div>
                     </div>

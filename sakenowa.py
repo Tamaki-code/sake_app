@@ -63,10 +63,10 @@ def fetch_data(endpoint):
             if items:
                 logger.debug(f"First brand: {items[0]}")
         elif endpoint == "rankings":
-            items = data.get("overall", [])
-            logger.info(f"Received {len(items)} rankings")
+            items = data
+            logger.info(f"Received rankings data")
             if items:
-                logger.debug(f"First ranking: {items[0]}")
+                logger.debug(f"Rankings data keys: {items.keys()}")
         else:
             items = []
             logger.warning(f"Unknown endpoint: {endpoint}")
@@ -83,16 +83,17 @@ def fetch_data(endpoint):
         logger.error(f"Unexpected error fetching data from {endpoint}: {str(e)}", exc_info=True)
         return []
 
-def process_rankings(rankings, sake_dict):
+def process_rankings(rankings, areas, sake_dict):
     """Process and insert ranking data"""
     ranking_count = 0
     try:
-        logger.info(f"Starting to process {len(rankings)} rankings")
+        logger.info(f"Starting to process overall rankings")
+        # Process overall rankings
         for rank_data in rankings:
             try:
                 brand_id = str(rank_data.get("brandId"))
                 rank = rank_data.get("rank")
-                score = rank_data.get("score", 0)  # デフォルト値を0に設定
+                score = rank_data.get("score", 0)
 
                 if not all([brand_id, rank is not None]):
                     logger.warning(f"Missing required ranking data: {rank_data}")
@@ -112,13 +113,47 @@ def process_rankings(rankings, sake_dict):
                 db.session.add(ranking)
                 ranking_count += 1
 
-                if ranking_count % 100 == 0:
-                    logger.info(f"Processed {ranking_count} rankings")
-                    db.session.flush()
-
             except Exception as e:
-                logger.error(f"Error processing ranking data: {str(e)}", exc_info=True)
+                logger.error(f"Error processing overall ranking data: {str(e)}", exc_info=True)
                 continue
+
+        # Process area rankings
+        logger.info(f"Starting to process area rankings")
+        logger.debug(f"Areas data received: {areas}")  # デバッグログを追加
+        for area in areas:
+            area_id = area.get("areaId")
+            area_rankings = area.get("ranking", [])
+            logger.debug(f"Processing area {area_id} with {len(area_rankings)} rankings")  # デバッグログを追加
+
+            for rank_data in area_rankings:
+                try:
+                    brand_id = str(rank_data.get("brandId"))
+                    rank = rank_data.get("rank")
+                    score = rank_data.get("score", 0)
+
+                    logger.debug(f"Processing area ranking: {rank_data}")  # デバッグログを追加
+
+                    if not all([brand_id, rank is not None]):
+                        logger.warning(f"Missing required area ranking data: {rank_data}")
+                        continue
+
+                    sake_dict_str = {str(k): v for k, v in sake_dict.items()}
+                    if brand_id not in sake_dict_str:
+                        logger.warning(f"Sake not found for brand_id {brand_id} in area ranking")
+                        continue
+
+                    ranking = Ranking(
+                        sake_id=sake_dict_str[brand_id].id,
+                        rank=rank,
+                        score=score,
+                        category=f'area_{area_id}'
+                    )
+                    db.session.add(ranking)
+                    ranking_count += 1
+
+                except Exception as e:
+                    logger.error(f"Error processing area ranking data: {str(e)}", exc_info=True)
+                    continue
 
         logger.info(f"Finished processing rankings. Added {ranking_count} rankings")
         return ranking_count
@@ -148,10 +183,10 @@ def update_database():
                 db.session.rollback()
 
         # Fetch all data
-        areas = fetch_data("areas")
-        if not areas:
+        areas_data = fetch_data("areas")
+        if not areas_data:
             raise ValueError("No areas data received")
-        logger.info(f"Fetched {len(areas)} areas")
+        logger.info(f"Fetched {len(areas_data)} areas")
 
         breweries = fetch_data("breweries")
         if not breweries:
@@ -163,20 +198,22 @@ def update_database():
             raise ValueError("No brands data received")
         logger.info(f"Fetched {len(brands)} brands")
 
-        rankings = fetch_data("rankings")
-        if rankings:
-            logger.info(f"Fetched {len(rankings)} rankings")
+        rankings_data = fetch_data("rankings")
+        if rankings_data:
+            overall_rankings = rankings_data.get("overall", [])
+            area_rankings = rankings_data.get("areas", [])
+            logger.info(f"Fetched {len(overall_rankings)} overall rankings and {len(area_rankings)} area rankings")
 
         # Process data within a transaction
         with db.session.begin():
             try:
                 # Process regions
                 regions_dict = {}
-                for area in areas:
+                for area in areas_data:
                     area_id = str(area["id"])
                     region = Region(
                         name=area["name"],
-                        sakenowa_id=area_id  # Changed from sakenowaId to sakenowa_id
+                        sakenowa_id=area_id
                     )
                     db.session.add(region)
                     regions_dict[area_id] = region
@@ -194,7 +231,7 @@ def update_database():
                     if area_id in regions_dict:
                         b = Brewery(
                             name=brewery["name"],
-                            sakenowa_brewery_id=brewery_id,  # Changed from sakenowaBreweryId
+                            sakenowa_brewery_id=brewery_id,
                             region_id=regions_dict[area_id].id
                         )
                         db.session.add(b)
@@ -215,7 +252,7 @@ def update_database():
                     if brewery_id in breweries_dict:
                         sake = Sake(
                             name=brand["name"],
-                            sakenowa_id=brand_id,  # Changed from sakenowaId
+                            sakenowa_id=brand_id,
                             brewery_id=breweries_dict[brewery_id].id
                         )
                         db.session.add(sake)
@@ -227,9 +264,13 @@ def update_database():
                 db.session.flush()
                 logger.info(f"Added {len(sake_dict)} sakes")
 
-                # Process rankings
-                if rankings:
-                    ranking_count = process_rankings(rankings, sake_dict)
+                # Process rankings with both overall and area rankings
+                if rankings_data:
+                    ranking_count = process_rankings(
+                        rankings=overall_rankings,
+                        areas=area_rankings,
+                        sake_dict=sake_dict
+                    )
                     logger.info(f"Added {ranking_count} rankings")
 
                 # Final commit
