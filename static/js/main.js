@@ -13,7 +13,7 @@ document.addEventListener('DOMContentLoaded', function() {
             .then(regions => {
                 regions.forEach(region => {
                     const option = document.createElement('option');
-                    option.value = region.id;
+                    option.value = region.sakenowa_id || region.id;  // sakenowa_idがある場合はそれを使用
                     option.textContent = region.name;
                     regionSelect.appendChild(option);
                 });
@@ -30,9 +30,16 @@ document.addEventListener('DOMContentLoaded', function() {
                 return;
             }
 
+            console.log('Fetching rankings for region:', selectedRegion);
             fetch(`/area_rankings/${selectedRegion}`)
-                .then(response => response.json())
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! status: ${response.status}`);
+                    }
+                    return response.json();
+                })
                 .then(rankings => {
+                    console.log('Received rankings:', rankings);
                     let html = '';
                     rankings.forEach(ranking => {
                         const stars = "★".repeat(Math.floor(ranking.score)) + 

@@ -232,14 +232,18 @@ def area_rankings(area_id):
             .order_by(Ranking.rank)\
             .limit(10)\
             .all()
-        return jsonify([{
-            'rank': ranking.rank,
-            'score': ranking.score,
-            'sake_name': sake.name,
-            'brewery_name': sake.brewery.name,
-            'region_name': sake.brewery.region.name,
-            'sake_id': sake.id
-        } for ranking, sake in rankings])
+
+        result = []
+        for ranking, sake in rankings:
+            result.append({
+                'rank': ranking.rank,
+                'score': float(ranking.score),  # 確実に数値型に変換
+                'sake_name': sake.name,
+                'brewery_name': sake.brewery.name,
+                'region_name': sake.brewery.region.name,
+                'sake_id': sake.id
+            })
+        return jsonify(result)
     except Exception as e:
         logger.error(f"Error in area_rankings route: {str(e)}")
         return jsonify({'error': 'エラーが発生しました'}), 500
