@@ -33,8 +33,7 @@ class Sake(db.Model):
 
         return {
             '華やか-重厚': self.flavor_chart.f1,
-            '香り': {'value': self.flavor_chart.f2, 'description': '弱い-強い'},
-            '温度適性': {'value': self.flavor_chart.f2, 'description': '冷酒向き-燗向き'},
+            '香り-温度': {'value': self.flavor_chart.f2, 'description': '弱い-強い'},
             '淡麗-濃醇': self.flavor_chart.f3,
             '甘口-辛口': self.flavor_chart.f4,
             '特性-個性': self.flavor_chart.f5,

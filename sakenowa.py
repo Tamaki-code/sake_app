@@ -46,27 +46,20 @@ def fetch_data(endpoint):
         data = response.json()
         logger.debug(f"Response data keys: {data.keys()}")
 
-        # Extract data based on endpoint and add detailed logging
-        if endpoint == "areas":
-            items = data.get("areas", [])
-            logger.info(f"Received {len(items)} areas")
+        if endpoint == "flavor-charts":
+            items = data.get("flavorCharts", [])
+            logger.info(f"Received {len(items)} flavor charts")
             if items:
-                logger.debug(f"First area: {items[0]}")
+                logger.debug(f"First flavor chart: {items[0]}")
+                logger.debug(f"Sample brand IDs: {[str(item.get('brandId')) for item in items[:5]]}")
+        elif endpoint == "areas":
+            items = data.get("areas", [])
         elif endpoint == "breweries":
             items = data.get("breweries", [])
-            logger.info(f"Received {len(items)} breweries")
-            if items:
-                logger.debug(f"First brewery: {items[0]}")
         elif endpoint == "brands":
             items = data.get("brands", [])
-            logger.info(f"Received {len(items)} brands")
-            if items:
-                logger.debug(f"First brand: {items[0]}")
         elif endpoint == "rankings":
             items = data
-            logger.info(f"Received rankings data")
-            if items:
-                logger.debug(f"Rankings data keys: {items.keys()}")
         else:
             items = []
             logger.warning(f"Unknown endpoint: {endpoint}")
@@ -123,15 +116,13 @@ def process_rankings(rankings, areas, sake_dict):
         for area in areas:
             area_id = area.get("areaId")
             area_rankings = area.get("ranking", [])
-            logger.debug(f"Processing area {area_id} with {len(area_rankings)} rankings")  # デバッグログを追加
+            logger.debug(f"Processing area {area_id} with {len(area_rankings)} rankings")
 
             for rank_data in area_rankings:
                 try:
                     brand_id = str(rank_data.get("brandId"))
                     rank = rank_data.get("rank")
                     score = rank_data.get("score", 0)
-
-                    logger.debug(f"Processing area ranking: {rank_data}")  # デバッグログを追加
 
                     if not all([brand_id, rank is not None]):
                         logger.warning(f"Missing required area ranking data: {rank_data}")
@@ -176,7 +167,6 @@ def update_database():
                 Sake.query.delete()
                 Brewery.query.delete()
                 Region.query.delete()
-                db.session.commit()
                 logger.info("Existing data cleared successfully")
             except Exception as e:
                 logger.warning(f"Some tables might not exist yet: {e}")
@@ -198,11 +188,12 @@ def update_database():
             raise ValueError("No brands data received")
         logger.info(f"Fetched {len(brands)} brands")
 
-        rankings_data = fetch_data("rankings")
-        if rankings_data:
-            overall_rankings = rankings_data.get("overall", [])
-            area_rankings = rankings_data.get("areas", [])
-            logger.info(f"Fetched {len(overall_rankings)} overall rankings and {len(area_rankings)} area rankings")
+        # Fetch flavor charts
+        flavor_charts = fetch_data("flavor-charts")
+        if not flavor_charts:
+            logger.warning("No flavor charts data received")
+        else:
+            logger.info(f"Fetched {len(flavor_charts)} flavor charts")
 
         # Process data within a transaction
         with db.session.begin():
@@ -217,7 +208,6 @@ def update_database():
                     )
                     db.session.add(region)
                     regions_dict[area_id] = region
-                    logger.debug(f"Added region: {area_id} - {area['name']}")
 
                 db.session.flush()
                 logger.info(f"Added {len(regions_dict)} regions")
@@ -236,7 +226,6 @@ def update_database():
                         )
                         db.session.add(b)
                         breweries_dict[brewery_id] = b
-                        logger.debug(f"Added brewery: {brewery_id} - {brewery['name']}")
                     else:
                         logger.warning(f"Region {area_id} not found for brewery {brewery['name']}")
 
@@ -257,21 +246,42 @@ def update_database():
                         )
                         db.session.add(sake)
                         sake_dict[brand_id] = sake
-                        logger.debug(f"Added sake: {brand_id} - {brand['name']}")
                     else:
                         logger.warning(f"Brewery {brewery_id} not found for sake {brand['name']}")
 
                 db.session.flush()
                 logger.info(f"Added {len(sake_dict)} sakes")
+                logger.debug(f"Available sake IDs: {list(sake_dict.keys())[:5]}")
 
-                # Process rankings with both overall and area rankings
-                if rankings_data:
-                    ranking_count = process_rankings(
-                        rankings=overall_rankings,
-                        areas=area_rankings,
-                        sake_dict=sake_dict
-                    )
-                    logger.info(f"Added {ranking_count} rankings")
+                # Process flavor charts
+                flavor_chart_count = 0
+                if flavor_charts:
+                    for chart in flavor_charts:
+                        brand_id = str(chart.get("brandId"))
+                        logger.debug(f"Processing flavor chart for brand_id: {brand_id}")
+
+                        if brand_id in sake_dict:
+                            try:
+                                flavor_chart = FlavorChart(
+                                    sake_id=sake_dict[brand_id].id,
+                                    f1=float(chart.get("f1", 0)),
+                                    f2=float(chart.get("f2", 0)),
+                                    f3=float(chart.get("f3", 0)),
+                                    f4=float(chart.get("f4", 0)),
+                                    f5=float(chart.get("f5", 0)),
+                                    f6=float(chart.get("f6", 0))
+                                )
+                                db.session.add(flavor_chart)
+                                flavor_chart_count += 1
+                                if flavor_chart_count % 100 == 0:
+                                    logger.info(f"Processed {flavor_chart_count} flavor charts")
+                            except (ValueError, TypeError) as e:
+                                logger.error(f"Error processing flavor values for brand_id {brand_id}: {e}")
+                                continue
+                        else:
+                            logger.warning(f"Sake not found for brand_id {brand_id} in flavor chart")
+
+                    logger.info(f"Added {flavor_chart_count} flavor charts")
 
                 # Final commit
                 db.session.commit()
@@ -283,6 +293,7 @@ def update_database():
                 logger.info(f"Breweries: {Brewery.query.count()}")
                 logger.info(f"Sakes: {Sake.query.count()}")
                 logger.info(f"Rankings: {Ranking.query.count()}")
+                logger.info(f"Flavor Charts: {FlavorChart.query.count()}")
 
                 return True
 

@@ -101,19 +101,24 @@ body {
 }
 
 .flavor-profile .progress {
-  height: 8px;
-  background-color: rgba(140, 147, 123, 0.1);
-  margin-bottom: 15px;
+    height: 8px;
+    background-color: rgba(140, 147, 123, 0.1);
+    margin-bottom: 15px;
 }
 
 .flavor-profile .progress-bar {
-  background-color: var(--japanese-navy);
+    background-color: var(--japanese-navy);
 }
 
 .flavor-profile small {
-  color: var(--bs-body-color);
-  font-size: 0.875rem;
-  margin-bottom: 4px;
+    color: var(--bs-body-color);
+    font-size: 0.875rem;
+    margin-bottom: 4px;
+}
+
+.current-value {
+    font-weight: bold;
+    color: var(--japanese-gold);
 }
 
 @media (max-width: 768px) {
@@ -131,6 +136,7 @@ body {
 .flavor-slider .form-range {
     margin: 10px 0;
 }
+
 
 .flavor-slider .current-value {
     font-size: 0.9em;
