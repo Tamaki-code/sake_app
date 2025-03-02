@@ -226,12 +226,15 @@ def mypage():
 @bp.route('/area_rankings/<area_id>')
 def area_rankings(area_id):
     try:
+        logger.info(f"Fetching rankings for area_id: {area_id}")
         rankings = db.session.query(Ranking, Sake)\
             .join(Sake)\
             .filter(Ranking.category == f'area_{area_id}')\
             .order_by(Ranking.rank)\
             .limit(10)\
             .all()
+
+        logger.info(f"Found {len(rankings)} rankings for area_{area_id}")
 
         result = []
         for ranking, sake in rankings:
@@ -253,7 +256,7 @@ def get_regions():
     try:
         regions = Region.query.all()
         return jsonify([{
-            'id': region.id,
+            'id': region.sakenowa_id,  # 変更: idではなくsakenowa_idを使用
             'name': region.name
         } for region in regions])
     except Exception as e:

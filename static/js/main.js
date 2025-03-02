@@ -13,7 +13,7 @@ document.addEventListener('DOMContentLoaded', function() {
             .then(regions => {
                 regions.forEach(region => {
                     const option = document.createElement('option');
-                    option.value = region.sakenowa_id || region.id;  // sakenowa_idがある場合はそれを使用
+                    option.value = region.id;  // sakenowa_idを使用
                     option.textContent = region.name;
                     regionSelect.appendChild(option);
                 });
@@ -40,6 +40,9 @@ document.addEventListener('DOMContentLoaded', function() {
                 })
                 .then(rankings => {
                     console.log('Received rankings:', rankings);
+                    if (rankings.error) {
+                        throw new Error(rankings.error);
+                    }
                     let html = '';
                     rankings.forEach(ranking => {
                         const stars = "★".repeat(Math.floor(ranking.score)) + 
@@ -69,7 +72,7 @@ document.addEventListener('DOMContentLoaded', function() {
                             </div>
                         `;
                     });
-                    areaRankingsContainer.innerHTML = html;
+                    areaRankingsContainer.innerHTML = rankings.length ? html : '<div class="col"><p class="text-muted">この地域のランキングデータはありません。</p></div>';
                 })
                 .catch(error => {
                     console.error('Error loading area rankings:', error);
