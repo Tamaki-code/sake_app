@@ -21,11 +21,11 @@ args = "Create Tables"
 
 [[workflows.workflow.tasks]]
 task = "workflow.run"
-args = "Flask Server"
+args = "Update Database"
 
 [[workflows.workflow.tasks]]
 task = "workflow.run"
-args = "Update Database"
+args = "Flask Server"
 
 [[workflows.workflow]]
 name = "Create Tables"
@@ -42,6 +42,20 @@ task = "shell.exec"
 args = "python create_tables.py"
 
 [[workflows.workflow]]
+name = "Update Database"
+author = "agent"
+
+[workflows.workflow.metadata]
+agentRequireRestartOnSave = false
+
+[[workflows.workflow.tasks]]
+task = "packager.installForAll"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "python sakenowa.py"
+
+[[workflows.workflow]]
 name = "Flask Server"
 author = "agent"
 
@@ -55,20 +69,6 @@ task = "packager.installForAll"
 task = "shell.exec"
 args = "python app.py"
 waitForPort = 5000
-
-[[workflows.workflow]]
-name = "Update Database"
-author = "agent"
-
-[workflows.workflow.metadata]
-agentRequireRestartOnSave = false
-
-[[workflows.workflow.tasks]]
-task = "packager.installForAll"
-
-[[workflows.workflow.tasks]]
-task = "shell.exec"
-args = "python sakenowa.py"
 
 [[ports]]
 localPort = 3000

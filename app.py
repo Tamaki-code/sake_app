@@ -1,10 +1,7 @@
 import os
 import logging
 import sys
-import psutil
-import signal
-import socket
-from flask import Flask
+from flask import Flask, jsonify
 from flask_login import LoginManager
 from sqlalchemy import text
 from models import db
@@ -21,29 +18,6 @@ logger = logging.getLogger(__name__)
 
 # Initialize login manager
 login_manager = LoginManager()
-
-def is_port_in_use(port):
-    """Check if a port is in use"""
-    with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
-        try:
-            s.bind(('0.0.0.0', port))
-            return False
-        except socket.error:
-            return True
-
-def kill_process_on_port(port):
-    """Kill any process using the specified port"""
-    for proc in psutil.process_iter(['pid', 'name']):
-        try:
-            connections = proc.connections()
-            for conn in connections:
-                if hasattr(conn, 'laddr') and conn.laddr.port == port:
-                    logger.info(f"Killing process {proc.pid} using port {port}")
-                    os.kill(proc.pid, signal.SIGTERM)
-                    return True
-        except (psutil.NoSuchProcess, psutil.AccessDenied, psutil.ZombieProcess):
-            continue
-    return False
 
 def create_app():
     """Application factory function"""
@@ -80,6 +54,11 @@ def create_app():
         login_manager.login_view = 'main.login'
         logger.info("Flask extensions initialized")
 
+        # Add health check endpoint
+        @app.route('/health')
+        def health_check():
+            return jsonify({"status": "healthy", "port": 5000})
+
         with app.app_context():
             # Import and configure user loader
             from models.user import User
@@ -113,22 +92,12 @@ def create_app():
         raise
 
 if __name__ == "__main__":
+    port = 5000
     try:
-        port = 5000
-
-        # Check if port is in use and attempt to free it
-        if is_port_in_use(port):
-            logger.warning(f"Port {port} is already in use")
-            if not kill_process_on_port(port):
-                logger.error(f"Failed to kill process using port {port}")
-                sys.exit(1)
-            # Wait a moment for the port to be freed
-            import time
-            time.sleep(2)
-
         app = create_app()
         logger.info(f"Starting Flask application on port {port}")
-        app.run(host='0.0.0.0', port=port, debug=False)
+        # Always serve on 0.0.0.0 to make it accessible
+        app.run(host='0.0.0.0', port=port, debug=True)
     except Exception as e:
         logger.error(f"Failed to start application: {str(e)}", exc_info=True)
         sys.exit(1)
