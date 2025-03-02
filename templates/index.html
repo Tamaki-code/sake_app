@@ -11,9 +11,7 @@
                 <form action="{{ url_for('main.search') }}" method="GET" class="mt-4">
                     <div class="input-group">
                         <input type="text" name="q" class="form-input form-control-lg" placeholder="銘柄名で日本酒を検索...">
-                        <!-- <input type="text" name="q" class="form-control form-control-lg" placeholder="銘柄名で日本酒を検索..."> -->
                         <button type="submit" class="btn btn-input btn-lg">検索</button>
-                        <!-- <button type="submit" class="btn btn-primary btn-lg">検索</button> -->
                     </div>
                 </form>
             </div>
@@ -22,50 +20,44 @@
 </div>
 
 <div class="container my-5">
-    <div class="row g-4">
-        <!-- {% for result in search_results %}
-        <p> {{ result.name }} </p>
-        {% endfor %} -->
-        <div class="col-md-4">
+    <!-- 全国ランキングセクション -->
+    <div class="row mb-4">
+        <div class="col">
+            <h2 class="text-light mb-4">全国ランキング TOP 10</h2>
+            <div class="row g-4">
+                {% for ranking, sake in top_rankings %}
+                <div class="col-md-6 col-lg-4">
+                    <div class="card h-100">
+                        <div class="card-body">
+                            <h5 class="card-title">
+                                第{{ ranking.rank }}位: {{ sake.name }}
+                            </h5>
+                            <p class="card-text">
+                                <small class="text-muted">
+                                    {{ sake.brewery.name }} ({{ sake.brewery.region.name }})
+                                </small>
+                            </p>
+                            <p class="card-text">
+                                スコア: {{ "%.2f"|format(ranking.score) }}
+                            </p>
+                            <a href="{{ url_for('main.sake_detail', sake_id=sake.id) }}" 
+                               class="btn btn-outline-primary">
+                                詳細を見る
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
         </div>
-    </div>    
+    </div>
 
+    <!-- 既存のセクション -->
     <div class="row mb-4">
         <div class="col">
             <h2 class="text-light">おすすめの日本酒</h2>
         </div>
     </div>
-
-    <!-- <div class="row g-4">
-        {% for sake in featured_sakes %}
-        <div class="col-md-4">
-            <div class="sake-card card h-100">
-                <div class="card-body">
-                    <h5 class="card-title">{{ sake.name }}</h5>
-                    <p class="card-text">
-                        <small class="text-muted">
-                            <i class="bi bi-building"></i> {{ sake.brewery.name }}<br>
-                            <i class="bi bi-geo-alt"></i> {{ sake.brewery.region.name }}
-                        </small>
-                    </p>
-                    {% if sake.flavor_profile %}
-                    <div class="mb-2">
-                        <span class="badge bg-primary">{{ sake.flavor_profile }}</span>
-                    </div>
-                    {% endif %}
-                    <div class="rating mb-2">
-                        {% set rating = sake.average_rating() | round(1) %}
-                        {% for i in range(5) %}
-                            <i class="bi bi-star-fill {% if i < rating %}text-warning{% endif %}"></i>
-                        {% endfor %}
-                        <span class="ms-2">{{ rating }}</span>
-                    </div>
-                    <a href="{{ url_for('sake_detail', sake_id=sake.id) }}" class="btn btn-outline-primary">詳細を見る</a>
-                </div>
-            </div>
-        </div>
-        {% endfor %}
-    </div> -->
 </div>
 
 <div class="japanese-pattern py-5">

@@ -10,6 +10,7 @@ from models.flavor_chart import FlavorChart
 import logging
 from datetime import datetime
 from forms import SignupForm
+from models.ranking import Ranking # Assuming Ranking model exists
 
 # Configure logging
 logging.basicConfig(
@@ -89,15 +90,27 @@ def logout():
 @bp.route('/')
 def index():
     try:
+        # Get top 10 overall rankings
+        top_rankings = db.session.query(Ranking, Sake)\
+            .join(Sake)\
+            .filter(Ranking.category == 'overall')\
+            .order_by(Ranking.rank)\
+            .limit(10)\
+            .all()
+
         search_results = db.session.query(Sake) \
             .order_by(Sake.created_at.desc()) \
             .all()
 
-        return render_template('index.html', search_results=search_results)
+        return render_template('index.html', 
+                             search_results=search_results,
+                             top_rankings=top_rankings)
     except Exception as e:
         logger.error(f"Error in index route: {str(e)}")
         flash('エラーが発生しました。しばらくしてから再度お試しください。', 'error')
-        return render_template('index.html', search_results=[])
+        return render_template('index.html', 
+                             search_results=[],
+                             top_rankings=[])
 
 @bp.route('/search')
 def search():
