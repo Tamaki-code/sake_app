@@ -195,6 +195,13 @@ def update_database():
         else:
             logger.info(f"Fetched {len(flavor_charts)} flavor charts")
 
+        # Fetch rankings data
+        rankings_data = fetch_data("rankings")
+        if rankings_data:
+            overall_rankings = rankings_data.get("overall", [])
+            area_rankings = rankings_data.get("areas", [])
+            logger.info(f"Fetched {len(overall_rankings)} overall rankings and {len(area_rankings)} area rankings")
+
         # Process data within a transaction
         with db.session.begin():
             try:
@@ -282,6 +289,15 @@ def update_database():
                             logger.warning(f"Sake not found for brand_id {brand_id} in flavor chart")
 
                     logger.info(f"Added {flavor_chart_count} flavor charts")
+
+                # Process rankings with both overall and area rankings
+                if rankings_data:
+                    ranking_count = process_rankings(
+                        rankings=overall_rankings,
+                        areas=area_rankings,
+                        sake_dict=sake_dict
+                    )
+                    logger.info(f"Added {ranking_count} rankings")
 
                 # Final commit
                 db.session.commit()
