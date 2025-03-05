@@ -38,20 +38,12 @@ def fetch_data(endpoint):
                             timeout=60)
         response.raise_for_status()
 
-        # Log response details
-        logger.debug(f"Response status code: {response.status_code}")
-        logger.debug(f"Response headers: {response.headers}")
-        logger.debug(f"Response content type: {response.headers.get('content-type')}")
-
         data = response.json()
-        logger.debug(f"Response data keys: {data.keys()}")
+        logger.debug(f"Response data structure: {data.keys()}")
 
         if endpoint == "flavor-charts":
             items = data.get("flavorCharts", [])
             logger.info(f"Received {len(items)} flavor charts")
-            if items:
-                logger.debug(f"First flavor chart: {items[0]}")
-                logger.debug(f"Sample brand IDs: {[str(item.get('brandId')) for item in items[:5]]}")
         elif endpoint == "areas":
             items = data.get("areas", [])
         elif endpoint == "breweries":
@@ -60,6 +52,16 @@ def fetch_data(endpoint):
             items = data.get("brands", [])
         elif endpoint == "rankings":
             items = data
+        elif endpoint == "flavor-tags":
+            items = data.get("tags", [])  # 修正: "tags"を使用
+            logger.info(f"Received {len(items)} flavor tags")
+            logger.debug(f"Sample flavor tags: {items[:2]}")  # サンプルデータをログ出力
+            logger.debug(f"Flavor tag data structure: {items[0] if items else 'No data'}")  # タグの構造を確認
+        elif endpoint == "brand-flavor-tags":
+            items = data.get("brandTags", [])  # 修正: "brandTags"を使用
+            logger.info(f"Received {len(items)} brand flavor tags")
+            logger.debug(f"Sample brand flavor tags: {items[:2]}")  # サンプルデータをログ出力
+            logger.debug(f"Brand flavor tag data structure: {items[0] if items else 'No data'}")  # タグの構造を確認
         else:
             items = []
             logger.warning(f"Unknown endpoint: {endpoint}")
@@ -195,6 +197,20 @@ def update_database():
         else:
             logger.info(f"Fetched {len(flavor_charts)} flavor charts")
 
+        # Fetch flavor tags
+        flavor_tags = fetch_data("flavor-tags")
+        if not flavor_tags:
+            logger.warning("No flavor tags data received")
+        else:
+            logger.info(f"Fetched {len(flavor_tags)} flavor tags")
+
+        # Fetch brand flavor tags
+        brand_flavor_tags = fetch_data("brand-flavor-tags")
+        if not brand_flavor_tags:
+            logger.warning("No brand flavor tags data received")
+        else:
+            logger.info(f"Fetched {len(brand_flavor_tags)} brand flavor tags")
+
         # Fetch rankings data
         rankings_data = fetch_data("rankings")
         if rankings_data:
@@ -258,7 +274,48 @@ def update_database():
 
                 db.session.flush()
                 logger.info(f"Added {len(sake_dict)} sakes")
-                logger.debug(f"Available sake IDs: {list(sake_dict.keys())[:5]}")
+
+                # Process flavor tags
+                flavor_tag_dict = {}
+                if flavor_tags:
+                    for tag in flavor_tags:
+                        try:
+                            flavor_tag = FlavorTag(
+                                name=tag["tag"],  # 修正: "name" -> "tag"
+                                sakenowa_id=str(tag["id"])
+                            )
+                            db.session.add(flavor_tag)
+                            flavor_tag_dict[str(tag["id"])] = flavor_tag
+                            logger.debug(f"Added flavor tag: {tag['tag']} with ID {tag['id']}")
+                        except KeyError as e:
+                            logger.error(f"Missing key in flavor tag data: {e}")
+                            continue
+
+                    db.session.flush()
+                    logger.info(f"Added {len(flavor_tag_dict)} flavor tags")
+
+                # Process brand flavor tags
+                brand_flavor_tag_count = 0
+                if brand_flavor_tags and flavor_tag_dict:
+                    for tag in brand_flavor_tags:
+                        try:
+                            brand_id = str(tag["brandId"])
+                            tag_id = str(tag["tagId"])
+
+                            if brand_id in sake_dict and tag_id in flavor_tag_dict:
+                                brand_flavor_tag = BrandFlavorTag(
+                                    sake_id=sake_dict[brand_id].id,
+                                    flavor_tag_id=flavor_tag_dict[tag_id].id
+                                )
+                                db.session.add(brand_flavor_tag)
+                                brand_flavor_tag_count += 1
+                                if brand_flavor_tag_count % 100 == 0:
+                                    logger.info(f"Processed {brand_flavor_tag_count} brand flavor tags")
+                        except KeyError as e:
+                            logger.error(f"Missing key in brand flavor tag data: {e}")
+                            continue
+
+                    logger.info(f"Added {brand_flavor_tag_count} brand flavor tags")
 
                 # Process flavor charts
                 flavor_chart_count = 0
@@ -280,8 +337,6 @@ def update_database():
                                 )
                                 db.session.add(flavor_chart)
                                 flavor_chart_count += 1
-                                if flavor_chart_count % 100 == 0:
-                                    logger.info(f"Processed {flavor_chart_count} flavor charts")
                             except (ValueError, TypeError) as e:
                                 logger.error(f"Error processing flavor values for brand_id {brand_id}: {e}")
                                 continue
@@ -310,6 +365,8 @@ def update_database():
                 logger.info(f"Sakes: {Sake.query.count()}")
                 logger.info(f"Rankings: {Ranking.query.count()}")
                 logger.info(f"Flavor Charts: {FlavorChart.query.count()}")
+                logger.info(f"Flavor Tags: {FlavorTag.query.count()}")
+                logger.info(f"Brand Flavor Tags: {BrandFlavorTag.query.count()}")
 
                 return True
 
