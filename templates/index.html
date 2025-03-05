@@ -43,11 +43,8 @@
                                     <span class="rating">
                                         {% set score = ranking.score %}
                                         {% set full_stars = score | int %}
-                                        {% set decimal = (score - full_stars) | float %}
                                         {% for i in range(5) %}
                                             {% if i < full_stars %}
-                                                <i class="bi bi-star-fill"></i>
-                                            {% elif i == full_stars and decimal >= 0.1 %}
                                                 <i class="bi bi-star-fill"></i>
                                             {% else %}
                                                 <i class="bi bi-star"></i>

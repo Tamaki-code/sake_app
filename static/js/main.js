@@ -47,14 +47,11 @@ document.addEventListener('DOMContentLoaded', function() {
                     rankings.forEach(ranking => {
                         const score = ranking.score;
                         const fullStars = Math.floor(score);
-                        const decimal = score - fullStars;
                         let stars = '';
 
                         for (let i = 0; i < 5; i++) {
                             if (i < fullStars) {
                                 stars += '<i class="bi bi-star-fill"></i>';
-                            } else if (i === fullStars && decimal >= 0.1) {
-                                stars += '<i class="bi bi-star-half"></i>';
                             } else {
                                 stars += '<i class="bi bi-star"></i>';
                             }
@@ -74,7 +71,7 @@ document.addEventListener('DOMContentLoaded', function() {
                                                 </small>
                                             </p>
                                             <p class="card-text">
-                                                <span class="text-warning">
+                                                <span class="rating">
                                                     ${stars}
                                                 </span>
                                                 <small class="text-muted ms-2">${ranking.score.toFixed(1)}</small>
