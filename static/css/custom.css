@@ -27,6 +27,24 @@ body {
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
 }
 
+/* 星評価のスタイル */
+.rating {
+  color: var(--japanese-gold);
+}
+
+.rating .bi-star-fill {
+  color: var(--japanese-gold);
+}
+
+.rating .bi-star {
+  color: var(--japanese-gold);
+  opacity: 0.5;
+}
+
+.rating .bi-star-half {
+  color: var(--japanese-gold);
+}
+
 .hero-section {
   background-image:url("../images/sakeImage.jpg");
   background-size: cover;
@@ -66,10 +84,6 @@ body {
 
 .sake-result:hover {
     color: #9f713c;
-}
-
-.rating {
-  color: var(--japanese-gold);
 }
 
 .japanese-pattern {

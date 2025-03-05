@@ -45,8 +45,21 @@ document.addEventListener('DOMContentLoaded', function() {
                     }
                     let html = '';
                     rankings.forEach(ranking => {
-                        const stars = "★".repeat(Math.floor(ranking.score)) + 
-                                    "☆".repeat(5 - Math.floor(ranking.score));
+                        const score = ranking.score;
+                        const fullStars = Math.floor(score);
+                        const decimal = score - fullStars;
+                        let stars = '';
+
+                        for (let i = 0; i < 5; i++) {
+                            if (i < fullStars) {
+                                stars += '<i class="bi bi-star-fill"></i>';
+                            } else if (i === fullStars && decimal >= 0.1) {
+                                stars += '<i class="bi bi-star-half"></i>';
+                            } else {
+                                stars += '<i class="bi bi-star"></i>';
+                            }
+                        }
+
                         html += `
                             <div class="col-md-6 col-lg-4">
                                 <a href="/sake/${ranking.sake_id}" class="card-link text-decoration-none">

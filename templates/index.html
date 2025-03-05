@@ -40,10 +40,18 @@
                                     </small>
                                 </p>
                                 <p class="card-text">
-                                    <span class="text-warning">
-                                        {% set stars = (ranking.score / 5 * 5) | round(1) %}
+                                    <span class="rating">
+                                        {% set score = ranking.score %}
+                                        {% set full_stars = score | int %}
+                                        {% set decimal = (score - full_stars) | float %}
                                         {% for i in range(5) %}
-                                            {% if i < stars %}★{% else %}☆{% endif %}
+                                            {% if i < full_stars %}
+                                                <i class="bi bi-star-fill"></i>
+                                            {% elif i == full_stars and decimal >= 0.1 %}
+                                                <i class="bi bi-star-fill"></i>
+                                            {% else %}
+                                                <i class="bi bi-star"></i>
+                                            {% endif %}
                                         {% endfor %}
                                     </span>
                                     <small class="text-muted ms-2">{{ "%.1f"|format(ranking.score) }}</small>
@@ -64,7 +72,7 @@
                 <h2 class="text-light mb-0">都道府県別ランキング TOP 10</h2>
                 <select id="region-select" class="form-select form-select-lg bg-grn text-light" style="width: auto;">
                     <option value="">都道府県を選択</option>
-                    </select>
+                </select>
             </div>
             <div id="area-rankings" class="row g-4">
                 <!-- 都道府県別ランキングがここに動的に表示されます -->
