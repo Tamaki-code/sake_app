@@ -58,7 +58,7 @@ def fetch_data(endpoint):
             logger.debug(f"Sample flavor tags: {items[:2]}")  # サンプルデータをログ出力
             logger.debug(f"Flavor tag data structure: {items[0] if items else 'No data'}")  # タグの構造を確認
         elif endpoint == "brand-flavor-tags":
-            items = data.get("brandTags", [])  # 修正: "brandTags"を使用
+            items = data.get("flavorTags", [])  # 修正: "flavorTags"を使用
             logger.info(f"Received {len(items)} brand flavor tags")
             logger.debug(f"Sample brand flavor tags: {items[:2]}")  # サンプルデータをログ出力
             logger.debug(f"Brand flavor tag data structure: {items[0] if items else 'No data'}")  # タグの構造を確認
@@ -280,10 +280,7 @@ def update_database():
                 if flavor_tags:
                     for tag in flavor_tags:
                         try:
-                            flavor_tag = FlavorTag(
-                                name=tag["tag"],  # 修正: "name" -> "tag"
-                                sakenowa_id=str(tag["id"])
-                            )
+                            flavor_tag = FlavorTag(name=tag["tag"], sakenowa_id=str(tag["id"]))
                             db.session.add(flavor_tag)
                             flavor_tag_dict[str(tag["id"])] = flavor_tag
                             logger.debug(f"Added flavor tag: {tag['tag']} with ID {tag['id']}")
@@ -300,17 +297,22 @@ def update_database():
                     for tag in brand_flavor_tags:
                         try:
                             brand_id = str(tag["brandId"])
-                            tag_id = str(tag["tagId"])
+                            tag_ids = tag.get("tagIds", [])  # 修正: "tagId" ではなく "tagIds" をリストで取得
 
-                            if brand_id in sake_dict and tag_id in flavor_tag_dict:
-                                brand_flavor_tag = BrandFlavorTag(
-                                    sake_id=sake_dict[brand_id].id,
-                                    flavor_tag_id=flavor_tag_dict[tag_id].id
-                                )
-                                db.session.add(brand_flavor_tag)
-                                brand_flavor_tag_count += 1
-                                if brand_flavor_tag_count % 100 == 0:
-                                    logger.info(f"Processed {brand_flavor_tag_count} brand flavor tags")
+                            if brand_id in sake_dict:
+                                for tag_id in tag_ids:
+                                    tag_id_str = str(tag_id)  # 数値のキーを文字列に変換
+                                    if tag_id_str in flavor_tag_dict:
+                                        brand_flavor_tag = BrandFlavorTag(
+                                            sake_id=sake_dict[brand_id].id,
+                                            flavor_tag_id=flavor_tag_dict[tag_id_str].id
+                                        )
+                                        db.session.add(brand_flavor_tag)
+                                        brand_flavor_tag_count += 1
+                                        if brand_flavor_tag_count % 100 == 0:
+                                            logger.info(f"Processed {brand_flavor_tag_count} brand flavor tags")
+                            else:
+                                logger.warning(f"Sake not found for brand_id {brand_id}")
                         except KeyError as e:
                             logger.error(f"Missing key in brand flavor tag data: {e}")
                             continue
