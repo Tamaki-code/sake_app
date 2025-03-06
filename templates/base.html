@@ -10,42 +10,45 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css">
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg bg-grn">
-        <div class="container">
-            <a class="navbar-brand" href="{{ url_for('main.index') }}">
-                <i class="bi bi-cup-hot-fill me-2"></i>
-                Sake Memory
-            </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto">
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ url_for('main.index') }}">Home</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ url_for('main.search') }}">Search</a>
-                    </li>
-                    {% if current_user.is_authenticated %}
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ url_for('main.mypage') }}">マイページ</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ url_for('main.logout') }}">ログアウト</a>
-                    </li>
-                    {% else %}
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ url_for('main.signup') }}">新規登録</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ url_for('main.login') }}">ログイン</a>
-                    </li>
-                    {% endif %}
-                </ul>
+    <header>
+        <nav class="navbar navbar-expand-lg bg-grn">
+            <div class="container">
+                <a class="navbar-brand" href="{{ url_for('main.index') }}">
+                    <i class="bi bi-cup-hot-fill me-2"></i>
+                    Sake Memory
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ url_for('main.index') }}">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ url_for('main.search') }}">Search</a>
+                        </li>
+                        {% if current_user.is_authenticated %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ url_for('main.mypage') }}">マイページ</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ url_for('main.logout') }}">ログアウト</a>
+                        </li>
+                        {% else %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ url_for('main.signup') }}">新規登録</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ url_for('main.login') }}">ログイン</a>
+                        </li>
+                        {% endif %}
+                    </ul>
+                </div>
             </div>
-        </div>
-    </nav>
+        </nav>
+    </header>
+    
 
     {% with messages = get_flashed_messages(with_categories=true) %}
         {% if messages %}
