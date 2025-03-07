@@ -15,5 +15,5 @@ class Ranking(db.Model):
         db.Index('idx_sake_category', 'sake_id', 'category'),
     )
 
-    # Add backref from ranking side only
-    sake = db.relationship('Sake', backref=db.backref('sake_rankings', lazy='dynamic'))
+    # Remove the backref definition here to avoid conflict
+    sake = db.relationship('Sake', back_populates='rankings')

@@ -10,12 +10,11 @@ class Sake(db.Model):
     created_at = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
     updated_at = db.Column(db.DateTime, nullable=False, default=datetime.utcnow, onupdate=datetime.utcnow)
 
-    # Relationships with back_populates to resolve the warning
+    # Relationships with back_populates
     reviews = db.relationship('Review', backref='sake', lazy='dynamic',
                             cascade='all, delete-orphan')
-    rankings = db.relationship('Ranking', backref='sake', lazy='dynamic',
-                             cascade='all, delete-orphan',
-                             overlaps="sake_rankings")
+    rankings = db.relationship('Ranking', back_populates='sake', lazy='dynamic',
+                             cascade='all, delete-orphan')
     flavor_chart = db.relationship('FlavorChart', backref=db.backref('sake', uselist=False),
                                  uselist=False, cascade='all, delete-orphan')
 
