@@ -10,7 +10,7 @@ class Sake(db.Model):
     created_at = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
     updated_at = db.Column(db.DateTime, nullable=False, default=datetime.utcnow, onupdate=datetime.utcnow)
 
-    # Relationships with back_populates
+    # Define relationships
     reviews = db.relationship('Review', backref='sake', lazy='dynamic',
                             cascade='all, delete-orphan')
     rankings = db.relationship('Ranking', back_populates='sake', lazy='dynamic',

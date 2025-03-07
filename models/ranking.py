@@ -15,5 +15,5 @@ class Ranking(db.Model):
         db.Index('idx_sake_category', 'sake_id', 'category'),
     )
 
-    # Remove the backref definition here to avoid conflict
+    # Define the relationship with Sake model
     sake = db.relationship('Sake', back_populates='rankings')

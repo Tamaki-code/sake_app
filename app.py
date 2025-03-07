@@ -24,15 +24,17 @@ def create_app():
     try:
         logger.info("Starting application creation...")
         app = Flask(__name__)
+        logger.debug("Flask application instance created")
 
         # Configure database URL
         database_url = os.environ.get('DATABASE_URL')
         if not database_url:
             logger.error("No DATABASE_URL found in environment variables")
             raise ValueError("DATABASE_URL is required")
+        logger.debug(f"Database URL configuration found")
 
         # Debug log for configuration
-        logger.debug("Configuring Flask application...")
+        logger.debug("Starting Flask configuration...")
 
         # Generate a fixed SECRET_KEY if not set
         if not os.environ.get('SECRET_KEY'):
@@ -48,11 +50,19 @@ def create_app():
         logger.info("Flask configuration completed")
 
         # Initialize extensions with debug logs
-        logger.debug("Initializing Flask extensions...")
-        db.init_app(app)
-        login_manager.init_app(app)
-        login_manager.login_view = 'main.login'
-        logger.info("Flask extensions initialized")
+        logger.debug("Starting Flask extensions initialization...")
+        try:
+            db.init_app(app)
+            logger.debug("Database initialization completed")
+
+            login_manager.init_app(app)
+            logger.debug("Login manager initialization completed")
+
+            login_manager.login_view = 'main.login'
+            logger.info("Flask extensions initialized successfully")
+        except Exception as e:
+            logger.error(f"Failed to initialize extensions: {str(e)}", exc_info=True)
+            raise
 
         # Add health check endpoint
         @app.route('/health')
@@ -72,19 +82,24 @@ def create_app():
                     return None
 
             # Import and register blueprints
-            from routes import bp
-            app.register_blueprint(bp)
-            logger.info("Blueprints registered")
+            try:
+                from routes import bp
+                app.register_blueprint(bp)
+                logger.info("Blueprints registered successfully")
+            except Exception as e:
+                logger.error(f"Failed to register blueprints: {str(e)}", exc_info=True)
+                raise
 
             # Verify database connection
             try:
                 logger.debug("Verifying database connection...")
                 db.session.execute(text('SELECT 1'))
-                logger.info("Database connection verified")
+                logger.info("Database connection verified successfully")
             except Exception as e:
-                logger.error(f"Database connection failed: {e}")
+                logger.error(f"Database connection failed: {e}", exc_info=True)
                 raise
 
+        logger.info("Application creation completed successfully")
         return app
 
     except Exception as e:
@@ -97,7 +112,7 @@ if __name__ == "__main__":
         app = create_app()
         logger.info(f"Starting Flask application on port {port}")
         # Always serve on 0.0.0.0 to make it accessible
-        app.run(host='0.0.0.0', port=port, debug=True)
+        app.run(host='0.0.0.0', port=port, debug=True, use_reloader=False)
     except Exception as e:
         logger.error(f"Failed to start application: {str(e)}", exc_info=True)
         sys.exit(1)
