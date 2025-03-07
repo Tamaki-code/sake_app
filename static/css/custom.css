@@ -294,3 +294,10 @@ header {
     display: block;
   }
 }
+
+/* ブランドロゴのスタイル */
+.brand-logo {
+  height: 40px;
+  width: auto;
+  object-fit: contain;
+}
