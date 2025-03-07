@@ -238,7 +238,7 @@ header {
 }
 
 .navbar {
-  padding: 1rem;
+  /* padding: 1rem; */
 }
 
 .navbar-brand {
@@ -273,7 +273,8 @@ header {
     top: 100%;
     left: 0;
     right: 0;
-    background-color: rgba(0, 0, 0, 0.95);
+    /* background-color: rgba(0, 0, 0, 0.95); */
+    background-color: rgba(67, 167, 86, 1);
     padding: 1rem;
     border-radius: 0 0 8px 8px;
     margin-top: 0;
