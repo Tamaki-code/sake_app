@@ -77,10 +77,29 @@
         </div>
     </div>
 
-    <!-- 既存のセクション -->
+    <!-- 銘柄一覧セクション -->
     <div class="row mb-4">
         <div class="col">
-            <h2 class="text-light">おすすめの日本酒</h2>
+            <h2 class="text-light">最新の銘柄</h2>
+            <div class="row g-4">
+                {% for sake in search_results %}
+                <div class="col-md-6 col-lg-4">
+                    <a href="{{ url_for('main.sake_detail', sake_id=sake.id) }}" 
+                       class="card-link text-decoration-none">
+                        <div class="card h-100 hover-card">
+                            <div class="card-body">
+                                <h5 class="card-title text-dark">{{ sake.name }}</h5>
+                                <p class="card-text">
+                                    <small class="text-muted">
+                                        {{ sake.brewery.name }} ({{ sake.brewery.region.name }})
+                                    </small>
+                                </p>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                {% endfor %}
+            </div>
         </div>
     </div>
 </div>

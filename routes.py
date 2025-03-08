@@ -132,16 +132,22 @@ def search():
 @bp.route('/sake/<int:sake_id>')
 def sake_detail(sake_id):
     try:
+        logger.info(f"Fetching sake details for ID: {sake_id}")
         sake = db.session.query(Sake) \
             .join(Brewery) \
             .join(Region) \
             .filter(Sake.id == sake_id) \
             .first_or_404()
 
+        logger.info(f"Found sake: {sake.name}")
+        logger.debug(f"Flavor tags for sake {sake_id}: {[tag.name for tag in sake.get_flavor_tags()]}")
+
         reviews = sake.reviews.order_by(Review.created_at.desc()).all()
+        logger.info(f"Found {len(reviews)} reviews")
+
         return render_template('sake_detail.html', sake=sake, reviews=reviews)
     except Exception as e:
-        logger.error(f"Error in sake_detail route for ID {sake_id}: {str(e)}")
+        logger.error(f"Error in sake_detail route for ID {sake_id}: {str(e)}", exc_info=True)
         flash('日本酒の詳細情報の取得中にエラーが発生しました。', 'error')
         return redirect(url_for('main.index'))
 

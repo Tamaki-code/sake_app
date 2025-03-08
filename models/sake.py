@@ -17,8 +17,6 @@ class Sake(db.Model):
                              cascade='all, delete-orphan')
     flavor_chart = db.relationship('FlavorChart', backref=db.backref('sake', uselist=False),
                                  uselist=False, cascade='all, delete-orphan')
-    flavor_tags = db.relationship('FlavorTag', secondary='brand_flavor_tags',
-                               backref=db.backref('sakes', lazy='dynamic'))
 
     def average_rating(self):
         """Get the average rating for this sake"""
@@ -62,4 +60,6 @@ class Sake(db.Model):
 
     def get_flavor_tags(self):
         """Get all flavor tags for this sake"""
-        return sorted(self.flavor_tags, key=lambda x: x.name)
+        from models.brand_flavor_tag import BrandFlavorTag
+        brand_flavor_tags = BrandFlavorTag.query.filter_by(sake_id=self.id).all()
+        return sorted([tag.flavor_tag for tag in brand_flavor_tags], key=lambda x: x.name)
