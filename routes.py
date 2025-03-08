@@ -7,10 +7,11 @@ from models.review import Review
 from models.brewery import Brewery
 from models.region import Region
 from models.flavor_chart import FlavorChart
+from models.brand_flavor_tag import BrandFlavorTag
+from models.flavor_tag import FlavorTag
 import logging
 from datetime import datetime
 from forms import SignupForm
-from models.ranking import Ranking # Assuming Ranking model exists
 
 # Configure logging
 logging.basicConfig(
@@ -268,3 +269,27 @@ def get_regions():
     except Exception as e:
         logger.error(f"Error in get_regions route: {str(e)}")
         return jsonify({'error': 'エラーが発生しました'}), 500
+
+@bp.route('/flavor-tag/<string:tag_name>')
+def flavor_tag_ranking(tag_name):
+    try:
+        logger.info(f"Fetching sake ranking for flavor tag: {tag_name}")
+
+        # Get all sakes with this flavor tag
+        sakes = db.session.query(Sake)\
+            .join(BrandFlavorTag)\
+            .join(FlavorTag)\
+            .filter(FlavorTag.name == tag_name)\
+            .join(Brewery)\
+            .join(Region)\
+            .all()
+
+        logger.info(f"Found {len(sakes)} sakes with flavor tag '{tag_name}'")
+
+        return render_template('flavor_tag_ranking.html', 
+                             tag_name=tag_name,
+                             sakes=sakes)
+    except Exception as e:
+        logger.error(f"Error in flavor_tag_ranking route: {str(e)}", exc_info=True)
+        flash('フレーバータグによる銘柄の取得中にエラーが発生しました。', 'error')
+        return redirect(url_for('main.index'))
