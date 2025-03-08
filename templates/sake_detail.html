@@ -26,6 +26,18 @@
                                  data-f5="{{ sake.flavor_chart.f5 }}"
                                  data-f6="{{ sake.flavor_chart.f6 }}">
                             </div>
+
+                            <!-- フレーバータグの表示エリア -->
+                            {% if sake.get_flavor_tags() %}
+                            <div class="flavor-tags mt-4">
+                                <h6>フレーバータグ</h6>
+                                <div class="d-flex flex-wrap gap-2">
+                                    {% for tag in sake.get_flavor_tags() %}
+                                    <span class="badge bg-japanese-navy">{{ tag.name }}</span>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                            {% endif %}
                             {% endif %}
                         </div>
                         <div class="col-md-6">

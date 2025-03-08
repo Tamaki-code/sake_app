@@ -330,13 +330,34 @@ header {
 .flavor-label.f6 { top: 25%; left: 10%; }
 
 .flavor-chart polygon {
-  fill: rgba(140, 147, 123, 0.2);
+  fill: none;
   stroke: var(--japanese-navy);
   stroke-width: 1;
+}
+
+.flavor-chart polygon.scale-line {
+  fill: none;
+  stroke: var(--japanese-navy);
+  stroke-width: 0.5;
+  stroke-opacity: 0.3;
 }
 
 .flavor-chart polygon.data {
   fill: rgba(140, 147, 123, 0.6);
   stroke: var(--japanese-navy);
   stroke-width: 2;
+}
+
+/* フレーバータグのスタイル */
+.flavor-tags .badge {
+    font-size: 0.9rem;
+    padding: 0.5em 1em;
+    background-color: var(--japanese-navy);
+    color: white;
+    border-radius: 20px;
+}
+
+.flavor-tags .badge:hover {
+    opacity: 0.9;
+    transition: opacity 0.2s ease;
 }

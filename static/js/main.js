@@ -207,12 +207,23 @@ function createFlavorChart(containerId, flavorData) {
   const radius = Math.min(width, height) / 2.5;
 
   // 六角形の頂点の角度を計算（360度を6分割）
-  const angles = Array.from({length: 6}, (_, i) => i * Math.PI / 3 - Math.PI / 2);
+  const angles = Array.from({ length: 6 }, (_, i) => i * Math.PI / 3 - Math.PI / 2);
 
-  // 背景の六角形の頂点座標を計算
-  const backgroundPoints = angles.map(angle => {
-    return `${centerX + radius * Math.cos(angle)},${centerY + radius * Math.sin(angle)}`;
-  }).join(' ');
+  // SVG要素を作成
+  const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+  svg.setAttribute('class', 'flavor-chart');
+  svg.setAttribute('viewBox', `0 0 ${width} ${height}`);
+
+  // 4段階の目盛り線を描画
+  for (let scale = 0.25; scale <= 1; scale += 0.25) {
+    const scalePoints = angles.map(angle => {
+      return `${centerX + radius * scale * Math.cos(angle)},${centerY + radius * scale * Math.sin(angle)}`;
+    }).join(' ');
+    const scaleLine = document.createElementNS('http://www.w3.org/2000/svg', 'polygon');
+    scaleLine.setAttribute('points', scalePoints);
+    scaleLine.setAttribute('class', 'scale-line');
+    svg.appendChild(scaleLine);
+  }
 
   // データの六角形の頂点座標を計算
   const dataPoints = angles.map((angle, i) => {
@@ -220,21 +231,28 @@ function createFlavorChart(containerId, flavorData) {
     return `${centerX + radius * value * Math.cos(angle)},${centerY + radius * value * Math.sin(angle)}`;
   }).join(' ');
 
-  // SVG要素を作成
-  const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
-  svg.setAttribute('class', 'flavor-chart');
-  svg.setAttribute('viewBox', `0 0 ${width} ${height}`);
-
-  // 背景の六角形
-  const background = document.createElementNS('http://www.w3.org/2000/svg', 'polygon');
-  background.setAttribute('points', backgroundPoints);
-  svg.appendChild(background);
-
   // データの六角形
   const data = document.createElementNS('http://www.w3.org/2000/svg', 'polygon');
   data.setAttribute('points', dataPoints);
   data.setAttribute('class', 'data');
+  // 必要に応じて fill や stroke の属性を設定してください
   svg.appendChild(data);
+
+  // 中心から各頂点への線を描画（データの六角形の後に描画して上に表示）
+  angles.forEach(angle => {
+    const x = centerX + radius * Math.cos(angle);
+    const y = centerY + radius * Math.sin(angle);
+    const line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+    line.setAttribute('x1', centerX);
+    line.setAttribute('y1', centerY);
+    line.setAttribute('x2', x);
+    line.setAttribute('y2', y);
+    line.setAttribute('class', 'center-line'); // CSSでスタイル調整可能
+    // 中心線が確実に表示されるように stroke 属性を指定
+    line.setAttribute('stroke', '#8c937b');//fill: rgba(140, 147, 123, 0.6)
+    line.setAttribute('stroke-width', '0.3');
+    svg.appendChild(line);
+  });
 
   // コンテナをクリアして新しいSVGを追加
   container.innerHTML = '';
@@ -246,6 +264,14 @@ function createFlavorChart(containerId, flavorData) {
     const div = document.createElement('div');
     div.className = `flavor-label f${i + 1}`;
     div.textContent = label;
+
+    // ラベルの調整
+    // インデックス1（芳醇）と2（重厚）は右へ、インデックス4（ドライ）と5（軽快）は左へ移動
+    if (i === 1 || i === 2) {
+      div.style.transform = 'translateX(20px)';
+    } else if (i === 4 || i === 5) {
+      div.style.transform = 'translateX(-20px)';
+    }
     container.appendChild(div);
   });
 }

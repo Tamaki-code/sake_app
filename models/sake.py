@@ -17,6 +17,8 @@ class Sake(db.Model):
                              cascade='all, delete-orphan')
     flavor_chart = db.relationship('FlavorChart', backref=db.backref('sake', uselist=False),
                                  uselist=False, cascade='all, delete-orphan')
+    flavor_tags = db.relationship('FlavorTag', secondary='brand_flavor_tags',
+                               backref=db.backref('sakes', lazy='dynamic'))
 
     def average_rating(self):
         """Get the average rating for this sake"""
@@ -57,3 +59,7 @@ class Sake(db.Model):
                 descriptions.append(f"やや{right}な")
 
         return ''.join(descriptions) if descriptions else '標準的な'
+
+    def get_flavor_tags(self):
+        """Get all flavor tags for this sake"""
+        return sorted(self.flavor_tags, key=lambda x: x.name)
