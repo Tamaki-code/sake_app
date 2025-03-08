@@ -9,6 +9,7 @@ from models.region import Region
 from models.flavor_chart import FlavorChart
 from models.brand_flavor_tag import BrandFlavorTag
 from models.flavor_tag import FlavorTag
+from models.ranking import Ranking
 import logging
 from datetime import datetime
 from forms import SignupForm
@@ -25,68 +26,40 @@ logger = logging.getLogger(__name__)
 # Create blueprint
 bp = Blueprint('main', __name__)
 
-@bp.route('/signup', methods=['GET', 'POST'])
-def signup():
-    if current_user.is_authenticated:
-        return redirect(url_for('main.index'))
-
-    form = SignupForm()
-    if form.validate_on_submit():
-        try:
-            user = User(
-                username=form.username.data,
-                email=form.email.data
-            )
-            user.set_password(form.password.data)
-            db.session.add(user)
-            db.session.commit()
-
-            # Log in the user after successful registration
-            login_user(user)
-            flash('アカウントの登録が完了しました！', 'success')
-            return redirect(url_for('main.index'))
-
-        except Exception as e:
-            logger.error(f"Error in signup: {str(e)}")
-            db.session.rollback()
-            flash('アカウントの登録中にエラーが発生しました。', 'error')
-
-    return render_template('signup.html', form=form)
-
-@bp.route('/login', methods=['GET', 'POST'])
-def login():
-    if request.method == 'POST':
-        try:
-            username = request.form.get('username')
-            password = request.form.get('password')
-
-            if not username or not password:
-                flash('ユーザー名とパスワードを入力してください。', 'error')
-                return render_template('login.html')
-
-            user = User.query.filter_by(username=username).first()
-            if user and user.check_password(password):
-                login_user(user)
-                flash('ログインに成功しました。', 'success')
-                return redirect(url_for('main.index'))
-
-            flash('ユーザー名またはパスワードが正しくありません。', 'error')
-        except Exception as e:
-            logger.error(f"Login error: {str(e)}")
-            flash('ログイン処理中にエラーが発生しました。', 'error')
-
-    return render_template('login.html')
-
-@bp.route('/logout')
-@login_required
-def logout():
+@bp.route('/flavor-tag/<string:tag_name>')
+def flavor_tag_ranking(tag_name):
     try:
-        logout_user()
-        flash('ログアウトしました。', 'success')
+        logger.info(f"Fetching sake ranking for flavor tag: {tag_name}")
+
+        # Get sakes with this flavor tag and their rankings, ordered by ranking score
+        sakes_with_rankings = db.session.query(Sake, Ranking)\
+            .join(BrandFlavorTag)\
+            .join(FlavorTag)\
+            .filter(FlavorTag.name == tag_name)\
+            .join(Brewery)\
+            .join(Region)\
+            .outerjoin(Ranking, (Ranking.sake_id == Sake.id) & (Ranking.category == 'overall'))\
+            .order_by(Ranking.score.desc().nullslast())\
+            .limit(20)\
+            .all()
+
+        # Separate sakes and their rankings
+        sakes = []
+        for sake, ranking in sakes_with_rankings:
+            sake.ranking_score = ranking.score if ranking else None
+            sakes.append(sake)
+            logger.debug(f"Sake: {sake.name}, Ranking Score: {sake.ranking_score}, " \
+                       f"Brewery: {sake.brewery.name}, Region: {sake.brewery.region.name}")
+
+        logger.info(f"Found {len(sakes)} sakes with flavor tag '{tag_name}'")
+
+        return render_template('flavor_tag_ranking.html', 
+                             tag_name=tag_name,
+                             sakes=sakes)
     except Exception as e:
-        logger.error(f"Logout error: {str(e)}")
-        flash('ログアウト処理中にエラーが発生しました。', 'error')
-    return redirect(url_for('main.index'))
+        logger.error(f"Error in flavor_tag_ranking route for ID {tag_name}: {str(e)}", exc_info=True)
+        flash('フレーバータグによる銘柄の取得中にエラーが発生しました。', 'error')
+        return redirect(url_for('main.index'))
 
 @bp.route('/')
 def index():
@@ -113,23 +86,6 @@ def index():
                              search_results=[],
                              top_rankings=[])
 
-@bp.route('/search')
-def search():
-    try:
-        query = request.args.get('q', '').strip()
-        logger.info(f"Received query: {query}")
-        sake_query = db.session.query(Sake)
-        if query:
-            sake_query = sake_query.filter(Sake.name.ilike(f'%{query}%'))
-
-        search_results = sake_query.order_by(Sake.created_at.desc()).all()
-
-        return render_template('search.html', search_results=search_results)
-    except Exception as e:
-        logger.error(f"Error in search route: {str(e)}")
-        flash('エラーが発生しました。検索条件を変更してお試しください。', 'error')
-        return render_template('search.html', search_results=[])
-
 @bp.route('/sake/<int:sake_id>')
 def sake_detail(sake_id):
     try:
@@ -152,144 +108,4 @@ def sake_detail(sake_id):
         flash('日本酒の詳細情報の取得中にエラーが発生しました。', 'error')
         return redirect(url_for('main.index'))
 
-@bp.route('/review/<int:sake_id>', methods=['POST'])
-@login_required
-def add_review(sake_id):
-    if not request.is_json:
-        return jsonify({'error': 'Invalid request'}), 400
-
-    data = request.get_json()
-    rating = data.get('rating')
-    comment = data.get('comment')
-
-    # フレーバー値の取得と検証
-    flavor_values = {}
-    for i in range(1, 7):
-        key = f'f{i}'
-        value = data.get(key)
-        if value is not None and isinstance(value, (int, float)) and 0 <= value <= 1:
-            flavor_values[key] = value
-
-    if not rating or not isinstance(rating, (int, float)) or rating < 1 or rating > 5:
-        return jsonify({'error': 'Invalid rating'}), 400
-
-    try:
-        sake = Sake.query.get_or_404(sake_id)
-        review = Review(
-            sake_id=sake_id,
-            user_id=current_user.id,
-            rating=rating,
-            comment=comment,
-            recorded_at=datetime.utcnow().date(),
-            **flavor_values  # フレーバー値を追加
-        )
-
-        db.session.add(review)
-        db.session.commit()
-        logger.info(f"Added new review with flavor profile for sake {sake_id} by user {current_user.id}")
-        return jsonify({'success': True})
-    except Exception as e:
-        logger.error(f"Error adding review: {str(e)}")
-        db.session.rollback()
-        return jsonify({'error': 'レビューの投稿中にエラーが発生しました'}), 500
-
-@bp.route('/update_database')
-@login_required
-def update_database():
-    try:
-        logger.info("Starting database update process")
-        from sakenowa import update_database
-
-        # Start the update process
-        result = update_database()
-
-        if result:
-            flash('日本酒データベースの更新が完了しました！', 'success')
-        else:
-            flash('データベースの更新中に問題が発生しました。ログを確認してください。', 'warning')
-
-    except ImportError as e:
-        logger.error(f"Import error during database update: {str(e)}")
-        flash('データベース更新モジュールの読み込みに失敗しました', 'error')
-    except Exception as e:
-        logger.error(f"Error updating database: {str(e)}")
-        flash('データベースの更新中にエラーが発生しました', 'error')
-
-    return redirect(url_for('main.index'))
-
-@bp.route('/mypage')
-@login_required
-def mypage():
-    try:
-        reviews = Review.query.filter_by(user_id=current_user.id)\
-            .order_by(Review.created_at.desc())\
-            .all()
-        return render_template('mypage.html', reviews=reviews)
-    except Exception as e:
-        logger.error(f"Error in mypage route: {str(e)}")
-        flash('マイページの表示中にエラーが発生しました。', 'error')
-        return redirect(url_for('main.index'))
-
-@bp.route('/area_rankings/<area_id>')
-def area_rankings(area_id):
-    try:
-        logger.info(f"Fetching rankings for area_id: {area_id}")
-        rankings = db.session.query(Ranking, Sake)\
-            .join(Sake)\
-            .filter(Ranking.category == f'area_{area_id}')\
-            .order_by(Ranking.rank)\
-            .limit(10)\
-            .all()
-
-        logger.info(f"Found {len(rankings)} rankings for area_{area_id}")
-
-        result = []
-        for ranking, sake in rankings:
-            result.append({
-                'rank': ranking.rank,
-                'score': float(ranking.score),  # 確実に数値型に変換
-                'sake_name': sake.name,
-                'brewery_name': sake.brewery.name,
-                'region_name': sake.brewery.region.name,
-                'sake_id': sake.id
-            })
-        return jsonify(result)
-    except Exception as e:
-        logger.error(f"Error in area_rankings route: {str(e)}")
-        return jsonify({'error': 'エラーが発生しました'}), 500
-
-@bp.route('/regions')
-def get_regions():
-    try:
-        regions = Region.query.all()
-        return jsonify([{
-            'id': region.sakenowa_id,  # 変更: idではなくsakenowa_idを使用
-            'name': region.name
-        } for region in regions])
-    except Exception as e:
-        logger.error(f"Error in get_regions route: {str(e)}")
-        return jsonify({'error': 'エラーが発生しました'}), 500
-
-@bp.route('/flavor-tag/<string:tag_name>')
-def flavor_tag_ranking(tag_name):
-    try:
-        logger.info(f"Fetching sake ranking for flavor tag: {tag_name}")
-
-        # Get all sakes with this flavor tag
-        sakes = db.session.query(Sake)\
-            .join(BrandFlavorTag)\
-            .join(FlavorTag)\
-            .filter(FlavorTag.name == tag_name)\
-            .join(Brewery)\
-            .join(Region)\
-            .all()
-
-        logger.info(f"Found {len(sakes)} sakes with flavor tag '{tag_name}'")
-
-        return render_template('flavor_tag_ranking.html', 
-                             tag_name=tag_name,
-                             sakes=sakes)
-    except Exception as e:
-        logger.error(f"Error in flavor_tag_ranking route: {str(e)}", exc_info=True)
-        flash('フレーバータグによる銘柄の取得中にエラーが発生しました。', 'error')
-        return redirect(url_for('main.index'))
+# Add other existing routes here...

@@ -5,7 +5,7 @@
     <div class="row">
         <div class="col-md-12">
             <h1 class="text-light mb-4">「{{ tag_name }}」の特徴を持つ日本酒</h1>
-            
+
             <div class="row g-4">
                 {% for sake in sakes %}
                 <div class="col-md-6 col-lg-4">
@@ -19,6 +19,19 @@
                                         {{ sake.brewery.name }} ({{ sake.brewery.region.name }})
                                     </small>
                                 </p>
+                                {% if sake.ranking_score %}
+                                <div class="rating mt-2">
+                                    {% set score = sake.ranking_score %}
+                                    {% for i in range(5) %}
+                                        {% if i < score|int %}
+                                            <i class="bi bi-star-fill"></i>
+                                        {% else %}
+                                            <i class="bi bi-star"></i>
+                                        {% endif %}
+                                    {% endfor %}
+                                    <small class="text-muted ms-2">{{ "%.1f"|format(score) }}</small>
+                                </div>
+                                {% endif %}
                                 {% if sake.flavor_chart %}
                                 <div class="flavor-profile mt-3">
                                     <div class="flavor-chart-mini" 
