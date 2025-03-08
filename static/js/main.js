@@ -179,4 +179,73 @@ document.addEventListener('DOMContentLoaded', function() {
             window.location.href = `/search?q=${encodeURIComponent(query)}&flavor=${encodeURIComponent(flavor)}`;
         });
     }
+
+    // フレーバーチャートの初期化
+    const flavorChartContainer = document.getElementById('flavor-chart');
+    if (flavorChartContainer) {
+        const flavorData = {
+            f1: parseFloat(flavorChartContainer.dataset.f1 || 0),
+            f2: parseFloat(flavorChartContainer.dataset.f2 || 0),
+            f3: parseFloat(flavorChartContainer.dataset.f3 || 0),
+            f4: parseFloat(flavorChartContainer.dataset.f4 || 0),
+            f5: parseFloat(flavorChartContainer.dataset.f5 || 0),
+            f6: parseFloat(flavorChartContainer.dataset.f6 || 0)
+        };
+        createFlavorChart('flavor-chart', flavorData);
+    }
 });
+
+
+function createFlavorChart(containerId, flavorData) {
+  const container = document.getElementById(containerId);
+  if (!container) return;
+
+  const width = 300;
+  const height = 300;
+  const centerX = width / 2;
+  const centerY = height / 2;
+  const radius = Math.min(width, height) / 2.5;
+
+  // 六角形の頂点の角度を計算（360度を6分割）
+  const angles = Array.from({length: 6}, (_, i) => i * Math.PI / 3 - Math.PI / 2);
+
+  // 背景の六角形の頂点座標を計算
+  const backgroundPoints = angles.map(angle => {
+    return `${centerX + radius * Math.cos(angle)},${centerY + radius * Math.sin(angle)}`;
+  }).join(' ');
+
+  // データの六角形の頂点座標を計算
+  const dataPoints = angles.map((angle, i) => {
+    const value = flavorData[`f${i + 1}`] || 0;
+    return `${centerX + radius * value * Math.cos(angle)},${centerY + radius * value * Math.sin(angle)}`;
+  }).join(' ');
+
+  // SVG要素を作成
+  const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+  svg.setAttribute('class', 'flavor-chart');
+  svg.setAttribute('viewBox', `0 0 ${width} ${height}`);
+
+  // 背景の六角形
+  const background = document.createElementNS('http://www.w3.org/2000/svg', 'polygon');
+  background.setAttribute('points', backgroundPoints);
+  svg.appendChild(background);
+
+  // データの六角形
+  const data = document.createElementNS('http://www.w3.org/2000/svg', 'polygon');
+  data.setAttribute('points', dataPoints);
+  data.setAttribute('class', 'data');
+  svg.appendChild(data);
+
+  // コンテナをクリアして新しいSVGを追加
+  container.innerHTML = '';
+  container.appendChild(svg);
+
+  // ラベルを追加
+  const labels = ['華やか', '芳醇', '重厚', '穏やか', 'ドライ', '軽快'];
+  labels.forEach((label, i) => {
+    const div = document.createElement('div');
+    div.className = `flavor-label f${i + 1}`;
+    div.textContent = label;
+    container.appendChild(div);
+  });
+}
