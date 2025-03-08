@@ -33,8 +33,7 @@
                                 <h6>フレーバータグ</h6>
                                 <div class="d-flex flex-wrap gap-2">
                                     {% for tag in sake.get_flavor_tags() %}
-                                    <a href="{{ url_for('main.flavor_tag_ranking', tag_name=tag.name) }}" 
-                                       class="badge bg-japanese-navy text-decoration-none">{{ tag.name }}</a>
+                                    <span class="badge bg-japanese-navy">{{ tag.name }}</span>
                                     {% endfor %}
                                 </div>
                             </div>
