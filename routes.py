@@ -89,16 +89,23 @@ def logout():
 @bp.route('/')
 def index():
     try:
-        # Get top 10 overall rankings
+        # Get top 10 overall rankings with optimized query
         top_rankings = db.session.query(Ranking, Sake)\
             .join(Sake)\
+            .options(
+                db.joinedload(Sake.brewery).joinedload(Brewery.region)
+            )\
             .filter(Ranking.category == 'overall')\
             .order_by(Ranking.rank)\
             .limit(10)\
             .all()
 
-        search_results = db.session.query(Sake) \
-            .order_by(Sake.created_at.desc()) \
+        # Get latest sakes with limited columns and optimized join
+        search_results = db.session.query(
+            Sake.id, Sake.name, Brewery.name.label('brewery_name'), Region.name.label('region_name')
+        ).join(Brewery).join(Region)\
+            .order_by(Sake.created_at.desc())\
+            .limit(20)\
             .all()
 
         return render_template('index.html', 
