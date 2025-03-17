@@ -7,6 +7,7 @@ from models.review import Review
 from models.brewery import Brewery
 from models.region import Region
 from models.flavor_chart import FlavorChart
+from models.ranking import Ranking
 import logging
 from datetime import datetime
 from forms import SignupForm
@@ -100,10 +101,11 @@ def index():
             .limit(10)\
             .all()
 
-        # Get latest sakes with limited columns and optimized join
-        search_results = db.session.query(
-            Sake.id, Sake.name, Brewery.name.label('brewery_name'), Region.name.label('region_name')
-        ).join(Brewery).join(Region)\
+        # Get latest sakes with eager loading
+        search_results = db.session.query(Sake)\
+            .options(
+                db.joinedload(Sake.brewery).joinedload(Brewery.region)
+            )\
             .order_by(Sake.created_at.desc())\
             .limit(20)\
             .all()
@@ -146,8 +148,6 @@ def sake_detail(sake_id):
             .first_or_404()
 
         logger.info(f"Found sake: {sake.name}")
-        logger.debug(f"Flavor tags for sake {sake_id}: {[tag.name for tag in sake.get_flavor_tags()]}")
-
         reviews = sake.reviews.order_by(Review.created_at.desc()).all()
         logger.info(f"Found {len(reviews)} reviews")
 
