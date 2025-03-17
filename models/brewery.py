@@ -10,6 +10,6 @@ class Brewery(db.Model):
     created_at = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
     updated_at = db.Column(db.DateTime, nullable=False, default=datetime.utcnow, onupdate=datetime.utcnow)
 
-    # Define relationship with Sake
-    sakes = db.relationship('Sake', backref='brewery', lazy='dynamic',
-                          cascade='all, delete-orphan')
+    # Define relationship with Sake - simplified relationship
+    sakes = db.relationship('Sake', back_populates='brewery',
+                          lazy='dynamic', cascade='all, delete-orphan')

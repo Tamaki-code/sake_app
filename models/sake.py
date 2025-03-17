@@ -10,7 +10,8 @@ class Sake(db.Model):
     created_at = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
     updated_at = db.Column(db.DateTime, nullable=False, default=datetime.utcnow, onupdate=datetime.utcnow)
 
-    # Define relationships
+    # Define relationships with back_populates instead of backref
+    brewery = db.relationship('Brewery', back_populates='sakes')
     reviews = db.relationship('Review', backref='sake', lazy='dynamic',
                             cascade='all, delete-orphan')
     rankings = db.relationship('Ranking', back_populates='sake', lazy='dynamic',
@@ -59,12 +60,7 @@ class Sake(db.Model):
         return ''.join(descriptions) if descriptions else '標準的な'
 
     def get_flavor_tags(self):
-        """Get all flavor tags for this sake using eager loading"""
-        if not hasattr(self, '_flavor_tags'):
-            from models.brand_flavor_tag import BrandFlavorTag
-            brand_flavor_tags = BrandFlavorTag.query.filter_by(sake_id=self.id)\
-                .join(BrandFlavorTag.flavor_tag)\
-                .with_entities('flavor_tags.*')\
-                .all()
-            self._flavor_tags = sorted(brand_flavor_tags, key=lambda x: x.name)
-        return self._flavor_tags
+        """Get all flavor tags for this sake"""
+        from models.brand_flavor_tag import BrandFlavorTag
+        brand_flavor_tags = BrandFlavorTag.query.filter_by(sake_id=self.id).all()
+        return sorted([tag.flavor_tag for tag in brand_flavor_tags], key=lambda x: x.name)

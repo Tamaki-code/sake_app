@@ -7,9 +7,11 @@ from models.review import Review
 from models.brewery import Brewery
 from models.region import Region
 from models.flavor_chart import FlavorChart
+from models.ranking import Ranking  # 追加: Rankingモデルのimport
 import logging
 from datetime import datetime
 from forms import SignupForm
+from sqlalchemy.orm import joinedload
 
 # Configure logging
 logging.basicConfig(
@@ -93,17 +95,18 @@ def index():
         top_rankings = db.session.query(Ranking, Sake)\
             .join(Sake)\
             .options(
-                db.joinedload(Sake.brewery).joinedload(Brewery.region)
+                joinedload(Sake.brewery).joinedload(Brewery.region)
             )\
             .filter(Ranking.category == 'overall')\
             .order_by(Ranking.rank)\
             .limit(10)\
             .all()
 
-        # Get latest sakes with limited columns and optimized join
-        search_results = db.session.query(
-            Sake.id, Sake.name, Brewery.name.label('brewery_name'), Region.name.label('region_name')
-        ).join(Brewery).join(Region)\
+        # Get latest sakes with eager loading
+        search_results = db.session.query(Sake)\
+            .options(
+                joinedload(Sake.brewery).joinedload(Brewery.region)
+            )\
             .order_by(Sake.created_at.desc())\
             .limit(20)\
             .all()
@@ -123,7 +126,8 @@ def search():
     try:
         query = request.args.get('q', '').strip()
         logger.info(f"Search query: {query}")
-        sake_query = db.session.query(Sake)
+        sake_query = db.session.query(Sake)\
+            .options(joinedload(Sake.brewery).joinedload(Brewery.region))
         if query:
             sake_query = sake_query.filter(Sake.name.ilike(f'%{query}%'))
 
@@ -139,15 +143,16 @@ def search():
 def sake_detail(sake_id):
     try:
         logger.info(f"Fetching sake details for ID: {sake_id}")
-        sake = db.session.query(Sake) \
-            .join(Brewery) \
-            .join(Region) \
-            .filter(Sake.id == sake_id) \
+        sake = db.session.query(Sake)\
+            .options(
+                joinedload(Sake.brewery).joinedload(Brewery.region),
+                joinedload(Sake.flavor_chart),
+                joinedload(Sake.reviews)
+            )\
+            .filter(Sake.id == sake_id)\
             .first_or_404()
 
         logger.info(f"Found sake: {sake.name}")
-        logger.debug(f"Flavor tags for sake {sake_id}: {[tag.name for tag in sake.get_flavor_tags()]}")
-
         reviews = sake.reviews.order_by(Review.created_at.desc()).all()
         logger.info(f"Found {len(reviews)} reviews")
 
@@ -188,11 +193,19 @@ def area_rankings(area_id):
 @bp.route('/regions')
 def get_regions():
     try:
-        regions = Region.query.all()
-        return jsonify([{
+        # Add debug logging
+        logger.debug("Fetching all regions")
+        regions = Region.query.order_by(Region.name).all()
+        logger.debug(f"Found {len(regions)} regions")
+
+        # Convert to list of dictionaries
+        result = [{
             'id': region.sakenowa_id,
             'name': region.name
-        } for region in regions])
+        } for region in regions]
+
+        logger.debug(f"Returning regions data: {result}")
+        return jsonify(result)
     except Exception as e:
-        logger.error(f"Error in get_regions route: {str(e)}")
+        logger.error(f"Error in get_regions route: {str(e)}", exc_info=True)
         return jsonify({'error': 'エラーが発生しました'}), 500
