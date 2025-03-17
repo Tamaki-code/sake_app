@@ -112,14 +112,14 @@ def index():
             .all()
 
         return render_template('index.html', 
-                             search_results=search_results,
-                             top_rankings=top_rankings)
+                            search_results=search_results,
+                            top_rankings=top_rankings)
     except Exception as e:
         logger.error(f"Error in index route: {str(e)}")
         flash('エラーが発生しました。しばらくしてから再度お試しください。', 'error')
         return render_template('index.html', 
-                             search_results=[],
-                             top_rankings=[])
+                            search_results=[],
+                            top_rankings=[])
 
 @bp.route('/search')
 def search():
@@ -161,34 +161,6 @@ def sake_detail(sake_id):
         logger.error(f"Error in sake_detail route for ID {sake_id}: {str(e)}", exc_info=True)
         flash('日本酒の詳細情報の取得中にエラーが発生しました。', 'error')
         return redirect(url_for('main.index'))
-
-@bp.route('/area_rankings/<area_id>')
-def area_rankings(area_id):
-    try:
-        logger.info(f"Fetching rankings for area_id: {area_id}")
-        rankings = db.session.query(Ranking, Sake)\
-            .join(Sake)\
-            .filter(Ranking.category == f'area_{area_id}')\
-            .order_by(Ranking.rank)\
-            .limit(10)\
-            .all()
-
-        logger.info(f"Found {len(rankings)} rankings for area_{area_id}")
-
-        result = []
-        for ranking, sake in rankings:
-            result.append({
-                'rank': ranking.rank,
-                'score': float(ranking.score),
-                'sake_name': sake.name,
-                'brewery_name': sake.brewery.name,
-                'region_name': sake.brewery.region.name,
-                'sake_id': sake.id
-            })
-        return jsonify(result)
-    except Exception as e:
-        logger.error(f"Error in area_rankings route: {str(e)}")
-        return jsonify({'error': 'エラーが発生しました'}), 500
 
 @bp.route('/regions')
 def get_regions():
