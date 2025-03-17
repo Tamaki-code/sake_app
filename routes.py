@@ -146,14 +146,16 @@ def sake_detail(sake_id):
         sake = db.session.query(Sake)\
             .options(
                 joinedload(Sake.brewery).joinedload(Brewery.region),
-                joinedload(Sake.flavor_chart),
-                joinedload(Sake.reviews)
+                joinedload(Sake.flavor_chart)
             )\
             .filter(Sake.id == sake_id)\
             .first_or_404()
 
         logger.info(f"Found sake: {sake.name}")
-        reviews = sake.reviews.order_by(Review.created_at.desc()).all()
+        # reviewsは別クエリで取得
+        reviews = Review.query.filter_by(sake_id=sake_id)\
+            .order_by(Review.created_at.desc())\
+            .all()
         logger.info(f"Found {len(reviews)} reviews")
 
         return render_template('sake_detail.html', sake=sake, reviews=reviews)
