@@ -183,3 +183,84 @@ def get_regions():
     except Exception as e:
         logger.error(f"Error in get_regions route: {str(e)}", exc_info=True)
         return jsonify({'error': 'エラーが発生しました'}), 500
+
+@bp.route('/area_rankings/<string:region_id>')
+def area_rankings(region_id):
+    try:
+        logger.info(f"Fetching area rankings for region ID: {region_id}")
+        
+        # 都道府県別ランキングを取得
+        area_rankings_query = db.session.query(
+            Ranking, Sake, Brewery, Region
+        ).join(
+            Sake, Ranking.sake_id == Sake.id
+        ).join(
+            Brewery, Sake.brewery_id == Brewery.id
+        ).join(
+            Region, Brewery.region_id == Region.id
+        ).filter(
+            Ranking.category == 'area',
+            Region.sakenowa_id == region_id
+        ).order_by(
+            Ranking.rank
+        ).limit(10)
+        
+        area_rankings_result = area_rankings_query.all()
+        logger.info(f"Found {len(area_rankings_result)} area rankings for region {region_id}")
+        
+        # レスポンス用のデータを作成
+        rankings_data = []
+        for ranking, sake, brewery, region in area_rankings_result:
+            rankings_data.append({
+                'rank': ranking.rank,
+                'score': ranking.score,
+                'sake_id': sake.id,
+                'sake_name': sake.name,
+                'brewery_name': brewery.name,
+                'region_name': region.name
+            })
+        
+        return jsonify(rankings_data)
+    except Exception as e:
+        logger.error(f"Error in area_rankings route for region {region_id}: {str(e)}", exc_info=True)
+        return jsonify({'error': 'エリアランキングの取得中にエラーが発生しました'}), 500
+
+@bp.route('/flavor_tag/<string:flavor_tag_id>')
+def flavor_tag_ranking(flavor_tag_id):
+    try:
+        from models.flavor_tag import FlavorTag
+        from models.brand_flavor_tag import BrandFlavorTag
+        
+        logger.info(f"Fetching ranking for flavor tag ID: {flavor_tag_id}")
+        
+        # フレーバータグの情報を取得
+        flavor_tag = FlavorTag.query.filter_by(sakenowa_id=flavor_tag_id).first_or_404()
+        logger.info(f"Found flavor tag: {flavor_tag.name}")
+        
+        # このフレーバータグを持つ日本酒を取得
+        sakes_with_tag_query = db.session.query(
+            Sake, Brewery, Region, BrandFlavorTag
+        ).join(
+            BrandFlavorTag, Sake.id == BrandFlavorTag.sake_id
+        ).join(
+            Brewery, Sake.brewery_id == Brewery.id
+        ).join(
+            Region, Brewery.region_id == Region.id
+        ).filter(
+            BrandFlavorTag.flavor_tag_id == flavor_tag.id
+        ).order_by(
+            BrandFlavorTag.created_at.desc()
+        ).limit(20)
+        
+        sakes_with_tag = sakes_with_tag_query.all()
+        logger.info(f"Found {len(sakes_with_tag)} sakes with flavor tag '{flavor_tag.name}'")
+        
+        return render_template(
+            'flavor_tag_ranking.html',
+            flavor_tag=flavor_tag,
+            sakes_with_tag=sakes_with_tag
+        )
+    except Exception as e:
+        logger.error(f"Error in flavor_tag_ranking route for tag {flavor_tag_id}: {str(e)}", exc_info=True)
+        flash('フレーバータグの取得中にエラーが発生しました。', 'error')
+        return redirect(url_for('main.index'))

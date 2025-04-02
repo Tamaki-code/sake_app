@@ -4,10 +4,10 @@
 <div class="container my-5">
     <div class="row">
         <div class="col-md-12">
-            <h1 class="text-light mb-4">「{{ tag_name }}」の特徴を持つ日本酒</h1>
+            <h1 class="text-light mb-4">「{{ flavor_tag.name }}」の特徴を持つ日本酒</h1>
 
             <div class="row g-4">
-                {% for sake in sakes %}
+                {% for sake, brewery, region, brand_flavor_tag in sakes_with_tag %}
                 <div class="col-md-6 col-lg-4">
                     <a href="{{ url_for('main.sake_detail', sake_id=sake.id) }}" 
                        class="card-link text-decoration-none">
@@ -16,24 +16,11 @@
                                 <h5 class="card-title text-dark">{{ sake.name }}</h5>
                                 <p class="card-text">
                                     <small class="text-muted">
-                                        {{ sake.brewery.name }} ({{ sake.brewery.region.name }})
+                                        {{ brewery.name }} ({{ region.name }})
                                     </small>
                                 </p>
-                                {% if sake.ranking_score %}
-                                <div class="rating mt-2">
-                                    {% set score = sake.ranking_score %}
-                                    {% for i in range(5) %}
-                                        {% if i < score|int %}
-                                            <i class="bi bi-star-fill"></i>
-                                        {% else %}
-                                            <i class="bi bi-star"></i>
-                                        {% endif %}
-                                    {% endfor %}
-                                    <small class="text-muted ms-2">{{ "%.1f"|format(score) }}</small>
-                                </div>
-                                {% endif %}
                                 {% if sake.flavor_chart %}
-                                <div class="flavor-profile mt-3">
+                                <div class="mt-3">
                                     <div class="flavor-chart-mini" 
                                          data-f1="{{ sake.flavor_chart.f1 }}"
                                          data-f2="{{ sake.flavor_chart.f2 }}"
@@ -51,9 +38,9 @@
                 {% endfor %}
             </div>
 
-            {% if not sakes %}
+            {% if not sakes_with_tag %}
             <div class="text-center my-5">
-                <p class="text-muted">「{{ tag_name }}」の特徴を持つ日本酒が見つかりませんでした。</p>
+                <p class="text-muted">「{{ flavor_tag.name }}」の特徴を持つ日本酒が見つかりませんでした。</p>
             </div>
             {% endif %}
         </div>
