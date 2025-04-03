@@ -190,6 +190,11 @@ def area_rankings(region_id):
         logger.info(f"Fetching area rankings for region ID: {region_id}")
         
         # 都道府県別ランキングを取得
+        # カテゴリは「area_地域ID」の形式
+        area_category = f'area_{region_id}'
+        
+        logger.info(f"Looking for rankings with category: {area_category}")
+        
         area_rankings_query = db.session.query(
             Ranking, Sake, Brewery, Region
         ).join(
@@ -199,8 +204,7 @@ def area_rankings(region_id):
         ).join(
             Region, Brewery.region_id == Region.id
         ).filter(
-            Ranking.category == 'area',
-            Region.sakenowa_id == region_id
+            Ranking.category == area_category
         ).order_by(
             Ranking.rank
         ).limit(10)
