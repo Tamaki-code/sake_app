@@ -180,7 +180,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // フレーバーチャートの初期化
+    // メインのフレーバーチャートの初期化
     const flavorChartContainer = document.getElementById('flavor-chart');
     if (flavorChartContainer) {
         const flavorData = {
@@ -193,6 +193,21 @@ document.addEventListener('DOMContentLoaded', function() {
         };
         createFlavorChart('flavor-chart', flavorData);
     }
+    
+    // ミニフレーバーチャートの初期化（検索結果ページなど用）
+    const miniCharts = document.querySelectorAll('.flavor-chart-mini');
+    miniCharts.forEach(chartContainer => {
+        const flavorData = {
+            f1: parseFloat(chartContainer.dataset.f1 || 0),
+            f2: parseFloat(chartContainer.dataset.f2 || 0),
+            f3: parseFloat(chartContainer.dataset.f3 || 0),
+            f4: parseFloat(chartContainer.dataset.f4 || 0),
+            f5: parseFloat(chartContainer.dataset.f5 || 0),
+            f6: parseFloat(chartContainer.dataset.f6 || 0)
+        };
+        // コンテナのIDがないのでDOMノード自体を渡す
+        createFlavorChartMini(chartContainer, flavorData);
+    });
 });
 
 

@@ -9,9 +9,21 @@
                 <h1 class="display-4 mb-4">SakeMemory</h1>
                 <p class="lead">感じた味、記憶に残そう</p>
                 <form action="{{ url_for('main.search') }}" method="GET" class="mt-4">
-                    <div class="input-group">
-                        <input type="text" name="q" class="form-input form-control-lg" placeholder="銘柄名で日本酒を検索...">
-                        <button type="submit" class="btn btn-input btn-lg">検索</button>
+                    <div class="row g-2">
+                        <div class="col-12">
+                            <div class="input-group">
+                                <input type="text" name="q" class="form-input form-control-lg" placeholder="銘柄名で日本酒を検索...">
+                                <button type="submit" class="btn btn-input btn-lg">検索</button>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <select name="flavor_tag" class="form-select form-select-lg">
+                                <option value="">フレーバータグで絞り込む（任意）</option>
+                                {% for tag in flavor_tags %}
+                                <option value="{{ tag.sakenowa_id }}">{{ tag.name }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
                     </div>
                 </form>
             </div>

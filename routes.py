@@ -110,34 +110,71 @@ def index():
             .order_by(Sake.created_at.desc())\
             .limit(20)\
             .all()
+            
+        # フレーバータグの一覧を取得（検索フォーム用）
+        from models.flavor_tag import FlavorTag
+        flavor_tags = FlavorTag.query.order_by(FlavorTag.name).all()
 
         return render_template('index.html', 
                             search_results=search_results,
-                            top_rankings=top_rankings)
+                            top_rankings=top_rankings,
+                            flavor_tags=flavor_tags)
     except Exception as e:
         logger.error(f"Error in index route: {str(e)}")
         flash('エラーが発生しました。しばらくしてから再度お試しください。', 'error')
         return render_template('index.html', 
                             search_results=[],
-                            top_rankings=[])
+                            top_rankings=[],
+                            flavor_tags=[])
 
 @bp.route('/search')
 def search():
     try:
         query = request.args.get('q', '').strip()
-        logger.info(f"Search query: {query}")
+        flavor_tag_id = request.args.get('flavor_tag', '').strip()
+        
+        logger.info(f"Search query: {query}, Flavor tag: {flavor_tag_id}")
+        
+        # フレーバータグの一覧を取得（検索フォーム用）
+        from models.flavor_tag import FlavorTag
+        flavor_tags = FlavorTag.query.order_by(FlavorTag.name).all()
+        
+        # 基本クエリを構築
         sake_query = db.session.query(Sake)\
             .options(joinedload(Sake.brewery).joinedload(Brewery.region))
+        
+        # 銘柄名での検索
         if query:
             sake_query = sake_query.filter(Sake.name.ilike(f'%{query}%'))
-
+        
+        # フレーバータグでの検索
+        if flavor_tag_id:
+            from models.brand_flavor_tag import BrandFlavorTag
+            try:
+                flavor_tag = FlavorTag.query.filter_by(sakenowa_id=flavor_tag_id).first()
+                if flavor_tag:
+                    logger.info(f"Filtering by flavor tag: {flavor_tag.name}")
+                    sake_query = sake_query.join(
+                        BrandFlavorTag, Sake.id == BrandFlavorTag.sake_id
+                    ).filter(
+                        BrandFlavorTag.flavor_tag_id == flavor_tag.id
+                    )
+            except Exception as e:
+                logger.error(f"Error filtering by flavor tag: {str(e)}")
+        
         search_results = sake_query.order_by(Sake.created_at.desc()).all()
-
-        return render_template('search.html', search_results=search_results)
+        
+        return render_template(
+            'search.html', 
+            search_results=search_results,
+            flavor_tags=flavor_tags,
+            selected_flavor_tag=flavor_tag_id,
+            query=query
+        )
     except Exception as e:
         logger.error(f"Error in search route: {str(e)}")
         flash('エラーが発生しました。検索条件を変更してお試しください。', 'error')
-        return render_template('search.html', search_results=[])
+        return render_template('search.html', search_results=[], flavor_tags=[])
 
 @bp.route('/sake/<int:sake_id>')
 def sake_detail(sake_id):

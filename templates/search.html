@@ -11,9 +11,21 @@
     <div class="row mb-4">
         <div class="col-md-8">
             <form action="{{ url_for('main.search') }}" method="GET" class="mt-4">
-                <div class="input-group">
-                    <input type="text" name="q" class="form-input form-control-lg" placeholder="銘柄名で日本酒を検索...">
-                    <button type="submit" class="btn btn-input btn-lg">検索</button>
+                <div class="row g-2">
+                    <div class="col-12">
+                        <div class="input-group">
+                            <input type="text" name="q" class="form-input form-control-lg" placeholder="銘柄名で日本酒を検索..." value="{{ query }}">
+                            <button type="submit" class="btn btn-input btn-lg">検索</button>
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <select name="flavor_tag" class="form-select form-select-lg">
+                            <option value="">フレーバータグで絞り込む（任意）</option>
+                            {% for tag in flavor_tags %}
+                            <option value="{{ tag.sakenowa_id }}" {% if selected_flavor_tag == tag.sakenowa_id %}selected{% endif %}>{{ tag.name }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
                 </div>
             </form>
             <!-- <form id="search-form" class="card card-body bg-dark">
@@ -38,18 +50,46 @@
     </div>
 
     <div class="row g-4">
-        <h2>検索結果</h2>
-        {% for sake in search_results %}
-        <div class="col-md-6">
-            <div class="sake-card card h-100">
-                <div class="card-body">
-                    <div class="d-flex justify-content-between align-items-start">
-                        <div>
-                            <a href="{{ url_for('main.sake_detail', sake_id=sake.id) }}" class="sake-result">{{ sake.name }}</a>
+        <div class="col-12">
+            <h2 class="text-light mb-3">検索結果</h2>
+            {% if selected_flavor_tag %}
+                {% for tag in flavor_tags %}
+                    {% if tag.sakenowa_id == selected_flavor_tag %}
+                        <div class="mb-3">
+                            <span class="badge bg-japanese-navy p-2">フレーバータグ: {{ tag.name }}</span>
                         </div>
+                    {% endif %}
+                {% endfor %}
+            {% endif %}
+        </div>
+        
+        {% for sake in search_results %}
+        <div class="col-md-6 col-lg-4">
+            <a href="{{ url_for('main.sake_detail', sake_id=sake.id) }}" 
+               class="card-link text-decoration-none">
+                <div class="card h-100 hover-card">
+                    <div class="card-body">
+                        <h5 class="card-title text-dark">{{ sake.name }}</h5>
+                        <p class="card-text">
+                            <small class="text-muted">
+                                {{ sake.brewery.name }} ({{ sake.brewery.region.name }})
+                            </small>
+                        </p>
+                        {% if sake.flavor_chart %}
+                        <div class="mt-3">
+                            <div class="flavor-chart-mini" 
+                                 data-f1="{{ sake.flavor_chart.f1 }}"
+                                 data-f2="{{ sake.flavor_chart.f2 }}"
+                                 data-f3="{{ sake.flavor_chart.f3 }}"
+                                 data-f4="{{ sake.flavor_chart.f4 }}"
+                                 data-f5="{{ sake.flavor_chart.f5 }}"
+                                 data-f6="{{ sake.flavor_chart.f6 }}">
+                            </div>
+                        </div>
+                        {% endif %}
                     </div>
                 </div>
-            </div>
+            </a>
         </div>
         {% endfor %}
     </div>
