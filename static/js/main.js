@@ -1,4 +1,33 @@
 document.addEventListener('DOMContentLoaded', function() {
+    // ミニフレーバーチャートの初期化（検索結果ページ）
+    const miniCharts = document.querySelectorAll('.flavor-chart-mini');
+    if (miniCharts.length > 0) {
+        miniCharts.forEach(chart => {
+            const flavorData = {
+                f1: parseFloat(chart.getAttribute('data-f1') || 0),
+                f2: parseFloat(chart.getAttribute('data-f2') || 0),
+                f3: parseFloat(chart.getAttribute('data-f3') || 0),
+                f4: parseFloat(chart.getAttribute('data-f4') || 0),
+                f5: parseFloat(chart.getAttribute('data-f5') || 0),
+                f6: parseFloat(chart.getAttribute('data-f6') || 0)
+            };
+            createFlavorChartMini(chart, flavorData);
+        });
+    }
+    
+    // メインフレーバーチャートの初期化（詳細ページ）
+    const flavorChartElement = document.getElementById('flavor-chart');
+    if (flavorChartElement) {
+        const flavorData = {
+            f1: parseFloat(flavorChartElement.getAttribute('data-f1') || 0),
+            f2: parseFloat(flavorChartElement.getAttribute('data-f2') || 0),
+            f3: parseFloat(flavorChartElement.getAttribute('data-f3') || 0),
+            f4: parseFloat(flavorChartElement.getAttribute('data-f4') || 0),
+            f5: parseFloat(flavorChartElement.getAttribute('data-f5') || 0),
+            f6: parseFloat(flavorChartElement.getAttribute('data-f6') || 0)
+        };
+        createFlavorChart('flavor-chart', flavorData);
+    }
     // Initialize tooltips
     var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
     var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {

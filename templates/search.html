@@ -9,60 +9,81 @@
     </div>
 
     <div class="row mb-4">
-        <div class="col-md-8">
-            <form action="{{ url_for('main.search') }}" method="GET" class="mt-4">
-                <div class="row g-2">
-                    <div class="col-12">
-                        <div class="input-group">
-                            <input type="text" name="q" class="form-input form-control-lg" placeholder="銘柄名で日本酒を検索..." value="{{ query }}">
-                            <button type="submit" class="btn btn-input btn-lg">検索</button>
+        <div class="col-lg-8">
+            <div class="card card-body bg-dark bg-opacity-50 p-4 rounded shadow">
+                <h4 class="mb-3 text-light">検索条件の設定</h4>
+                <form action="{{ url_for('main.search') }}" method="GET">
+                    <div class="row g-3">
+                        <div class="col-12">
+                            <label for="search-query" class="form-label text-white">銘柄名で検索</label>
+                            <div class="input-group">
+                                <input type="text" id="search-query" name="q" class="form-input form-control" 
+                                       placeholder="例: 獺祭、十四代、飛露喜など" value="{{ query }}">
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <label for="flavor-tag" class="form-label text-white">フレーバータグで絞り込み</label>
+                            <select id="flavor-tag" name="flavor_tag" class="form-select">
+                                <option value="">フレーバータグを選択...</option>
+                                {% for tag in flavor_tags %}
+                                <option value="{{ tag.sakenowa_id }}" {% if selected_flavor_tag == tag.sakenowa_id %}selected{% endif %}>{{ tag.name }}</option>
+                                {% endfor %}
+                            </select>
+                            <div class="form-text text-light opacity-75">銘柄名とフレーバータグは併用も可能です</div>
+                        </div>
+                        <div class="col-12 mt-3">
+                            <button type="submit" class="btn btn-primary">
+                                <i class="bi bi-search me-2"></i>検索条件を更新
+                            </button>
+                            <a href="{{ url_for('main.index') }}" class="btn btn-outline-light ms-2">
+                                トップに戻る
+                            </a>
                         </div>
                     </div>
-                    <div class="col-12">
-                        <select name="flavor_tag" class="form-select form-select-lg">
-                            <option value="">フレーバータグで絞り込む（任意）</option>
-                            {% for tag in flavor_tags %}
-                            <option value="{{ tag.sakenowa_id }}" {% if selected_flavor_tag == tag.sakenowa_id %}selected{% endif %}>{{ tag.name }}</option>
-                            {% endfor %}
-                        </select>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="card bg-dark bg-opacity-50 p-4 rounded shadow mb-4">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+            <h2 class="text-light m-0">検索結果</h2>
+            <div>
+                {% if search_results|length > 0 %}
+                <span class="badge bg-success p-2">{{ search_results|length }}件見つかりました</span>
+                {% endif %}
+            </div>
+        </div>
+
+        <div class="search-summary">
+            {% if query or selected_flavor_tag %}
+            <div class="mb-3 p-3 bg-light bg-opacity-10 rounded">
+                <h5 class="text-light mb-2">検索条件</h5>
+                <div class="d-flex flex-wrap gap-2">
+                    {% if query %}
+                    <div class="badge bg-info text-dark p-2">
+                        <i class="bi bi-tag-fill me-1"></i>
+                        銘柄名: {{ query }}
                     </div>
+                    {% endif %}
+                    
+                    {% if selected_flavor_tag %}
+                        {% for tag in flavor_tags %}
+                            {% if tag.sakenowa_id == selected_flavor_tag %}
+                            <div class="badge bg-japanese-navy p-2">
+                                <i class="bi bi-bookmark-fill me-1"></i>
+                                フレーバー: {{ tag.name }}
+                            </div>
+                            {% endif %}
+                        {% endfor %}
+                    {% endif %}
                 </div>
-            </form>
-            <!-- <form id="search-form" class="card card-body bg-dark">
-                <div class="row g-3">
-                    <div class="col-md-6">
-                        <input type="text" id="search-input" class="form-control" placeholder="銘柄名で検索..." value="{{ query }}">
-                    </div> -->
-                    <!-- <div class="col-md-4">
-                        <select id="flavor-select" class="form-select">
-                            <option value="">全てのタイプ</option>
-                            <option value="light" {% if flavor == 'light' %}selected{% endif %}>淡麗</option>
-                            <option value="medium" {% if flavor == 'medium' %}selected{% endif %}>中口</option>
-                            <option value="rich" {% if flavor == 'rich' %}selected{% endif %}>濃醇</option>
-                        </select>
-                    </div> -->
-                    <!-- <div class="col-md-2">
-                        <button type="submit" class="btn btn-primary w-100">検索</button>
-                    </div>
-                </div>
-            </form> -->
+            </div>
+            {% endif %}
         </div>
     </div>
 
     <div class="row g-4">
-        <div class="col-12">
-            <h2 class="text-light mb-3">検索結果</h2>
-            {% if selected_flavor_tag %}
-                {% for tag in flavor_tags %}
-                    {% if tag.sakenowa_id == selected_flavor_tag %}
-                        <div class="mb-3">
-                            <span class="badge bg-japanese-navy p-2">フレーバータグ: {{ tag.name }}</span>
-                        </div>
-                    {% endif %}
-                {% endfor %}
-            {% endif %}
-        </div>
-        
         {% for sake in search_results %}
         <div class="col-md-6 col-lg-4">
             <a href="{{ url_for('main.sake_detail', sake_id=sake.id) }}" 

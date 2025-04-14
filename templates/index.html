@@ -8,24 +8,34 @@
             <div class="col-md-8">
                 <h1 class="display-4 mb-4">SakeMemory</h1>
                 <p class="lead">感じた味、記憶に残そう</p>
-                <form action="{{ url_for('main.search') }}" method="GET" class="mt-4">
-                    <div class="row g-2">
-                        <div class="col-12">
-                            <div class="input-group">
-                                <input type="text" name="q" class="form-input form-control-lg" placeholder="銘柄名で日本酒を検索...">
-                                <button type="submit" class="btn btn-input btn-lg">検索</button>
+                <div class="search-container bg-white bg-opacity-10 p-4 rounded shadow mt-4">
+                    <h3 class="fs-5 mb-3">日本酒を検索</h3>
+                    <form action="{{ url_for('main.search') }}" method="GET">
+                        <div class="row g-3">
+                            <div class="col-12">
+                                <label for="search-query" class="form-label text-white">銘柄名で検索</label>
+                                <div class="input-group">
+                                    <input type="text" id="search-query" name="q" class="form-input form-control" placeholder="例: 獺祭、十四代、飛露喜など">
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <label for="flavor-tag" class="form-label text-white">または、フレーバータグで検索</label>
+                                <select id="flavor-tag" name="flavor_tag" class="form-select">
+                                    <option value="">フレーバータグを選択...</option>
+                                    {% for tag in flavor_tags %}
+                                    <option value="{{ tag.sakenowa_id }}">{{ tag.name }}</option>
+                                    {% endfor %}
+                                </select>
+                                <div class="form-text text-light opacity-75">銘柄名とフレーバータグは併用も可能です</div>
+                            </div>
+                            <div class="col-12 mt-3">
+                                <button type="submit" class="btn btn-primary btn-lg w-100">
+                                    <i class="bi bi-search me-2"></i>検索する
+                                </button>
                             </div>
                         </div>
-                        <div class="col-12">
-                            <select name="flavor_tag" class="form-select form-select-lg">
-                                <option value="">フレーバータグで絞り込む（任意）</option>
-                                {% for tag in flavor_tags %}
-                                <option value="{{ tag.sakenowa_id }}">{{ tag.name }}</option>
-                                {% endfor %}
-                            </select>
-                        </div>
-                    </div>
-                </form>
+                    </form>
+                </div>
             </div>
         </div>
     </div>
