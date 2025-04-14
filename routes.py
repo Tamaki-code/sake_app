@@ -133,7 +133,12 @@ def search():
         query = request.args.get('q', '').strip()
         flavor_tag_id = request.args.get('flavor_tag', '').strip()
         
-        logger.info(f"Search query: {query}, Flavor tag: {flavor_tag_id}")
+        # 新しい味わいプロファイル検索パラメータを取得
+        flavor_profile = request.args.get('flavor_profile', '')
+        flavor_direction = request.args.get('flavor_direction', '')
+        flavor_intensity = request.args.get('flavor_intensity', '')
+        
+        logger.info(f"Search query: {query}, Flavor tag: {flavor_tag_id}, Profile: {flavor_profile}, Direction: {flavor_direction}, Intensity: {flavor_intensity}")
         
         # フレーバータグの一覧を取得（検索フォーム用）
         from models.flavor_tag import FlavorTag
@@ -141,7 +146,10 @@ def search():
         
         # 基本クエリを構築
         sake_query = db.session.query(Sake)\
-            .options(joinedload(Sake.brewery).joinedload(Brewery.region))
+            .options(
+                joinedload(Sake.brewery).joinedload(Brewery.region),
+                joinedload(Sake.flavor_chart)
+            )
         
         # 銘柄名での検索
         if query:
@@ -162,14 +170,65 @@ def search():
             except Exception as e:
                 logger.error(f"Error filtering by flavor tag: {str(e)}")
         
+        # 味わいプロファイルでの絞り込み（指定がある場合）
+        if flavor_profile and flavor_direction and flavor_intensity:
+            from models.flavor_chart import FlavorChart
+            
+            flavor_field = f"f{flavor_profile}"
+            threshold = float(flavor_intensity) / 10  # 1-10のスケールを0-1に変換
+            
+            logger.info(f"Filtering by flavor profile: {flavor_field}, direction: {flavor_direction}, threshold: {threshold}")
+            
+            # FlavorChartとJOIN
+            sake_query = sake_query.join(
+                FlavorChart, Sake.id == FlavorChart.sake_id
+            )
+            
+            # 方向に基づいてフィルタリング
+            if flavor_direction == 'high':
+                # 高い値
+                sake_query = sake_query.filter(getattr(FlavorChart, flavor_field) >= threshold)
+            else:
+                # 低い値
+                sake_query = sake_query.filter(getattr(FlavorChart, flavor_field) <= threshold)
+        
         search_results = sake_query.order_by(Sake.created_at.desc()).all()
+        
+        # フレーバープロファイルの日本語名マッピング
+        flavor_profiles = {
+            '1': {'name': '華やか - 重厚', 'low': '重厚', 'high': '華やか'},
+            '2': {'name': '芳醇 - 穏やか', 'low': '穏やか', 'high': '芳醇'},
+            '3': {'name': '濃醇 - 淡麗', 'low': '淡麗', 'high': '濃醇'},
+            '4': {'name': '甘口 - 辛口', 'low': '甘口', 'high': '辛口'},
+            '5': {'name': '特性 - 個性', 'low': '特性', 'high': '個性'},
+            '6': {'name': '若年 - 熟成', 'low': '若年', 'high': '熟成'},
+        }
+        
+        # 検索パラメータの表示用データを構築
+        selected_flavor_profile_display = None
+        if flavor_profile and flavor_direction and flavor_intensity:
+            profile_info = flavor_profiles.get(flavor_profile, {})
+            direction_term = profile_info.get('high' if flavor_direction == 'high' else 'low', '')
+            intensity_level = int(flavor_intensity)
+            selected_flavor_profile_display = {
+                'name': profile_info.get('name', ''),
+                'direction': direction_term,
+                'intensity': intensity_level,
+                'profile': flavor_profile,
+                'direction_code': flavor_direction
+            }
         
         return render_template(
             'search.html', 
             search_results=search_results,
             flavor_tags=flavor_tags,
             selected_flavor_tag=flavor_tag_id,
-            query=query
+            query=query,
+            flavor_profiles=flavor_profiles,
+            selected_flavor_profile=selected_flavor_profile_display,
+            flavor_profile=flavor_profile,
+            flavor_direction=flavor_direction,
+            flavor_intensity=flavor_intensity
         )
     except Exception as e:
         logger.error(f"Error in search route: {str(e)}")
