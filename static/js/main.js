@@ -211,6 +211,72 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 
+// ミニ版フレーバーチャート作成関数（検索結果一覧用）
+function createFlavorChartMini(chartContainer, flavorData) {
+  if (!chartContainer) return;
+
+  const width = 150;
+  const height = 150;
+  const centerX = width / 2;
+  const centerY = height / 2;
+  const radius = Math.min(width, height) / 2.5;
+
+  // 六角形の頂点の角度を計算（360度を6分割）
+  const angles = Array.from({ length: 6 }, (_, i) => i * Math.PI / 3 - Math.PI / 2);
+
+  // SVG要素を作成
+  const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+  svg.setAttribute('class', 'flavor-chart-svg');
+  svg.setAttribute('viewBox', `0 0 ${width} ${height}`);
+  svg.setAttribute('width', '100%');
+  svg.setAttribute('height', '100%');
+
+  // 4段階の目盛り線を描画
+  for (let scale = 0.25; scale <= 1; scale += 0.25) {
+    const scalePoints = angles.map(angle => {
+      return `${centerX + radius * scale * Math.cos(angle)},${centerY + radius * scale * Math.sin(angle)}`;
+    }).join(' ');
+    const scaleLine = document.createElementNS('http://www.w3.org/2000/svg', 'polygon');
+    scaleLine.setAttribute('points', scalePoints);
+    scaleLine.setAttribute('fill', 'none');
+    scaleLine.setAttribute('stroke', '#ddd');
+    scaleLine.setAttribute('stroke-width', '0.5');
+    svg.appendChild(scaleLine);
+  }
+
+  // データの六角形の頂点座標を計算
+  const dataPoints = angles.map((angle, i) => {
+    const value = flavorData[`f${i + 1}`] || 0;
+    return `${centerX + radius * value * Math.cos(angle)},${centerY + radius * value * Math.sin(angle)}`;
+  }).join(' ');
+
+  // データの六角形
+  const data = document.createElementNS('http://www.w3.org/2000/svg', 'polygon');
+  data.setAttribute('points', dataPoints);
+  data.setAttribute('fill', 'rgba(140, 147, 123, 0.6)');
+  data.setAttribute('stroke', '#8c937b');
+  data.setAttribute('stroke-width', '1');
+  svg.appendChild(data);
+
+  // 中心から各頂点への線を描画
+  angles.forEach(angle => {
+    const x = centerX + radius * Math.cos(angle);
+    const y = centerY + radius * Math.sin(angle);
+    const line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+    line.setAttribute('x1', centerX);
+    line.setAttribute('y1', centerY);
+    line.setAttribute('x2', x);
+    line.setAttribute('y2', y);
+    line.setAttribute('stroke', '#8c937b');
+    line.setAttribute('stroke-width', '0.3');
+    svg.appendChild(line);
+  });
+
+  // コンテナをクリアして新しいSVGを追加
+  chartContainer.innerHTML = '';
+  chartContainer.appendChild(svg);
+}
+
 function createFlavorChart(containerId, flavorData) {
   const container = document.getElementById(containerId);
   if (!container) return;

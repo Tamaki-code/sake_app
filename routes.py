@@ -180,6 +180,8 @@ def search():
 def sake_detail(sake_id):
     try:
         logger.info(f"Fetching sake details for ID: {sake_id}")
+        
+        # 日本酒の基本情報とフレーバーチャートを取得（関連データを先読み）
         sake = db.session.query(Sake)\
             .options(
                 joinedload(Sake.brewery).joinedload(Brewery.region),
@@ -189,13 +191,30 @@ def sake_detail(sake_id):
             .first_or_404()
 
         logger.info(f"Found sake: {sake.name}")
-        # reviewsは別クエリで取得
+        
+        # フレーバータグを取得（get_flavor_tags()メソッドを利用する代わりに直接クエリ）
+        from models.flavor_tag import FlavorTag
+        from models.brand_flavor_tag import BrandFlavorTag
+        
+        flavor_tags = db.session.query(FlavorTag)\
+            .join(BrandFlavorTag, FlavorTag.id == BrandFlavorTag.flavor_tag_id)\
+            .filter(BrandFlavorTag.sake_id == sake_id)\
+            .order_by(FlavorTag.name)\
+            .all()
+        
+        logger.info(f"Found {len(flavor_tags)} flavor tags")
+        
+        # レビューを取得
         reviews = Review.query.filter_by(sake_id=sake_id)\
             .order_by(Review.created_at.desc())\
             .all()
+            
         logger.info(f"Found {len(reviews)} reviews")
 
-        return render_template('sake_detail.html', sake=sake, reviews=reviews)
+        return render_template('sake_detail.html', 
+                              sake=sake, 
+                              reviews=reviews,
+                              flavor_tags=flavor_tags)
     except Exception as e:
         logger.error(f"Error in sake_detail route for ID {sake_id}: {str(e)}", exc_info=True)
         flash('日本酒の詳細情報の取得中にエラーが発生しました。', 'error')

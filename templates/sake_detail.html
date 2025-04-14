@@ -28,11 +28,11 @@
                             </div>
 
                             <!-- フレーバータグの表示エリア -->
-                            {% if sake.get_flavor_tags() %}
+                            {% if flavor_tags %}
                             <div class="flavor-tags mt-4">
                                 <h6>フレーバータグ</h6>
                                 <div class="d-flex flex-wrap gap-2">
-                                    {% for tag in sake.get_flavor_tags() %}
+                                    {% for tag in flavor_tags %}
                                     <a href="{{ url_for('main.flavor_tag_ranking', flavor_tag_id=tag.sakenowa_id) }}" 
                                        class="badge bg-japanese-navy text-decoration-none">
                                         {{ tag.name }}
