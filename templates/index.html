@@ -33,36 +33,56 @@
                                 <hr class="border-light opacity-50">
                                 <h5 class="mt-3 mb-3 fs-6">味わいの特徴で探す</h5>
                                 
-                                <div class="row g-2">
-                                    <div class="col-md-12">
-                                        <label for="flavor-direction" class="form-label text-white small">味わいの特徴</label>
-                                        <select id="flavor-direction" name="flavor_direction" class="form-select form-select-sm">
-                                            <option value="">特徴を選択...</option>
-                                            <optgroup label="華やかさ・重厚さ">
-                                                <option value="elegant">華やか</option>
-                                                <option value="heavy">重厚</option>
-                                            </optgroup>
-                                            <optgroup label="芳醇さ・穏やかさ">
-                                                <option value="rich">芳醇</option>
-                                                <option value="mild">穏やか</option>
-                                            </optgroup>
-                                            <optgroup label="濃醇さ・淡麗さ">
-                                                <option value="full">濃醇</option>
-                                                <option value="light">淡麗</option>
-                                            </optgroup>
-                                            <optgroup label="甘口・辛口">
-                                                <option value="sweet">甘口</option>
-                                                <option value="dry">辛口</option>
-                                            </optgroup>
-                                            <optgroup label="個性・特性">
-                                                <option value="individual">個性的</option>
-                                                <option value="typical">特性的</option>
-                                            </optgroup>
-                                            <optgroup label="若さ・熟成">
-                                                <option value="fresh">若々しい</option>
-                                                <option value="aged">熟成感</option>
-                                            </optgroup>
-                                        </select>
+                                <!-- 隠しフィールドで選択された味わいを保持 -->
+                                <input type="hidden" id="flavor-direction" name="flavor_direction" value="">
+                                
+                                <div class="flavor-buttons mb-3">
+                                    <div class="mb-2">
+                                        <small class="text-white opacity-75">華やかさ・重厚さ</small>
+                                        <div class="d-flex gap-2">
+                                            <button type="button" class="btn btn-outline-light flavor-btn" data-value="elegant">華やか</button>
+                                            <button type="button" class="btn btn-outline-light flavor-btn" data-value="heavy">重厚</button>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="mb-2">
+                                        <small class="text-white opacity-75">芳醇さ・穏やかさ</small>
+                                        <div class="d-flex gap-2">
+                                            <button type="button" class="btn btn-outline-light flavor-btn" data-value="rich">芳醇</button>
+                                            <button type="button" class="btn btn-outline-light flavor-btn" data-value="mild">穏やか</button>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="mb-2">
+                                        <small class="text-white opacity-75">濃醇さ・淡麗さ</small>
+                                        <div class="d-flex gap-2">
+                                            <button type="button" class="btn btn-outline-light flavor-btn" data-value="full">濃醇</button>
+                                            <button type="button" class="btn btn-outline-light flavor-btn" data-value="light">淡麗</button>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="mb-2">
+                                        <small class="text-white opacity-75">甘口・辛口</small>
+                                        <div class="d-flex gap-2">
+                                            <button type="button" class="btn btn-outline-light flavor-btn" data-value="sweet">甘口</button>
+                                            <button type="button" class="btn btn-outline-light flavor-btn" data-value="dry">辛口</button>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="mb-2">
+                                        <small class="text-white opacity-75">個性・特性</small>
+                                        <div class="d-flex gap-2">
+                                            <button type="button" class="btn btn-outline-light flavor-btn" data-value="individual">個性的</button>
+                                            <button type="button" class="btn btn-outline-light flavor-btn" data-value="typical">特性的</button>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="mb-2">
+                                        <small class="text-white opacity-75">若さ・熟成</small>
+                                        <div class="d-flex gap-2">
+                                            <button type="button" class="btn btn-outline-light flavor-btn" data-value="fresh">若々しい</button>
+                                            <button type="button" class="btn btn-outline-light flavor-btn" data-value="aged">熟成感</button>
+                                        </div>
                                     </div>
                                 </div>
                                 
@@ -85,14 +105,50 @@
                                 </button>
                             </div>
                             
+                            <style>
+                                /* ボタンスタイル */
+                                .flavor-btn {
+                                    flex-grow: 1;
+                                    min-width: 80px;
+                                    transition: all 0.2s;
+                                    font-size: 0.9rem;
+                                    padding: 0.25rem 0.5rem;
+                                }
+                                
+                                .flavor-btn.active {
+                                    background-color: #0d6efd;
+                                    border-color: #0d6efd;
+                                    color: white;
+                                    transform: scale(1.05);
+                                    box-shadow: 0 0 10px rgba(13, 110, 253, 0.5);
+                                }
+                            </style>
+                            
                             <script>
                                 document.addEventListener('DOMContentLoaded', function() {
                                     // 強さスライダーの値表示を更新
                                     const intensityRange = document.getElementById('flavor-intensity');
                                     const intensityValue = document.getElementById('intensity-value');
+                                    const hiddenInput = document.getElementById('flavor-direction');
+                                    const flavorButtons = document.querySelectorAll('.flavor-btn');
                                     
+                                    // スライダーの値表示更新
                                     intensityRange.addEventListener('input', function() {
                                         intensityValue.textContent = this.value;
+                                    });
+                                    
+                                    // 味わいボタンのクリックイベント
+                                    flavorButtons.forEach(button => {
+                                        button.addEventListener('click', function() {
+                                            // 他のボタンから active クラスを削除
+                                            flavorButtons.forEach(btn => btn.classList.remove('active'));
+                                            
+                                            // クリックされたボタンに active クラスを追加
+                                            this.classList.add('active');
+                                            
+                                            // 隠しフィールドに値をセット
+                                            hiddenInput.value = this.dataset.value;
+                                        });
                                     });
                                 });
                             </script>
