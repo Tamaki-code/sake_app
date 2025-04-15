@@ -437,10 +437,14 @@ def flavor_tag_ranking(flavor_tag_id):
         sakes_with_tag = sakes_with_tag_query.all()
         logger.info(f"Found {len(sakes_with_tag)} sakes with flavor tag '{flavor_tag.name}'")
         
+        # 関連するフレーバータグ（その他のタグ）を取得
+        flavor_tags = FlavorTag.query.order_by(FlavorTag.name).all()
+        
         return render_template(
             'flavor_tag_ranking.html',
             flavor_tag=flavor_tag,
-            sakes_with_tag=sakes_with_tag
+            sakes_with_tag=sakes_with_tag,
+            flavor_tags=flavor_tags
         )
     except Exception as e:
         logger.error(f"Error in flavor_tag_ranking route for tag {flavor_tag_id}: {str(e)}", exc_info=True)

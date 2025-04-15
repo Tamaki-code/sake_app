@@ -14,7 +14,7 @@
 body {
   font-family: 'Noto Sans JP', sans-serif;
   background-color: var(--sake-light);
-  padding-top: 70px;
+  padding-top: 56px; /* ヘッダーの高さに合わせて調整 */
   color: var(--sake-dark);
   line-height: 1.6;
 }
@@ -31,13 +31,14 @@ header {
 }
 
 .navbar {
-  padding: 0.5rem 1rem;
+  padding: 0.25rem 1rem; /* 上下のパディングを減らす */
+  min-height: 56px; /* 固定高さを設定 */
 }
 
 .navbar-brand {
   color: var(--sake-light) !important;
   font-weight: 700;
-  font-size: 1.5rem;
+  font-size: 1.25rem; /* フォントサイズを少し小さく */
   letter-spacing: 0.05em;
 }
 
@@ -260,6 +261,16 @@ header {
 
 .badge.bg-japanese-navy {
   background-color: var(--sake-tag) !important;
+}
+
+.badge.bg-tag {
+  background-color: var(--sake-tag) !important;
+  color: white !important;
+}
+
+.badge.bg-accent {
+  background-color: var(--sake-accent) !important;
+  color: white !important;
 }
 
 /* フレーバータグ */

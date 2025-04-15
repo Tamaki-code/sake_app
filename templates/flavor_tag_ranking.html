@@ -1,11 +1,28 @@
 {% extends "base.html" %}
 
 {% block content %}
-<div class="container my-5">
-    <div class="row">
-        <div class="col-md-12">
-            <h1 class="text-light mb-4">「{{ flavor_tag.name }}」の特徴を持つ日本酒</h1>
+<div class="container mt-5 pt-4">
+    <div class="row mb-4">
+        <div class="col-12">
+            <a href="{{ url_for('main.index') }}" class="text-decoration-none mb-4 d-inline-block">
+                <i class="bi bi-arrow-left me-2"></i>トップに戻る
+            </a>
+            <h2 class="section-title">
+                「{{ flavor_tag.name }}」が特徴的な日本酒
+            </h2>
+        </div>
+    </div>
 
+    {% if sakes_with_tag %}
+    <div class="card search-results-card mb-4">
+        <div class="card-body">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h5 class="mb-0">
+                    <i class="bi bi-tag-fill me-2"></i>フレーバー検索結果
+                </h5>
+                <span class="badge bg-tag px-3 py-2">{{ sakes_with_tag|length }}件見つかりました</span>
+            </div>
+            
             <div class="row g-4">
                 {% for sake, brewery, region, brand_flavor_tag in sakes_with_tag %}
                 <div class="col-md-6 col-lg-4">
@@ -13,14 +30,12 @@
                        class="card-link text-decoration-none">
                         <div class="card h-100 hover-card">
                             <div class="card-body">
-                                <h5 class="card-title text-dark">{{ sake.name }}</h5>
-                                <p class="card-text">
-                                    <small class="text-muted">
-                                        {{ brewery.name }} ({{ region.name }})
-                                    </small>
+                                <h5 class="card-title">{{ sake.name }}</h5>
+                                <p class="card-text text-muted mb-3">
+                                    {{ brewery.name }} ({{ region.name }})
                                 </p>
                                 {% if sake.flavor_chart %}
-                                <div class="mt-3">
+                                <div class="mt-3 d-flex justify-content-center">
                                     <div class="flavor-chart-mini" 
                                          data-f1="{{ sake.flavor_chart.f1 }}"
                                          data-f2="{{ sake.flavor_chart.f2 }}"
@@ -37,12 +52,42 @@
                 </div>
                 {% endfor %}
             </div>
-
-            {% if not sakes_with_tag %}
-            <div class="text-center my-5">
-                <p class="text-muted">「{{ flavor_tag.name }}」の特徴を持つ日本酒が見つかりませんでした。</p>
+        </div>
+    </div>
+    {% else %}
+    <div class="card search-results-card mb-4">
+        <div class="card-body">
+            <div class="text-center py-5">
+                <div class="mb-3">
+                    <i class="bi bi-search" style="font-size: 3rem; opacity: 0.3;"></i>
+                </div>
+                <h3>このフレーバータグに該当する日本酒はありません</h3>
+                <p class="text-muted">他のフレーバータグで検索してみてください</p>
+                <a href="{{ url_for('main.index') }}" class="btn btn-primary mt-3">
+                    <i class="bi bi-house-door me-2"></i>トップページに戻る
+                </a>
             </div>
-            {% endif %}
+        </div>
+    </div>
+    {% endif %}
+
+    <div class="row mb-5">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="mb-3">「{{ flavor_tag.name }}」について</h5>
+                    <p>このフレーバータグは、日本酒の味わいの特徴を示しています。同じタグを持つ銘柄は似た風味を持っている可能性があります。</p>
+                    <h6 class="mt-4 mb-3">他のフレーバーも探す</h6>
+                    <div class="d-flex flex-wrap gap-2">
+                        {% for tag in flavor_tags[:8] %}
+                        <a href="{{ url_for('main.flavor_tag_ranking', flavor_tag_id=tag.sakenowa_id) }}" 
+                           class="badge bg-tag text-decoration-none">
+                           <i class="bi bi-tag-fill me-1"></i>{{ tag.name }}
+                        </a>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>
