@@ -1,250 +1,281 @@
 {% extends "base.html" %}
 
 {% block content %}
-<div class="container my-5">
+<div class="container mt-5 pt-4">
     <div class="row mb-4">
-        <div class="col-md-8">
-            <h2 class="text-light">SakeMemory</h2>
+        <div class="col-12">
+            <a href="{{ url_for('main.index') }}" class="text-decoration-none mb-4 d-inline-block">
+                <i class="bi bi-arrow-left me-2"></i>トップに戻る
+            </a>
+            <h2 class="section-title">検索結果と絞り込み</h2>
         </div>
     </div>
 
-    <div class="row mb-4">
-        <div class="col-lg-8">
-            <div class="card card-body bg-dark bg-opacity-50 p-4 rounded shadow">
-                <h4 class="mb-3 text-light">検索条件の設定</h4>
+    <div class="row">
+        <div class="col-lg-4">
+            <div class="search-card mb-4 sticky-top" style="top: 100px;">
                 <form action="{{ url_for('main.search') }}" method="GET">
-                    <div class="row g-3">
-                        <div class="col-12">
-                            <label for="search-query" class="form-label text-white">銘柄名で検索</label>
-                            <div class="input-group">
-                                <input type="text" id="search-query" name="q" class="form-input form-control" 
-                                       placeholder="例: 獺祭、十四代、飛露喜など" value="{{ query }}">
-                            </div>
+                    <h5 class="text-white mb-4">検索条件の調整</h5>
+                    
+                    <div class="mb-3">
+                        <label for="search-query" class="form-label">銘柄名</label>
+                        <div class="input-group">
+                            <span class="input-group-text bg-white border-0">
+                                <i class="bi bi-search"></i>
+                            </span>
+                            <input type="text" id="search-query" name="q" class="form-control border-0" 
+                                   placeholder="例: 獺祭、十四代..." value="{{ query }}">
                         </div>
-                        <div class="col-12">
-                            <label for="flavor-tag" class="form-label text-white">フレーバータグで絞り込み</label>
-                            <select id="flavor-tag" name="flavor_tag" class="form-select">
-                                <option value="">フレーバータグを選択...</option>
-                                {% for tag in flavor_tags %}
-                                <option value="{{ tag.sakenowa_id }}" {% if selected_flavor_tag == tag.sakenowa_id %}selected{% endif %}>{{ tag.name }}</option>
-                                {% endfor %}
-                            </select>
-                            <div class="form-text text-light opacity-75">銘柄名とフレーバータグは併用も可能です</div>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="flavor-tag" class="form-label">フレーバータグ</label>
+                        <select id="flavor-tag" name="flavor_tag" class="form-select">
+                            <option value="">フレーバータグを選択...</option>
+                            {% for tag in flavor_tags %}
+                            <option value="{{ tag.sakenowa_id }}" {% if selected_flavor_tag == tag.sakenowa_id %}selected{% endif %}>{{ tag.name }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    
+                    <hr class="border-light opacity-25 my-4">
+                    
+                    <!-- 隠しフィールドで選択された味わいを保持 -->
+                    <input type="hidden" id="flavor-direction" name="flavor_direction" value="{{ flavor_direction }}">
+                    <input type="hidden" name="flavor_profile" value="">
+                    
+                    <div class="flavor-buttons mb-4">
+                        <h6 class="text-white mb-3">味わいの特徴</h6>
+                        
+                        <div class="mb-3">
+                            <div class="d-flex align-items-center mb-2">
+                                <span class="badge bg-light text-dark px-3 py-2 me-2">華やかさ・重厚さ</span>
+                                <div class="flex-grow-1 border-top border-light opacity-25"></div>
+                            </div>
+                            <div class="d-flex gap-2">
+                                <button type="button" class="btn flavor-btn {{ 'active' if flavor_direction == 'elegant' }}" data-value="elegant">
+                                    <i class="bi bi-flower3 me-1"></i>華やか
+                                </button>
+                                <button type="button" class="btn flavor-btn {{ 'active' if flavor_direction == 'heavy' }}" data-value="heavy">
+                                    <i class="bi bi-bank me-1"></i>重厚
+                                </button>
+                            </div>
                         </div>
                         
-                        <div class="col-12 mt-2">
-                            <hr class="border-light">
-                            <h5 class="text-light mb-3">味わいの特徴で絞り込み</h5>
-                            
-                            <!-- 隠しフィールドで選択された味わいを保持 -->
-                            <input type="hidden" id="flavor-direction" name="flavor_direction" value="{{ flavor_direction }}">
-                            <input type="hidden" name="flavor_profile" value="">
-                            
-                            <div class="flavor-buttons mb-3">
-                                <div class="mb-2">
-                                    <small class="text-white opacity-75">華やかさ・重厚さ</small>
-                                    <div class="d-flex gap-2">
-                                        <button type="button" class="btn btn-outline-light flavor-btn {{ 'active' if flavor_direction == 'elegant' }}" data-value="elegant">華やか</button>
-                                        <button type="button" class="btn btn-outline-light flavor-btn {{ 'active' if flavor_direction == 'heavy' }}" data-value="heavy">重厚</button>
-                                    </div>
-                                </div>
-                                
-                                <div class="mb-2">
-                                    <small class="text-white opacity-75">芳醇さ・穏やかさ</small>
-                                    <div class="d-flex gap-2">
-                                        <button type="button" class="btn btn-outline-light flavor-btn {{ 'active' if flavor_direction == 'rich' }}" data-value="rich">芳醇</button>
-                                        <button type="button" class="btn btn-outline-light flavor-btn {{ 'active' if flavor_direction == 'mild' }}" data-value="mild">穏やか</button>
-                                    </div>
-                                </div>
-                                
-                                <div class="mb-2">
-                                    <small class="text-white opacity-75">濃醇さ・淡麗さ</small>
-                                    <div class="d-flex gap-2">
-                                        <button type="button" class="btn btn-outline-light flavor-btn {{ 'active' if flavor_direction == 'full' }}" data-value="full">濃醇</button>
-                                        <button type="button" class="btn btn-outline-light flavor-btn {{ 'active' if flavor_direction == 'light' }}" data-value="light">淡麗</button>
-                                    </div>
-                                </div>
-                                
-                                <div class="mb-2">
-                                    <small class="text-white opacity-75">甘口・辛口</small>
-                                    <div class="d-flex gap-2">
-                                        <button type="button" class="btn btn-outline-light flavor-btn {{ 'active' if flavor_direction == 'sweet' }}" data-value="sweet">甘口</button>
-                                        <button type="button" class="btn btn-outline-light flavor-btn {{ 'active' if flavor_direction == 'dry' }}" data-value="dry">辛口</button>
-                                    </div>
-                                </div>
-                                
-                                <div class="mb-2">
-                                    <small class="text-white opacity-75">個性・特性</small>
-                                    <div class="d-flex gap-2">
-                                        <button type="button" class="btn btn-outline-light flavor-btn {{ 'active' if flavor_direction == 'individual' }}" data-value="individual">個性的</button>
-                                        <button type="button" class="btn btn-outline-light flavor-btn {{ 'active' if flavor_direction == 'typical' }}" data-value="typical">特性的</button>
-                                    </div>
-                                </div>
-                                
-                                <div class="mb-2">
-                                    <small class="text-white opacity-75">若さ・熟成</small>
-                                    <div class="d-flex gap-2">
-                                        <button type="button" class="btn btn-outline-light flavor-btn {{ 'active' if flavor_direction == 'fresh' }}" data-value="fresh">若々しい</button>
-                                        <button type="button" class="btn btn-outline-light flavor-btn {{ 'active' if flavor_direction == 'aged' }}" data-value="aged">熟成感</button>
-                                    </div>
-                                </div>
+                        <div class="mb-3">
+                            <div class="d-flex align-items-center mb-2">
+                                <span class="badge bg-light text-dark px-3 py-2 me-2">芳醇さ・穏やかさ</span>
+                                <div class="flex-grow-1 border-top border-light opacity-25"></div>
                             </div>
-                            
-                            <div class="col-12">
-                                <label for="flavor-intensity" class="form-label text-white">強さ (1-10)</label>
-                                <div class="d-flex align-items-center">
-                                    <input type="range" id="flavor-intensity" name="flavor_intensity" class="form-range" 
-                                           min="1" max="10" step="1" value="{{ flavor_intensity or 5 }}">
-                                    <span id="intensity-value" class="ms-3 text-white">{{ flavor_intensity or 5 }}</span>
-                                </div>
-                                <div class="form-text text-light opacity-75">数値が大きいほど特徴がはっきりした日本酒が表示されます</div>
+                            <div class="d-flex gap-2">
+                                <button type="button" class="btn flavor-btn {{ 'active' if flavor_direction == 'rich' }}" data-value="rich">
+                                    <i class="bi bi-droplet-fill me-1"></i>芳醇
+                                </button>
+                                <button type="button" class="btn flavor-btn {{ 'active' if flavor_direction == 'mild' }}" data-value="mild">
+                                    <i class="bi bi-wind me-1"></i>穏やか
+                                </button>
                             </div>
-                            
-                            <style>
-                                /* ボタンスタイル */
-                                .flavor-btn {
-                                    flex-grow: 1;
-                                    min-width: 80px;
-                                    transition: all 0.2s;
-                                    font-size: 0.9rem;
-                                    padding: 0.25rem 0.5rem;
-                                }
-                                
-                                .flavor-btn.active {
-                                    background-color: #0d6efd;
-                                    border-color: #0d6efd;
-                                    color: white;
-                                    transform: scale(1.05);
-                                    box-shadow: 0 0 10px rgba(13, 110, 253, 0.5);
-                                }
-                            </style>
-                            
-                            <script>
-                                document.addEventListener('DOMContentLoaded', function() {
-                                    // 強さスライダーの値表示を更新
-                                    const intensityRange = document.getElementById('flavor-intensity');
-                                    const intensityValue = document.getElementById('intensity-value');
-                                    const hiddenInput = document.getElementById('flavor-direction');
-                                    const flavorButtons = document.querySelectorAll('.flavor-btn');
-                                    
-                                    // スライダーの値表示更新
-                                    intensityRange.addEventListener('input', function() {
-                                        intensityValue.textContent = this.value;
-                                    });
-                                    
-                                    // 味わいボタンのクリックイベント
-                                    flavorButtons.forEach(button => {
-                                        button.addEventListener('click', function() {
-                                            // 他のボタンから active クラスを削除
-                                            flavorButtons.forEach(btn => btn.classList.remove('active'));
-                                            
-                                            // クリックされたボタンに active クラスを追加
-                                            this.classList.add('active');
-                                            
-                                            // 隠しフィールドに値をセット
-                                            hiddenInput.value = this.dataset.value;
-                                        });
-                                    });
-                                });
-                            </script>
                         </div>
-                        <div class="col-12 mt-3">
-                            <button type="submit" class="btn btn-primary">
-                                <i class="bi bi-search me-2"></i>検索条件を更新
-                            </button>
-                            <a href="{{ url_for('main.index') }}" class="btn btn-outline-light ms-2">
-                                トップに戻る
-                            </a>
+                        
+                        <div class="mb-3">
+                            <div class="d-flex align-items-center mb-2">
+                                <span class="badge bg-light text-dark px-3 py-2 me-2">濃醇さ・淡麗さ</span>
+                                <div class="flex-grow-1 border-top border-light opacity-25"></div>
+                            </div>
+                            <div class="d-flex gap-2">
+                                <button type="button" class="btn flavor-btn {{ 'active' if flavor_direction == 'full' }}" data-value="full">
+                                    <i class="bi bi-circle-fill me-1"></i>濃醇
+                                </button>
+                                <button type="button" class="btn flavor-btn {{ 'active' if flavor_direction == 'light' }}" data-value="light">
+                                    <i class="bi bi-circle me-1"></i>淡麗
+                                </button>
+                            </div>
                         </div>
+                        
+                        <div class="mb-3">
+                            <div class="d-flex align-items-center mb-2">
+                                <span class="badge bg-light text-dark px-3 py-2 me-2">甘口・辛口</span>
+                                <div class="flex-grow-1 border-top border-light opacity-25"></div>
+                            </div>
+                            <div class="d-flex gap-2">
+                                <button type="button" class="btn flavor-btn {{ 'active' if flavor_direction == 'sweet' }}" data-value="sweet">
+                                    <i class="bi bi-cup-fill me-1"></i>甘口
+                                </button>
+                                <button type="button" class="btn flavor-btn {{ 'active' if flavor_direction == 'dry' }}" data-value="dry">
+                                    <i class="bi bi-moisture me-1"></i>辛口
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <div class="d-flex align-items-center mb-2">
+                                <span class="badge bg-light text-dark px-3 py-2 me-2">個性・特性</span>
+                                <div class="flex-grow-1 border-top border-light opacity-25"></div>
+                            </div>
+                            <div class="d-flex gap-2">
+                                <button type="button" class="btn flavor-btn {{ 'active' if flavor_direction == 'individual' }}" data-value="individual">
+                                    <i class="bi bi-stars me-1"></i>個性的
+                                </button>
+                                <button type="button" class="btn flavor-btn {{ 'active' if flavor_direction == 'typical' }}" data-value="typical">
+                                    <i class="bi bi-diamond-fill me-1"></i>特性的
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <div class="d-flex align-items-center mb-2">
+                                <span class="badge bg-light text-dark px-3 py-2 me-2">若さ・熟成</span>
+                                <div class="flex-grow-1 border-top border-light opacity-25"></div>
+                            </div>
+                            <div class="d-flex gap-2">
+                                <button type="button" class="btn flavor-btn {{ 'active' if flavor_direction == 'fresh' }}" data-value="fresh">
+                                    <i class="bi bi-tree me-1"></i>若々しい
+                                </button>
+                                <button type="button" class="btn flavor-btn {{ 'active' if flavor_direction == 'aged' }}" data-value="aged">
+                                    <i class="bi bi-hourglass-split me-1"></i>熟成感
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-4">
+                        <div class="d-flex justify-content-between mb-2">
+                            <label for="flavor-intensity" class="form-label">特徴の強さ</label>
+                            <span id="intensity-value" class="badge bg-light text-dark px-3 py-2">{{ flavor_intensity or 5 }}</span>
+                        </div>
+                        <input type="range" id="flavor-intensity" name="flavor_intensity" class="form-range" 
+                               min="1" max="10" step="1" value="{{ flavor_intensity or 5 }}">
+                        <div class="form-text mt-2">
+                            <i class="bi bi-info-circle me-1"></i>
+                            数値が大きいほど特徴がはっきりした日本酒が表示されます
+                        </div>
+                    </div>
+                    
+                    <div class="mt-4">
+                        <button type="submit" class="btn btn-primary w-100">
+                            <i class="bi bi-search me-2"></i>検索条件を更新
+                        </button>
                     </div>
                 </form>
             </div>
         </div>
-    </div>
-
-    <div class="card bg-dark bg-opacity-50 p-4 rounded shadow mb-4">
-        <div class="d-flex justify-content-between align-items-center mb-3">
-            <h2 class="text-light m-0">検索結果</h2>
-            <div>
-                {% if search_results|length > 0 %}
-                <span class="badge bg-success p-2">{{ search_results|length }}件見つかりました</span>
-                {% endif %}
-            </div>
-        </div>
-
-        <div class="search-summary">
-            {% if query or selected_flavor_tag or selected_flavor_profile %}
-            <div class="mb-3 p-3 bg-light bg-opacity-10 rounded">
-                <h5 class="text-light mb-2">検索条件</h5>
-                <div class="d-flex flex-wrap gap-2">
-                    {% if query %}
-                    <div class="badge bg-info text-dark p-2">
-                        <i class="bi bi-tag-fill me-1"></i>
-                        銘柄名: {{ query }}
-                    </div>
-                    {% endif %}
-                    
-                    {% if selected_flavor_tag %}
-                        {% for tag in flavor_tags %}
-                            {% if tag.sakenowa_id == selected_flavor_tag %}
-                            <div class="badge bg-japanese-navy p-2">
-                                <i class="bi bi-bookmark-fill me-1"></i>
-                                フレーバー: {{ tag.name }}
-                            </div>
-                            {% endif %}
-                        {% endfor %}
-                    {% endif %}
-                    
-                    {% if selected_flavor_profile %}
-                    <div class="badge bg-success p-2">
-                        <i class="bi bi-graph-up me-1"></i>
-                        味わい: {{ selected_flavor_profile.direction }}
-                        (強さ: {{ selected_flavor_profile.intensity }})
-                    </div>
+        
+        <div class="col-lg-8">
+            <div class="search-results-card mb-4">
+                <div class="d-flex justify-content-between align-items-center mb-4">
+                    <h5 class="mb-0">
+                        <i class="bi bi-list-ul me-2"></i>検索結果
+                    </h5>
+                    {% if search_results|length > 0 %}
+                    <span class="badge bg-success px-3 py-2">{{ search_results|length }}件見つかりました</span>
                     {% endif %}
                 </div>
-            </div>
-            {% endif %}
-        </div>
-    </div>
 
-    <div class="row g-4">
-        {% for sake in search_results %}
-        <div class="col-md-6 col-lg-4">
-            <a href="{{ url_for('main.sake_detail', sake_id=sake.id) }}" 
-               class="card-link text-decoration-none">
-                <div class="card h-100 hover-card">
-                    <div class="card-body">
-                        <h5 class="card-title text-dark">{{ sake.name }}</h5>
-                        <p class="card-text">
-                            <small class="text-muted">
-                                {{ sake.brewery.name }} ({{ sake.brewery.region.name }})
-                            </small>
-                        </p>
-                        {% if sake.flavor_chart %}
-                        <div class="mt-3">
-                            <div class="flavor-chart-mini" 
-                                 data-f1="{{ sake.flavor_chart.f1 }}"
-                                 data-f2="{{ sake.flavor_chart.f2 }}"
-                                 data-f3="{{ sake.flavor_chart.f3 }}"
-                                 data-f4="{{ sake.flavor_chart.f4 }}"
-                                 data-f5="{{ sake.flavor_chart.f5 }}"
-                                 data-f6="{{ sake.flavor_chart.f6 }}">
-                            </div>
+                {% if query or selected_flavor_tag or selected_flavor_profile %}
+                <div class="search-summary mb-4 p-3 bg-white bg-opacity-10 rounded-3">
+                    <h6 class="text-dark mb-2">検索条件</h6>
+                    <div class="d-flex flex-wrap gap-2">
+                        {% if query %}
+                        <div class="badge bg-info text-white px-3 py-2">
+                            <i class="bi bi-tag-fill me-1"></i>
+                            銘柄名: {{ query }}
+                        </div>
+                        {% endif %}
+                        
+                        {% if selected_flavor_tag %}
+                            {% for tag in flavor_tags %}
+                                {% if tag.sakenowa_id == selected_flavor_tag %}
+                                <div class="badge bg-tag px-3 py-2">
+                                    <i class="bi bi-bookmark-fill me-1"></i>
+                                    フレーバー: {{ tag.name }}
+                                </div>
+                                {% endif %}
+                            {% endfor %}
+                        {% endif %}
+                        
+                        {% if selected_flavor_profile %}
+                        <div class="badge bg-accent px-3 py-2">
+                            <i class="bi bi-graph-up me-1"></i>
+                            味わい: {{ selected_flavor_profile.direction }}
+                            (強さ: {{ selected_flavor_profile.intensity }})
                         </div>
                         {% endif %}
                     </div>
                 </div>
-            </a>
+                {% endif %}
+                
+                <div class="sake-results">
+                    <div class="row g-4">
+                        {% for sake in search_results %}
+                        <div class="col-md-6">
+                            <a href="{{ url_for('main.sake_detail', sake_id=sake.id) }}" 
+                               class="card-link text-decoration-none">
+                                <div class="card h-100 hover-card">
+                                    <div class="card-body">
+                                        <h5 class="card-title">{{ sake.name }}</h5>
+                                        <p class="card-text text-muted mb-3">
+                                            {{ sake.brewery.name }} ({{ sake.brewery.region.name }})
+                                        </p>
+                                        {% if sake.flavor_chart %}
+                                        <div class="mt-3 d-flex justify-content-center">
+                                            <div class="flavor-chart-mini" 
+                                                 data-f1="{{ sake.flavor_chart.f1 }}"
+                                                 data-f2="{{ sake.flavor_chart.f2 }}"
+                                                 data-f3="{{ sake.flavor_chart.f3 }}"
+                                                 data-f4="{{ sake.flavor_chart.f4 }}"
+                                                 data-f5="{{ sake.flavor_chart.f5 }}"
+                                                 data-f6="{{ sake.flavor_chart.f6 }}">
+                                            </div>
+                                        </div>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                        {% endfor %}
+                    </div>
+                    
+                    {% if not search_results %}
+                    <div class="text-center my-5 py-5">
+                        <div class="mb-4">
+                            <i class="bi bi-search" style="font-size: 3rem; opacity: 0.3;"></i>
+                        </div>
+                        <h3>該当する日本酒が見つかりませんでした</h3>
+                        <p class="text-muted">検索条件を変更して再度お試しください</p>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
         </div>
-        {% endfor %}
     </div>
-
-    {% if not search_results %}
-    <div class="text-center my-5">
-        <h3 class="text-muted">該当する日本酒が見つかりませんでした</h3>
-        <p>検索条件を変更してお試しください</p>
-    </div>
-    {% endif %}
 </div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // 強さスライダーの値表示を更新
+        const intensityRange = document.getElementById('flavor-intensity');
+        const intensityValue = document.getElementById('intensity-value');
+        const hiddenInput = document.getElementById('flavor-direction');
+        const flavorButtons = document.querySelectorAll('.flavor-btn');
+        
+        // スライダーの値表示更新
+        intensityRange.addEventListener('input', function() {
+            intensityValue.textContent = this.value;
+        });
+        
+        // 味わいボタンのクリックイベント
+        flavorButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                // 他のボタンから active クラスを削除
+                flavorButtons.forEach(btn => btn.classList.remove('active'));
+                
+                // クリックされたボタンに active クラスを追加
+                this.classList.add('active');
+                
+                // 隠しフィールドに値をセット
+                hiddenInput.value = this.dataset.value;
+            });
+        });
+    });
+</script>
 {% endblock %}

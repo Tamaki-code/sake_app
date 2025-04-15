@@ -1,23 +1,57 @@
 {% extends "base.html" %}
 
 {% block content %}
-<div class="container my-5">
+<div class="container mt-5 pt-5">
+    <div class="row mb-4">
+        <div class="col-12">
+            <a href="{{ url_for('main.index') }}" class="text-decoration-none mb-4 d-inline-block">
+                <i class="bi bi-arrow-left me-2"></i>検索結果に戻る
+            </a>
+        </div>
+    </div>
+    
     <div class="row">
-        <div class="col-md-8">
-            <h1 class="text-light mb-4">{{ sake.name }}</h1>
-
-            <div class="card sake-detail-card mb-4">
+        <div class="col-lg-8">
+            <div class="card mb-4">
                 <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-start mb-3">
+                        <div>
+                            <h1 class="card-title h3 mb-1">{{ sake.name }}</h1>
+                            <p class="text-muted mb-0">{{ sake.brewery.name }} ({{ sake.brewery.region.name }})</p>
+                        </div>
+                        <span class="badge bg-accent px-3 py-2">
+                            {{ sake.reviews.count() }}件のレビュー
+                        </span>
+                    </div>
+                    
+                    <hr class="my-4">
+                    
                     <div class="row">
                         <div class="col-md-6">
-                            <h5>基本情報</h5>
-                            <p><strong>蔵元:</strong> {{ sake.brewery.name }}</p>
-                            <p><strong>地域:</strong> {{ sake.brewery.region.name }}</p>
                             {% if sake.get_flavor_profile() %}
-                            <h5 class="mt-4">味わいの特徴</h5>
+                            <h5 class="section-title mb-4">味わいの特徴</h5>
                             <p>{{ sake.get_flavor_description() }}日本酒です。</p>
 
+                            <!-- フレーバータグの表示エリア -->
+                            {% if flavor_tags %}
+                            <div class="flavor-tags mt-4">
+                                <h6 class="mb-3">フレーバータグ</h6>
+                                <div class="d-flex flex-wrap gap-2">
+                                    {% for tag in flavor_tags %}
+                                    <a href="{{ url_for('main.flavor_tag_ranking', flavor_tag_id=tag.sakenowa_id) }}" 
+                                       class="badge bg-tag text-decoration-none">
+                                       <i class="bi bi-tag-fill me-1"></i>{{ tag.name }}
+                                    </a>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                            {% endif %}
+                            {% endif %}
+                        </div>
+                        
+                        <div class="col-md-6">
                             <!-- フレーバーチャートの表示エリア -->
+                            {% if sake.get_flavor_profile() %}
                             <div id="flavor-chart" class="flavor-chart-container"
                                  data-f1="{{ sake.flavor_chart.f1 }}"
                                  data-f2="{{ sake.flavor_chart.f2 }}"
@@ -26,183 +60,242 @@
                                  data-f5="{{ sake.flavor_chart.f5 }}"
                                  data-f6="{{ sake.flavor_chart.f6 }}">
                             </div>
-
-                            <!-- フレーバータグの表示エリア -->
-                            {% if flavor_tags %}
-                            <div class="flavor-tags mt-4">
-                                <h6>フレーバータグ</h6>
-                                <div class="d-flex flex-wrap gap-2">
-                                    {% for tag in flavor_tags %}
-                                    <a href="{{ url_for('main.flavor_tag_ranking', flavor_tag_id=tag.sakenowa_id) }}" 
-                                       class="badge bg-japanese-navy text-decoration-none">
-                                        {{ tag.name }}
-                                    </a>
-                                    {% endfor %}
-                                </div>
-                            </div>
                             {% endif %}
-                            {% endif %}
-                        </div>
-                        <div class="col-md-6">
-                            <!-- <h5>評価</h5>
-                            <div class="rating mb-2">
-                                {% set rating = sake.average_rating() | round(1) %}
-                                {% for i in range(5) %}
-                                <i class="bi {% if i < rating %}bi-star-fill{% else %}bi-star{% endif %}"></i>
-                                {% endfor %}
-                                <span class="ms-2">{{ rating }} / 5.0</span>
-                            </div> -->
-                            <p>{{ sake.reviews.count() }}件のレビュー</p>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <div class="review-section mb-4">
-                <h3 class="mb-4">レビューを書く</h3>
-                <form id="review-form" data-sake-id="{{ sake.id }}" class="sake-detail-card p-4">
-                    <div class="mb-3">
-                        <label for="review-comment" class="form-label">レビュー内容</label>
-                        <textarea id="review-comment" name="comment" class="form-control" rows="3" required></textarea>
-                    </div>
-                    <!-- フレーバー情報入力欄 -->
-                    <div class="flavor-inputs mb-4">
-                        <h5>味わいの特徴</h5>
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="flavor-slider mb-3">
-                                    <label class="form-label d-flex justify-content-between">
-                                        <span>華やか</span>
-                                        <span class="current-value">5</span>
-                                        <span>重厚</span>
-                                    </label>
-                                    <input type="range" class="form-range flavor-range" id="f1" name="f1"
-                                           min="0" max="10" value="5" step="1">
+            <div class="card mb-4">
+                <div class="card-body">
+                    <h5 class="section-title">レビューを書く</h5>
+                    <form id="review-form" data-sake-id="{{ sake.id }}" class="mt-4">
+                        <div class="mb-4">
+                            <label for="review-comment" class="form-label">レビュー内容</label>
+                            <textarea id="review-comment" name="comment" class="form-control" rows="3" placeholder="この日本酒の感想を書いてください..." required></textarea>
+                        </div>
+                        
+                        <!-- フレーバー情報入力欄 -->
+                        <div class="flavor-inputs mb-4">
+                            <h6 class="mb-3">味わいの特徴を評価</h6>
+                            <div class="row g-4">
+                                <div class="col-md-6">
+                                    <div class="flavor-slider mb-3">
+                                        <div class="d-flex justify-content-between mb-2">
+                                            <small>華やか</small>
+                                            <span class="badge bg-light text-dark current-value">5</span>
+                                            <small>重厚</small>
+                                        </div>
+                                        <input type="range" class="form-range flavor-range" id="f1" name="f1"
+                                               min="0" max="10" value="5" step="1">
+                                    </div>
+                                    
+                                    <div class="flavor-slider mb-3">
+                                        <div class="d-flex justify-content-between mb-2">
+                                            <small>香り 弱い</small>
+                                            <span class="badge bg-light text-dark current-value">5</span>
+                                            <small>強い</small>
+                                        </div>
+                                        <input type="range" class="form-range flavor-range" id="f2_aroma" name="f2_aroma"
+                                               min="0" max="10" value="5" step="1">
+                                        <small class="text-muted d-block mt-1">※日本酒の香りの強さを評価</small>
+                                    </div>
+                                    
+                                    <div class="flavor-slider mb-3">
+                                        <div class="d-flex justify-content-between mb-2">
+                                            <small>冷酒向き</small>
+                                            <span class="badge bg-light text-dark current-value">5</span>
+                                            <small>燗向き</small>
+                                        </div>
+                                        <input type="range" class="form-range flavor-range" id="f2_temp" name="f2_temp"
+                                               min="0" max="10" value="5" step="1">
+                                        <small class="text-muted d-block mt-1">※飲用温度の適性を評価</small>
+                                    </div>
                                 </div>
-                                <!-- f2を2つに分離 -->
-                                <div class="flavor-slider mb-3">
-                                    <label class="form-label d-flex justify-content-between">
-                                        <span>香り 弱い</span>
-                                        <span class="current-value">5</span>
-                                        <span>強い</span>
-                                    </label>
-                                    <input type="range" class="form-range flavor-range" id="f2_aroma" name="f2_aroma"
-                                           min="0" max="10" value="5" step="1">
-                                    <small class="text-muted">※日本酒の香りの強さを評価</small>
-                                </div>
-                                <div class="flavor-slider mb-3">
-                                    <label class="form-label d-flex justify-content-between">
-                                        <span>冷酒向き</span>
-                                        <span class="current-value">5</span>
-                                        <span>燗向き</span>
-                                    </label>
-                                    <input type="range" class="form-range flavor-range" id="f2_temp" name="f2_temp"
-                                           min="0" max="10" value="5" step="1">
-                                    <small class="text-muted">※飲用温度の適性を評価</small>
-                                </div>
-                                <div class="flavor-slider mb-3">
-                                    <label class="form-label d-flex justify-content-between">
-                                        <span>淡麗</span>
-                                        <span class="current-value">5</span>
-                                        <span>濃醇</span>
-                                    </label>
-                                    <input type="range" class="form-range flavor-range" id="f3" name="f3"
-                                           min="0" max="10" value="5" step="1">
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="flavor-slider mb-3">
-                                    <label class="form-label d-flex justify-content-between">
-                                        <span>甘口</span>
-                                        <span class="current-value">5</span>
-                                        <span>辛口</span>
-                                    </label>
-                                    <input type="range" class="form-range flavor-range" id="f4" name="f4"
-                                           min="0" max="10" value="5" step="1">
-                                </div>
-                                <div class="flavor-slider mb-3">
-                                    <label class="form-label d-flex justify-content-between">
-                                        <span>特性</span>
-                                        <span class="current-value">5</span>
-                                        <span>個性</span>
-                                    </label>
-                                    <input type="range" class="form-range flavor-range" id="f5" name="f5"
-                                           min="0" max="10" value="5" step="1">
-                                </div>
-                                <div class="flavor-slider mb-3">
-                                    <label class="form-label d-flex justify-content-between">
-                                        <span>若年</span>
-                                        <span class="current-value">5</span>
-                                        <span>熟成</span>
-                                    </label>
-                                    <input type="range" class="form-range flavor-range" id="f6" name="f6"
-                                           min="0" max="10" value="5" step="1">
+                                
+                                <div class="col-md-6">
+                                    <div class="flavor-slider mb-3">
+                                        <div class="d-flex justify-content-between mb-2">
+                                            <small>淡麗</small>
+                                            <span class="badge bg-light text-dark current-value">5</span>
+                                            <small>濃醇</small>
+                                        </div>
+                                        <input type="range" class="form-range flavor-range" id="f3" name="f3"
+                                               min="0" max="10" value="5" step="1">
+                                    </div>
+                                    
+                                    <div class="flavor-slider mb-3">
+                                        <div class="d-flex justify-content-between mb-2">
+                                            <small>甘口</small>
+                                            <span class="badge bg-light text-dark current-value">5</span>
+                                            <small>辛口</small>
+                                        </div>
+                                        <input type="range" class="form-range flavor-range" id="f4" name="f4"
+                                               min="0" max="10" value="5" step="1">
+                                    </div>
+                                    
+                                    <div class="flavor-slider mb-3">
+                                        <div class="d-flex justify-content-between mb-2">
+                                            <small>特性的</small>
+                                            <span class="badge bg-light text-dark current-value">5</span>
+                                            <small>個性的</small>
+                                        </div>
+                                        <input type="range" class="form-range flavor-range" id="f5" name="f5"
+                                               min="0" max="10" value="5" step="1">
+                                    </div>
+                                    
+                                    <div class="flavor-slider mb-3">
+                                        <div class="d-flex justify-content-between mb-2">
+                                            <small>若々しい</small>
+                                            <span class="badge bg-light text-dark current-value">5</span>
+                                            <small>熟成感</small>
+                                        </div>
+                                        <input type="range" class="form-range flavor-range" id="f6" name="f6"
+                                               min="0" max="10" value="5" step="1">
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <button type="submit" class="btn btn-primary">レビューを投稿</button>
-                </form>
+                        
+                        <button type="submit" class="btn btn-primary">
+                            <i class="bi bi-pencil-fill me-2"></i>レビューを投稿
+                        </button>
+                    </form>
+                </div>
             </div>
 
-            <div class="reviews-section">
-                <h3 class="mb-4">レビュー一覧</h3>
-                {% for review in reviews %}
-                    <div class="card sake-detail-card mb-3">
-                        <div class="card-body">
-                            <div class="d-flex justify-content-between">
-                                <div>
-                                    <h6 class="mb-2">{{ review.author.username }}</h6>
-                                    <div class="rating">
-                                        {% for i in range(5) %}
-                                        <i class="bi {% if i < review.rating %}bi-star-fill{% else %}bi-star{% endif %}"></i>
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="section-title mb-4">レビュー一覧</h5>
+                    
+                    {% if reviews %}
+                    <div class="reviews-list">
+                        {% for review in reviews %}
+                        <div class="review-item card mb-3 border-0 shadow-sm">
+                            <div class="card-body">
+                                <div class="d-flex justify-content-between align-items-start mb-3">
+                                    <div>
+                                        <h6 class="mb-1">{{ review.author.username }}</h6>
+                                        <div class="rating">
+                                            {% for i in range(5) %}
+                                            <i class="bi {% if i < review.rating %}bi-star-fill{% else %}bi-star{% endif %}"></i>
+                                            {% endfor %}
+                                        </div>
+                                    </div>
+                                    <span class="text-muted small">
+                                        {{ review.created_at.strftime('%Y年%m月%d日') }}
+                                    </span>
+                                </div>
+                                
+                                <p class="card-text">{{ review.comment }}</p>
+                                
+                                {% if review.get_flavor_profile() %}
+                                <div class="flavor-profile mt-4">
+                                    <h6 class="mb-3 small fw-bold">味わいの評価</h6>
+                                    <div class="row">
+                                        {% for label, value in review.get_flavor_profile().items() %}
+                                        <div class="col-md-6">
+                                            <div class="mb-3">
+                                                <div class="d-flex justify-content-between mb-1">
+                                                    {% if value is mapping %}
+                                                        <small>{{ label }}</small>
+                                                        <small class="current-value">{{ (value.value * 10) | round(1) }}</small>
+                                                        <small></small>
+                                                    {% else %}
+                                                        {% set left, right = label.split('-') %}
+                                                        <small>{{ left }}</small>
+                                                        <small class="current-value">{{ (value * 10) | round(1) }}</small>
+                                                        <small>{{ right }}</small>
+                                                    {% endif %}
+                                                </div>
+                                                <div class="progress" style="height: 5px;">
+                                                    <div class="progress-bar" role="progressbar"
+                                                         style="width: {{ value.value * 100 if value is mapping else value * 100 }}%"
+                                                         aria-valuenow="{{ value.value * 100 if value is mapping else value * 100 }}"
+                                                         aria-valuemin="0"
+                                                         aria-valuemax="100"></div>
+                                                </div>
+                                                {% if value is mapping %}
+                                                <small class="text-muted d-block mt-1">{{ value.description }}</small>
+                                                {% endif %}
+                                            </div>
+                                        </div>
                                         {% endfor %}
                                     </div>
                                 </div>
-                                <small class="text-muted">
-                                    {{ review.created_at.strftime('%Y年%m月%d日') }}
-                                </small>
+                                {% endif %}
                             </div>
-                            {% if review.get_flavor_profile() %}
-                            <div class="flavor-profile mt-3">
-                                {% for label, value in review.get_flavor_profile().items() %}
-                                <div class="mb-2">
-                                    <small class="d-flex justify-content-between">
-                                        {% if value is mapping %}
-                                            <span>{{ label }}</span>
-                                            <span class="current-value">{{ (value.value * 10) | round(1) }}</span>
-                                            <span></span>
-                                            <small class="text-muted d-block">{{ value.description }}</small>
-                                        {% else %}
-                                            {% set left, right = label.split('-') %}
-                                            <span>{{ left }}</span>
-                                            <span class="current-value">{{ (value * 10) | round(1) }}</span>
-                                            <span>{{ right }}</span>
-                                        {% endif %}
-                                    </small>
-                                    <div class="progress">
-                                        <div class="progress-bar" role="progressbar"
-                                             style="width: {{ value.value * 100 if value is mapping else value * 100 }}%"
-                                             aria-valuenow="{{ value.value * 100 if value is mapping else value * 100 }}"
-                                             aria-valuemin="0"
-                                             aria-valuemax="100"></div>
-                                    </div>
-                                </div>
-                                {% endfor %}
-                            </div>
-                            {% endif %}
-                            <p class="card-text mt-3">{{ review.comment }}</p>
+                        </div>
+                        {% endfor %}
+                    </div>
+                    {% else %}
+                    <div class="text-center py-5">
+                        <div class="mb-3">
+                            <i class="bi bi-chat-square-text" style="font-size: 2.5rem; opacity: 0.3;"></i>
+                        </div>
+                        <h5>まだレビューがありません</h5>
+                        <p class="text-muted">最初のレビューを投稿してみませんか？</p>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-lg-4">
+            <div class="card mb-4 sticky-top" style="top: 100px;">
+                <div class="card-body">
+                    <h5 class="mb-4">関連情報</h5>
+                    
+                    <div class="mb-4">
+                        <h6 class="mb-3">蔵元情報</h6>
+                        <div class="d-flex align-items-center mb-2">
+                            <i class="bi bi-building me-2 text-muted"></i>
+                            <span>{{ sake.brewery.name }}</span>
+                        </div>
+                        <div class="d-flex align-items-center">
+                            <i class="bi bi-geo-alt me-2 text-muted"></i>
+                            <span>{{ sake.brewery.region.name }}</span>
                         </div>
                     </div>
-                {% endfor %}
-
-                {% if not reviews %}
-                <div class="text-center text-muted">
-                    <p>まだレビューがありません。最初のレビューを投稿してみませんか？</p>
+                    
+                    <div class="mb-4">
+                        <h6 class="mb-3">同じ蔵元の日本酒</h6>
+                        <ul class="list-group list-group-flush">
+                            {% for related_sake in sake.brewery.sakes[:5] %}
+                            {% if related_sake.id != sake.id %}
+                            <li class="list-group-item bg-transparent px-0">
+                                <a href="{{ url_for('main.sake_detail', sake_id=related_sake.id) }}" class="text-decoration-none">
+                                    {{ related_sake.name }}
+                                </a>
+                            </li>
+                            {% endif %}
+                            {% endfor %}
+                        </ul>
+                    </div>
+                    
+                    <div>
+                        <h6 class="mb-3">同じ地域の人気銘柄</h6>
+                        <a href="{{ url_for('main.area_rankings', region_id=sake.brewery.region.sakenowa_id) }}" 
+                           class="btn btn-outline-primary btn-sm">
+                           <i class="bi bi-trophy me-1"></i>{{ sake.brewery.region.name }}の人気ランキングを見る
+                        </a>
+                    </div>
                 </div>
-                {% endif %}
             </div>
         </div>
     </div>
 </div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // フレーバースライダーの値表示を更新
+        const sliders = document.querySelectorAll('.flavor-range');
+        sliders.forEach(slider => {
+            const valueDisplay = slider.closest('.flavor-slider').querySelector('.current-value');
+            slider.addEventListener('input', function() {
+                valueDisplay.textContent = this.value;
+            });
+        });
+    });
+</script>
 {% endblock %}

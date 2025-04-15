@@ -1,309 +1,308 @@
 :root {
-  --japanese-red: #BC002D;
-  --japanese-navy: #8c937b;  /* グリーンに変更 */
-  --japanese-gold: #B8860B;
+  --sake-primary: #2D3142;       /* ダークネイビー */
+  --sake-secondary: #F5F5F5;     /* ライトグレー */
+  --sake-accent: #D72638;        /* 赤 */
+  --sake-accent-light: #FF6B6B;  /* 明るい赤 */
+  --sake-gold: #F7A72D;          /* 金色 */
+  --sake-beige: #F5EFE0;         /* 淡いベージュ */
+  --sake-light: #FAFAFA;         /* ほぼ白 */
+  --sake-dark: #1A1A1A;          /* ほぼ黒 */
+  --sake-gray: #4F5D75;          /* グレー */
+  --sake-tag: #7395AE;           /* タグ色 */
 }
 
-/* 既存のスタイルは維持 */
 body {
   font-family: 'Noto Sans JP', sans-serif;
-  background-color: #f1f0e8;
-  padding-top: 80px; /* ヘッダーの高さ分のパディング */
+  background-color: var(--sake-light);
+  padding-top: 70px;
+  color: var(--sake-dark);
+  line-height: 1.6;
 }
 
-/* カードリンクのスタイル */
-.card-link {
-  color: inherit;
-  text-decoration: none;
-}
-
-.hover-card {
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-  border: none;
-  background-color: #ffffff;
-}
-
-.hover-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-}
-
-/* 星評価のスタイル */
-.rating {
-  color: var(--japanese-gold);
-}
-
-.rating .bi-star-fill {
-  color: var(--japanese-gold);
-}
-
-.rating .bi-star {
-  color: var(--japanese-gold);
-  opacity: 0.5;
-}
-
-.rating .bi-star-half {
-  color: var(--japanese-gold);
-}
-
-.hero-section {
-  background-image:url("../images/sakeImage.jpg");
-  background-size: cover;
-  background-position: center;
-  min-height: 80vh;
-  position: relative;
-}
-
-.hero-overlay {
-  background: rgba(140, 147, 123, 0.5);
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-}
-
-.sake-card {
-  transition: transform 0.2s;
-  border: none;
-  background: #daccaf;
-}
-
-.sake-card:hover {
-  transform: translateY(-5px);
-}
-
-.sake-result{
-  color: #fff;
-  text-decoration: none;
-}
-
-.sake-detail-card{
-  border: none;
-  background: #daccaf;
-}
-
-.sake-result:hover {
-  color: #9f713c;
-}
-
-.japanese-pattern {
-  background-color: #ece0c9;
-}
-
-.btn-input{
-  background-color:#c2cbae;
-  border-color: var(--japanese-navy);
-}
-
-.btn-input:hover{
-  background-color:#8c937b;
-}
-
-.review-section {
-  background: #daccaf;
-  border-radius: 8px;
-  padding: 20px;
-}
-
-.star-rating {
-  color: var(--japanese-gold);
-  font-size: 24px;
-}
-
-.bg-grn {
-  /* background-color: #758e52; */
-}
-
-.flavor-profile .progress {
-  height: 8px;
-  background-color: rgba(140, 147, 123, 0.1);
-  margin-bottom: 15px;
-}
-
-.flavor-profile .progress-bar {
-  background-color: var(--japanese-navy);
-}
-
-.flavor-profile small {
-  color: var(--bs-body-color);
-  font-size: 0.875rem;
-  margin-bottom: 4px;
-}
-
-.current-value {
-  font-weight: bold;
-  color: var(--japanese-gold);
-}
-
-@media (max-width: 768px) {
-  .hero-section {
-    min-height: 60vh;
-  }
-}
-
-/* カスタムレンジスライダーのスタイル */
-.flavor-slider {
-  position: relative;
-  padding: 10px 0;
-}
-
-.flavor-slider .form-range {
-  margin: 10px 0;
-}
-
-.flavor-slider .current-value {
-  font-size: 0.9em;
-  font-weight: bold;
-  color: var(--bs-light);
-}
-
-.flavor-range {
-  width: 100%;
-  height: 8px;
-  background-color: rgba(140, 147, 123, 0.1);
-  outline: none;
-  opacity: 0.7;
-  transition: opacity .2s;
-}
-
-.flavor-range::-webkit-slider-thumb {
-  -webkit-appearance: none;
-  appearance: none;
-  width: 16px;
-  height: 16px;
-  background: var(--japanese-gold);
-  border-radius: 50%;
-  cursor: pointer;
-}
-
-.flavor-range::-moz-range-thumb {
-  width: 16px;
-  height: 16px;
-  background: var(--japanese-gold);
-  border-radius: 50%;
-  cursor: pointer;
-}
-
-/* 目盛りのスタイル */
-.flavor-range::-webkit-slider-runnable-track {
-  height: 8px;
-  background: linear-gradient(to right,
-      var(--japanese-navy) 2px,
-      transparent 2px
-  ) repeat-x;
-  background-size: 20% 100%;
-}
-
-.flavor-range::-moz-range-track {
-  height: 8px;
-  background: linear-gradient(to right,
-      var(--japanese-navy) 2px,
-      transparent 2px
-  ) repeat-x;
-  background-size: 20% 100%;
-}
-
-/* フォーム入力欄のスタイル */
-.form-control {
-  border: 1px solid rgba(218, 204, 175, 0.5);
-  background-color: #ece0c9;
-  color: var(--bs-body-color);
-}
-
-.form-control:focus {
-  border-color: rgba(140, 147, 123, 0.5);
-  background-color: #ece0c9;
-  box-shadow: 0 0 0 0.15rem rgba(140, 147, 123, 0.15);
-}
-
-.review-section .btn-primary {
-  background-color: #8c937b;
-  border-color: #8c937b;
-}
-
-.review-section .btn-primary:hover {
-  background-color: #737c64;
-  border-color: #737c64;
-}
-
-/* ヘッダーとナビゲーションの基本スタイル */
+/* モダンなヘッダー */
 header {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   z-index: 1000;
-  background: rgba(255, 255, 255, 0.2);
+  background: var(--sake-primary);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
 
 .navbar {
-  /* padding: 1rem; */
+  padding: 0.5rem 1rem;
 }
 
 .navbar-brand {
-  color: #fff;
+  color: var(--sake-light) !important;
+  font-weight: 700;
   font-size: 1.5rem;
-}
-
-.navbar-nav {
-  margin-left: auto;
-  align-items: center;
-}
-
-.nav-item {
-  margin: 0 0.5rem;
+  letter-spacing: 0.05em;
 }
 
 .nav-link {
-  color: #fff !important;
+  color: var(--sake-light) !important;
   font-weight: 500;
-  padding: 0.5rem 1rem;
-  transition: color 0.3s ease;
+  transition: all 0.3s ease;
+  padding: 0.7rem 1rem;
+  position: relative;
+}
+
+.nav-link:after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: var(--sake-accent);
+  transform: scaleX(0);
+  transition: transform 0.3s ease;
+}
+
+.nav-link:hover:after {
+  transform: scaleX(1);
 }
 
 .nav-link:hover {
-  color: var(--japanese-gold) !important;
+  color: var(--sake-accent-light) !important;
 }
 
-/* ハンバーガーメニューのスタイル */
-@media (max-width: 991.98px) {
-  .navbar-collapse {
-    position: absolute;
-    top: 100%;
-    left: 0;
-    right: 0;
-    /* background-color: rgba(0, 0, 0, 0.95); */
-    background-color: rgba(67, 167, 86, 1);
-    padding: 1rem;
-    border-radius: 0 0 8px 8px;
-    margin-top: 0;
-  }
-
-  .navbar-nav {
-    margin: 1rem 0;
-    text-align: center;
-  }
-
-  .nav-item {
-    margin: 0.75rem 0;
-  }
-
-  .nav-link {
-    font-size: 1.1rem;
-    padding: 0.75rem 1rem;
-    display: block;
-  }
+/* ヒーローセクション */
+.hero-section {
+  background-image: linear-gradient(rgba(45, 49, 66, 0.7), rgba(45, 49, 66, 0.7)), url("../images/sakeImage.jpg");
+  background-size: cover;
+  background-position: center;
+  min-height: 80vh;
+  position: relative;
+  display: flex;
+  align-items: center;
+  border-radius: 0 0 30px 30px;
+  overflow: hidden;
+  margin-bottom: 2rem;
 }
 
-/* ブランドロゴのスタイル */
-.brand-logo {
-  height: 40px;
-  width: auto;
-  object-fit: contain;
+.hero-content {
+  padding: 2rem;
+  border-radius: 12px;
+  max-width: 800px;
+  margin: 0 auto;
 }
 
-/* フレーバーチャートのスタイル */
+/* カードのスタイル */
+.card {
+  border: none;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+  transition: all 0.3s ease;
+  background: var(--sake-light);
+}
+
+.hover-card {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.hover-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+}
+
+.card-body {
+  padding: 1.5rem;
+}
+
+.card-title {
+  font-weight: 600;
+  margin-bottom: 0.75rem;
+  color: var(--sake-primary);
+}
+
+/* ボタンスタイル */
+.btn {
+  border-radius: 8px;
+  padding: 0.5rem 1.5rem;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  text-transform: none;
+  letter-spacing: 0.03em;
+}
+
+.btn-primary {
+  background: var(--sake-primary);
+  border-color: var(--sake-primary);
+}
+
+.btn-primary:hover, 
+.btn-primary:focus {
+  background: #3D4258;
+  border-color: #3D4258;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.btn-outline-light {
+  border-color: rgba(255, 255, 255, 0.5);
+  color: var(--sake-light);
+}
+
+.btn-outline-light:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  color: white;
+}
+
+/* フレーバーボタン */
+.flavor-btn {
+  padding: 0.5rem 1rem;
+  border-radius: 30px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  background: transparent;
+  color: var(--sake-light);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  transition: all 0.2s ease;
+}
+
+.flavor-btn:hover {
+  background: rgba(255, 255, 255, 0.15);
+  border-color: rgba(255, 255, 255, 0.5);
+  transform: translateY(-2px);
+}
+
+.flavor-btn.active {
+  background: var(--sake-accent);
+  border-color: var(--sake-accent);
+  color: white;
+  box-shadow: 0 2px 10px rgba(215, 38, 56, 0.4);
+  transform: translateY(-2px);
+}
+
+/* フォーム要素 */
+.form-control, .form-select {
+  border: 1px solid rgba(79, 93, 117, 0.2);
+  border-radius: 8px;
+  padding: 0.6rem 1rem;
+  background-color: white;
+  transition: all 0.3s ease;
+  color: var(--sake-dark);
+}
+
+.form-control:focus, .form-select:focus {
+  border-color: var(--sake-primary);
+  box-shadow: 0 0 0 0.2rem rgba(45, 49, 66, 0.15);
+  background-color: white;
+}
+
+.form-label {
+  font-weight: 500;
+  margin-bottom: 0.5rem;
+  color: var(--sake-light);
+  font-size: 0.9rem;
+}
+
+.form-text {
+  color: rgba(255, 255, 255, 0.7) !important;
+  font-size: 0.8rem;
+}
+
+/* スライダー */
+.form-range {
+  height: 6px;
+}
+
+.form-range::-webkit-slider-thumb {
+  background: var(--sake-accent);
+  width: 18px;
+  height: 18px;
+}
+
+.form-range::-moz-range-thumb {
+  background: var(--sake-accent);
+  width: 18px;
+  height: 18px;
+}
+
+/* セクション */
+.section-title {
+  position: relative;
+  font-weight: 700;
+  margin-bottom: 2rem;
+  padding-bottom: 1rem;
+  color: var(--sake-primary);
+}
+
+.section-title:after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 3px;
+  width: 60px;
+  background: var(--sake-accent);
+}
+
+/* バッジ */
+.badge {
+  padding: 0.5em 1em;
+  border-radius: 30px;
+  font-weight: 500;
+  font-size: 0.75rem;
+}
+
+.badge.bg-success {
+  background-color: #28a745 !important;
+}
+
+.badge.bg-info {
+  background-color: #17a2b8 !important;
+  color: white !important;
+}
+
+.badge.bg-japanese-navy {
+  background-color: var(--sake-tag) !important;
+}
+
+/* フレーバータグ */
+.flavor-tags .badge {
+  font-size: 0.85rem;
+  padding: 0.5em 1.2em;
+  background-color: var(--sake-tag);
+  color: white;
+  border-radius: 30px;
+  margin: 0.25rem;
+  transition: all 0.2s ease;
+}
+
+.flavor-tags .badge:hover {
+  background-color: #5F81A3;
+  transform: translateY(-2px);
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* 星評価 */
+.rating {
+  color: var(--sake-gold);
+}
+
+.rating .bi-star-fill {
+  color: var(--sake-gold);
+}
+
+.rating .bi-star {
+  color: var(--sake-gold);
+  opacity: 0.3;
+}
+
+/* カード内の検索フォーム */
+.search-card {
+  background: linear-gradient(135deg, var(--sake-primary), #3D4258);
+  border-radius: 16px;
+  padding: 2rem;
+  margin-bottom: 2rem;
+  box-shadow: 0 5px 20px rgba(45, 49, 66, 0.15);
+}
+
+/* フレーバーチャート */
 .flavor-chart-container {
   width: 300px;
   height: 300px;
@@ -319,7 +318,8 @@ header {
 .flavor-label {
   position: absolute;
   font-size: 12px;
-  color: var(--japanese-navy);
+  color: var(--sake-primary);
+  font-weight: 500;
 }
 
 .flavor-label.f1 { top: 0; left: 50%; transform: translateX(-50%); }
@@ -331,33 +331,58 @@ header {
 
 .flavor-chart polygon {
   fill: none;
-  stroke: var(--japanese-navy);
+  stroke: var(--sake-primary);
   stroke-width: 1;
 }
 
 .flavor-chart polygon.scale-line {
   fill: none;
-  stroke: var(--japanese-navy);
+  stroke: var(--sake-primary);
   stroke-width: 0.5;
   stroke-opacity: 0.3;
 }
 
 .flavor-chart polygon.data {
-  fill: rgba(140, 147, 123, 0.6);
-  stroke: var(--japanese-navy);
+  fill: rgba(215, 38, 56, 0.2);
+  stroke: var(--sake-accent);
   stroke-width: 2;
 }
 
-/* フレーバータグのスタイル */
-.flavor-tags .badge {
-    font-size: 0.9rem;
-    padding: 0.5em 1em;
-    background-color: var(--japanese-navy);
-    color: white;
-    border-radius: 20px;
+/* ミニフレーバーチャート */
+.flavor-chart-mini {
+  height: 120px;
+  width: 120px;
+  margin: 0 auto;
 }
 
-.flavor-tags .badge:hover {
-    opacity: 0.9;
-    transition: opacity 0.2s ease;
+/* 検索結果セクション */
+.search-results-card {
+  background: var(--sake-light);
+  border-radius: 12px;
+  padding: 1.5rem;
+  margin-bottom: 2rem;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+}
+
+/* レスポンシブ調整 */
+@media (max-width: 768px) {
+  .hero-section {
+    min-height: 60vh;
+  }
+  
+  .section-title {
+    font-size: 1.5rem;
+  }
+  
+  .card-body {
+    padding: 1.2rem;
+  }
+}
+
+/* 背景パターン */
+.japanese-pattern {
+  background-color: var(--sake-beige);
+  padding: 3rem 0;
+  border-radius: 16px;
+  margin: 2rem 0;
 }
