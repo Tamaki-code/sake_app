@@ -40,6 +40,14 @@ header {
   font-weight: 700;
   font-size: 1.25rem; /* フォントサイズを少し小さく */
   letter-spacing: 0.05em;
+  display: flex;
+  align-items: center;
+}
+
+.brand-logo {
+  height: 40px; /* ロゴの高さを固定 */
+  width: auto;
+  object-fit: contain;
 }
 
 .nav-link {
