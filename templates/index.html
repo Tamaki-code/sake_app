@@ -28,11 +28,83 @@
                                 </select>
                                 <div class="form-text text-light opacity-75">銘柄名とフレーバータグは併用も可能です</div>
                             </div>
+                            
+                            <div class="col-12 mt-3">
+                                <hr class="border-light opacity-50">
+                                <h5 class="mt-3 mb-3 fs-6">味わいプロファイルで探す</h5>
+                                
+                                <div class="row g-2">
+                                    <div class="col-md-6">
+                                        <label for="flavor-profile" class="form-label text-white small">味わいの特徴</label>
+                                        <select id="flavor-profile" name="flavor_profile" class="form-select form-select-sm">
+                                            <option value="">味わいを選択...</option>
+                                            {% for id, profile in flavor_profiles.items() %}
+                                            <option value="{{ id }}">{{ profile.name }}</option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                                    
+                                    <div class="col-md-6">
+                                        <label for="flavor-direction" class="form-label text-white small">方向性</label>
+                                        <select id="flavor-direction" name="flavor_direction" class="form-select form-select-sm">
+                                            <option value="">方向を選択...</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                
+                                <div class="mt-2">
+                                    <label for="flavor-intensity" class="form-label text-white small d-flex justify-content-between">
+                                        <span>強さ</span>
+                                        <span id="intensity-value">5</span>
+                                    </label>
+                                    <input type="range" id="flavor-intensity" name="flavor_intensity" class="form-range" 
+                                           min="1" max="10" step="1" value="5">
+                                </div>
+                            </div>
+                            
                             <div class="col-12 mt-3">
                                 <button type="submit" class="btn btn-primary btn-lg w-100">
                                     <i class="bi bi-search me-2"></i>検索する
                                 </button>
                             </div>
+                            
+                            <script>
+                                document.addEventListener('DOMContentLoaded', function() {
+                                    // 味わいプロファイルの選択が変更されたとき
+                                    const profileSelect = document.getElementById('flavor-profile');
+                                    const directionSelect = document.getElementById('flavor-direction');
+                                    const intensityRange = document.getElementById('flavor-intensity');
+                                    const intensityValue = document.getElementById('intensity-value');
+                                    
+                                    // 味わいプロファイルの日本語名マッピング
+                                    const flavorProfiles = {{ flavor_profiles|tojson }};
+                                    
+                                    // プロファイル選択時に方向性の選択肢を更新
+                                    profileSelect.addEventListener('change', function() {
+                                        const profileId = this.value;
+                                        directionSelect.innerHTML = '<option value="">方向を選択...</option>';
+                                        
+                                        if (profileId && flavorProfiles[profileId]) {
+                                            const profile = flavorProfiles[profileId];
+                                            const highOption = document.createElement('option');
+                                            highOption.value = 'high';
+                                            highOption.textContent = `${profile.high}に近い`;
+                                            
+                                            const lowOption = document.createElement('option');
+                                            lowOption.value = 'low';
+                                            lowOption.textContent = `${profile.low}に近い`;
+                                            
+                                            directionSelect.appendChild(highOption);
+                                            directionSelect.appendChild(lowOption);
+                                        }
+                                    });
+                                    
+                                    // 強さスライダーの値表示を更新
+                                    intensityRange.addEventListener('input', function() {
+                                        intensityValue.textContent = this.value;
+                                    });
+                                });
+                            </script>
                         </div>
                     </form>
                 </div>

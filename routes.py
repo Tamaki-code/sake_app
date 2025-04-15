@@ -114,18 +114,30 @@ def index():
         # フレーバータグの一覧を取得（検索フォーム用）
         from models.flavor_tag import FlavorTag
         flavor_tags = FlavorTag.query.order_by(FlavorTag.name).all()
+        
+        # フレーバープロファイルの日本語名マッピング
+        flavor_profiles = {
+            '1': {'name': '華やか - 重厚', 'low': '重厚', 'high': '華やか'},
+            '2': {'name': '芳醇 - 穏やか', 'low': '穏やか', 'high': '芳醇'},
+            '3': {'name': '濃醇 - 淡麗', 'low': '淡麗', 'high': '濃醇'},
+            '4': {'name': '甘口 - 辛口', 'low': '甘口', 'high': '辛口'},
+            '5': {'name': '特性 - 個性', 'low': '特性', 'high': '個性'},
+            '6': {'name': '若年 - 熟成', 'low': '若年', 'high': '熟成'},
+        }
 
         return render_template('index.html', 
                             search_results=search_results,
                             top_rankings=top_rankings,
-                            flavor_tags=flavor_tags)
+                            flavor_tags=flavor_tags,
+                            flavor_profiles=flavor_profiles)
     except Exception as e:
         logger.error(f"Error in index route: {str(e)}")
         flash('エラーが発生しました。しばらくしてから再度お試しください。', 'error')
         return render_template('index.html', 
                             search_results=[],
                             top_rankings=[],
-                            flavor_tags=[])
+                            flavor_tags=[],
+                            flavor_profiles={})
 
 @bp.route('/search')
 def search():
@@ -233,7 +245,26 @@ def search():
     except Exception as e:
         logger.error(f"Error in search route: {str(e)}")
         flash('エラーが発生しました。検索条件を変更してお試しください。', 'error')
-        return render_template('search.html', search_results=[], flavor_tags=[])
+        # フレーバープロファイルの日本語名マッピング (エラー時)
+        flavor_profiles = {
+            '1': {'name': '華やか - 重厚', 'low': '重厚', 'high': '華やか'},
+            '2': {'name': '芳醇 - 穏やか', 'low': '穏やか', 'high': '芳醇'},
+            '3': {'name': '濃醇 - 淡麗', 'low': '淡麗', 'high': '濃醇'},
+            '4': {'name': '甘口 - 辛口', 'low': '甘口', 'high': '辛口'},
+            '5': {'name': '特性 - 個性', 'low': '特性', 'high': '個性'},
+            '6': {'name': '若年 - 熟成', 'low': '若年', 'high': '熟成'},
+        }
+        
+        return render_template('search.html', 
+                             search_results=[], 
+                             flavor_tags=[], 
+                             flavor_profiles=flavor_profiles,
+                             query='',
+                             selected_flavor_tag='',
+                             flavor_profile='',
+                             flavor_direction='',
+                             flavor_intensity='',
+                             selected_flavor_profile=None)
 
 @bp.route('/sake/<int:sake_id>')
 def sake_detail(sake_id):
