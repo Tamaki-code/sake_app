@@ -183,26 +183,45 @@ def search():
                 logger.error(f"Error filtering by flavor tag: {str(e)}")
         
         # 味わいプロファイルでの絞り込み（指定がある場合）
-        if flavor_profile and flavor_direction and flavor_intensity:
+        if flavor_direction and flavor_intensity:
             from models.flavor_chart import FlavorChart
             
-            flavor_field = f"f{flavor_profile}"
-            threshold = float(flavor_intensity) / 10  # 1-10のスケールを0-1に変換
+            # 方向によってフィールドを決定
+            flavor_mapping = {
+                'elegant': {'field': 'f1', 'direction': 'high'},     # 華やか
+                'heavy': {'field': 'f1', 'direction': 'low'},        # 重厚
+                'rich': {'field': 'f2', 'direction': 'high'},        # 芳醇
+                'mild': {'field': 'f2', 'direction': 'low'},         # 穏やか
+                'full': {'field': 'f3', 'direction': 'high'},        # 濃醇
+                'light': {'field': 'f3', 'direction': 'low'},        # 淡麗
+                'sweet': {'field': 'f4', 'direction': 'low'},        # 甘口
+                'dry': {'field': 'f4', 'direction': 'high'},         # 辛口
+                'individual': {'field': 'f5', 'direction': 'high'},  # 個性
+                'typical': {'field': 'f5', 'direction': 'low'},      # 特性
+                'aged': {'field': 'f6', 'direction': 'high'},        # 熟成
+                'fresh': {'field': 'f6', 'direction': 'low'}         # 若年
+            }
             
-            logger.info(f"Filtering by flavor profile: {flavor_field}, direction: {flavor_direction}, threshold: {threshold}")
-            
-            # FlavorChartとJOIN
-            sake_query = sake_query.join(
-                FlavorChart, Sake.id == FlavorChart.sake_id
-            )
-            
-            # 方向に基づいてフィルタリング
-            if flavor_direction == 'high':
-                # 高い値
-                sake_query = sake_query.filter(getattr(FlavorChart, flavor_field) >= threshold)
-            else:
-                # 低い値
-                sake_query = sake_query.filter(getattr(FlavorChart, flavor_field) <= threshold)
+            profile_info = flavor_mapping.get(flavor_direction, {})
+            if profile_info:
+                flavor_field = profile_info['field']
+                is_high_direction = profile_info['direction'] == 'high'
+                threshold = float(flavor_intensity) / 10  # 1-10のスケールを0-1に変換
+                
+                logger.info(f"Filtering by flavor direction: {flavor_direction}, field: {flavor_field}, high_direction: {is_high_direction}, threshold: {threshold}")
+                
+                # FlavorChartとJOIN
+                sake_query = sake_query.join(
+                    FlavorChart, Sake.id == FlavorChart.sake_id
+                )
+                
+                # 方向に基づいてフィルタリング
+                if is_high_direction:
+                    # 高い値
+                    sake_query = sake_query.filter(getattr(FlavorChart, flavor_field) >= threshold)
+                else:
+                    # 低い値
+                    sake_query = sake_query.filter(getattr(FlavorChart, flavor_field) <= threshold)
         
         search_results = sake_query.order_by(Sake.created_at.desc()).all()
         
@@ -218,15 +237,28 @@ def search():
         
         # 検索パラメータの表示用データを構築
         selected_flavor_profile_display = None
-        if flavor_profile and flavor_direction and flavor_intensity:
-            profile_info = flavor_profiles.get(flavor_profile, {})
-            direction_term = profile_info.get('high' if flavor_direction == 'high' else 'low', '')
+        # 方向性の日本語表示名を定義
+        flavor_direction_display = {
+            'elegant': '華やか',
+            'heavy': '重厚',
+            'rich': '芳醇',
+            'mild': '穏やか',
+            'full': '濃醇',
+            'light': '淡麗',
+            'sweet': '甘口',
+            'dry': '辛口',
+            'individual': '個性的',
+            'typical': '特性的',
+            'aged': '熟成感',
+            'fresh': '若々しさ'
+        }
+        
+        if flavor_direction and flavor_intensity:
+            direction_term = flavor_direction_display.get(flavor_direction, flavor_direction)
             intensity_level = int(flavor_intensity)
             selected_flavor_profile_display = {
-                'name': profile_info.get('name', ''),
                 'direction': direction_term,
                 'intensity': intensity_level,
-                'profile': flavor_profile,
                 'direction_code': flavor_direction
             }
         
