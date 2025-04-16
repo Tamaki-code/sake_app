@@ -128,6 +128,20 @@ header {
   color: var(--sake-primary);
 }
 
+/* text-muted カラーの調整 */
+.text-muted {
+  color: rgba(85, 85, 95, 0.8) !important;
+}
+
+.bg-dark .text-muted,
+.bg-primary .text-muted,
+.bg-grn .text-muted,
+.search-card .text-muted,
+.text-white .text-muted,
+.text-light .text-muted {
+  color: rgba(255, 255, 255, 0.7) !important;
+}
+
 /* ボタンスタイル */
 .btn {
   border-radius: 8px;
