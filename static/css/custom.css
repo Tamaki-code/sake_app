@@ -1,5 +1,5 @@
 :root {
-  --sake-primary: #2D3142;       /* ダークネイビー */
+  --sake-primary: #6A961F;       /* グリーン */
   --sake-secondary: #F5F5F5;     /* ライトグレー */
   --sake-accent: #D72638;        /* 赤 */
   --sake-accent-light: #FF6B6B;  /* 明るい赤 */
@@ -26,7 +26,7 @@ header {
   left: 0;
   width: 100%;
   z-index: 1000;
-  background: var(--sake-primary);
+  background: transparent;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
 
@@ -34,6 +34,24 @@ header {
   padding: 0.25rem 1rem; /* 上下のパディングを減らす */
   min-height: 56px; /* 固定高さを設定 */
 }
+
+#navbarNav {
+  background-color: #A0DFDF; /* たとえば半透明の白 */
+}
+
+.navbar-toggler {
+  width: 50px; /* 幅 */
+  height: 50px; /* 高さ */
+  background-color: #A0DFDF; /* 背景色（好みで） */
+  border: 1px solid #A0DFDF; /* （好みで）ボーダー */
+  border-radius: 50%; /* 正円にするにはこれ！！ */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0; /* 内側余白をリセットする */
+}
+
+
 
 .navbar-brand {
   color: var(--sake-light) !important;
@@ -80,6 +98,8 @@ header {
 
 /* ヒーローセクション */
 .hero-section {
+  margin-top: -56px; /* ヘッダーの高さの分だけマイナスマージン */
+  padding-top: 86px; /* ヘッダーの高さ + コンテンツ上部の余白 */
   background-image: linear-gradient(rgba(45, 49, 66, 0.7), rgba(45, 49, 66, 0.7)), url("../images/sakeImage.jpg");
   background-size: cover;
   background-position: center;
@@ -91,6 +111,7 @@ header {
   overflow: hidden;
   margin-bottom: 2rem;
 }
+
 
 .hero-content {
   padding: 2rem;
@@ -328,12 +349,14 @@ header {
 
 /* カード内の検索フォーム */
 .search-card {
-  background: linear-gradient(135deg, var(--sake-primary), #3D4258);
+  /* background: linear-gradient(135deg, var(--sake-primary), #92B473); */
+  background: #92B473;
   border-radius: 16px;
   padding: 2rem;
   margin-bottom: 2rem;
-  box-shadow: 0 5px 20px rgba(45, 49, 66, 0.15);
+  box-shadow: 0 5px 20px rgba(45, 49, 66, 0.05);
 }
+
 
 /* フレーバーチャート */
 .flavor-chart-container {
@@ -401,6 +424,8 @@ header {
 @media (max-width: 768px) {
   .hero-section {
     min-height: 60vh;
+    margin-top: -56px; /* ヘッダーの高さの分だけマイナスマージン（レスポンシブにも適用） */
+    padding-top: 76px; /* ヘッダーの高さ + コンテンツ上部の余白（モバイルでは少し減らす） */
   }
   
   .section-title {
