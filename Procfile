@@ -1,1 +1,1 @@
-web: poetry run gunicorn -b 0.0.0.0:5000 app:app
+web: poetry run gunicorn -b 0.0.0.0:5000 "app:create_app()"
