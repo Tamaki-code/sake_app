@@ -5,7 +5,6 @@ from flask import Flask, jsonify
 from flask_login import LoginManager
 from sqlalchemy import text
 from models import db
-from urllib.parse import quote_plus  # インポートを追加
 
 # Configure logging
 logging.basicConfig(
@@ -36,9 +35,6 @@ def create_app():
             database_url = database_url.replace("postgres://", "postgresql://",
                                                 1)
 
-        # 特殊文字をURLエンコード
-        if database_url:
-            database_url = quote_plus(database_url)
         if not database_url:
             logger.error("No DATABASE_URL found in environment variables")
             raise ValueError("DATABASE_URL is required")
