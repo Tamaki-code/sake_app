@@ -5,6 +5,7 @@ from flask import Flask, jsonify
 from flask_login import LoginManager
 from sqlalchemy import text
 from models import db
+from urllib.parse import quote_plus  # インポートを追加
 
 # Configure logging
 logging.basicConfig(
