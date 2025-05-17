@@ -19,6 +19,7 @@ logger = logging.getLogger(__name__)
 # Initialize login manager
 login_manager = LoginManager()
 
+
 def create_app():
     """Application factory function"""
     try:
@@ -26,12 +27,21 @@ def create_app():
         app = Flask(__name__)
         logger.debug("Flask application instance created")
 
-        # Configure database URL
+        # Get the database URL from environment variables
         database_url = os.environ.get('DATABASE_URL')
+
+        # URLが 'postgres://' で始まる場合は 'postgresql://' に変換
+        if database_url and database_url.startswith("postgres://"):
+            database_url = database_url.replace("postgres://", "postgresql://",
+                                                1)
+
+        # 特殊文字をURLエンコード
+        if database_url:
+            database_url = quote_plus(database_url)
         if not database_url:
             logger.error("No DATABASE_URL found in environment variables")
             raise ValueError("DATABASE_URL is required")
-        logger.debug(f"Database URL configuration found")
+        logger.debug(f"Database URL configuration found: {database_url}")
 
         # Debug log for configuration
         logger.debug("Starting Flask configuration...")
@@ -61,7 +71,8 @@ def create_app():
             login_manager.login_view = 'main.login'
             logger.info("Flask extensions initialized successfully")
         except Exception as e:
-            logger.error(f"Failed to initialize extensions: {str(e)}", exc_info=True)
+            logger.error(f"Failed to initialize extensions: {str(e)}",
+                         exc_info=True)
             raise
 
         # Add health check endpoint
@@ -87,7 +98,8 @@ def create_app():
                 app.register_blueprint(bp)
                 logger.info("Blueprints registered successfully")
             except Exception as e:
-                logger.error(f"Failed to register blueprints: {str(e)}", exc_info=True)
+                logger.error(f"Failed to register blueprints: {str(e)}",
+                             exc_info=True)
                 raise
 
             # Verify database connection
@@ -105,6 +117,7 @@ def create_app():
     except Exception as e:
         logger.error(f"Error creating application: {str(e)}", exc_info=True)
         raise
+
 
 if __name__ == "__main__":
     port = 5000
