@@ -108,7 +108,13 @@ def create_app():
                 logger.error(f"Database connection failed: {e}", exc_info=True)
                 raise
 
+            try:
+                db.create_all()
+                logger.info("All tables created successfully (if not exist)")
+            except Exception as e:
+                logger.error(f"Failed to create tables: {e}", exc_info=True)
         logger.info("Application creation completed successfully")
+
         return app
 
     except Exception as e:
