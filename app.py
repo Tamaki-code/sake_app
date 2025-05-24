@@ -113,7 +113,7 @@ def create_app():
                 logger.info("All tables created successfully (if not exist)")
             except Exception as e:
                 logger.error(f"Failed to create tables: {e}", exc_info=True)
-        logger.info("Application creation completed successfully")
+
             # 👇ここを追記（データの初期投入）
             try:
                 from sakenowa import update_database
@@ -124,6 +124,7 @@ def create_app():
             except Exception as e:
                 logger.error(f"Initial data update failed: {e}", exc_info=True)
 
+        logger.info("Application creation completed successfully")
         return app
 
     except Exception as e:
