@@ -13,7 +13,7 @@
 
 body {
   font-family: 'Noto Sans JP', sans-serif;
-  background-color: var(--sake-light);
+  background-color: #F9F6EC;
   padding-top: 56px; /* ヘッダーの高さに合わせて調整 */
   color: var(--sake-dark);
   line-height: 1.6;
@@ -35,9 +35,9 @@ header {
   min-height: 56px; /* 固定高さを設定 */
 }
 
-#navbarNav {
+/* #navbarNav {
   background-color: #A0DFDF; /* たとえば半透明の白 */
-}
+} */
 
 .navbar-toggler {
   width: 50px; /* 幅 */
@@ -100,7 +100,7 @@ header {
 .hero-section {
   margin-top: -56px; /* ヘッダーの高さの分だけマイナスマージン */
   padding-top: 86px; /* ヘッダーの高さ + コンテンツ上部の余白 */
-  background-image: linear-gradient(rgba(45, 49, 66, 0.7), rgba(45, 49, 66, 0.7)), url("../images/sakeImage.jpg");
+  background-image: linear-gradient(rgba(45, 49, 66, 0.7), rgba(45, 49, 66, 0.7)), url("../images/sakeStore.png");
   background-size: cover;
   background-position: center;
   min-height: 80vh;
@@ -163,6 +163,25 @@ header {
   color: rgba(255, 255, 255, 0.7) !important;
 }
 
+/* デフォルト（すべて透明） */
+.site-header {
+  background-color: transparent !important;
+  transition: background-color 0.3s ease;
+}
+
+@media (max-width: 768px) {
+  .site-header.nav-open {
+    background-color: #A0DFDF !important;
+  }
+
+  .navbar-collapse {
+    background-color: #A0DFDF !important;
+    border-radius: 0 0 16px 16px;
+  }
+}
+
+
+
 /* ボタンスタイル */
 .btn {
   border-radius: 8px;
@@ -194,6 +213,15 @@ header {
   background-color: rgba(255, 255, 255, 0.1);
   color: white;
 }
+
+/* 都道府県セレクトの重なり防止 */
+#region-select {
+  padding-right: 2.5rem !important; /* 右側に余白を追加 */
+  background-position: right 1rem center; /* ▼の位置調整 */
+  background-repeat: no-repeat;
+  background-size: 1rem auto;
+}
+
 
 /* フレーバーボタン */
 .flavor-btn {
