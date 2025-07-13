@@ -565,3 +565,25 @@ def flavor_tag_ranking(flavor_tag_id):
             exc_info=True)
         flash('フレーバータグの取得中にエラーが発生しました。', 'error')
         return redirect(url_for('main.index'))
+
+
+@bp.route('/mypage')
+@login_required
+def mypage():
+    try:
+        # 現在ログインしているユーザーのIDを使ってレビューを取得
+        # Reviewモデルにuser_idカラムがあることを前提としています
+        reviews = Review.query.filter_by(user_id=current_user.id)\
+                               .order_by(Review.created_at.desc())\
+                               .options(joinedload(Review.sake))\
+                               .all()
+        logger.info(
+            f"User {current_user.username} fetched {len(reviews)} reviews for mypage."
+        )
+        return render_template('mypage.html', reviews=reviews)
+    except Exception as e:
+        logger.error(
+            f"Error loading mypage for user {current_user.username}: {str(e)}",
+            exc_info=True)
+        flash('マイページの表示中にエラーが発生しました。', 'error')
+        return redirect(url_for('main.index'))

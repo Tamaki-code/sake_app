@@ -77,36 +77,30 @@ def create_app():
         def health_check():
             return jsonify({"status": "healthy", "port": 5000})
 
+        # user_loaderはapp.app_context()の外に置くべきです
+        # login_manager.user_loader デコレータはアプリケーションインスタンスに関連付けられるため
+        from models.user import User  # user_loaderの前にインポート
+
+        @login_manager.user_loader
+        def load_user(id):
+            try:
+                return User.query.get(int(id))
+            except Exception as e:
+                logger.error(f"Error loading user {id}: {e}")
+                return None
+
+        # Blueprintのインポートと登録もapp.app_context()の外に置くべきです
+        try:
+            from routes import bp  # routesモジュールからbpをインポート
+            app.register_blueprint(bp)  # Blueprintを登録
+            logger.info("Blueprints registered successfully")
+        except Exception as e:
+            logger.error(f"Failed to register blueprints: {str(e)}",
+                         exc_info=True)
+            raise
+
+        # データベース関連の操作はapp.app_context()内で実行します
         with app.app_context():
-            # Import and configure user loader
-            from models.user import User
-
-            @login_manager.user_loader
-            def load_user(id):
-                try:
-                    return User.query.get(int(id))
-                except Exception as e:
-                    logger.error(f"Error loading user {id}: {e}")
-                    return None
-
-            # Import and register blueprints
-            try:
-                from routes import bp
-                app.register_blueprint(bp)
-                logger.info("Blueprints registered successfully")
-            except Exception as e:
-                logger.error(f"Failed to register blueprints: {str(e)}",
-                             exc_info=True)
-                raise
-
-            # Verify database connection
-            try:
-                logger.debug("Verifying database connection...")
-                db.session.execute(text('SELECT 1'))
-                logger.info("Database connection verified successfully")
-            except Exception as e:
-                logger.error(f"Database connection failed: {e}", exc_info=True)
-                raise
 
             try:
                 db.create_all()
