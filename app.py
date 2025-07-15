@@ -109,14 +109,14 @@ def create_app():
                 logger.error(f"Failed to create tables: {e}", exc_info=True)
 
             # 👇ここを追記（データの初期投入）
-            # try:
-            #     from sakenowa import update_database
-            #     logger.info("Running initial update_database() for Sakenowa")
-            #     with app.app_context():
-            #         update_database()
-            #     logger.info("Initial data update completed")
-            # except Exception as e:
-            #     logger.error(f"Initial data update failed: {e}", exc_info=True)
+            try:
+                from sakenowa import update_database
+                logger.info("Running initial update_database() for Sakenowa")
+                with app.app_context():
+                    update_database()
+                logger.info("Initial data update completed")
+            except Exception as e:
+                logger.error(f"Initial data update failed: {e}", exc_info=True)
 
         logger.info("Application creation completed successfully")
         return app
